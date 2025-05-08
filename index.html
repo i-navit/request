@@ -219,49 +219,51 @@
     <div id="message-area" style="display:none;">
         <p id="completion-message"></p>
     </div>
-    <script>
-        async function submitForm() {
-            const check1 = document.getElementById('check1');
-            const check2 = document.getElementById('check2');
-            const idInput = document.getElementById('id');
-            const nicknameInput = document.getElementById('nickname');
-            const errorMessage = document.getElementById('error-message');
-            const formArea = document.getElementById('form-area');
-            const messageArea = document.getElementById('message-area');
-            const completionMessage = document.getElementById('completion-message');
-            const randomNumber = Math.floor(Math.random() * 900) + 100;
+<script>
+        async function submitForm() {
+            const check1 = document.getElementById('check1');
+            const check2 = document.getElementById('check2');
+            const idInput = document.getElementById('id');
+            const nicknameInput = document.getElementById('nickname');
+            const errorMessage = document.getElementById('error-message');
+            const formArea = document.getElementById('form-area');
+            const messageArea = document.getElementById('message-area');
+            const completionMessage = document.getElementById('completion-message');
+            const randomNumber = Math.floor(Math.random() * 900) + 100;
 
-            if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
-                errorMessage.textContent = '※マークはぜんぶ入力してね';
-                return;
-            }
+            if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
+                errorMessage.textContent = '※マークはぜんぶ入力してね';
+                console.log('エラーメッセージを表示します:', errorMessage.textContent); // ← 確認用ログ
+                return;
+            }
 
-            errorMessage.textContent = '';
+            errorMessage.textContent = '';
+            console.log('エラーメッセージをクリアしました'); // ← 確認用ログ
 
-            const timestamp = new Date().toLocaleString('ja-JP');
-            const formData = new FormData();
-            formData.append('timestamp', timestamp);
-            formData.append('randomNumber', randomNumber);
-            formData.append('id', idInput.value.trim());
-            formData.append('nickname', nicknameInput.value.trim());
+            const timestamp = new Date().toLocaleString('ja-JP');
+            const formData = new FormData();
+            formData.append('timestamp', timestamp);
+            formData.append('randomNumber', randomNumber);
+            formData.append('id', idInput.value.trim());
+            formData.append('nickname', nicknameInput.value.trim());
 
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwpcUSV-boo2Iu6mZefI_HNUfn_lP3En23tcKMSEhxt2vs-rUfRFWooqcf7aAotU59SdA/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwpcUSV-boo2Iu6mZefI_HNUfn_lP3En23tcKMSEhxt2vs-rUfRFWooqcf7aAotU59SdA/exec';
 
-            try {
-                const response = await fetch(scriptURL, {
-                    method: 'POST',
-                    body: formData,
-                    mode: 'no-cors'
-                });
+            try {
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'
+                });
 
-                formArea.style.display = 'none';
-                completionMessage.innerHTML = `OKです！<ruby><rt style="color: gray;">はいしん</rt>配信</ruby>にもどって<br>『<ruby><rt style="color: gray;">さんか</rt>参加</ruby><ruby><rt style="color: gray;">きぼう</rt>希望</ruby>！<span style="font-weight: bold; color: blue;">${randomNumber}</span><ruby><rt style="color: gray;">ばん</rt>番</ruby>』<br>とコメントしてね。`;
-                messageArea.style.display = 'block';
-            } catch (error) {
-                errorMessage.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
-                console.error('Error!', error.message);
-            }
-        }
-    </script>
+                formArea.style.display = 'none';
+                completionMessage.innerHTML = `OKです！<ruby><rt style="color: gray;">はいしん</rt>配信</ruby>にもどって<br>『<ruby><rt style="color: gray;">さんか</rt>参加</ruby><ruby><rt style="color: gray;">きぼう</rt>希望</ruby>！<span style="font-weight: bold; color: blue;">${randomNumber}</span><ruby><rt style="color: gray;">ばん</rt>番</ruby>』<br>とコメントしてね。`;
+                messageArea.style.display = 'block';
+            } catch (error) {
+                errorMessage.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
+                console.error('Error!', error.message);
+            }
+        }
+    </script>
 </body>
 </html>
