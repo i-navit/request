@@ -132,7 +132,7 @@
     </style>
 </head>
 <body>
-    <h1>参加フォーム その20</h1>
+    <h1>参加フォーム</h1>
     <div class="form-container">
         <p id="error-message" class="error"></p>
 
@@ -163,58 +163,5 @@
         <p id="submission-message" style="display:none;"></p>
     </div>
 
-    <script>
-        function submitForm() {
-            const check1 = document.getElementById('check1');
-            const check2 = document.getElementById('check2');
-            const idInput = document.getElementById('id');
-            const nicknameInput = document.getElementById('nickname');
-            const errorMessage = document.getElementById('error-message');
-            const submissionMessage = document.getElementById('submission-message');
-
-            if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
-                errorMessage.textContent = '※マークはぜんぶ入力してね';
-                submissionMessage.style.display = 'none';
-                return;
-            }
-
-            errorMessage.textContent = '';
-            const formData = {
-                timestamp: new Date().toLocaleString(),
-                id: idInput.value,
-                nickname: nicknameInput.value
-            };
-
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwlTpBz6r95mG1_OIjrBNUuM2wA_o5HdHChh1qrvPUpzA6yzd7U0Qy68WvBwRCT8LbZ8A/exec';
-
-            fetch(scriptURL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => {
-                console.log('Response:', response);
-                return response.json();
-            })
-            .then(data => {
-                console.log('Data:', data);
-                if (data && data.result === 'success' && data.randomNumber) {
-                    submissionMessage.textContent = `あなたの番号は【${data.randomNumber}】です！配信にもどって『参加希望！●番』とコメントしてね。`;
-                    submissionMessage.style.display = 'block';
-                    document.querySelector('.form-container').style.display = 'none';
-                } else {
-                    errorMessage.textContent = '送信処理は完了しましたが、番号を取得できませんでした。';
-                    submissionMessage.style.display = 'none';
-                }
-            })
-            .catch(error => {
-                errorMessage.textContent = '送信に失敗しました。しばらく経ってから再度お試しください。';
-                submissionMessage.style.display = 'none';
-                console.error('Error!', error.message);
-            });
-        }
-    </script>
 </body>
 </html>
