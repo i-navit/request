@@ -132,7 +132,7 @@
     </style>
 </head>
 <body>
-    <h1>参加フォーム その11</h1>
+    <h1>参加フォーム その13</h1>
     <div class="form-container">
         <p id="error-message" class="error"></p>
 
@@ -170,46 +170,5 @@
             const idInput = document.getElementById('id');
             const nicknameInput = document.getElementById('nickname');
             const errorMessage = document.getElementById('error-message');
-            const submissionMessage = document.getElementById('submission-message');
 
-            if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
-                errorMessage.textContent = '※マークはぜんぶ入力してね';
-                submissionMessage.style.display = 'none';
-                return;
-            }
-
-            errorMessage.textContent = '';
-            const randomNumber = Math.floor(Math.random() * 900) + 100;
-            const formData = {
-                timestamp: new Date().toLocaleString(),
-                randomNumber: randomNumber,
-                id: idInput.value,
-                nickname: nicknameInput.value
-            };
-
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzImH8y57Crru57aD4mDgZ5yvCjU3N2aiq9QjJoFdxtffG-mE2zznqGjx8bi6-M63WgLg/exec';
-
-            fetch(scriptURL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => {
-                console.log('Response:', response);
-                // 通信が成功したら無条件で完了メッセージを表示する
-                submissionMessage.textContent = `あなたの番号は【${randomNumber}】です！配信にもどって『参加希望！●番』とコメントしてね。`;
-                submissionMessage.style.display = 'block';
-                document.querySelector('.form-container').style.display = 'none';
-            })
-            .catch(error => {
-                errorMessage.textContent = '送信に失敗しました。しばらく経ってから再度お試しください。';
-                submissionMessage.style.display = 'none';
-                console.error('Error!', error.message);
-            });
-        }
-    </script>
-</body>
-</html>
+            if (!check1.checked || !check2.checked || idInput.value.trim()
