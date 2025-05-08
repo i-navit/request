@@ -91,19 +91,11 @@
             background-color: #0056b3;
         }
 
-        #error-message,
-        #submission-message {
+        #error-message {
             margin-top: 20px;
             text-align: center;
             font-weight: bold;
-        }
-
-        #error-message {
             color: red;
-        }
-
-        #submission-message {
-            color: green;
         }
 
         .button-container {
@@ -132,7 +124,7 @@
     </style>
 </head>
 <body>
-    <h1>参加フォーム その13</h1>
+    <h1>参加フォーム その14</h1>
     <div class="form-container">
         <p id="error-message" class="error"></p>
 
@@ -160,7 +152,6 @@
             <button onclick="submitForm()">送信</button>
             <button onclick="window.close()">閉じる</button>
         </div>
-        <p id="submission-message" style="display:none;"></p>
     </div>
 
     <script>
@@ -183,7 +174,7 @@
                 nickname: nicknameInput.value
             };
 
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxMQvRgXqfdZJOGKB9QVPxgkAygs85ItuodtaKZen-2_MN9Py2XjEKjdQqHCdl3iayO/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxMzwhjDw7NWUtXqPnG6AHNCta5w_jNczfo1JEZwem3DSZ6Zkf6E5RKSLEhXfU523FBtw/exec';
 
             fetch(scriptURL, {
                 method: 'POST',
@@ -196,6 +187,7 @@
             .then(response => {
                 console.log('Response:', response);
                 // リダイレクトはGoogle Apps Script側で行われるため、ここでは特に処理は不要
+                // 通信が成功したことを示すために、何か簡単なメッセージを表示しても良いかもしれません
             })
             .catch(error => {
                 errorMessage.textContent = '送信に失敗しました。しばらく経ってから再度お試しください。';
