@@ -132,27 +132,30 @@
     </style>
 </head>
 <body>
-    <h1>参加フォーム (書き込み確認用2)</h1>
+    <h1>参加フォーム その18</h1>
     <div class="form-container">
         <p id="error-message" class="error"></p>
+
         <div class="checkbox-group">
             <div class="checkbox-item">
                 <input type="checkbox" id="check1" name="check1" required>
-                <label for="check1">概要欄の参加方法は読みましたか？<span class="required-mark">※</span></label>
+                <label for="check1"><ruby>概要<rt>がいよう</rt></ruby><ruby>欄<rt>らん</rt></ruby>の<ruby>参加<rt>さんか</rt></ruby><ruby>方法<rt>ほうほう</rt></ruby>は<ruby>読<rt>よ</rt></ruby>みましたか？<span class="required-mark">※</span></label>
             </div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check2" name="check2" required>
-                <label for="check2">セキュリティ強化のため、初めて参加される方は、一時的なフレンドとして配信後フレンド整理、削除させていただく場合があります。<span class="required-mark">※</span></label>
+                <label for="check2"><ruby>セキュリティ<rt>せきゅりてぃ</rt></ruby><ruby>強化<rt>きょうか</rt></ruby>のため、<ruby>初<rt>はじ</rt></ruby>めて<ruby>参加<rt>さんか</rt></ruby>される<ruby>方<rt>かた</rt></ruby>は、<ruby>一時的<rt>いちじてき</rt></ruby>なフレンドとして<ruby>配信<rt>はいしん</rt></ruby><ruby>後<rt>ご</rt></ruby>フレンド<ruby>整理<rt>せいり</rt></ruby>、<ruby>削除<rt>さくじょ</rt></ruby>させていただく<ruby>場合<rt>ばあい</rt></ruby>があります。<span class="required-mark">※</span></label>
             </div>
         </div>
+
         <div class="form-group">
-            <label for="id">IDを書いてください<span class="required-mark">※</span>：</label>
+            <label for="id">IDを<ruby>書<rt>か</rt></ruby>いてください<span class="required-mark">※</span>：</label>
             <input type="text" id="id" name="id" required>
         </div>
         <div class="form-group">
-            <label for="nickname">ニックネームを書いてください：</label>
+            <label for="nickname">ニックネームを<ruby>書<rt>か</rt></ruby>いてください：</label>
             <input type="text" id="nickname" name="nickname">
         </div>
+
         <div class="button-container">
             <button onclick="submitForm()">送信</button>
             <button onclick="window.close()">閉じる</button>
@@ -186,7 +189,6 @@
 
             fetch(scriptURL, {
                 method: 'POST',
-                // mode: 'no-cors', // ← これを削除または 'cors' に変更
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -194,12 +196,16 @@
             })
             .then(response => {
                 console.log('Response:', response);
-                if (response.ok) {
-                    submissionMessage.textContent = '送信しました。';
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data:', data);
+                if (data && data.result === 'success' && data.randomNumber) {
+                    submissionMessage.textContent = `あなたの番号は【${data.randomNumber}】です！配信にもどって『参加希望！●番』とコメントしてね。`;
                     submissionMessage.style.display = 'block';
                     document.querySelector('.form-container').style.display = 'none';
                 } else {
-                    errorMessage.textContent = '送信エラーが発生しました。';
+                    errorMessage.textContent = '送信処理は完了しましたが、番号を取得できませんでした。';
                     submissionMessage.style.display = 'none';
                 }
             })
