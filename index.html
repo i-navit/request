@@ -190,7 +190,12 @@
                 body: formData,
                 mode: 'no-cors' // CORSエラーを避けるための設定
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data && data.message) {
                     submissionMessageElement.textContent = data.message;
@@ -204,7 +209,7 @@
                 }
             })
             .catch(error => {
-                console.error('Error!', error.message);
+                console.error('Fetch error:', error);
                 errorMessageElement.textContent = '送信に失敗しました。しばらく経ってから再度お試しください。';
                 submissionMessageElement.style.display = 'none';
             });
