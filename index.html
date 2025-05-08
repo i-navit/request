@@ -150,8 +150,12 @@
     </style>
 </head>
 <body>
+<!--
+外部リンクに関するポリシー
+https://support.google.com/youtube/answer/9054257?hl=ja
+-->
     <h1>
-        <img src="https://github.com/i-navit/request/blob/main/bottin.jpg?raw=true" alt="ぼっちんガイドの画像">
+        <img src="https://github.com/i-navit/request/blob/main/bottin.jpg?raw=true" alt="ぼっちんガイド">
         <div>ぼっちんガイド<br>フレンド申請フォーム</div>
     </h1>
     <div id="form-area" class="form-container">
@@ -169,11 +173,11 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="id"><span class="required-mark">※</span>IDを書いてください</label>
+            <label for="id"><span class="required-mark">※</span>フォートナイトのIDを書いてね</label>
             <input type="text" id="id" name="id" required>
         </div>
         <div class="form-group">
-            <label for="nickname">ニックネームを書いてください</label>
+            <label for="nickname">なんて呼んで欲しい？</label>
             <input type="text" id="nickname" name="nickname">
         </div>
         <div class="button-container">
@@ -219,7 +223,7 @@
                 });
 
                 formArea.style.display = 'none';
-                completionMessage.innerHTML = `OKです！配信にもどって<br>『参加希望！<span style="font-weight: bold; color: blue;">${randomNumber}</span>番』<br>とコメントしてね。`;
+                completionMessage.innerHTML = `登録完了！配信にもどって<br>『参加希望！<span style="font-weight: bold; color: blue;">${randomNumber}</span>番』<br>とコメントしてね。`;
                 messageArea.style.display = 'block';
             } catch (error) {
                 errorMessage.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
