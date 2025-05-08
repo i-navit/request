@@ -174,19 +174,22 @@
             text-align: center; /* ルビを中央揃え */
         }
 
-        .highlight-number {
-            font-weight: bold;
-            color: blue;
+        .highlight {
             background: linear-gradient(transparent 60%, rgba(255, 255, 0, 0.7) 60%); /* 黄色、透過 */
             padding: 0 0.2em; /* 左右の余白を調整 */
             text-decoration: none !important; /* デフォルトの下線を打ち消す */
+        }
+
+        .highlight-number {
+            font-weight: bold;
+            color: blue;
         }
     </style>
 </head>
 <body>
     <h1>
         <img src="https://github.com/i-navit/request/blob/main/bottin.jpg?raw=true" alt="ぼっちんガイドの画像">
-        <div>ぼっちんガイド<br>フレンド申請フォーム(2)</div>
+        <div>ぼっちんガイド<br>フレンド申請フォーム(3)</div>
     </h1>
     <div id="form-area" class="form-container">
         <p id="error-message" class="error"></p>
@@ -253,7 +256,7 @@
                 });
 
                 formArea.style.display = 'none';
-                completionMessage.innerHTML = `OKです！配信にもどって<br>参加希望！<span class="highlight-number">${randomNumber}</span>番<br>とコメントしてね。`;
+                completionMessage.innerHTML = `OKです！配信にもどって<br><span class="highlight">参加希望！</span><span class="highlight-number">${randomNumber}</span><span class="highlight">番</span><br>とコメントしてね。`;
                 messageArea.style.display = 'block';
             } catch (error) {
                 errorMessage.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
