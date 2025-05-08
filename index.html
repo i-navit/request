@@ -173,7 +173,6 @@
     <h1>フレンド<ruby>申請<rt>しんせい</rt></ruby>フォーム</h1>
     <div id="form-area" class="form-container">
         <p id="error-message" class="error"></p>
-
         <div class="checkbox-group">
             <div class="checkbox-text"><span class="required-mark">※</span><ruby>概要<rt>がいよう</rt></ruby><ruby>欄<rt>らん</rt></ruby>の<ruby>参加<rt>さんか</rt></ruby><ruby>方法<rt>ほうほう</rt></ruby>は<ruby>読<rt>よ</rt></ruby>みましたか？</div>
             <div class="checkbox-item">
@@ -186,7 +185,6 @@
                 <label for="check2"><ruby>分<rt>わ</rt></ruby>かりました</label>
             </div>
         </div>
-
         <div class="form-group">
             <label for="id"><span class="required-mark">※</span>IDを<ruby>書<rt>か</rt></ruby>いてください</label>
             <input type="text" id="id" name="id" required>
@@ -195,18 +193,15 @@
             <label for="nickname">ニックネームを<ruby>書<rt>か</rt></ruby>いてください</label>
             <input type="text" id="nickname" name="nickname">
         </div>
-
         <div class="button-container">
             <button onclick="submitForm()">送信</button>
-            <button onclick="document.getElementById('form-area').style.display='none'; document.getElementById('message-area').style.display='none';">閉じる</button>
+            <button onclick="tryCloseWindow()">閉じる</button>
         </div>
     </div>
-
     <div id="message-area" style="display:none;">
         <p id="completion-message"></p>
-        <button onclick="document.getElementById('form-area').style.display='block'; document.getElementById('message-area').style.display='none';">閉じる</button>
+        <button onclick="tryCloseWindow()">閉じる</button>
     </div>
-
     <script>
         async function submitForm() {
             const check1 = document.getElementById('check1');
@@ -217,40 +212,48 @@
             const formArea = document.getElementById('form-area');
             const messageArea = document.getElementById('message-area');
             const completionMessage = document.getElementById('completion-message');
+            const randomNumber = Math.floor(Math.random() * 900) + 100;
 
             if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
                 errorMessage.textContent = '※マークはぜんぶ入力してね';
                 return;
             }
 
-            errorMessage.textContent = ''; // エラーメッセージをクリア
+            errorMessage.textContent = '';
 
             const timestamp = new Date().toLocaleString('ja-JP');
-            const randomNumber = Math.floor(Math.random() * 900) + 100; // 100から999のランダムな3桁の数字
-
             const formData = new FormData();
             formData.append('timestamp', timestamp);
             formData.append('randomNumber', randomNumber);
             formData.append('id', idInput.value.trim());
             formData.append('nickname', nicknameInput.value.trim());
 
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwpcUSV-boo2Iu6mZefI_HNUfn_lP3En23tcKMSEhxt2vs-rUfRFWooqcf7aAotU59SdA/exec'; // 後で置き換えます
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwpcUSV-boo2Iu6mZefI_HNUfn_lP3En23tcKMSEhxt2vs-rUfRFWooqcf7aAotU59SdA/exec';
 
             try {
                 const response = await fetch(scriptURL, {
                     method: 'POST',
                     body: formData,
-                    mode: 'no-cors' // CORSエラーを避けるため
+                    mode: 'no-cors'
                 });
 
                 formArea.style.display = 'none';
-                completionMessage.innerHTML = `OKです！配信にもどって『参加希望！${randomNumber}番』とコメントしてね。`;
+                completionMessage.innerHTML = `あなたの番号は【${randomNumber}】です！<br>配信にもどって『参加希望！${randomNumber}番』とコメントしてね。`;
                 messageArea.style.display = 'block';
 
             } catch (error) {
                 errorMessage.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
                 console.error('Error!', error.message);
             }
+        }
+
+        function tryCloseWindow() {
+            window.close();
+            setTimeout(() => {
+                if (!window.closed) {
+                    alert('ウィンドウを閉じることができませんでした。手動で閉じてください。');
+                }
+            }, 100);
         }
     </script>
 </body>
