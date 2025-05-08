@@ -59,9 +59,9 @@
         }
 
         #error-area {
-            height: 20px; /* エラーメッセージの表示領域を確保 */
-            margin-top: 10px;
-            margin-bottom: 10px;
+            height: 16px; /* エラーメッセージの表示領域を少し狭く */
+            margin-top: 5px; /* 上のスペースを狭く */
+            margin-bottom: 5px; /* 下のスペースを狭く */
             text-align: center;
             width: 100%;
             box-sizing: border-box;
@@ -70,7 +70,6 @@
         #error-message {
             color: red;
             font-weight: bold;
-            /* 最初は非表示にする */
             display: none;
         }
 
@@ -277,12 +276,12 @@
 
             if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
                 errorMessage.textContent = '※マークはぜんぶ入力してね';
-                errorMessage.style.display = 'block'; // エラーメッセージを表示
+                errorMessage.style.display = 'block';
                 return;
             }
 
             errorMessage.textContent = '';
-            errorMessage.style.display = 'none'; // エラーメッセージを非表示
+            errorMessage.style.display = 'none';
 
             const timestamp = new Date().toLocaleString('ja-JP');
             const formData = new FormData();
@@ -305,7 +304,7 @@
                 messageArea.style.display = 'block';
             } catch (error) {
                 errorMessage.textContent = '送信に失敗しました。';
-                errorMessage.style.display = 'block'; // エラーメッセージを表示
+                errorMessage.style.display = 'block';
                 console.error('Error!', error.message);
             }
         }
