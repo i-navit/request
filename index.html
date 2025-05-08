@@ -132,7 +132,7 @@
     </style>
 </head>
 <body>
-    <h1>参加フォーム その8</h1>
+    <h1>参加フォーム その9</h1>
     <div class="form-container">
         <p id="error-message" class="error"></p>
 
@@ -179,8 +179,10 @@
             }
 
             errorMessage.textContent = '';
+            const randomNumber = Math.floor(Math.random() * 900) + 100;
             const formData = {
                 timestamp: new Date().toLocaleString(),
+                randomNumber: randomNumber,
                 id: idInput.value,
                 nickname: nicknameInput.value
             };
@@ -189,22 +191,19 @@
 
             fetch(scriptURL, {
                 method: 'POST',
+                mode: 'no-cors', // ここを変更
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Response data:', data);
-                if (data && data.result === 'success' && data.randomNumber) {
-                    submissionMessage.textContent = `あなたの番号は【${data.randomNumber}】です！配信にもどって『参加希望！●番』とコメントしてね。`;
+            .then(response => {
+                console.log('Response:', response); // レスポンス全体をログ出力（bodyの内容は取得できない可能性があります）
+                if (submissionMessage) {
+                    submissionMessage.textContent = `あなたの番号は【${randomNumber}】です！配信にもどって『参加希望！●番』とコメントしてね。`;
                     submissionMessage.style.display = 'block';
-                    document.querySelector('.form-container').style.display = 'none';
-                } else {
-                    errorMessage.textContent = '送信処理が完了しましたが、番号を取得できませんでした。';
-                    submissionMessage.style.display = 'none';
                 }
+                document.querySelector('.form-container').style.display = 'none';
             })
             .catch(error => {
                 errorMessage.textContent = '送信に失敗しました。しばらく経ってから再度お試しください。';
