@@ -20,7 +20,7 @@
 
         h1 {
             color: #333;
-            margin-bottom: 30px; /* 下の余白を大きく */
+            margin-bottom: 30px;
             text-align: center;
         }
 
@@ -35,18 +35,18 @@
         }
 
         .checkbox-group {
-            margin-bottom: 25px; /* 下の余白を少し大きく */
+            margin-bottom: 25px;
         }
 
         .checkbox-text {
-            margin-bottom: 10px; /* チェックボックスとの間隔を追加 */
+            margin-bottom: 10px;
             color: #555;
         }
 
         .checkbox-item {
             display: flex;
             align-items: center;
-            margin-bottom: 8px; /* チェックボックス項目の下の余白を少し大きく */
+            margin-bottom: 8px;
         }
 
         .checkbox-item input[type="checkbox"] {
@@ -60,12 +60,12 @@
         }
 
         .form-group {
-            margin-bottom: 25px; /* 下の余白を少し大きく */
+            margin-bottom: 25px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px; /* ラベル下の余白を追加 */
+            margin-bottom: 8px;
             font-weight: bold;
             color: #555;
         }
@@ -82,24 +82,24 @@
 
         .button-container {
             display: flex;
-            gap: 15px; /* ボタン間の間隔を少し広く */
+            gap: 15px;
             justify-content: center;
-            margin-top: 30px; /* 上の余白を少し大きく */
+            margin-top: 30px;
         }
 
         .button-container button {
             flex-grow: 1;
-            padding: 14px 24px; /* ボタンのpaddingを少し大きく */
+            padding: 14px 24px;
             font-size: 16px;
-            border: none; /* デフォルトのボーダーを削除 */
-            border-radius: 4px; /* 角を丸く */
-            color: white; /* テキストを白に */
-            cursor: pointer; /* カーソルをポインターに */
-            transition: background-color 0.3s ease; /* ホバー時のアニメーション */
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         .button-container button:first-child {
-            background-color: #800080; /* 送信ボタンを濃いパープルに */
+            background-color: #800080; /* 濃いパープル */
         }
 
         .button-container button:first-child:hover {
@@ -107,7 +107,7 @@
         }
 
         .button-container button:last-child {
-            background-color: #6c757d; /* 閉じるボタンを灰色に */
+            background-color: #6c757d; /* 灰色 */
         }
 
         .button-container button:last-child:hover {
@@ -129,6 +129,24 @@
             color: green;
         }
 
+        #form-area {
+            display: block; /* フォーム表示エリア */
+        }
+
+        #message-area {
+            display: none; /* 送信完了メッセージエリア 初期非表示 */
+            text-align: center;
+            margin-top: 30px;
+            font-size: 18px;
+        }
+
+        #message-area button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
         @media screen and (max-width: 600px) {
             .form-container {
                 padding: 20px;
@@ -140,12 +158,20 @@
                 font-size: 14px;
                 padding: 10px 15px;
             }
+
+            #message-area {
+                font-size: 16px;
+            }
+
+            #message-area button {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
     <h1>フレンド<ruby>申請<rt>しんせい</rt></ruby>フォーム</h1>
-    <div class="form-container">
+    <div id="form-area" class="form-container">
         <p id="error-message" class="error"></p>
 
         <div class="checkbox-group">
@@ -174,8 +200,58 @@
             <button onclick="submitForm()">送信</button>
             <button onclick="window.close()">閉じる</button>
         </div>
-        <p id="submission-message" style="display:none;"></p>
     </div>
 
+    <div id="message-area" style="display:none;">
+        <p id="completion-message"></p>
+        <button onclick="window.close()">閉じる</button>
+    </div>
+
+    <script>
+        async function submitForm() {
+            const check1 = document.getElementById('check1');
+            const check2 = document.getElementById('check2');
+            const idInput = document.getElementById('id');
+            const nicknameInput = document.getElementById('nickname');
+            const errorMessage = document.getElementById('error-message');
+            const formArea = document.getElementById('form-area');
+            const messageArea = document.getElementById('message-area');
+            const completionMessage = document.getElementById('completion-message');
+
+            if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
+                errorMessage.textContent = '※マークはぜんぶ入力してね';
+                return;
+            }
+
+            errorMessage.textContent = ''; // エラーメッセージをクリア
+
+            const timestamp = new Date().toLocaleString('ja-JP');
+            const randomNumber = Math.floor(Math.random() * 900) + 100; // 100から999のランダムな3桁の数字
+
+            const formData = new FormData();
+            formData.append('timestamp', timestamp);
+            formData.append('randomNumber', randomNumber);
+            formData.append('id', idInput.value.trim());
+            formData.append('nickname', nicknameInput.value.trim());
+
+            const scriptURL = 'ここにGoogle Apps ScriptのURLを記述します'; // 後で置き換えます
+
+            try {
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors' // CORSエラーを避けるため
+                });
+
+                formArea.style.display = 'none';
+                completionMessage.textContent = `あなたの番号は【${randomNumber}】です！配信にもどって『参加希望！●番』とコメントしてね。`;
+                messageArea.style.display = 'block';
+
+            } catch (error) {
+                errorMessage.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
+                console.error('Error!', error.message);
+            }
+        }
+    </script>
 </body>
 </html>
