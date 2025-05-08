@@ -91,11 +91,19 @@
             background-color: #0056b3;
         }
 
-        #error-message {
+        #error-message,
+        #submission-message {
             margin-top: 20px;
             text-align: center;
             font-weight: bold;
+        }
+
+        #error-message {
             color: red;
+        }
+
+        #submission-message {
+            color: green;
         }
 
         .button-container {
@@ -124,7 +132,7 @@
     </style>
 </head>
 <body>
-    <h1>参加フォーム その14</h1>
+    <h1>参加フォーム その16</h1>
     <div class="form-container">
         <p id="error-message" class="error"></p>
 
@@ -152,6 +160,7 @@
             <button onclick="submitForm()">送信</button>
             <button onclick="window.close()">閉じる</button>
         </div>
+        <p id="submission-message" style="display:none;"></p>
     </div>
 
     <script>
@@ -161,9 +170,11 @@
             const idInput = document.getElementById('id');
             const nicknameInput = document.getElementById('nickname');
             const errorMessage = document.getElementById('error-message');
+            const submissionMessage = document.getElementById('submission-message');
 
             if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
                 errorMessage.textContent = '※マークはぜんぶ入力してね';
+                submissionMessage.style.display = 'none';
                 return;
             }
 
@@ -174,7 +185,7 @@
                 nickname: nicknameInput.value
             };
 
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxMzwhjDw7NWUtXqPnG6AHNCta5w_jNczfo1JEZwem3DSZ6Zkf6E5RKSLEhXfU523FBtw/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwSgHrobQ06mJCR72uMvj0XfirxxZN4fj_bGUN1TRXgY9PWj10UoCs0UpagP-dRUlv00Q/exec';
 
             fetch(scriptURL, {
                 method: 'POST',
@@ -186,11 +197,22 @@
             })
             .then(response => {
                 console.log('Response:', response);
-                // リダイレクトはGoogle Apps Script側で行われるため、ここでは特に処理は不要
-                // 通信が成功したことを示すために、何か簡単なメッセージを表示しても良いかもしれません
+                return response.json();
+            })
+            .then(data => {
+                console.log('Data:', data);
+                if (data && data.result === 'success' && data.randomNumber) {
+                    submissionMessage.textContent = `あなたの番号は【${data.randomNumber}】です！配信にもどって『参加希望！●番』とコメントしてね。`;
+                    submissionMessage.style.display = 'block';
+                    document.querySelector('.form-container').style.display = 'none';
+                } else {
+                    errorMessage.textContent = '送信処理は完了しましたが、番号を取得できませんでした。';
+                    submissionMessage.style.display = 'none';
+                }
             })
             .catch(error => {
                 errorMessage.textContent = '送信に失敗しました。しばらく経ってから再度お試しください。';
+                submissionMessage.style.display = 'none';
                 console.error('Error!', error.message);
             });
         }
