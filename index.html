@@ -25,12 +25,12 @@
             display: flex;
             align-items: center;
             justify-content: center; /* デフォルトで中央寄せ */
-            gap: 10px; /* 画像とテキストの間隔 */
-            flex-direction: column; /* テキストを縦に並べる */
+            gap: 15px; /* 画像とテキストの間隔 */
+            font-size: 1.5em; /* 文字サイズを少し小さく */
         }
 
         h1 img {
-            width: 80px; /* 画像のサイズを調整 */
+            width: 60px; /* 画像のサイズをさらに調整 */
             height: auto;
         }
 
@@ -139,14 +139,14 @@
             display: none; /* 送信完了メッセージエリア 初期非表示 */
             text-align: center;
             margin-top: 30px;
-            font-size: 20px; /* 文字サイズを大きく */
+            font-size: 20px; /* 最後のメッセージ文字サイズ */
         }
     </style>
 </head>
 <body>
     <h1>
         <img src="https://github.com/i-navit/request/blob/main/bottin.jpg?raw=true" alt="ぼっちんガイドの画像">
-        ぼっちんガイド<br>フレンド申請フォーム
+        <div>ぼっちんガイド<br>フレンド申請フォーム</div>
     </h1>
     <div id="form-area" class="form-container">
         <p id="error-message" class="error"></p>
