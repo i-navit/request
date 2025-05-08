@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ぼっちんガイド フレンド申請フォーム</title>
     <style>
+        /* ② ブラウザデフォルトの padding と margin を 0 に設定 */
+        body, h1, p, div, form, label, input, button {
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: sans-serif;
             background-color: #efe0ff;
-            margin: 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -20,23 +25,23 @@
 
         h1 {
             color: #333;
-            margin-bottom: 15px; /* 下の余白をさらに少し減らす */
-            text-align: left; /* テキストを左寄せ */
+            margin-bottom: 15px;
+            text-align: left;
             display: flex;
             align-items: center;
-            gap: 15px; /* 画像とテキストの間隔 */
-            font-size: 1.5em; /* 文字サイズ */
-            margin-top: 10px; /* 上の余白 */
+            gap: 15px;
+            font-size: 1.5em;
+            margin-top: 10px;
         }
 
         h1 img {
-            width: 70px; /* 画像のサイズ */
+            width: 70px;
             height: auto;
         }
 
         h1 div {
-            text-align: left; /* div 内のテキストを左寄せ */
-            line-height: 1.2; /* 行間 */
+            text-align: left;
+            line-height: 1.2;
         }
 
         .form-container {
@@ -47,11 +52,12 @@
             width: 90%;
             max-width: 500px;
             box-sizing: border-box;
+            margin-bottom: 30px; /* ② フォーム下の余白を追加 */
         }
 
         .checkbox-group {
-            margin-bottom: 25px; /* 既存の下の余白 */
-            margin-top: 5px; /* 上の余白をさらに減らす */
+            margin-bottom: 25px;
+            margin-top: 5px;
         }
 
         .checkbox-text {
@@ -145,39 +151,43 @@
             display: none; /* 送信完了メッセージエリア 初期非表示 */
             text-align: center;
             margin-top: 30px;
-            font-size: 20px; /* 最後のメッセージ文字サイズ */
+            font-size: 20px;
+            background-color: #fff; /* ③ メッセージエリアの背景を白に */
+            padding: 20px; /* ③ メッセージエリアにもpaddingを追加して見やすく */
+            border-radius: 8px; /* ③ メッセージエリアにも角丸を追加 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* ③ メッセージエリアにも影を追加 */
+        }
+
+        #message-area p {
+            margin-bottom: 0; /* ③ メッセージ内のp要素のデフォルトmarginを削除 */
         }
     </style>
 </head>
 <body>
-<!--
-外部リンクに関するポリシー
-https://support.google.com/youtube/answer/9054257?hl=ja
--->
     <h1>
-        <img src="https://github.com/i-navit/request/blob/main/bottin.jpg?raw=true" alt="ぼっちんガイド">
-        <div>ぼっちんガイド<br>フレンド申請フォーム</div>
+        <img src="https://github.com/i-navit/request/blob/main/bottin.jpg?raw=true" alt="ぼっちんガイドの画像">
+        <div>ぼっちんガイド<br>フレンド<ruby><rt style="color: gray;">しんせい</rt><申請></ruby>フォーム</div>
     </h1>
     <div id="form-area" class="form-container">
         <p id="error-message" class="error"></p>
         <div class="checkbox-group" style="margin-top: 5px;">
-            <div class="checkbox-text"><span class="required-mark">※</span>概要欄の参加方法は読みましたか？</div>
+            <div class="checkbox-text"><span class="required-mark">※</span><ruby><rt style="color: gray;">がいよう</rt><概要></ruby><ruby><rt style="color: gray;">らん</rt><欄></ruby>の<ruby><rt style="color: gray;">さんか</rt><参加></ruby><ruby><rt style="color: gray;">ほうほう</rt><方法></ruby>は<ruby><rt style="color: gray;">よ</rt><読></ruby>みましたか？</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check1" name="check1" required>
-                <label for="check1">読みました</label>
+                <label for="check1"><ruby><rt style="color: gray;">よ</rt><読></ruby>みました</label>
             </div>
-            <div class="checkbox-text"><span class="required-mark">※</span>セキュリティ強化のため、初めて参加される方は、一時的なフレンドとして配信後フレンド整理、削除させていただく場合があります。</div>
+            <div class="checkbox-text"><span class="required-mark">※</span>セキュリティ<ruby><rt style="color: gray;">きょうか</rt><強化></ruby>のため、<ruby><rt style="color: gray;">はじ</rt><初></ruby>めて<ruby><rt style="color: gray;">さんか</rt><参加></ruby>される<ruby><rt style="color: gray;">かた</rt><方></ruby>は、<ruby><rt style="color: gray;">いちじてき</rt><一時的></ruby>なフレンドとして<ruby><rt style="color: gray;">はいしん</rt><配信></ruby><ruby><rt style="color: gray;">ご</rt><後></ruby>フレンド<ruby><rt style="color: gray;">せいり</rt><整理></ruby>、<ruby><rt style="color: gray;">さくじょ</rt><削除></ruby>させていただく<ruby><rt style="color: gray;">ばあい</rt><場合></ruby>があります。</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check2" name="check2" required>
-                <label for="check2">分かりました</label>
+                <label for="check2"><ruby><rt style="color: gray;">わ</rt><分></ruby>かりました</label>
             </div>
         </div>
         <div class="form-group">
-            <label for="id"><span class="required-mark">※</span>フォートナイトのIDを書いてね</label>
+            <label for="id"><span class="required-mark">※</span>IDを<ruby><rt style="color: gray;">か</rt><書></ruby>いてください</label>
             <input type="text" id="id" name="id" required>
         </div>
         <div class="form-group">
-            <label for="nickname">なんて呼んで欲しい？</label>
+            <label for="nickname">ニックネームを<ruby><rt style="color: gray;">か</rt><書></ruby>いてください</label>
             <input type="text" id="nickname" name="nickname">
         </div>
         <div class="button-container">
@@ -223,7 +233,7 @@ https://support.google.com/youtube/answer/9054257?hl=ja
                 });
 
                 formArea.style.display = 'none';
-                completionMessage.innerHTML = `登録完了！配信にもどって<br>『参加希望！<span style="font-weight: bold; color: blue;">${randomNumber}</span>番』<br>とコメントしてね。`;
+                completionMessage.innerHTML = `OKです！<ruby><rt style="color: gray;">はいしん</rt><配信></ruby>にもどって<br>『<ruby><rt style="color: gray;">さんか</rt><参加><ruby><rt style="color: gray;">きぼう</rt><希望></ruby>！<span style="font-weight: bold; color: blue;">${randomNumber}</span><ruby><rt style="color: gray;">ばん</rt><番></ruby>』<br>とコメントしてね。`;
                 messageArea.style.display = 'block';
             } catch (error) {
                 errorMessage.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
