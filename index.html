@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: sans-serif;
-            background-color: #eddbff;
+            background-color: #efe0ff;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -132,7 +132,7 @@
     </style>
 </head>
 <body>
-    <h1>参加フォーム その7</h1>
+    <h1>参加フォーム その1</h1>
     <div class="form-container">
         <p id="error-message" class="error"></p>
 
@@ -164,51 +164,52 @@
     </div>
 
     <script>
-        // ここに、必ず正しいウェブアプリのURLを貼り付けてください
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbz67Yytwugdflg68c5rN4xaXd-Ayt4FkiciPjBFslM8KkSUPuyFMeWl2oXhLANcLcE/exec';
-        const errorMessageElement = document.getElementById('error-message');
-        const submissionMessageElement = document.getElementById('submission-message');
-        const formContainer = document.querySelector('.form-container');
-
         function submitForm() {
-            errorMessageElement.textContent = ''; // エラーメッセージをクリア
-
             const check1 = document.getElementById('check1');
             const check2 = document.getElementById('check2');
             const idInput = document.getElementById('id');
+            const nicknameInput = document.getElementById('nickname');
+            const errorMessage = document.getElementById('error-message');
+            const submissionMessage = document.getElementById('submission-message');
 
-            if (!check1.checked || !check2.checked || !idInput.value) {
-                errorMessageElement.textContent = '※マークはぜんぶ入力してね';
+            if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
+                errorMessage.textContent = '※マークはぜんぶ入力してね';
+                submissionMessage.style.display = 'none';
                 return;
             }
 
-            const formData = new FormData();
-            formData.append('id', idInput.value);
-            formData.append('nickname', document.getElementById('nickname').value);
+            errorMessage.textContent = '';
+            const randomNumber = Math.floor(Math.random() * 900) + 100;
+            const formData = {
+                timestamp: new Date().toLocaleString(),
+                randomNumber: randomNumber,
+                id: idInput.value,
+                nickname: nicknameInput.value
+            };
+
+            // **ここにGoogle Apps ScriptのURLを記述します**
+            const scriptURL = 'ここにGoogle Apps ScriptのURL';
 
             fetch(scriptURL, {
                 method: 'POST',
-                body: formData,
-                mode: 'no-cors' // CORSエラーを避けるため
+                mode: 'no-cors', // CORSエラーを避けるため
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
             })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.text();
+                submissionMessage.textContent = `あなたの番号は【${randomNumber}】です！配信にもどって『参加希望！●番』とコメントしてね。`;
+                submissionMessage.style.display = 'block';
+                // フォームを非表示にする (hyde)
+                document.querySelector('.form-container').style.display = 'none';
             })
-            .then(data => {
-                console.log('Response from Apps Script:', data); // レスポンスの内容をコンソールに表示
-                submissionMessageElement.textContent = data;
-                submissionMessageElement.style.display = 'block';
-                formContainer.style.display = 'none'; // フォームを非表示にする
-            })
-            .catch((error) => {
-                errorMessageElement.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
-                console.error('Error!', error);
+            .catch(error => {
+                errorMessage.textContent = '送信に失敗しました。しばらく経ってから再度お試しください。';
+                submissionMessage.style.display = 'none';
+                console.error('Error!', error.message);
             });
         }
     </script>
-
 </body>
 </html>
