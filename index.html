@@ -53,25 +53,18 @@
             max-width: 500px;
             box-sizing: border-box;
             margin-bottom: 30px; /* ② フォーム下の余白を追加 */
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* 子要素を中央揃え */
         }
 
         #error-message {
             color: red;
             font-weight: bold;
             text-align: center;
-            margin-bottom: 10px; /* ボタンとの間隔 */
-            width: 100%; /* 親要素いっぱいに広げる */
-            box-sizing: border-box; /* padding, border を含めて幅を計算 */
+            margin-top: 10px; /* 元の位置に戻すか、必要に応じて調整 */
         }
 
         .checkbox-group {
             margin-bottom: 25px;
             margin-top: 5px;
-            width: 100%; /* 親要素いっぱいに広げる */
-            box-sizing: border-box;
         }
 
         .checkbox-text {
@@ -97,8 +90,6 @@
 
         .form-group {
             margin-bottom: 25px;
-            width: 100%; /* 親要素いっぱいに広げる */
-            box-sizing: border-box;
         }
 
         label {
@@ -130,8 +121,6 @@
             margin-top: 20px; /* 送信ボタン上の余白を少し小さく */
             flex-direction: column; /* ボタンと注意書きを縦に並べる */
             align-items: center; /* 中央揃え */
-            width: 100%; /* 親要素いっぱいに広げる */
-            box-sizing: border-box;
         }
 
         .button-container button {
@@ -145,7 +134,6 @@
             transition: background-color 0.3s ease;
             width: 100%; /* ボタンを親要素いっぱいに広げる */
             max-width: 300px; /* ボタンの最大幅を設定 */
-            box-sizing: border-box;
         }
 
         .button-container button:first-child {
@@ -224,7 +212,6 @@
         <div>ぼっちんガイド<br>フレンド申請フォーム</div>
     </h1>
     <div id="form-area" class="form-container">
-        <p id="error-message" class="error"></p>
         <div class="checkbox-group" style="margin-top: 5px;">
             <div class="checkbox-text"><span class="required-mark">※</span><ruby><rt style="color: gray;">がいようらん</rt>概要欄</ruby>の<ruby><rt style="color: gray;">さんかほうほう</rt>参加方法</ruby>は<ruby><rt style="color: gray;">よ</rt>読</ruby>みましたか？</div>
             <div class="checkbox-item">
@@ -245,6 +232,7 @@
             <label for="nickname">なんて<ruby><rt style="color: gray;">よ</rt>呼</ruby>んでほしい？</label>
             <input type="text" id="nickname" name="nickname" placeholder="例：ピーリーボット">
         </div>
+        <p id="error-message" class="error" style="margin-top: 10px; margin-bottom: 10px; text-align: center; color: red; font-weight: bold;"></p>
         <div class="button-container">
             <button onclick="submitForm()">送信</button>
             <p class="button-note">送信ボタンは1回だけ押してね</p>
