@@ -203,8 +203,8 @@
 </head>
 <body>
     <h1>
-        <img src="https://github.com/i-navit/request/blob/main/bottin.jpg?raw=true" alt="ぼっちんガイドの画像">
-        <div>ぼっちんガイド<br>フレンド申請フォーム(8)</div>
+        <img src="https://github.com/i-navit/request/blob/main/bottin.jpg?raw=true" alt="ぼっちんガイド">
+        <div>ぼっちんガイド<br>フレンド申請フォーム</div>
     </h1>
     <div id="form-area" class="form-container">
         <p id="error-message" class="error"></p>
@@ -221,11 +221,11 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="id"><span class="required-mark">※</span>IDを<ruby><rt style="color: gray;">か</rt>書</ruby>いてください</label>
+            <label for="id"><span class="required-mark">※</span>フォートナイトのIDを<ruby><rt style="color: gray;">か</rt>書</ruby>いてね</label>
             <input type="text" id="id" name="id" placeholder="例：PeelyBot1234" required>
         </div>
         <div class="form-group">
-            <label for="nickname">ニックネームを<ruby><rt style="color: gray;">か</rt>書</ruby>いてください</label>
+            <label for="nickname">なんて<ruby><rt style="color: gray;">よ</rt>呼</ruby>んでほしい？</label>
             <input type="text" id="nickname" name="nickname" placeholder="例：ピーリーボット">
         </div>
         <div class="button-container">
@@ -272,10 +272,10 @@
                 });
 
                 formArea.style.display = 'none';
-                completionMessage.innerHTML = `登録完了しました！配信に戻って<br><span class="highlight-underline">参加希望！<span class="highlight-number">${randomNumber}</span>番</span><br>とチャット欄にコメントしてね。`;
+                completionMessage.innerHTML = `登録完了！配信に戻って<br><span class="highlight-underline">参加希望！<span class="highlight-number">${randomNumber}</span>番</span><br>とチャット欄にコメントしてね。`;
                 messageArea.style.display = 'block';
             } catch (error) {
-                errorMessage.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
+                errorMessage.textContent = '送信に失敗しました。';
                 console.error('Error!', error.message);
             }
         }
