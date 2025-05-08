@@ -132,7 +132,7 @@
     </style>
 </head>
 <body>
-    <h1>参加フォーム その9</h1>
+    <h1>参加フォーム その10</h1>
     <div class="form-container">
         <p id="error-message" class="error"></p>
 
@@ -191,19 +191,22 @@
 
             fetch(scriptURL, {
                 method: 'POST',
-                mode: 'no-cors', // ここを変更
+                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             })
             .then(response => {
-                console.log('Response:', response); // レスポンス全体をログ出力（bodyの内容は取得できない可能性があります）
-                if (submissionMessage) {
+                console.log('Response:', response);
+                if (response.ok) { // レスポンスのステータスが成功 (2xx) であれば
                     submissionMessage.textContent = `あなたの番号は【${randomNumber}】です！配信にもどって『参加希望！●番』とコメントしてね。`;
                     submissionMessage.style.display = 'block';
+                    document.querySelector('.form-container').style.display = 'none';
+                } else {
+                    errorMessage.textContent = '送信処理は完了しましたが、結果の表示に失敗しました。';
+                    submissionMessage.style.display = 'none';
                 }
-                document.querySelector('.form-container').style.display = 'none';
             })
             .catch(error => {
                 errorMessage.textContent = '送信に失敗しました。しばらく経ってから再度お試しください。';
