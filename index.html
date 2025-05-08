@@ -129,7 +129,7 @@
             display: none; /* 送信完了メッセージエリア 初期非表示 */
             text-align: center;
             margin-top: 30px;
-            font-size: 18px;
+            font-size: 20px; /* 文字サイズを大きく */
         }
     </style>
 </head>
@@ -200,7 +200,7 @@
                 });
 
                 formArea.style.display = 'none';
-                completionMessage.innerHTML = `OKです！配信にもどって<br>『参加希望！${randomNumber}番』<br>とコメントしてね。`;
+                completionMessage.innerHTML = `OKです！配信にもどって<br>『参加希望！<span style="font-weight: bold; color: blue;">${randomNumber}</span>番』<br>とコメントしてね。`;
                 messageArea.style.display = 'block';
             } catch (error) {
                 errorMessage.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
