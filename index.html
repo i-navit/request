@@ -133,7 +133,7 @@
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-top: 10px; /* 送信ボタン上の余白を少し小さく */
+            margin-top: 5px; /* 送信ボタン上の余白を調整 */
             flex-direction: column; /* ボタンと注意書きを縦に並べる */
             align-items: center; /* 中央揃え */
             width: 100%; /* 親要素いっぱいに広げる */
@@ -222,12 +222,17 @@
             font-weight: bold;
             color: blue;
         }
+
+        .checkbox-text {
+            margin-bottom: 5px; /* 「※マークはぜんぶ入力してね」の下に5pxの余白を追加 */
+            color: #555;
+        }
     </style>
 </head>
 <body>
     <h1>
         <img src="https://github.com/i-navit/request/blob/main/bottin.jpg?raw=true" alt="ぼっちんガイド">
-        <div>ぼっちんガイド<br>フレンド申請フォーム4</div>
+        <div>ぼっちんガイド<br>フレンド申請フォーム5</div>
     </h1>
     <div id="form-area" class="form-container">
         <div class="checkbox-group" style="margin-top: 5px;">
@@ -236,7 +241,7 @@
                 <input type="checkbox" id="check1" name="check1" required>
                 <label for="check1"><ruby><rt style="color: gray;">よ</rt>読</ruby>みました</label>
             </div>
-            <div class="checkbox-text"><span class="required-mark">※</span>セキュリティ<ruby><rt style="color: gray;">きょうか</rt>強化</ruby>のため、<ruby><rt style="color: gray;">はじ</rt>初めて</ruby><ruby><rt style="color: gray;">さんか</rt>参加</ruby>される<ruby><rt style="color: gray;">かた</rt>方</ruby>は、<ruby><rt style="color: gray;">いちじてき</rt>一時的</ruby>なフレンドとして<ruby><rt style="color: gray;">はいしんご</rt>配信後</ruby>フレンド<ruby><rt style="color: gray;">せいり</rt>整理</ruby>・<ruby><rt style="color: gray;">さくじょ</rt>削除</ruby>させていただく<ruby><rt style="color: gray;">ばあい</rt>場合</ruby>があります</div>
+            <div class="checkbox-text"><span class="required-mark">※</span>セキュリティ<ruby><rt style="color: gray;">きょうか</rt>強化</ruby>のため、<ruby><rt style="color: gray;">はじ</rt>初めて</ruby><ruby><rt style="color: gray;">さんか</rt>参加</ruby>される<ruby><rt style="color: gray;">かた</rt>方</ruby>は、<ruby><rt style="color: gray;">いちじてき</rt>一時的</ruby>なフレンドとして<ruby><rt style="color: gray;">はいしんご</rt>配信後</ruby>フレンド<ruby><rt style="color: gray;">せいり</rt>整理</ruby>・<ruby><rt style="color: gray;">さくじょ</rt>削除</ruby>させていただく<ruby><rt style="color: gray;">ばあい</rt>場合があります</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check2" name="check2" required>
                 <label for="check2"><ruby><rt style="color: gray;">わ</rt>分</ruby>かりました</label>
