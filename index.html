@@ -132,7 +132,7 @@
     </style>
 </head>
 <body>
-    <h1>参加フォーム その1</h1>
+    <h1>参加フォーム その2</h1>
     <div class="form-container">
         <p id="error-message" class="error"></p>
 
@@ -187,26 +187,29 @@
                 nickname: nicknameInput.value
             };
 
-            // **ここにGoogle Apps ScriptのURLを記述します**
             const scriptURL = 'https://script.google.com/macros/s/AKfycbzQz0OcQ8LLSmdp36HncRaxPaQ2HQRBZ6rOotSij5odq-wun6TCqltSX2HAemPSVO8X4w/exec';
 
             fetch(scriptURL, {
                 method: 'POST',
-                mode: 'no-cors', // CORSエラーを避けるため
+                mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             })
             .then(response => {
-                submissionMessage.textContent = `あなたの番号は【${randomNumber}】です！配信にもどって『参加希望！●番』とコメントしてね。`;
-                submissionMessage.style.display = 'block';
-                // フォームを非表示にする (hyde)
+                console.log('Response:', response); // デバッグ用：レスポンスの内容をコンソールに出力
+                if (submissionMessage) {
+                    submissionMessage.textContent = `あなたの番号は【${randomNumber}】です！配信にもどって『参加希望！●番』とコメントしてね。`;
+                    submissionMessage.style.display = 'block'; // インラインでdisplay: block; を指定
+                }
                 document.querySelector('.form-container').style.display = 'none';
             })
             .catch(error => {
                 errorMessage.textContent = '送信に失敗しました。しばらく経ってから再度お試しください。';
-                submissionMessage.style.display = 'none';
+                if (submissionMessage) {
+                    submissionMessage.style.display = 'none';
+                }
                 console.error('Error!', error.message);
             });
         }
