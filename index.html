@@ -53,28 +53,18 @@
             max-width: 500px;
             box-sizing: border-box;
             margin-bottom: 30px; /* ② フォーム下の余白を追加 */
-            position: relative; /* エラーメッセージの絶対配置の基準 */
-            overflow: hidden; /* エラーメッセージがはみ出さないように */
         }
 
         #error-message {
             color: red;
             font-weight: bold;
             text-align: center;
-            margin-top: 10px; /* エラーメッセージの上の余白 */
-            position: absolute; /* フォーム内で絶対配置 */
-            top: -40px; /* フォームの上部に配置 (少し下げる) */
-            left: 0;
-            right: 0;
-            padding: 10px; /* 上下のpaddingを追加して見やすく */
-            box-sizing: border-box; /* paddingを含めてwidthを計算 */
-            white-space: normal; /* エラーメッセージを改行させる */
+            margin-top: 10px;
         }
 
         .checkbox-group {
             margin-bottom: 25px;
             margin-top: 5px;
-            padding-top: 40px; /* エラーメッセージ表示分のスペース確保 (少し下げる) */
         }
 
         .checkbox-text {
@@ -192,7 +182,7 @@
     </h1>
     <div id="form-area" class="form-container">
         <p id="error-message" class="error"></p>
-        <div class="checkbox-group" style="margin-top: 5px; padding-top: 40px;">
+        <div class="checkbox-group" style="margin-top: 5px;">
             <div class="checkbox-text"><span class="required-mark">※</span><ruby><rt style="color: gray;">がいよう</rt>概要</ruby><ruby><rt style="color: gray;">らん</rt>欄</ruby>の<ruby><rt style="color: gray;">さんか</rt>参加</ruby><ruby><rt style="color: gray;">ほうほう</rt>方法</ruby>は<ruby><rt style="color: gray;">よ</rt>読</ruby>みましたか？</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check1" name="check1" required>
@@ -219,51 +209,49 @@
     <div id="message-area" style="display:none;">
         <p id="completion-message"></p>
     </div>
-<script>
-        async function submitForm() {
-            const check1 = document.getElementById('check1');
-            const check2 = document.getElementById('check2');
-            const idInput = document.getElementById('id');
-            const nicknameInput = document.getElementById('nickname');
-            const errorMessage = document.getElementById('error-message');
-            const formArea = document.getElementById('form-area');
-            const messageArea = document.getElementById('message-area');
-            const completionMessage = document.getElementById('completion-message');
-            const randomNumber = Math.floor(Math.random() * 900) + 100;
+    <script>
+        async function submitForm() {
+            const check1 = document.getElementById('check1');
+            const check2 = document.getElementById('check2');
+            const idInput = document.getElementById('id');
+            const nicknameInput = document.getElementById('nickname');
+            const errorMessage = document.getElementById('error-message');
+            const formArea = document.getElementById('form-area');
+            const messageArea = document.getElementById('message-area');
+            const completionMessage = document.getElementById('completion-message');
+            const randomNumber = Math.floor(Math.random() * 900) + 100;
 
-            if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
-                errorMessage.textContent = '※マークはぜんぶ入力してね';
-                console.log('エラーメッセージを表示します:', errorMessage.textContent); // ← 確認用ログ
-                return;
-            }
+            if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
+                errorMessage.textContent = '※マークはぜんぶ入力してね';
+                return;
+            }
 
-            errorMessage.textContent = '';
-            console.log('エラーメッセージをクリアしました'); // ← 確認用ログ
+            errorMessage.textContent = '';
 
-            const timestamp = new Date().toLocaleString('ja-JP');
-            const formData = new FormData();
-            formData.append('timestamp', timestamp);
-            formData.append('randomNumber', randomNumber);
-            formData.append('id', idInput.value.trim());
-            formData.append('nickname', nicknameInput.value.trim());
+            const timestamp = new Date().toLocaleString('ja-JP');
+            const formData = new FormData();
+            formData.append('timestamp', timestamp);
+            formData.append('randomNumber', randomNumber);
+            formData.append('id', idInput.value.trim());
+            formData.append('nickname', nicknameInput.value.trim());
 
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwpcUSV-boo2Iu6mZefI_HNUfn_lP3En23tcKMSEhxt2vs-rUfRFWooqcf7aAotU59SdA/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwpcUSV-boo2Iu6mZefI_HNUfn_lP3En23tcKMSEhxt2vs-rUfRFWooqcf7aAotU59SdA/exec';
 
-            try {
-                const response = await fetch(scriptURL, {
-                    method: 'POST',
-                    body: formData,
-                    mode: 'no-cors'
-                });
+            try {
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'
+                });
 
-                formArea.style.display = 'none';
-                completionMessage.innerHTML = `OKです！<ruby><rt style="color: gray;">はいしん</rt>配信</ruby>にもどって<br>『<ruby><rt style="color: gray;">さんか</rt>参加</ruby><ruby><rt style="color: gray;">きぼう</rt>希望</ruby>！<span style="font-weight: bold; color: blue;">${randomNumber}</span><ruby><rt style="color: gray;">ばん</rt>番</ruby>』<br>とコメントしてね。`;
-                messageArea.style.display = 'block';
-            } catch (error) {
-                errorMessage.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
-                console.error('Error!', error.message);
-            }
-        }
-    </script>
+                formArea.style.display = 'none';
+                completionMessage.innerHTML = `OKです！<ruby><rt style="color: gray;">はいしん</rt>配信</ruby>にもどって<br>『<ruby><rt style="color: gray;">さんか</rt>参加</ruby><ruby><rt style="color: gray;">きぼう</rt>希望</ruby>！<span style="font-weight: bold; color: blue;">${randomNumber}</span><ruby><rt style="color: gray;">ばん</rt>番</ruby>』<br>とコメントしてね。`;
+                messageArea.style.display = 'block';
+            } catch (error) {
+                errorMessage.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
+                console.error('Error!', error.message);
+            }
+        }
+    </script>
 </body>
 </html>
