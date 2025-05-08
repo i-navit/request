@@ -132,7 +132,7 @@
     </style>
 </head>
 <body>
-    <h1>参加フォーム その1</h1>
+    <h1>参加フォーム その2</h1>
     <div class="form-container">
         <p id="error-message" class="error"></p>
 
@@ -164,9 +164,11 @@
     </div>
 
     <script>
+        // ここに、先ほどコピーしたウェブアプリのURLを貼り付けてください
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxdmshR5ynJhb28FZk2lqvzBsryyc6WCnMP3FNXXNgr9XWLhhunFUCZ3tafs8ECMh7m/exec';
         const errorMessageElement = document.getElementById('error-message');
         const submissionMessageElement = document.getElementById('submission-message');
+        const formContainer = document.querySelector('.form-container');
 
         function submitForm() {
             errorMessageElement.textContent = ''; // エラーメッセージをクリア
@@ -193,7 +195,7 @@
             .then(data => {
                 submissionMessageElement.textContent = data;
                 submissionMessageElement.style.display = 'block';
-                document.querySelector('.form-container').style.display = 'none'; // フォームを非表示にする
+                formContainer.style.display = 'none'; // フォームを非表示にする
             })
             .catch((error) => {
                 errorMessageElement.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
