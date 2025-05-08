@@ -53,13 +53,19 @@
             max-width: 500px;
             box-sizing: border-box;
             margin-bottom: 30px; /* ② フォーム下の余白を追加 */
+            position: relative; /* 相対位置指定で子要素を絶対配置できるように */
         }
 
         #error-message {
             color: red;
             font-weight: bold;
             text-align: center;
-            margin-bottom: 10px; /* エラーメッセージを下ボタンの上に移動 */
+            /* position: absolute; /* 絶対配置でレイアウトから独立 */ */
+            top: -20px; /* 必要に応じて調整 */
+            left: 50%;
+            transform: translateX(-50%); /* 中央揃え */
+            white-space: nowrap; /* 折り返しを防ぐ */
+            margin-bottom: 10px; /* 下の要素との間隔 */
         }
 
         .checkbox-group {
