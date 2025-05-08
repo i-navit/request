@@ -54,6 +54,7 @@
             box-sizing: border-box;
             margin-bottom: 30px; /* ② フォーム下の余白を追加 */
             position: relative; /* エラーメッセージの絶対配置の基準 */
+            overflow: hidden; /* エラーメッセージがはみ出さないように */
         }
 
         #error-message {
@@ -65,6 +66,11 @@
             top: -30px; /* フォームの上部に配置 */
             left: 0;
             right: 0;
+            white-space: nowrap; /* エラーメッセージが改行しないように */
+            overflow: hidden; /* エラーメッセージがはみ出さないように */
+            text-overflow: ellipsis; /* 長いエラーメッセージを...で省略 */
+            padding: 0 10px; /* 左右のpaddingを追加して見やすく */
+            box-sizing: border-box; /* paddingを含めてwidthを計算 */
         }
 
         .checkbox-group {
