@@ -63,20 +63,18 @@
             text-align: center;
             margin-top: 10px; /* エラーメッセージの上の余白 */
             position: absolute; /* フォーム内で絶対配置 */
-            top: -30px; /* フォームの上部に配置 */
+            top: -40px; /* フォームの上部に配置 (少し下げる) */
             left: 0;
             right: 0;
-            white-space: nowrap; /* エラーメッセージが改行しないように */
-            overflow: hidden; /* エラーメッセージがはみ出さないように */
-            text-overflow: ellipsis; /* 長いエラーメッセージを...で省略 */
-            padding: 0 10px; /* 左右のpaddingを追加して見やすく */
+            padding: 10px; /* 上下のpaddingを追加して見やすく */
             box-sizing: border-box; /* paddingを含めてwidthを計算 */
+            white-space: normal; /* エラーメッセージを改行させる */
         }
 
         .checkbox-group {
             margin-bottom: 25px;
             margin-top: 5px;
-            padding-top: 30px; /* エラーメッセージ表示分のスペース確保 */
+            padding-top: 40px; /* エラーメッセージ表示分のスペース確保 (少し下げる) */
         }
 
         .checkbox-text {
@@ -194,7 +192,7 @@
     </h1>
     <div id="form-area" class="form-container">
         <p id="error-message" class="error"></p>
-        <div class="checkbox-group" style="margin-top: 5px; padding-top: 30px;">
+        <div class="checkbox-group" style="margin-top: 5px; padding-top: 40px;">
             <div class="checkbox-text"><span class="required-mark">※</span><ruby><rt style="color: gray;">がいよう</rt>概要</ruby><ruby><rt style="color: gray;">らん</rt>欄</ruby>の<ruby><rt style="color: gray;">さんか</rt>参加</ruby><ruby><rt style="color: gray;">ほうほう</rt>方法</ruby>は<ruby><rt style="color: gray;">よ</rt>読</ruby>みましたか？</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check1" name="check1" required>
