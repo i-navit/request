@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><ruby>参加<rt>さんか</rt></ruby>フォーム</title>
+    <title>フレンド<ruby>申請<rt>しんせい</rt></ruby>フォーム</title>
     <style>
         body {
             font-family: sans-serif;
@@ -91,6 +91,27 @@
             flex-grow: 1;
             padding: 14px 24px; /* ボタンのpaddingを少し大きく */
             font-size: 16px;
+            border: none; /* デフォルトのボーダーを削除 */
+            border-radius: 4px; /* 角を丸く */
+            color: white; /* テキストを白に */
+            cursor: pointer; /* カーソルをポインターに */
+            transition: background-color 0.3s ease; /* ホバー時のアニメーション */
+        }
+
+        .button-container button:first-child {
+            background-color: #28a745; /* 送信ボタンを緑色に */
+        }
+
+        .button-container button:first-child:hover {
+            background-color: #1e7e34; /* ホバー時の濃い緑 */
+        }
+
+        .button-container button:last-child {
+            background-color: #6c757d; /* 閉じるボタンを灰色に */
+        }
+
+        .button-container button:last-child:hover {
+            background-color: #5a6268; /* ホバー時の濃い灰色 */
         }
 
         #error-message,
@@ -123,7 +144,7 @@
     </style>
 </head>
 <body>
-    <h1><ruby>参加<rt>さんか</rt></ruby>フォーム</h1>
+    <h1>フレンド<ruby>申請<rt>しんせい</rt></ruby>フォーム</h1>
     <div class="form-container">
         <p id="error-message" class="error"></p>
 
@@ -150,8 +171,8 @@
         </div>
 
         <div class="button-container">
-            <button onclick="submitForm()"><ruby>送信<rt>そうしん</rt></ruby></button>
-            <button onclick="window.close()"><ruby>閉<rt>と</rt></ruby>じる</button>
+            <button onclick="submitForm()">送信</button>
+            <button onclick="window.close()">閉じる</button>
         </div>
         <p id="submission-message" style="display:none;"></p>
     </div>
