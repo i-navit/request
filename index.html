@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>フレンド<ruby>申請<rt>しんせい</rt></ruby>フォーム</title>
+    <title>フレンド申請フォーム</title>
     <style>
         body {
             font-family: sans-serif;
@@ -106,14 +106,6 @@
             background-color: #4b0082; /* ホバー時のさらに濃いパープル */
         }
 
-        .button-container button:last-child {
-            background-color: #6c757d; /* 灰色 */
-        }
-
-        .button-container button:last-child:hover {
-            background-color: #5a6268; /* ホバー時の濃い灰色 */
-        }
-
         #error-message,
         #submission-message {
             margin-top: 30px;
@@ -139,38 +131,10 @@
             margin-top: 30px;
             font-size: 18px;
         }
-
-        #message-area button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        @media screen and (max-width: 600px) {
-            .form-container {
-                padding: 20px;
-                width: 95%;
-            }
-
-            input[type="text"],
-            .button-container button {
-                font-size: 14px;
-                padding: 10px 15px;
-            }
-
-            #message-area {
-                font-size: 16px;
-            }
-
-            #message-area button {
-                font-size: 14px;
-            }
-        }
     </style>
 </head>
 <body>
-    <h1>フレンド<ruby>申請<rt>しんせい</rt></ruby>フォーム1</h1>
+    <h1>フレンド<ruby>申請<rt>しんせい</rt></ruby>フォーム</h1>
     <div id="form-area" class="form-container">
         <p id="error-message" class="error"></p>
         <div class="checkbox-group">
@@ -195,12 +159,10 @@
         </div>
         <div class="button-container">
             <button onclick="submitForm()">送信</button>
-            <button onclick="window.close()">閉じる</button>
         </div>
     </div>
     <div id="message-area" style="display:none;">
         <p id="completion-message"></p>
-        <button onclick="window.close()">閉じる</button>
     </div>
     <script>
         async function submitForm() {
@@ -238,9 +200,8 @@
                 });
 
                 formArea.style.display = 'none';
-                completionMessage.innerHTML = `あなたの番号は【${randomNumber}】です！<br>配信にもどって『参加希望！${randomNumber}番』とコメントしてね。`;
+                completionMessage.innerHTML = `OKです！配信にもどって<br>『参加希望！${randomNumber}番』<br>とコメントしてね。`;
                 messageArea.style.display = 'block';
-
             } catch (error) {
                 errorMessage.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
                 console.error('Error!', error.message);
