@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ぼっちんガイド フレンド申請フォーム</title>
+    <title>フレンド申請フォーム</title>
     <style>
         body {
             font-family: sans-serif;
@@ -26,11 +26,11 @@
             align-items: center;
             gap: 15px; /* 画像とテキストの間隔 */
             font-size: 1.5em; /* 文字サイズ */
-            margin-top: 5px; /* 上の余白を少し減らす */
+            margin-top: 10px; /* 上の余白を少し減らす */
         }
 
         h1 img {
-            width: 70px; /* 画像のサイズ */
+            width: 60px; /* 画像のサイズ */
             height: auto;
         }
 
@@ -51,7 +51,7 @@
 
         .checkbox-group {
             margin-bottom: 25px; /* 既存の下の余白 */
-            margin-top: 15px; /* 上の余白を減らす */
+            margin-top: 10px; /* 上の余白をさらに減らす */
         }
 
         .checkbox-text {
@@ -156,24 +156,24 @@
     </h1>
     <div id="form-area" class="form-container">
         <p id="error-message" class="error"></p>
-        <div class="checkbox-group" style="margin-top: 15px;">
-            <div class="checkbox-text"><span class="required-mark">※</span><ruby>概要<rt>がいよう</rt></ruby><ruby>欄<rt>らん</rt></ruby>の<ruby>参加<rt>さんか</rt></ruby><ruby>方法<rt>ほうほう</rt></ruby>は<ruby>読<rt>よ</rt></ruby>みましたか？</div>
+        <div class="checkbox-group" style="margin-top: 10px;">
+            <div class="checkbox-text"><span class="required-mark">※</span>概要欄の参加方法は読みましたか？</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check1" name="check1" required>
-                <label for="check1"><ruby>読<rt>よ</rt></ruby>みました</label>
+                <label for="check1">読みました</label>
             </div>
-            <div class="checkbox-text"><span class="required-mark">※</span><ruby>セキュリティ<rt>せきゅりてぃ</rt></ruby><ruby>強化<rt>きょうか</rt></ruby>のため、<ruby>初<rt>はじ</rt></ruby>めて<ruby>参加<rt>さんか</rt></ruby>される<ruby>方<rt>かた</rt></ruby>は、<ruby>一時的<rt>いちじてき</rt></ruby>なフレンドとして<ruby>配信<rt>はいしん</rt></ruby><ruby>後<rt>ご</rt></ruby>フレンド<ruby>整理<rt>せいり</rt></ruby>、<ruby>削除<rt>さくじょ</rt></ruby>させていただく<ruby>場合<rt>ばあい</rt></ruby>があります。</div>
+            <div class="checkbox-text"><span class="required-mark">※</span>セキュリティ強化のため、初めて参加される方は、一時的なフレンドとして配信後フレンド整理、削除させていただく場合があります。</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check2" name="check2" required>
-                <label for="check2"><ruby>分<rt>わ</rt></ruby>かりました</label>
+                <label for="check2">分かりました</label>
             </div>
         </div>
         <div class="form-group">
-            <label for="id"><span class="required-mark">※</span>IDを<ruby>書<rt>か</rt></ruby>いてください</label>
+            <label for="id"><span class="required-mark">※</span>IDを書いてください</label>
             <input type="text" id="id" name="id" required>
         </div>
         <div class="form-group">
-            <label for="nickname">ニックネームを<ruby>書<rt>か</rt></ruby>いてください</label>
+            <label for="nickname">ニックネームを書いてください</label>
             <input type="text" id="nickname" name="nickname">
         </div>
         <div class="button-container">
