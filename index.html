@@ -61,7 +61,7 @@
         #error-area {
             height: 12px; /* エラーメッセージの表示領域を少し狭く */
             margin-top: 0px; /* 上のスペースを狭く */
-            margin-bottom: 10px; /* エラーメッセージ領域の下のスペースを少し広げる */
+            margin-bottom: 12px; /* エラーメッセージ領域の下のスペースを少し広げる */
             text-align: center;
             width: 100%;
             box-sizing: border-box;
@@ -81,7 +81,7 @@
         }
 
         .checkbox-text {
-            margin-bottom: 8px;
+            margin-bottom: 10px; /* 「※マークはぜんぶ入力してね」の下の余白を調整 */
             color: #555;
         }
 
@@ -133,7 +133,8 @@
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-top: 5px; /* 送信ボタン上の余白をさらに調整 */
+            margin-top: 10px;
+            margin-bottom: 0px; /* 送信ボタン下の余白をなくす */
             flex-direction: column; /* ボタンと注意書きを縦に並べる */
             align-items: center; /* 中央揃え */
             width: 100%; /* 親要素いっぱいに広げる */
@@ -224,7 +225,7 @@
         }
 
         .checkbox-text {
-            margin-bottom: 8px;
+            margin-bottom: 12px; /* 「※マークはぜんぶ入力してね」の下の余白を2px多く */
             color: #555;
         }
     </style>
@@ -232,7 +233,7 @@
 <body>
     <h1>
         <img src="https://github.com/i-navit/request/blob/main/bottin.jpg?raw=true" alt="ぼっちんガイド">
-        <div>ぼっちんガイド<br>フレンド申請フォーム8</div>
+        <div>ぼっちんガイド<br>フレンド申請フォーム9</div>
     </h1>
     <div id="form-area" class="form-container">
         <div class="checkbox-group" style="margin-top: 5px;">
