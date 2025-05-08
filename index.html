@@ -4,177 +4,182 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ぼっちんガイド フレンド申請フォーム</title>
-<style>
-    /* ② ブラウザデフォルトの padding と margin を 0 に設定 */
-    body, h1, p, div, form, label, input, button {
-        margin: 0;
-        padding: 0;
-    }
+    <style>
+        /* ② ブラウザデフォルトの padding と margin を 0 に設定 */
+        body, h1, p, div, form, label, input, button {
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-        font-family: sans-serif;
-        background-color: #efe0ff;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        min-height: 100vh;
-        box-sizing: border-box;
-    }
+        body {
+            font-family: sans-serif;
+            background-color: #efe0ff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
 
-    h1 {
-        color: #333;
-        margin-bottom: 15px;
-        text-align: left;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        font-size: 1.5em;
-        margin-top: 10px;
-    }
+        h1 {
+            color: #333;
+            margin-bottom: 15px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
 
-    h1 img {
-        width: 70px;
-        height: auto;
-    }
+        h1 img {
+            width: 70px;
+            height: auto;
+        }
 
-    h1 div {
-        text-align: left;
-        line-height: 1.2;
-    }
+        h1 div {
+            text-align: left;
+            line-height: 1.2;
+        }
 
-    .form-container {
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        width: 90%;
-        max-width: 500px;
-        box-sizing: border-box;
-        margin-bottom: 30px; /* ② フォーム下の余白を追加 */
-    }
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            box-sizing: border-box;
+            margin-bottom: 30px; /* ② フォーム下の余白を追加 */
+            position: relative; /* エラーメッセージの絶対配置の基準 */
+        }
 
-    .checkbox-group {
-        margin-bottom: 25px;
-        margin-top: 5px;
-    }
+        #error-message {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px; /* エラーメッセージの上の余白 */
+            position: absolute; /* フォーム内で絶対配置 */
+            top: -30px; /* フォームの上部に配置 */
+            left: 0;
+            right: 0;
+        }
 
-    .checkbox-text {
-        margin-bottom: 10px;
-        color: #555;
-    }
+        .checkbox-group {
+            margin-bottom: 25px;
+            margin-top: 5px;
+            padding-top: 30px; /* エラーメッセージ表示分のスペース確保 */
+        }
 
-    .checkbox-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 8px;
-    }
+        .checkbox-text {
+            margin-bottom: 10px;
+            color: #555;
+        }
 
-    .checkbox-item input[type="checkbox"] {
-        margin-right: 8px;
-        vertical-align: middle;
-    }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
 
-    .required-mark {
-        color: red;
-        margin-left: 5px;
-    }
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 8px;
+            vertical-align: middle;
+        }
 
-    .form-group {
-        margin-bottom: 25px;
-    }
+        .required-mark {
+            color: red;
+            margin-left: 5px;
+        }
 
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: bold;
-        color: #555;
-    }
+        .form-group {
+            margin-bottom: 25px;
+        }
 
-    input[type="text"] {
-        width: calc(100% - 16px);
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 16px;
-        margin-top: 5px;
-    }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
 
-    .button-container {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        margin-top: 30px;
-    }
+        input[type="text"] {
+            width: calc(100% - 16px);
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-top: 5px;
+        }
 
-    .button-container button {
-        flex-grow: 1;
-        padding: 14px 24px;
-        font-size: 16px;
-        border: none;
-        border-radius: 4px;
-        color: white;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
 
-    .button-container button:first-child {
-        background-color: #800080; /* 濃いパープル */
-    }
+        .button-container button {
+            flex-grow: 1;
+            padding: 14px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-    .button-container button:first-child:hover {
-        background-color: #4b0082; /* ホバー時のさらに濃いパープル */
-    }
+        .button-container button:first-child {
+            background-color: #800080; /* 濃いパープル */
+        }
 
-    #error-message,
-    #submission-message {
-        margin-top: 30px;
-        text-align: center;
-        font-weight: bold;
-    }
+        .button-container button:first-child:hover {
+            background-color: #4b0082; /* ホバー時のさらに濃いパープル */
+        }
 
-    #error-message {
-        color: red;
-    }
+        #submission-message {
+            margin-top: 30px;
+            text-align: center;
+            font-weight: bold;
+            color: green;
+        }
 
-    #submission-message {
-        color: green;
-    }
+        #form-area {
+            display: block; /* フォーム表示エリア */
+        }
 
-    #form-area {
-        display: block; /* フォーム表示エリア */
-    }
+        #message-area {
+            display: none; /* 送信完了メッセージエリア 初期非表示 */
+            text-align: center;
+            margin-top: 30px;
+            font-size: 20px;
+            background-color: #fff; /* ③ メッセージエリアの背景を白に */
+            padding: 20px; /* ③ メッセージエリアにもpaddingを追加して見やすく */
+            border-radius: 8px; /* ③ メッセージエリアにも角丸を追加 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* ③ メッセージエリアにも影を追加 */
+        }
 
-    #message-area {
-        display: none; /* 送信完了メッセージエリア 初期非表示 */
-        text-align: center;
-        margin-top: 30px;
-        font-size: 20px;
-        background-color: #fff; /* ③ メッセージエリアの背景を白に */
-        padding: 20px; /* ③ メッセージエリアにもpaddingを追加して見やすく */
-        border-radius: 8px; /* ③ メッセージエリアにも角丸を追加 */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* ③ メッセージエリアにも影を追加 */
-    }
+        #message-area p {
+            margin-bottom: 0; /* ③ メッセージ内のp要素のデフォルトmarginを削除 */
+        }
 
-    #message-area p {
-        margin-bottom: 0; /* ③ メッセージ内のp要素のデフォルトmarginを削除 */
-    }
+        /* ルビの表示位置を調整 */
+        ruby {
+            display: inline-block;
+            text-align: center;
+        }
 
-    /* ルビの表示位置を調整 */
-    ruby {
-        display: inline-block;
-        text-align: center;
-    }
-
-    rt {
-        display: block;
-        font-size: 0.7em; /* ルビの文字サイズを調整 */
-        color: gray;
-        text-align: center; /* ルビを中央揃え */
-    }
-</style>
+        rt {
+            display: block;
+            font-size: 0.7em; /* ルビの文字サイズを調整 */
+            color: gray;
+            text-align: center; /* ルビを中央揃え */
+        }
+    </style>
 </head>
 <body>
     <h1>
@@ -183,7 +188,7 @@
     </h1>
     <div id="form-area" class="form-container">
         <p id="error-message" class="error"></p>
-        <div class="checkbox-group" style="margin-top: 5px;">
+        <div class="checkbox-group" style="margin-top: 5px; padding-top: 30px;">
             <div class="checkbox-text"><span class="required-mark">※</span><ruby><rt style="color: gray;">がいよう</rt>概要</ruby><ruby><rt style="color: gray;">らん</rt>欄</ruby>の<ruby><rt style="color: gray;">さんか</rt>参加</ruby><ruby><rt style="color: gray;">ほうほう</rt>方法</ruby>は<ruby><rt style="color: gray;">よ</rt>読</ruby>みましたか？</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check1" name="check1" required>
