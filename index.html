@@ -132,7 +132,7 @@
     </style>
 </head>
 <body>
-    <h1>参加フォーム (書き込み確認用)</h1>
+    <h1>参加フォーム (書き込み確認用2)</h1>
     <div class="form-container">
         <p id="error-message" class="error"></p>
         <div class="checkbox-group">
@@ -186,7 +186,7 @@
 
             fetch(scriptURL, {
                 method: 'POST',
-                mode: 'no-cors',
+                // mode: 'no-cors', // ← これを削除または 'cors' に変更
                 headers: {
                     'Content-Type': 'application/json'
                 },
