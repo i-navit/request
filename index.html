@@ -132,7 +132,7 @@
     </style>
 </head>
 <body>
-    <h1>参加フォーム その2</h1>
+    <h1>参加フォーム その3</h1>
     <div class="form-container">
         <p id="error-message" class="error"></p>
 
@@ -191,17 +191,17 @@
 
             fetch(scriptURL, {
                 method: 'POST',
-                mode: 'no-cors',
+                // mode: 'no-cors',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             })
             .then(response => {
-                console.log('Response:', response); // デバッグ用：レスポンスの内容をコンソールに出力
+                console.log('Response:', response);
                 if (submissionMessage) {
                     submissionMessage.textContent = `あなたの番号は【${randomNumber}】です！配信にもどって『参加希望！●番』とコメントしてね。`;
-                    submissionMessage.style.display = 'block'; // インラインでdisplay: block; を指定
+                    submissionMessage.style.display = 'block';
                 }
                 document.querySelector('.form-container').style.display = 'none';
             })
