@@ -1,144 +1,231 @@
-<style>
-    body {
-        font-family: sans-serif;
-        background-color: #efe0ff;
-        margin: 0;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        min-height: 100vh;
-        box-sizing: border-box;
-    }
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ぼっちんガイド フレンド申請フォーム</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #efe0ff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
 
-    h1 {
-        color: #333;
-        margin-bottom: 15px; /* 下の余白をさらに少し減らす */
-        text-align: left; /* テキストを左寄せ */
-        display: flex;
-        align-items: center;
-        gap: 15px; /* 画像とテキストの間隔 */
-        font-size: 1.5em; /* 文字サイズ */
-        margin-top: 10px; /* 上の余白 */
-    }
+        h1 {
+            color: #333;
+            margin-bottom: 15px; /* 下の余白をさらに少し減らす */
+            text-align: left; /* テキストを左寄せ */
+            display: flex;
+            align-items: center;
+            gap: 15px; /* 画像とテキストの間隔 */
+            font-size: 1.5em; /* 文字サイズ */
+            margin-top: 10px; /* 上の余白 */
+        }
 
-    h1 img {
-        width: 70px; /* 画像のサイズ */
-        height: auto;
-    }
+        h1 img {
+            width: 70px; /* 画像のサイズ */
+            height: auto;
+        }
 
-    h1 div {
-        text-align: left; /* div 内のテキストを左寄せ */
-        line-height: 1.2; /* 行間 */
-    }
+        h1 div {
+            text-align: left; /* div 内のテキストを左寄せ */
+            line-height: 1.2; /* 行間 */
+        }
 
-    .form-container {
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        width: 90%;
-        max-width: 500px;
-        box-sizing: border-box;
-    }
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
 
-    .checkbox-group {
-        margin-bottom: 25px; /* 既存の下の余白 */
-        margin-top: 5px; /* 上の余白をさらに減らす */
-    }
+        .checkbox-group {
+            margin-bottom: 25px; /* 既存の下の余白 */
+            margin-top: 5px; /* 上の余白をさらに減らす */
+        }
 
-    .checkbox-text {
-        margin-bottom: 10px;
-        color: #555;
-    }
+        .checkbox-text {
+            margin-bottom: 10px;
+            color: #555;
+        }
 
-    .checkbox-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 8px;
-    }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
 
-    .checkbox-item input[type="checkbox"] {
-        margin-right: 8px;
-        vertical-align: middle;
-    }
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 8px;
+            vertical-align: middle;
+        }
 
-    .required-mark {
-        color: red;
-        margin-left: 5px;
-    }
+        .required-mark {
+            color: red;
+            margin-left: 5px;
+        }
 
-    .form-group {
-        margin-bottom: 25px;
-    }
+        .form-group {
+            margin-bottom: 25px;
+        }
 
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: bold;
-        color: #555;
-    }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
 
-    input[type="text"] {
-        width: calc(100% - 16px);
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 16px;
-        margin-top: 5px;
-    }
+        input[type="text"] {
+            width: calc(100% - 16px);
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-top: 5px;
+        }
 
-    .button-container {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        margin-top: 30px;
-    }
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
 
-    .button-container button {
-        flex-grow: 1;
-        padding: 14px 24px;
-        font-size: 16px;
-        border: none;
-        border-radius: 4px;
-        color: white;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+        .button-container button {
+            flex-grow: 1;
+            padding: 14px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-    .button-container button:first-child {
-        background-color: #800080; /* 濃いパープル */
-    }
+        .button-container button:first-child {
+            background-color: #800080; /* 濃いパープル */
+        }
 
-    .button-container button:first-child:hover {
-        background-color: #4b0082; /* ホバー時のさらに濃いパープル */
-    }
+        .button-container button:first-child:hover {
+            background-color: #4b0082; /* ホバー時のさらに濃いパープル */
+        }
 
-    #error-message,
-    #submission-message {
-        margin-top: 30px;
-        text-align: center;
-        font-weight: bold;
-    }
+        #error-message,
+        #submission-message {
+            margin-top: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
 
-    #error-message {
-        color: red;
-    }
+        #error-message {
+            color: red;
+        }
 
-    #submission-message {
-        color: green;
-    }
+        #submission-message {
+            color: green;
+        }
 
-    #form-area {
-        display: block; /* フォーム表示エリア */
-    }
+        #form-area {
+            display: block; /* フォーム表示エリア */
+        }
 
-    #message-area {
-        display: none; /* 送信完了メッセージエリア 初期非表示 */
-        text-align: center;
-        margin-top: 30px;
-        font-size: 20px; /* 最後のメッセージ文字サイズ */
-    }
-</style>
+        #message-area {
+            display: none; /* 送信完了メッセージエリア 初期非表示 */
+            text-align: center;
+            margin-top: 30px;
+            font-size: 20px; /* 最後のメッセージ文字サイズ */
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        <img src="https://github.com/i-navit/request/blob/main/bottin.jpg?raw=true" alt="ぼっちんガイドの画像">
+        <div>ぼっちんガイド<br>フレンド申請フォーム</div>
+    </h1>
+    <div id="form-area" class="form-container">
+        <p id="error-message" class="error"></p>
+        <div class="checkbox-group" style="margin-top: 5px;">
+            <div class="checkbox-text"><span class="required-mark">※</span>概要欄の参加方法は読みましたか？</div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check1" name="check1" required>
+                <label for="check1">読みました</label>
+            </div>
+            <div class="checkbox-text"><span class="required-mark">※</span>セキュリティ強化のため、初めて参加される方は、一時的なフレンドとして配信後フレンド整理、削除させていただく場合があります。</div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check2" name="check2" required>
+                <label for="check2">分かりました</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="id"><span class="required-mark">※</span>IDを書いてください</label>
+            <input type="text" id="id" name="id" required>
+        </div>
+        <div class="form-group">
+            <label for="nickname">ニックネームを書いてください</label>
+            <input type="text" id="nickname" name="nickname">
+        </div>
+        <div class="button-container">
+            <button onclick="submitForm()">送信</button>
+        </div>
+    </div>
+    <div id="message-area" style="display:none;">
+        <p id="completion-message"></p>
+    </div>
+    <script>
+        async function submitForm() {
+            const check1 = document.getElementById('check1');
+            const check2 = document.getElementById('check2');
+            const idInput = document.getElementById('id');
+            const nicknameInput = document.getElementById('nickname');
+            const errorMessage = document.getElementById('error-message');
+            const formArea = document.getElementById('form-area');
+            const messageArea = document.getElementById('message-area');
+            const completionMessage = document.getElementById('completion-message');
+            const randomNumber = Math.floor(Math.random() * 900) + 100;
+
+            if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
+                errorMessage.textContent = '※マークはぜんぶ入力してね';
+                return;
+            }
+
+            errorMessage.textContent = '';
+
+            const timestamp = new Date().toLocaleString('ja-JP');
+            const formData = new FormData();
+            formData.append('timestamp', timestamp);
+            formData.append('randomNumber', randomNumber);
+            formData.append('id', idInput.value.trim());
+            formData.append('nickname', nicknameInput.value.trim());
+
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwpcUSV-boo2Iu6mZefI_HNUfn_lP3En23tcKMSEhxt2vs-rUfRFWooqcf7aAotU59SdA/exec';
+
+            try {
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors'
+                });
+
+                formArea.style.display = 'none';
+                completionMessage.innerHTML = `OKです！配信にもどって<br>『参加希望！<span style="font-weight: bold; color: blue;">${randomNumber}</span>番』<br>とコメントしてね。`;
+                messageArea.style.display = 'block';
+            } catch (error) {
+                errorMessage.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
+                console.error('Error!', error.message);
+            }
+        }
+    </script>
+</body>
+</html>
