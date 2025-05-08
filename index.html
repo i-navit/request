@@ -20,18 +20,23 @@
 
         h1 {
             color: #333;
-            margin-bottom: 30px;
-            text-align: center;
+            margin-bottom: 20px; /* 下の余白を少し減らす */
+            text-align: left; /* テキストを左寄せ */
             display: flex;
             align-items: center;
-            justify-content: center; /* デフォルトで中央寄せ */
             gap: 15px; /* 画像とテキストの間隔 */
-            font-size: 1.5em; /* 文字サイズを少し小さく */
+            font-size: 1.5em; /* 文字サイズ */
+            margin-top: 10px; /* 上の余白を少し減らす */
         }
 
         h1 img {
-            width: 60px; /* 画像のサイズをさらに調整 */
+            width: 60px; /* 画像のサイズ */
             height: auto;
+        }
+
+        h1 div {
+            text-align: left; /* div 内のテキストを左寄せ */
+            line-height: 1.2; /* 行間を調整して上下の余白感を減らす */
         }
 
         .form-container {
@@ -45,7 +50,8 @@
         }
 
         .checkbox-group {
-            margin-bottom: 25px;
+            margin-bottom: 25px; /* 既存の下の余白 */
+            margin-top: 15px; /* 上の余白を減らす */
         }
 
         .checkbox-text {
@@ -150,7 +156,7 @@
     </h1>
     <div id="form-area" class="form-container">
         <p id="error-message" class="error"></p>
-        <div class="checkbox-group">
+        <div class="checkbox-group" style="margin-top: 15px;">
             <div class="checkbox-text"><span class="required-mark">※</span><ruby>概要<rt>がいよう</rt></ruby><ruby>欄<rt>らん</rt></ruby>の<ruby>参加<rt>さんか</rt></ruby><ruby>方法<rt>ほうほう</rt></ruby>は<ruby>読<rt>よ</rt></ruby>みましたか？</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check1" name="check1" required>
