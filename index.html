@@ -107,13 +107,20 @@
             box-sizing: border-box;
             font-size: 16px;
             margin-top: 5px;
+            color: #333; /* 入力文字の色 */
+        }
+
+        input::placeholder {
+            color: #ccc; /* プレースホルダーの色 */
         }
 
         .button-container {
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-top: 30px;
+            margin-top: 20px; /* 送信ボタン上の余白を少し小さく */
+            flex-direction: column; /* ボタンと注意書きを縦に並べる */
+            align-items: center; /* 中央揃え */
         }
 
         .button-container button {
@@ -125,6 +132,8 @@
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            width: 100%; /* ボタンを親要素いっぱいに広げる */
+            max-width: 300px; /* ボタンの最大幅を設定 */
         }
 
         .button-container button:first-child {
@@ -133,6 +142,12 @@
 
         .button-container button:first-child:hover {
             background-color: #4b0082; /* ホバー時のさらに濃いパープル */
+        }
+
+        .button-note {
+            color: #777;
+            font-size: 0.8em;
+            margin-top: 5px;
         }
 
         #submission-message {
@@ -189,7 +204,7 @@
 <body>
     <h1>
         <img src="https://github.com/i-navit/request/blob/main/bottin.jpg?raw=true" alt="ぼっちんガイドの画像">
-        <div>ぼっちんガイド<br>フレンド申請フォーム(7)</div>
+        <div>ぼっちんガイド<br>フレンド申請フォーム(8)</div>
     </h1>
     <div id="form-area" class="form-container">
         <p id="error-message" class="error"></p>
@@ -207,14 +222,15 @@
         </div>
         <div class="form-group">
             <label for="id"><span class="required-mark">※</span>IDを<ruby><rt style="color: gray;">か</rt>書</ruby>いてください</label>
-            <input type="text" id="id" name="id" required>
+            <input type="text" id="id" name="id" placeholder="例：PeelyBot1234" required>
         </div>
         <div class="form-group">
             <label for="nickname">ニックネームを<ruby><rt style="color: gray;">か</rt>書</ruby>いてください</label>
-            <input type="text" id="nickname" name="nickname">
+            <input type="text" id="nickname" name="nickname" placeholder="例：ピーリーボット">
         </div>
         <div class="button-container">
             <button onclick="submitForm()">送信</button>
+            <p class="button-note">送信ボタンは1回だけ押してね</p>
         </div>
     </div>
     <div id="message-area" style="display:none;">
