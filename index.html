@@ -164,7 +164,7 @@
     </div>
 
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyCkMjaqYdb_AGyYLbMUiuCZ01aQkeoTBnIOI2e8lcKzLJ2Blue7O0TeGNVdG27WdOX/exec';
+        const scriptURL = 'ここに先ほどコピーしたウェブアプリのURLを貼り付けてください';
         const errorMessageElement = document.getElementById('error-message');
         const submissionMessageElement = document.getElementById('submission-message');
 
@@ -192,10 +192,16 @@
             })
             .then(response => response.json())
             .then(data => {
-                submissionMessageElement.textContent = data.message;
-                submissionMessageElement.style.display = 'block';
-                document.querySelector('.form-container').style.display = 'none'; // フォームを非表示にする
-                document.querySelector('.button-container').style.display = 'none'; // ボタンを非表示にする
+                if (data && data.message) {
+                    submissionMessageElement.textContent = data.message;
+                    submissionMessageElement.style.display = 'block';
+                    document.querySelector('.form-container').style.display = 'none';
+                    document.querySelector('.button-container').style.display = 'none';
+                } else {
+                    console.error('Error: Received unexpected data:', data);
+                    errorMessageElement.textContent = '送信結果の表示に失敗しました。';
+                    submissionMessageElement.style.display = 'none';
+                }
             })
             .catch(error => {
                 console.error('Error!', error.message);
