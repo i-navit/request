@@ -163,7 +163,7 @@
         <p id="submission-message" style="display:none;"></p>
     </div>
 
-    <script>
+<script>
         // ここに、先ほどコピーしたウェブアプリのURLを貼り付けてください
         const scriptURL = 'https://script.google.com/macros/s/AKfycbwOw15F3nC517Bf529yP-x712E-o59e09J0f6f0_1aB8WVo_6z9l-zC0-x2B9z7_a4/exec';
         const errorMessageElement = document.getElementById('error-message');
@@ -191,18 +191,23 @@
                 body: formData,
                 mode: 'no-cors' // CORSエラーを避けるため
             })
-            .then(response => response.text())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
             .then(data => {
+                console.log('Response from Apps Script:', data); // レスポンスの内容をコンソールに表示
                 submissionMessageElement.textContent = data;
                 submissionMessageElement.style.display = 'block';
                 formContainer.style.display = 'none'; // フォームを非表示にする
             })
             .catch((error) => {
                 errorMessageElement.textContent = '送信に失敗しました。しばらくしてから再度お試しください。';
-                console.error('Error!', error.message);
+                console.error('Error!', error);
             });
         }
     </script>
-
 </body>
 </html>
