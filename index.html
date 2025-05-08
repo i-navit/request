@@ -167,6 +167,8 @@
         const scriptURL = 'https://script.google.com/macros/s/AKfycbw9Nnilq6Hv3zT3Smz44REXni4NakbrsYo4cNxRRd_pwJOq2baBxMXqNnXedW3cM9Ha/exec';
         const errorMessageElement = document.getElementById('error-message');
         const submissionMessageElement = document.getElementById('submission-message');
+        const formContainer = document.querySelector('.form-container');
+        const buttonContainer = document.querySelector('.button-container');
 
         function submitForm() {
             const check1 = document.getElementById('check1');
@@ -188,7 +190,7 @@
             fetch(scriptURL, {
                 method: 'POST',
                 body: formData,
-                mode: 'no-cors' // CORSエラーを避けるための設定
+                mode: 'no-cors'
             })
             .then(response => {
                 if (!response.ok) {
@@ -200,8 +202,8 @@
                 if (data && data.message) {
                     submissionMessageElement.textContent = data.message;
                     submissionMessageElement.style.display = 'block';
-                    document.querySelector('.form-container').style.display = 'none';
-                    document.querySelector('.button-container').style.display = 'none';
+                    formContainer.style.display = 'none'; // フォームを非表示
+                    buttonContainer.style.display = 'none'; // ボタンを非表示
                 } else {
                     console.error('Error: Received unexpected data:', data);
                     errorMessageElement.textContent = '送信結果の表示に失敗しました。';
