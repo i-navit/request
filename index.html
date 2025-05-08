@@ -171,4 +171,37 @@
             const nicknameInput = document.getElementById('nickname');
             const errorMessage = document.getElementById('error-message');
 
-            if (!check1.checked || !check2.checked || idInput.value.trim()
+            if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
+                errorMessage.textContent = '※マークはぜんぶ入力してね';
+                return;
+            }
+
+            errorMessage.textContent = '';
+            const formData = {
+                timestamp: new Date().toLocaleString(),
+                id: idInput.value,
+                nickname: nicknameInput.value
+            };
+
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxMQvRgXqfdZJOGKB9QVPxgkAygs85ItuodtaKZen-2_MN9Py2XjEKjdQqHCdl3iayO/exec';
+
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                console.log('Response:', response);
+                // リダイレクトはGoogle Apps Script側で行われるため、ここでは特に処理は不要
+            })
+            .catch(error => {
+                errorMessage.textContent = '送信に失敗しました。しばらく経ってから再度お試しください。';
+                console.error('Error!', error.message);
+            });
+        }
+    </script>
+</body>
+</html>
