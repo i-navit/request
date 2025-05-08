@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>参加フォーム</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #eddbff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 12px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .checkbox-group {
+            margin-bottom: 15px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        .required-mark {
+            color: red;
+            margin-left: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #error-message,
+        #submission-message {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #error-message {
+            color: red;
+        }
+
+        #submission-message {
+            color: green;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            flex-grow: 1;
+        }
+
+        @media screen and (max-width: 600px) {
+            .form-container {
+                padding: 20px;
+                width: 95%;
+            }
+
+            input[type="text"],
+            button {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>参加フォーム</h1>
+    <div class="form-container">
+        <p id="error-message" class="error"></p>
+
+        <div class="checkbox-group">
+            <div class="checkbox-item">
+                <input type="checkbox" id="check1" name="check1" required>
+                <label for="check1"><ruby>概要<rt>がいよう</rt></ruby><ruby>欄<rt>らん</rt></ruby>の<ruby>参加<rt>さんか</rt></ruby><ruby>方法<rt>ほうほう</rt></ruby>は<ruby>読<rt>よ</rt></ruby>みましたか？<span class="required-mark" style="color: red;">※</span></label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check2" name="check2" required>
+                <label for="check2"><ruby>セキュリティ<rt>せきゅりてぃ</rt></ruby><ruby>強化<rt>きょうか</rt></ruby>のため、<ruby>初<rt>はじ</rt></ruby>めて<ruby>参加<rt>さんか</rt></ruby>される<ruby>方<rt>かた</rt></ruby>は、<ruby>一時的<rt>いちじてき</rt></ruby>なフレンドとして<ruby>配信<rt>はいしん</rt></ruby><ruby>後<rt>ご</rt></ruby>フレンド<ruby>整理<rt>せいり</rt></ruby>、<ruby>削除<rt>さくじょ</rt></ruby>させていただく<ruby>場合<rt>ばあい</rt></ruby>があります。<span class="required-mark" style="color: red;">※</span></label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="id">IDを<ruby>書<rt>か</rt></ruby>いてください<span class="required-mark" style="color: red;">※</span>：</label>
+            <input type="text" id="id" name="id" required>
+        </div>
+        <div class="form-group">
+            <label for="nickname">ニックネームを<ruby>書<rt>か</rt></ruby>いてください：</label>
+            <input type="text" id="nickname" name="nickname">
+        </div>
+
+        <div class="button-container">
+            <button onclick="submitForm()">送信</button>
+            <button onclick="window.close()">閉じる</button>
+        </div>
+        <p id="submission-message" style="display:none;"></p>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyCkMjaqYdb_AGyYLbMUiuCZ01aQkeoTBnIOI2e8lcKzLJ2Blue7O0TeGNVdG27WdOX/exec';
+        const errorMessageElement = document.getElementById('error-message');
+        const submissionMessageElement = document.getElementById('submission-message');
+
+        function submitForm() {
+            const check1 = document.getElementById('check1');
+            const check2 = document.getElementById('check2');
+            const idInput = document.getElementById('id');
+
+            if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
+                errorMessageElement.textContent = '※マークはぜんぶ入力してね';
+                submissionMessageElement.style.display = 'none';
+                return;
+            }
+
+            errorMessageElement.textContent = ''; // エラーメッセージをクリア
+
+            const formData = new FormData();
+            formData.append('id', idInput.value);
+            formData.append('nickname', document.getElementById('nickname').value);
+
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' // CORSエラーを避けるための設定
+            })
+            .then(response => response.json())
+            .then(data => {
+                submissionMessageElement.textContent = data.message;
+                submissionMessageElement.style.display = 'block';
+                document.querySelector('.form-container').style.display = 'none'; // フォームを非表示にする
+                document.querySelector('.button-container').style.display = 'none'; // ボタンを非表示にする
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                errorMessageElement.textContent = '送信に失敗しました。しばらく経ってから再度お試しください。';
+                submissionMessageElement.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
