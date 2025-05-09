@@ -276,19 +276,23 @@
 
 <script>
 const submitButton = document.getElementById('submitButton');
-const disableDuration = 2000; // 無効化する時間 (ミリ秒)
+const disableDuration = 3000; // 無効化する時間 (ミリ秒) を長くしてみる
+let isSubmitting = false; // 送信中フラグを追加
 
 function disableSubmitButton() {
-  if (!submitButton) {
-    console.error("送信ボタンが見つかりません。IDが 'submitButton' に設定されているか確認してください。");
-    return;
+  if (!submitButton || isSubmitting) {
+    return; // ボタンが存在しないか、送信中の場合は何もしない
   }
+
+  isSubmitting = true;
   submitButton.disabled = true; // ボタンを無効化
 
-  // 一定時間後にボタンを再度有効化する
+  // 一定時間後にボタンを再度有効化し、送信中フラグをリセット
   setTimeout(() => {
-    submitButton.disabled = false;
-    // 必要であれば、ボタンのテキストを元に戻すなどの処理もここに追加できます
+    if (submitButton) {
+      submitButton.disabled = false;
+    }
+    isSubmitting = false;
   }, disableDuration);
 
   // ここで実際のフォーム送信処理を行う既存の submitForm 関数を呼び出す
@@ -296,6 +300,7 @@ function disableSubmitButton() {
 }
 
 async function submitForm() {
+  // (既存の submitForm 関数のコード)
   const check1 = document.getElementById('check1');
   const check2 = document.getElementById('check2');
   const check3 = document.getElementById('check3');
@@ -311,6 +316,10 @@ async function submitForm() {
   if (!check1.checked || !check2.checked || !check3.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
     errorMessage.textContent = 'ぜんぶ入力してから送信してね';
     errorMessage.style.display = 'block';
+    isSubmitting = false; // エラー発生時は送信中フラグをリセット
+    if (submitButton) {
+      submitButton.disabled = false; // ボタンを有効に戻す
+    }
     return;
   }
 
@@ -339,6 +348,10 @@ async function submitForm() {
       if (data.result === 'error' && data.message === 'reCAPTCHA validation failed') {
         errorMessage.textContent = 'ボットの可能性があるため、送信できませんでした。';
         errorMessage.style.display = 'block';
+        isSubmitting = false; // エラー発生時は送信中フラグをリセット
+        if (submitButton) {
+          submitButton.disabled = false; // ボタンを有効に戻す
+        }
         return;
       }
 
@@ -350,7 +363,10 @@ async function submitForm() {
       errorMessage.style.display = 'block';
       console.error('Error!', error.message);
     } finally {
-      // ボタンの有効化は disableSubmitButton 関数で行うため、ここでは不要
+      isSubmitting = false; // 最終的に送信中フラグをリセット
+      if (submitButton) {
+        submitButton.disabled = false; // 最終的にボタンを有効に戻す
+      }
     }
   });
 }
