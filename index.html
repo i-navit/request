@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ぼっちんガイド フレンド申請フォーム</title>
     <style>
-        /* ② ブラウザデフォルトの padding と margin を 0 に設定 */
+        /* ブラウザデフォルトの padding と margin を 0 に設定 */
         body, h1, p, div, form, label, input, button {
             margin: 0;
             padding: 0;
@@ -31,7 +31,7 @@
             align-items: center;
             gap: 15px;
             font-size: 1.5em;
-            margin-top: 10px;
+            margin-top: 0px;
         }
 
         h1 img {
@@ -52,23 +52,36 @@
             width: 90%;
             max-width: 500px;
             box-sizing: border-box;
-            margin-bottom: 30px; /* ② フォーム下の余白を追加 */
+            margin-bottom: 20px; /* ② フォーム下の余白を追加 */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 子要素を中央揃え */
+        }
+
+        #error-area {
+            height: 12px; /* エラーメッセージの表示領域を少し狭く */
+            margin-top: 0px; /* 上のスペースを狭く */
+            margin-bottom: 12px; /* エラーメッセージ領域の下のスペースを少し広げる */
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         #error-message {
             color: red;
             font-weight: bold;
-            text-align: center;
-            margin-top: 10px;
+            display: none;
         }
 
         .checkbox-group {
             margin-bottom: 25px;
             margin-top: 5px;
+            width: 100%; /* 親要素いっぱいに広げる */
+            box-sizing: border-box;
         }
 
         .checkbox-text {
-            margin-bottom: 10px;
+            margin-bottom: 10px; /* 「※マークはぜんぶ入力してね」の下の余白を調整 */
             color: #555;
         }
 
@@ -89,12 +102,14 @@
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 15px;
+            width: 100%; /* 親要素いっぱいに広げる */
+            box-sizing: border-box;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: bold;
             color: #555;
         }
@@ -118,9 +133,12 @@
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-top: 20px; /* 送信ボタン上の余白を少し小さく */
+            margin-top: 10px;
+            margin-bottom: 0px; /* 送信ボタン下の余白をなくす */
             flex-direction: column; /* ボタンと注意書きを縦に並べる */
             align-items: center; /* 中央揃え */
+            width: 100%; /* 親要素いっぱいに広げる */
+            box-sizing: border-box;
         }
 
         .button-container button {
@@ -134,6 +152,7 @@
             transition: background-color 0.3s ease;
             width: 100%; /* ボタンを親要素いっぱいに広げる */
             max-width: 300px; /* ボタンの最大幅を設定 */
+            box-sizing: border-box;
         }
 
         .button-container button:first-child {
@@ -159,6 +178,8 @@
 
         #form-area {
             display: block; /* フォーム表示エリア */
+            width: 90%; /* フォーム領域の幅を固定 */
+            max-width: 500px; /* フォーム領域の最大幅を固定 */
         }
 
         #message-area {
@@ -166,14 +187,17 @@
             text-align: center;
             margin-top: 30px;
             font-size: 20px;
-            background-color: #fff; /* ③ メッセージエリアの背景を白に */
-            padding: 20px; /* ③ メッセージエリアにもpaddingを追加して見やすく */
-            border-radius: 8px; /* ③ メッセージエリアにも角丸を追加 */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* ③ メッセージエリアにも影を追加 */
+            background-color: #fff; /* メッセージエリアの背景を白に */
+            padding: 20px; /* メッセージエリアにもpaddingを追加して見やすく */
+            border-radius: 8px; /* メッセージエリアにも角丸を追加 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* メッセージエリアにも影を追加 */
+            width: 90%; /* メッセージ領域の幅をフォームと同じに */
+            max-width: 500px; /* メッセージ領域の最大幅をフォームと同じに */
+            box-sizing: border-box; /* padding, border を含めた幅にする */
         }
 
         #message-area p {
-            margin-bottom: 0; /* ③ メッセージ内のp要素のデフォルトmarginを削除 */
+            margin-bottom: 0; /* メッセージ内のp要素のデフォルトmarginを削除 */
         }
 
         /* ルビの表示位置を調整 */
@@ -184,7 +208,7 @@
 
         rt {
             display: block;
-            font-size: 0.7em; /* ルビの文字サイズを調整 */
+            font-size: 0.6em; /* ルビの文字サイズを調整 */
             color: gray;
             text-align: center; /* ルビを中央揃え */
         }
@@ -199,22 +223,26 @@
             font-weight: bold;
             color: blue;
         }
+
+        .checkbox-text {
+            margin-bottom: 12px; /* 「※マークはぜんぶ入力してね」の下の余白を2px多く */
+            color: #555;
+        }
     </style>
 </head>
 <body>
     <h1>
         <img src="https://github.com/i-navit/request/blob/main/bottin.jpg?raw=true" alt="ぼっちんガイド">
-        <div>ぼっちんガイド<br>フレンド申請フォーム10</div>
+        <div>ぼっちんガイド<br>フレンド申請フォーム11</div>
     </h1>
     <div id="form-area" class="form-container">
-        <p id="error-message" class="error"></p>
         <div class="checkbox-group" style="margin-top: 5px;">
-            <div class="checkbox-text"><span class="required-mark">※</span><ruby><rt style="color: gray;">がいよう</rt>概要</ruby><ruby><rt style="color: gray;">らん</rt>欄</ruby>の<ruby><rt style="color: gray;">さんか</rt>参加</ruby><ruby><rt style="color: gray;">ほうほう</rt>方法</ruby>は<ruby><rt style="color: gray;">よ</rt>読</ruby>みましたか？</div>
+            <div class="checkbox-text"><span class="required-mark">※</span><ruby><rt style="color: gray;">がいようらん</rt>概要欄</ruby>の<ruby><rt style="color: gray;">さんかほうほう</rt>参加方法</ruby>は<ruby><rt style="color: gray;">よ</rt>読</ruby>みましたか？</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check1" name="check1" required>
                 <label for="check1"><ruby><rt style="color: gray;">よ</rt>読</ruby>みました</label>
             </div>
-            <div class="checkbox-text"><span class="required-mark">※</span>セキュリティ<ruby><rt style="color: gray;">きょうか</rt>強化</ruby>のため、<ruby><rt style="color: gray;">はじ</rt>初めて</ruby><ruby><rt style="color: gray;">さんか</rt>参加</ruby>される<ruby><rt style="color: gray;">かた</rt>方</ruby>は、<ruby><rt style="color: gray;">いちじてき</rt>一時的</ruby>なフレンドとして<ruby><rt style="color: gray;">はいしん</rt>配信</ruby><ruby><rt style="color: gray;">ご</rt>後</ruby>フレンド<ruby><rt style="color: gray;">せいり</rt>整理</ruby>、<ruby><rt style="color: gray;">さくじょ</rt>削除</ruby>させていただく<ruby><rt style="color: gray;">ばあい</rt>場合</ruby>があります。</div>
+            <div class="checkbox-text"><span class="required-mark">※</span>セキュリティ<ruby><rt style="color: gray;">きょうか</rt>強化</ruby>のため、<ruby><rt style="color: gray;">はじ</rt>初めて</ruby><ruby><rt style="color: gray;">さんか</rt>参加</ruby>される<ruby><rt style="color: gray;">かた</rt>方</ruby>は、<ruby><rt style="color: gray;">いちじてき</rt>一時的</ruby>なフレンドとして<ruby><rt style="color: gray;">はいしんご</rt>配信後</ruby>フレンド<ruby><rt style="color: gray;">せいり</rt>整理</ruby>・<ruby><rt style="color: gray;">さくじょ</rt>削除</ruby>させていただく<ruby><rt style="color: gray;">ばあい</rt>場合があります</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check2" name="check2" required>
                 <label for="check2"><ruby><rt style="color: gray;">わ</rt>分</ruby>かりました</label>
@@ -227,6 +255,9 @@
         <div class="form-group">
             <label for="nickname">なんて<ruby><rt style="color: gray;">よ</rt>呼</ruby>んでほしい？</label>
             <input type="text" id="nickname" name="nickname" placeholder="例：ピーリーボット">
+        </div>
+        <div id="error-area">
+            <p id="error-message" class="error"></p>
         </div>
         <div class="button-container">
             <button onclick="submitForm()">送信</button>
@@ -243,6 +274,7 @@
             const idInput = document.getElementById('id');
             const nicknameInput = document.getElementById('nickname');
             const errorMessage = document.getElementById('error-message');
+            const errorArea = document.getElementById('error-area');
             const formArea = document.getElementById('form-area');
             const messageArea = document.getElementById('message-area');
             const completionMessage = document.getElementById('completion-message');
@@ -250,10 +282,12 @@
 
             if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
                 errorMessage.textContent = '※マークはぜんぶ入力してね';
+                errorMessage.style.display = 'block';
                 return;
             }
 
             errorMessage.textContent = '';
+            errorMessage.style.display = 'none';
 
             const timestamp = new Date().toLocaleString('ja-JP');
             const formData = new FormData();
@@ -276,6 +310,7 @@
                 messageArea.style.display = 'block';
             } catch (error) {
                 errorMessage.textContent = '送信に失敗しました。';
+                errorMessage.style.display = 'block';
                 console.error('Error!', error.message);
             }
         }
