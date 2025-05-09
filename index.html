@@ -274,53 +274,64 @@
         <p id="completion-message"></p>
     </div>
     <script>
-        async function submitForm() {
-            const check1 = document.getElementById('check1');
-            const check2 = document.getElementById('check2');
-            const check3 = document.getElementById('check3');
-            const idInput = document.getElementById('id');
-            const nicknameInput = document.getElementById('nickname');
-            const errorMessage = document.getElementById('error-message');
-            const errorArea = document.getElementById('error-area');
-            const formArea = document.getElementById('form-area');
-            const messageArea = document.getElementById('message-area');
-            const completionMessage = document.getElementById('completion-message');
-            const randomNumber = Math.floor(Math.random() * 900) + 100;
+async function submitForm() {
+  const check1 = document.getElementById('check1');
+  const check2 = document.getElementById('check2');
+  const check3 = document.getElementById('check3');
+  const idInput = document.getElementById('id');
+  const nicknameInput = document.getElementById('nickname');
+  const errorMessage = document.getElementById('error-message');
+  const errorArea = document.getElementById('error-area');
+  const formArea = document.getElementById('form-area');
+  const messageArea = document.getElementById('message-area');
+  const completionMessage = document.getElementById('completion-message');
+  const randomNumber = Math.floor(Math.random() * 900) + 100;
 
-            if (!check1.checked || !check2.checked || !check3.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
-                errorMessage.textContent = 'ぜんぶ入力してから送信してね';
-                errorMessage.style.display = 'block';
-                return;
-            }
+  if (!check1.checked || !check2.checked || !check3.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
+    errorMessage.textContent = 'ぜんぶ入力してから送信してね';
+    errorMessage.style.display = 'block';
+    return;
+  }
 
-            errorMessage.textContent = '';
-            errorMessage.style.display = 'none';
+  errorMessage.textContent = '';
+  errorMessage.style.display = 'none';
 
-            const timestamp = new Date().toLocaleString('ja-JP');
-            const formData = new FormData();
-            formData.append('timestamp', timestamp);
-            formData.append('randomNumber', randomNumber);
-            formData.append('id', idInput.value.trim());
-            formData.append('nickname', nicknameInput.value.trim());
+  grecaptcha.ready(async () => {
+    const token = await grecaptcha.execute('6Lf6STQrAAAAAOrsIXuWUujmwytnGlS8DGd_KsBe', { action: 'submit' });
+    const timestamp = new Date().toLocaleString('ja-JP');
+    const formData = new FormData();
+    formData.append('timestamp', timestamp);
+    formData.append('randomNumber', randomNumber);
+    formData.append('id', idInput.value.trim());
+    formData.append('nickname', nicknameInput.value.trim());
+    formData.append('recaptcha_token', token); // トークンをformDataに追加
 
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwR-Idcs24GNZi6Frno84JQFWbaUsmQ8vx5R0czKxbB6Tk3DWylRYr7GNFj6vU2uxoAbQ/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwR-Idcs24GNZi6Frno84JQFWbaUsmQ8vx5R0czKxbB6Tk3DWylRYr7GNFj6vU2uxoAbQ/exec';
 
-            try {
-                const response = await fetch(scriptURL, {
-                    method: 'POST',
-                    body: formData,
-                    mode: 'no-cors'
-                });
+    try {
+      const response = await fetch(scriptURL, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      });
+      const data = await response.json();
+      if (data.result === 'error' && data.message === 'reCAPTCHA validation failed') {
+        errorMessage.textContent = 'ボットの可能性があるため、送信できませんでした。';
+        errorMessage.style.display = 'block';
+        return;
+      }
 
-                formArea.style.display = 'none';
-                completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br><span class="highlight-underline"><ruby><rt style="color: gray;">さんかきぼう</rt>参加希望</ruby>！<span class="highlight-number">${randomNumber}</span><ruby><rt style="color: gray;">ばん</rt>番</ruby></span><br>とチャット<ruby><rt style="color: gray;">らん</rt>欄</ruby>にコメントしてね`;
-                messageArea.style.display = 'block';
-            } catch (error) {
-                errorMessage.textContent = '<ruby><rt style="color: gray;">そうしん</rt>送信</ruby>に<ruby><rt style="color: gray;">しっぱい</rt>失敗</ruby>しました。';
-                errorMessage.style.display = 'block';
-                console.error('Error!', error.message);
-            }
-        }
+      formArea.style.display = 'none';
+      completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br><span class="highlight-underline"><ruby><rt style="color: gray;">さんかきぼう</rt>参加希望</ruby>！<span class="highlight-number">${randomNumber}</span><ruby><rt style="color: gray;">ばん</rt>番</ruby></span><br>とチャット<ruby><rt style="color: gray;">らん</rt>欄</ruby>にコメントしてね`;
+      messageArea.style.display = 'block';
+    } catch (error) {
+      errorMessage.textContent = '<ruby><rt style="color: gray;">そうしん</rt>送信</ruby>に<ruby><rt style="color: gray;">しっぱい</rt>失敗</ruby>しました。';
+      errorMessage.style.display = 'block';
+      console.error('Error!', error.message);
+    }
+  });
+}
+
     </script>
 </body>
 </html>
