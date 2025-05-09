@@ -279,6 +279,10 @@ const submitButton = document.getElementById('submitButton');
 const disableDuration = 2000; // 無効化する時間 (ミリ秒)
 
 function disableSubmitButton() {
+  if (!submitButton) {
+    console.error("送信ボタンが見つかりません。IDが 'submitButton' に設定されているか確認してください。");
+    return;
+  }
   submitButton.disabled = true; // ボタンを無効化
 
   // 一定時間後にボタンを再度有効化する
