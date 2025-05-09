@@ -313,7 +313,6 @@ async function submitForm() {
       const response = await fetch(scriptURL, {
         method: 'POST',
         body: formData,
-        // mode: 'no-cors' // コメントアウトまたは削除
       });
       const data = await response.json();
       if (data.result === 'error' && data.message === 'reCAPTCHA validation failed') {
