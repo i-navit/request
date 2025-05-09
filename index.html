@@ -273,7 +273,24 @@
     <div id="message-area" style="display:none;">
         <p id="completion-message"></p>
     </div>
-    <script>
+
+<script>
+const submitButton = document.getElementById('submitButton');
+const disableDuration = 2000; // 無効化する時間 (ミリ秒)
+
+function disableSubmitButton() {
+  submitButton.disabled = true; // ボタンを無効化
+
+  // 一定時間後にボタンを再度有効化する
+  setTimeout(() => {
+    submitButton.disabled = false;
+    // 必要であれば、ボタンのテキストを元に戻すなどの処理もここに追加できます
+  }, disableDuration);
+
+  // ここで実際のフォーム送信処理を行う既存の submitForm 関数を呼び出す
+  submitForm();
+}
+
 async function submitForm() {
   const check1 = document.getElementById('check1');
   const check2 = document.getElementById('check2');
@@ -308,7 +325,7 @@ async function submitForm() {
 
     // const scriptURL = 'https://script.google.com/macros/s/AKfycbwR-Idcs24GNZi6Frno84JQFWbaUsmQ8vx5R0czKxbB6Tk3DWylRYr7GNFj6vU2uxoAbQ/exec';
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwfeUSKG0Adf0D681R-bshmoj_R31OxJbwdDieZt3PqnPvo9ul3MndcUUf2RB1-Q5ighQ/exec';
-      
+
     try {
       const response = await fetch(scriptURL, {
         method: 'POST',
@@ -328,10 +345,12 @@ async function submitForm() {
       errorMessage.textContent = '<ruby><rt style="color: gray;">そうしん</rt>送信</ruby>に<ruby><rt style="color: gray;">しっぱい</rt>失敗</ruby>しました。';
       errorMessage.style.display = 'block';
       console.error('Error!', error.message);
+    } finally {
+      // ボタンの有効化は disableSubmitButton 関数で行うため、ここでは不要
     }
   });
 }
-
-    </script>
+</script>
+    
 </body>
 </html>
