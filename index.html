@@ -80,11 +80,6 @@
             box-sizing: border-box;
         }
 
-        .checkbox-text {
-            margin-bottom: 10px; /* 「※マークはぜんぶ入力してね」の下の余白を調整 */
-            color: #555;
-        }
-
         .checkbox-item {
             display: flex;
             align-items: center;
@@ -225,7 +220,7 @@
         }
 
         .checkbox-text {
-            margin-bottom: 12px; /* 「※マークはぜんぶ入力してね」の下の余白を2px多く */
+            margin-bottom: 12px; /* ぜんぶ入力してねの下の余白 */
             color: #555;
         }
     </style>
@@ -233,7 +228,7 @@
 <body>
     <h1>
         <img src="https://github.com/i-navit/request/blob/main/bottin.jpg?raw=true" alt="ぼっちんガイド">
-        <div>ぼっちんガイド<br>フレンド申請フォーム11</div>
+        <div>ぼっちんガイド<br>フレンド申請フォーム1</div>
     </h1>
     <div id="form-area" class="form-container">
         <div class="checkbox-group" style="margin-top: 5px;">
@@ -253,8 +248,8 @@
             <input type="text" id="id" name="id" placeholder="例：PeelyBot1234" required>
         </div>
         <div class="form-group">
-            <label for="nickname">なんて<ruby><rt style="color: gray;">よ</rt>呼</ruby>んでほしい？</label>
-            <input type="text" id="nickname" name="nickname" placeholder="例：ピーリーボット">
+            <label for="nickname"><span class="required-mark">※</span>なんて<ruby><rt style="color: gray;">よ</rt>呼</ruby>んでほしい？</label>
+            <input type="text" id="nickname" name="nickname" placeholder="例：ピーリーボット" required>
         </div>
         <div id="error-area">
             <p id="error-message" class="error"></p>
@@ -280,8 +275,8 @@
             const completionMessage = document.getElementById('completion-message');
             const randomNumber = Math.floor(Math.random() * 900) + 100;
 
-            if (!check1.checked || !check2.checked || idInput.value.trim() === '') {
-                errorMessage.textContent = '※マークはぜんぶ入力してね';
+            if (!check1.checked || !check2.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
+                errorMessage.textContent = 'ぜんぶ入力してから送信してね';
                 errorMessage.style.display = 'block';
                 return;
             }
