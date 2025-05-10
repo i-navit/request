@@ -340,6 +340,14 @@
         }
 
 /* ボタン風スタイル */
+.centered-text {
+  text-align: center; /* 段落内の要素を中央寄せにする */
+  margin-bottom: 5px; /* 下側の余白を少なくする */
+}
+.link-btn {
+  text-align: center; /* 段落内の要素を中央寄せにする */
+  margin-top: 0; /* 上側の余白をなくすことで、前の要素との間隔を確実に狭める */
+}
 .link-btn a {
   display: inline-block; /* インラインブロック要素にする */
   padding: 3px 20px; /* ボタンの内側の余白（上下・左右） */
@@ -347,6 +355,7 @@
   text-decoration: none; /* 下線を非表示 */
   border: 2px solid transparent; /* ボタンの枠線を透明に設定 */
   transition: all 0.3s ease; /* ホバー時の変化をなめらかに */
+  margin: 5px 0; /* ボタン自体の上下に少し余白を追加（これはボタン内の余白とは別です） */
 }
 .link-btn a:hover {
   background-color: transparent; /* ホバー時に背景色を透明に設定 */
@@ -414,7 +423,7 @@
         <div class="overlay-content">
             <h2>参加方法とルール</h2>
 
-<p>読むのがむずかしい人は</p>
+<p class="centered-text">読むのがむずかしい人は</p>
 <p class="link-btn color"><a href="https://www.youtube.com/shorts/o8qFuRdrESI">ショート動画を見てね</a></p>
 
 <p>
