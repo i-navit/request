@@ -339,6 +339,28 @@
             text-align: center;
         }
 
+/* ボタン風スタイル */
+.link-btn a {
+  display: inline-block; /* インラインブロック要素にする */
+  padding: 3px 20px; /* ボタンの内側の余白（上下・左右） */
+  color: white; /* 文字色を白に設定 */
+  text-decoration: none; /* 下線を非表示 */
+  border: 2px solid transparent; /* ボタンの枠線を透明に設定 */
+  transition: all 0.3s ease; /* ホバー時の変化をなめらかに */
+}
+.link-btn a:hover {
+  background-color: transparent; /* ホバー時に背景色を透明に設定 */
+}
+.color a{
+/* ボタンの色をパステル紫に設定 */
+--btn-color:#a78acb; /* 少し濃い目のパステル紫のカラーコード */
+  background-color: var(--btn-color);
+}
+.color a:hover {
+  color: var(--btn-color);
+  border-color:var(--btn-color);
+}
+
     </style>
 </head>
 <body>
@@ -391,6 +413,10 @@
     <div id="rulesOverlay" class="overlay">
         <div class="overlay-content">
             <h2>参加方法とルール</h2>
+
+<p>読むのがむずかしい人は</p>
+<p class="link-btn color"><a href="https://www.youtube.com/shorts/o8qFuRdrESI">ショート動画を見てね</a></p>
+
 <p>
 【コメント💬チャット欄のマナー】<br>
 🚫他の人が不快になるコメント<br>
