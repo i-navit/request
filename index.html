@@ -46,6 +46,26 @@
             line-height: 1.2;
         }
 
+        /* 参加方法ボタンのスタイルはそのまま */
+        #showRulesButton {
+            background-color: #4CAF50; /* 緑色のボタン */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-bottom: 20px; /* フォーム項目との間に余白 */
+            transition: background-color 0.3s ease;
+            width: 100%; /* 親要素 (form-container) いっぱいに広げる */
+            box-sizing: border-box;
+        }
+
+        #showRulesButton:hover {
+            background-color: #45a049; /* ホバー時の色 */
+        }
+
+
         .form-container {
             background-color: #fff;
             padding: 30px;
@@ -77,7 +97,7 @@
 
         .checkbox-group {
             margin-bottom: 25px;
-            margin-top: 5px;
+            margin-top: 5px; /* ボタンの直後になるため上余白を調整 */
             width: 100%; /* 親要素いっぱいに広げる */
             box-sizing: border-box;
         }
@@ -226,6 +246,99 @@
             margin-bottom: 12px; /* ぜんぶ入力してね余白 */
             color: #555;
         }
+
+        /* オーバーレイのスタイルはそのまま */
+        .overlay {
+            position: fixed; /* 画面に固定 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* 半透明の黒背景 */
+            display: none; /* 初期状態では非表示 */
+            justify-content: center; /* 水平中央揃え */
+            align-items: center; /* 垂直中央揃え */
+            z-index: 1000; /* 他の要素より手前に表示 */
+            overflow-y: auto; /* 内容が多い場合にスクロール可能にする */
+            padding: 20px; /* スマホ表示などで端に寄りすぎないように */
+            box-sizing: border-box;
+        }
+
+        .overlay-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px; /* 内容エリアの最大幅 */
+            width: 90%; /* 内容エリアの幅 */
+            position: relative; /* （閉じるボタンが下に移動したので不要ですが、残しておいても影響なし） */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-height: 90vh; /* 内容エリアの最大高さ (画面高さの90%) */
+            overflow-y: auto; /* 内容が高さより大きい場合にスクロール */
+            box-sizing: border-box;
+             /* 子要素（テキストやボタン）をflexアイテムとして縦に並べる設定を追加 */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* 基本左寄せ（ボタンはautoマージンで中央寄せ） */
+        }
+
+        /* --- 変更: 閉じるボタンのスタイル --- */
+        /* 以前の「✕」用のスタイルは削除 */
+        /* .close-button { ... } */
+
+        /* 新しい「とじる」ボタンのスタイル */
+        .overlay-content button.close-button { /* button要素でclass="close-button"を持つものに適用 */
+            /* position: static; */ /* 絶対位置指定を解除（デフォルトがstaticなので改めて指定不要だが明示的に書いても良い） */
+            /* top: auto; right: auto; */ /* 位置指定を解除 */
+            display: block; /* ブロック要素にして中央寄せ可能に */
+            margin: 30px auto 0 auto; /* 上に大きな余白、左右autoで中央寄せ */
+            font-size: 1em; /* サイズ調整 */
+            font-weight: bold; /* 太字に */
+            color: white; /* 文字色を白に */
+            background-color: #f44336; /* 赤っぽい背景色 */
+            padding: 10px 20px; /* パディング */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: fit-content; /* テキストに合わせて幅を調整 */
+            align-self: center; /* flexコンテナ内で自分自身を中央寄せ */
+        }
+
+        .overlay-content button.close-button:hover {
+            background-color: #d32f2f; /* ホバー時の色を濃く */
+            color: white; /* ホバー時も文字色は白 */
+        }
+        /* --- 変更ここまで --- */
+
+
+        .overlay-content h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+            width: 100%; /* 中央寄せを効かせるため */
+        }
+
+        .overlay-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* ルールテキスト内のrubyタグのスタイル調整（オーバーレイ内でも適用） */
+        .overlay-content ruby {
+            display: inline-block; /* pタグ内でインライン要素として扱われるように */
+            text-align: center;
+            line-height: 1; /* 行の高さを詰める */
+        }
+
+         .overlay-content rt {
+            display: block;
+            font-size: 0.5em;
+            color: gray;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -233,21 +346,22 @@
         <img src="https://i-navit.github.io/request/bottin.jpg?raw=true" alt="ぼっちんガイド">
         <div>ぼっちんガイド<br>フレンド申請フォーム</div>
     </h1>
+
     <div id="form-area" class="form-container">
-        <div class="checkbox-group" style="margin-top: 5px;">
-            <div class="checkbox-text"><span class="required-mark">※</span><ruby><rt style="color: gray;">がいようらん</rt>概要欄</ruby>の<ruby><rt style="color: gray;">さんかほうほう</rt>参加方法</ruby>とルールは<ruby><rt style="color: gray;">よ</rt>読</ruby>んだかな？</div>
+        <button id="showRulesButton">参加方法とルール</button> <div class="checkbox-group" style="margin-top: 5px;">
+             <div class="checkbox-text"><span class="required-mark">※</span><ruby><rt style="color: gray;">うえ</rt>上</ruby>の<ruby><rt style="color: gray;">さんかほうほう</rt>参加方法</ruby>とルールは<ruby><rt style="color: gray;">よ</rt>読</ruby>んだかな？</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check1" name="check1" required>
                 <label for="check1"><ruby><rt style="color: gray;">よ</rt>読</ruby>んだよ！</label>
             </div>
-            <div class="checkbox-text"><span class="required-mark">※</span><ruby><rt style="color: gray;">はいしんがい</rt>配信外</ruby>で<ruby><rt style="color: gray;">くり</rt>繰</ruby>り<ruby><rt style="color: gray;">かえ</rt>返</ruby>し<ruby><rt style="color: gray;">しょうたい</rt>招待</ruby>、<ruby><rt style="color: gray;">さんか</rt>参加</ruby>リクエストを<ruby><rt style="color: gray;">おく</rt>送</ruby>らないでね。</div>
+            <div class="checkbox-text"><span class="required-mark">※</span><ruby><rt style="color: gray;">はいしんがい</rt>配信外</ruby>で<ruby><rt style="color: gray;">くり</rt>繰</ruby>り<ruby><rt style="color: gray;">かえ</rt>返</ruby>し<ruby><rt style="color: gray;">しょうたい</rt>招待</ruby>・<ruby><rt style="color: gray;">さんか</rt>参加</ruby>リクエストを<ruby><rt style="color: gray;">おく</rt>送</ruby>らないでね。</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check2" name="check2" required>
                 <label for="check2"><ruby><rt style="color: gray;">わ</rt>分</ruby>かったよ</label>
             </div>
             <div class="checkbox-text">
                 <span class="required-mark">※</span>
-                <ruby><rt style="color: gray;">ともだちどうし</rt>友達同士</ruby>パーティーを<ruby><rt style="color: gray;">く</rt>組</ruby>んでの<ruby><rt style="color: gray;">さんか</rt>参加</ruby>は<ruby><rt style="color: gray;">きんし</rt>禁止</ruby>だよ。<ruby><rt style="color: gray;">さんかきぼうしゃ</rt>参加希望者</ruby>は<ruby><rt style="color: gray;">ひとりひとり</rt>一人一人</ruby><ruby><rt style="color: gray;">とうろく</rt>登録</ruby>してね。
+                <ruby><rt style="color: gray;">ともだちどうし</rt>友達同士</ruby>パーティーを<ruby><rt style="color: gray;">く</rt>組</ruby>んでの<ruby><rt style="color: gray;">さんか</rt>参加</ruby>は<ruby><rt style="color: gray;">きんし</rt>禁止</ruby>だよ。<ruby><rt style="color: gray;">さんかきぼうしゃ</rt>参加希望者</ruby>は<ruby><rt style="color: gray;">ひとりひとりとうろく</rt>一人一人登録</ruby>してね。
             </div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check3" name="check3" required>
@@ -267,11 +381,70 @@
         </div>
         <div class="button-container">
             <button id="submitButton" onclick="disableSubmitButton()">送信</button>
-            <!--p class="button-note">送信ボタンは1回だけ押してね</p-->
         </div>
     </div>
+
     <div id="message-area" style="display:none;">
         <p id="completion-message"></p>
+    </div>
+
+    <div id="rulesOverlay" class="overlay">
+        <div class="overlay-content">
+            <h2>参加方法とルール</h2>
+<p>
+【コメント💬チャット欄のマナー】<br>
+🚫他の人が不快になるコメント<br>
+🚫過度な連投<br>
+🚫リスナー同士、配信以外の個人的会話<br>
+✨1人1人のコメント💬が素晴らしい配信を造ります💯プレイを褒めたり👍参加者同士の挨拶🙋‍♂️で配信を盛り上げてﾈ✨
+</p>
+
+<p>
+【参加ルールとお願い】<br>
+🚫死体打ち、煽り行為、チーミング、ゴースティング、チート、利敵行為は原則禁止ﾃﾞｽ<br>
+🚫フレンドさん同士のパーティを組んでの参加は禁止ﾃﾞｽ❌<br>
+🚫万が一、上記のマナーを破っている極悪非道な人に出くわしてもコメント欄に名前やユーザー名を書いたりしないでﾈ❌<br>
+🚫ボイスチャットに声以外の音声（ゲーム音、生活音、配信音など）が入らないように設定してﾈ※接触不良やマイク反響の参加者をミュートする場合がありﾏｽ🙏<br>
+🚫参加者同士のフレンド交換は禁止（フレンドメンバー同士含む）<br>
+⛔他の参加者へ不快、迷惑行為とみなされた場合は出禁、ブロックさせていただきます
+</p>
+
+<p>
+【参加型の遊び方とフレンド申請】<br>
+✅初めて参加する人のみチャット欄から専用フォームにフォートナイトIDを入力してﾈ<br>
+✅「参加希望」と発行された番号をコメント💬して【bottin-gaido】までフレンド申請してﾈ<br>
+※すでにフレンドの人も必ず「参加希望」とコメント忘れずに！<br>
+⛔フレンド同士パーティーを組んでの参加は禁止🆖❌ﾃﾞｽ。個別で「フォーム入力」「参加希望コメント」「参加リクエスト」をお願いします。<br>
+🚫参加型のみ匿名参加🆖❌<br>
+🚫暴力ハラスメントを連想させるアカウント名のフレンド申請はお断りする場合があります<br>
+🚫配信外で繰り返し招待、参加リクエストを送らないようにしてﾈ🖐<br>
+</p>
+
+<p>
+★フレンドメンバー特典★<br>
+✅参加型フレンド申請不要<br>
+✅メンバー限定カスタムマッチの参加資格<br>
+★フレンドメンバー条件★<br>
+いっぱい遊びに来てくれた方、またはメンバーのフレンドさんは新メンバーになれﾏｽ😁
+</p>
+
+<p>
+【カスタムマッチの遊び方】<br>
+✅ロビーでカスタムキー🔑をコメントしﾏｽ<br>
+✅フレンド申請、参加希望コメント不要！！カスタキーを入力して参加してﾈ🎵<br>
+👇カスタムキーの入力が分からなければコチラを見てﾈ👇<br>
+【1分でわかるカスタムマッチのやり方】<br>
+https://youtu.be/wn9Mq2jB1LQ<br>
+⛔フレンド同士パーティーを組んでの参加は禁止🆖❌ﾃﾞｽ。「埋める」マッチしてﾈ🖐<br>
+⛔カスタムマッチでは特定のユーザーの参加をブロックする方法がない為、迷惑行為などにより健全な試合が困難と判断した場合【フレンドメンバー限定カスタム】にてマッチする場合があります⛔
+</p>
+
+<p>
+※配信の様子を動画コンテンツとして使用する場合があります。予めご了承ください※
+</p>
+
+            <button class="close-button">とじる</button>
+            </div>
     </div>
 
 <script>
@@ -279,98 +452,126 @@ const submitButton = document.getElementById('submitButton');
 const disableDuration = 7000; // 無効化する時間 (ミリ秒) を長くしてみる
 let isSubmitting = false; // 送信中フラグを追加
 
+// オーバーレイ関連の要素を取得
+const showRulesButton = document.getElementById('showRulesButton');
+const rulesOverlay = document.getElementById('rulesOverlay');
+// --- 変更: 閉じるボタンはbutton要素になったのでquerySelectorで取得 ---
+const closeButton = rulesOverlay.querySelector('button.close-button');
+// --- 変更ここまで ---
+
+
 function disableSubmitButton() {
-  if (!submitButton || isSubmitting) {
-    return; // ボタンが存在しないか、送信中の場合は何もしない
-  }
-
-  isSubmitting = true;
-  submitButton.disabled = true; // ボタンを無効化
-
-  // 一定時間後にボタンを再度有効化し、送信中フラグをリセット
-  setTimeout(() => {
-    if (submitButton) {
-      submitButton.disabled = false;
+    if (!submitButton || isSubmitting) {
+        return; // ボタンが存在しないか、送信中の場合は何もしない
     }
-    isSubmitting = false;
-  }, disableDuration);
 
-  // ここで実際のフォーム送信処理を行う既存の submitForm 関数を呼び出す
-  submitForm();
+    isSubmitting = true;
+    submitButton.disabled = true; // ボタンを無効化
+
+    // 一定時間後にボタンを再度有効化し、送信中フラグをリセット
+    setTimeout(() => {
+        if (submitButton) {
+            submitButton.disabled = false;
+        }
+        isSubmitting = false;
+    }, disableDuration);
+
+    // ここで実際のフォーム送信処理を行う既存の submitForm 関数を呼び出す
+    submitForm();
 }
 
 async function submitForm() {
-  // (既存の submitForm 関数のコード)
-  const check1 = document.getElementById('check1');
-  const check2 = document.getElementById('check2');
-  const check3 = document.getElementById('check3');
-  const idInput = document.getElementById('id');
-  const nicknameInput = document.getElementById('nickname');
-  const errorMessage = document.getElementById('error-message');
-  const errorArea = document.getElementById('error-area');
-  const formArea = document.getElementById('form-area');
-  const messageArea = document.getElementById('message-area');
-  const completionMessage = document.getElementById('completion-message');
-  const randomNumber = Math.floor(Math.random() * 900) + 100;
+    // (既存の submitForm 関数のコード)
+    const check1 = document.getElementById('check1');
+    const check2 = document.getElementById('check2');
+    const check3 = document.getElementById('check3');
+    const idInput = document.getElementById('id');
+    const nicknameInput = document.getElementById('nickname');
+    const errorMessage = document.getElementById('error-message');
+    const errorArea = document.getElementById('error-area');
+    const formArea = document.getElementById('form-area');
+    const messageArea = document.getElementById('message-area');
+    const completionMessage = document.getElementById('completion-message');
+    const randomNumber = Math.floor(Math.random() * 900) + 100;
 
-  if (!check1.checked || !check2.checked || !check3.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
-    errorMessage.textContent = 'ぜんぶ入力してから送信してね';
-    errorMessage.style.display = 'block';
-    isSubmitting = false; // エラー発生時は送信中フラグをリセット
-    if (submitButton) {
-      submitButton.disabled = false; // ボタンを有効に戻す
-    }
-    return;
-  }
-
-  errorMessage.textContent = '';
-  errorMessage.style.display = 'none';
-
-  grecaptcha.ready(async () => {
-    const token = await grecaptcha.execute('6Lf6STQrAAAAAOrsIXuWUujmwytnGlS8DGd_KsBe', { action: 'submit' });
-    const timestamp = new Date().toLocaleString('ja-JP');
-    const formData = new FormData();
-    formData.append('timestamp', timestamp);
-    formData.append('randomNumber', randomNumber);
-    formData.append('id', idInput.value.trim());
-    formData.append('nickname', nicknameInput.value.trim());
-    formData.append('recaptcha_token', token); // トークンをformDataに追加
-
-    // const scriptURL = 'https://script.google.com/macros/s/AKfycbwR-Idcs24GNZi6Frno84JQFWbaUsmQ8vx5R0czKxbB6Tk3DWylRYr7GNFj6vU2uxoAbQ/exec';
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwfeUSKG0Adf0D681R-bshmoj_R31OxJbwdDieZt3PqnPvo9ul3MndcUUf2RB1-Q5ighQ/exec';
-
-    try {
-      const response = await fetch(scriptURL, {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await response.json();
-      if (data.result === 'error' && data.message === 'reCAPTCHA validation failed') {
-        errorMessage.textContent = 'ボットの可能性があるため、送信できませんでした。';
+    if (!check1.checked || !check2.checked || !check3.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
+        errorMessage.textContent = 'ぜんぶ入力してから送信してね';
         errorMessage.style.display = 'block';
         isSubmitting = false; // エラー発生時は送信中フラグをリセット
         if (submitButton) {
-          submitButton.disabled = false; // ボタンを有効に戻す
+            submitButton.disabled = false; // ボタンを有効に戻す
         }
         return;
-      }
-
-      formArea.style.display = 'none';
-      completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br><span class="highlight-underline"><ruby><rt style="color: gray;">さんかきぼう</rt>参加希望</ruby>！<span class="highlight-number">${randomNumber}</span><ruby><rt style="color: gray;">ばん</rt>番</ruby></span><br>とチャット<ruby><rt style="color: gray;">らん</rt>欄</ruby>にコメントしてね`;
-      messageArea.style.display = 'block';
-    } catch (error) {
-      errorMessage.textContent = '送信に失敗しました';
-      errorMessage.style.display = 'block';
-      console.error('Error!', error.message);
-    } finally {
-      isSubmitting = false; // 最終的に送信中フラグをリセット
-      if (submitButton) {
-        submitButton.disabled = false; // 最終的にボタンを有効に戻す
-      }
     }
-  });
+
+    errorMessage.textContent = '';
+    errorMessage.style.display = 'none';
+
+    grecaptcha.ready(async () => {
+        const token = await grecaptcha.execute('6Lf6STQrAAAAAOrsIXuWUujmwytnGlS8DGd_KsBe', { action: 'submit' });
+        const timestamp = new Date().toLocaleString('ja-JP');
+        const formData = new FormData();
+        formData.append('timestamp', timestamp);
+        formData.append('randomNumber', randomNumber);
+        formData.append('id', idInput.value.trim());
+        formData.append('nickname', nicknameInput.value.trim());
+        formData.append('recaptcha_token', token); // トークンをformDataに追加
+
+        // const scriptURL = 'https://script.google.com/macros/s/AKfycbwR-Idcs24GNZi6Frno84JQFWbaUsmQ8vx5R0czKxbB6Tk3DWylRYr7GNFj6vU2uxoAbQ/exec';
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwfeUSKG0Adf0D681R-bshmoj_R31OxJbwdDieZt3PqnPvo9ul3MndcUUf2RB1-Q5ighQ/exec';
+
+
+        try {
+            const response = await fetch(scriptURL, {
+                method: 'POST',
+                body: formData,
+            });
+            const data = await response.json();
+             if (data.result === 'error' && data.message === 'reCAPTCHA validation failed') {
+                errorMessage.textContent = 'ボットの可能性があるため、送信できませんでした';
+                errorMessage.style.display = 'block';
+                isSubmitting = false; // エラー発生時は送信中フラグをリセット
+                if (submitButton) {
+                  submitButton.disabled = false; // ボタンを有効に戻す
+                }
+                return;
+            }
+
+            formArea.style.display = 'none';
+            completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br><span class="highlight-underline"><ruby><rt style="color: gray;">さんかきぼう</rt>参加希望</ruby>！<span class="highlight-number">${randomNumber}</span><ruby><rt style="color: gray;">ばん</rt>番</ruby></span><br>とチャット<ruby><rt style="color: gray;">らん</rt>欄</ruby>にコメントしてね`;
+            messageArea.style.display = 'block';
+        } catch (error) {
+            errorMessage.textContent = '送信に失敗しました';
+            errorMessage.style.display = 'block';
+            console.error('Error!', error.message);
+        } finally {
+            isSubmitting = false; // 最終的に送信中フラグをリセット
+            if (submitButton) {
+                submitButton.disabled = false; // 最終的にボタンを有効に戻す
+            }
+        }
+    });
 }
+
+// オーバーレイ表示/非表示のJavaScript
+showRulesButton.addEventListener('click', () => {
+    rulesOverlay.style.display = 'flex'; // CSSでdisplay: flexに設定しているのでflexで表示
+});
+
+// 閉じるボタンがクリックされたらオーバーレイを非表示
+closeButton.addEventListener('click', () => {
+    rulesOverlay.style.display = 'none';
+});
+
+// （任意）オーバーレイの背景をクリックされたらオーバーレイを非表示
+rulesOverlay.addEventListener('click', (event) => {
+    // クリックされた要素がオーバーレイ自身であるか確認
+    if (event.target === rulesOverlay) {
+        rulesOverlay.style.display = 'none';
+    }
+});
+
 </script>
-    
+
 </body>
 </html>
