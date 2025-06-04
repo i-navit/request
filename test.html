@@ -573,7 +573,7 @@ async function submitForm() {
             }
 
             formArea.style.display = 'none';
-            completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br><span class="highlight-underline">「<span class="highlight-number">${nicknameInput.value.trim()}</span>」だよ。</span><br>とチャット<ruby><rt style="color: gray;">らん</rt>欄</ruby>で<ruby><rt style="color: gray;">おし</rt>教</ruby>えてね。<br>⬇<br>【bottin-gaido】までフレンド<ruby><rt style="color: gray;">しんせい</rt>申請</ruby>してね。`;
+            completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br><ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br><span class="highlight-underline">「<span class="highlight-number">${nicknameInput.value.trim()}</span>」だよ。</span><br>ってコメントしてね。<p>⬇</p>【bottin-gaido】までフレンド<ruby><rt style="color: gray;">しんせい</rt>申請</ruby>してね。`;
             messageArea.style.display = 'block';
         } catch (error) {
             errorMessage.textContent = '送信に失敗しました';
