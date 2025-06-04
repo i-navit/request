@@ -533,7 +533,6 @@ async function submitForm() {
     const formArea = document.getElementById('form-area');
     const messageArea = document.getElementById('message-area');
     const completionMessage = document.getElementById('completion-message');
-    const randomNumber = Math.floor(Math.random() * 900) + 100;
 
     if (!check1.checked || !check2.checked || !check3.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
         errorMessage.textContent = 'ぜんぶ入力してから送信してね';
@@ -553,13 +552,13 @@ async function submitForm() {
         const timestamp = new Date().toLocaleString('ja-JP');
         const formData = new FormData();
         formData.append('timestamp', timestamp);
-        formData.append('randomNumber', randomNumber);
+        // formData.append('randomNumber', randomNumber); // formDataへの追加を削除
         formData.append('id', idInput.value.trim());
         formData.append('nickname', nicknameInput.value.trim());
         formData.append('recaptcha_token', token); // トークンをformDataに追加
 
-        // const scriptURL = 'https://script.google.com/macros/s/AKfycbwzyj9TmHRIOmcFfDJ5eVAY_oCxnHlqL3wEx3KiM4MRdRd8B0LgeulrjfZXjBUfzkP1Eg/exec';
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzlbeh-HeoYQUIBUN5L7-wW2alzrTIiCQoZ8mSqmsUeIMc8nMiAcumV6vWaY-kWN9qiiQ/exec';
+        // Google Apps Script 最新のデプロイURLを貼り付ける
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz7BV1Mln41oBatgjymjb_fVfJjJLfGT9EcOeFFvHliRYTAMufwaTFld3eklD6mdW0fGw/exec';
 
         try {
             const response = await fetch(scriptURL, {
@@ -578,7 +577,6 @@ async function submitForm() {
             }
 
             formArea.style.display = 'none';
-            // completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br>「<span class="highlight-underline"><span class="highlight-number">${nickname}</span>だよ</span>」<br>とチャット<ruby><rt style="color: gray;">らん</rt>欄</ruby>で<ruby><rt style="color: gray;">おし</rt>教</ruby>えてね。<br>⬇<br>【bottin-gaido】までフレンド<ruby><rt style="color: gray;">しんせい</rt>申請</ruby>してね。`;
             completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br><span class="highlight-underline">「<span class="highlight-number">${nicknameInput.value.trim()}</span>」だよ。</span><br>とチャット<ruby><rt style="color: gray;">らん</rt>欄</ruby>で<ruby><rt style="color: gray;">おし</rt>教</ruby>えてね。<br>⬇<br>【bottin-gaido】までフレンド<ruby><rt style="color: gray;">しんせい</rt>申請</ruby>してね。`;
             messageArea.style.display = 'block';
         } catch (error) {
