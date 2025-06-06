@@ -242,9 +242,9 @@
             text-decoration: none !important; /* デフォルトの下線を打ち消す */
         }
 
-        .highlight-number {
+        .highlight-nickname {
             font-weight: bold;
-            color: blue;
+            color: #a78acb;
         }
 
         .checkbox-text {
@@ -548,7 +548,6 @@ async function submitForm() {
         const timestamp = new Date().toLocaleString('ja-JP');
         const formData = new FormData();
         formData.append('timestamp', timestamp);
-        // formData.append('randomNumber', randomNumber); // formDataへの追加を削除
         formData.append('id', idInput.value.trim());
         formData.append('nickname', nicknameInput.value.trim());
         formData.append('recaptcha_token', token); // トークンをformDataに追加
@@ -573,7 +572,7 @@ async function submitForm() {
             }
 
             formArea.style.display = 'none';
-            completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br><ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br>「<span class="highlight-underline"><span class="highlight-number">${nicknameInput.value.trim()}</span>が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ</span>」<br>ってコメントしてね。<p>⬇</p>【bottin-gaido】までフレンド<ruby><rt style="color: gray;">しんせい</rt>申請</ruby>してね。`;
+            completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br><ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ</span>」<br>ってコメントしてね。<p>⬇</p>【bottin-gaido】までフレンド<ruby><rt style="color: gray;">しんせい</rt>申請</ruby>してね。`;
             messageArea.style.display = 'block';
         } catch (error) {
             errorMessage.textContent = '送信に失敗しました';
