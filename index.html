@@ -485,6 +485,9 @@
     </div>
 
 <script>
+// 【！重要！】Google Apps Script 最新のデプロイURLを貼り付ける        
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzq_LL7FmgzgRb5NdvJ9_hoLGc6rzFwQ1EQHRm9PDg8ni3OPcOIVssYoH27NKAu8zlRpA/exec';
+
 const submitButton = document.getElementById('submitButton');
 const disableDuration = 10000; // 無効化する時間 (ミリ秒) を10秒にする
 let isSubmitting = false; // 送信中フラグを追加
@@ -492,10 +495,7 @@ let isSubmitting = false; // 送信中フラグを追加
 // オーバーレイ関連の要素を取得
 const showRulesButton = document.getElementById('showRulesButton');
 const rulesOverlay = document.getElementById('rulesOverlay');
-// --- 変更: 閉じるボタンはbutton要素になったのでquerySelectorで取得 ---
 const closeButton = rulesOverlay.querySelector('button.close-button');
-// --- 変更ここまで ---
-
 
 function disableSubmitButton() {
     if (!submitButton || isSubmitting) {
@@ -553,16 +553,18 @@ async function submitForm() {
         formData.append('nickname', nicknameInput.value.trim());
         formData.append('recaptcha_token', token); // トークンをformDataに追加
 
-        // 【！重要！】Google Apps Script 最新のデプロイURLを貼り付ける
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbzq_LL7FmgzgRb5NdvJ9_hoLGc6rzFwQ1EQHRm9PDg8ni3OPcOIVssYoH27NKAu8zlRpA/exec';
+        // !!! ここを削除する !!!
+        // const scriptURL = 'https://script.google.com/macros/s/AKfycbzq_LL7FmgzgRb5NdvJ9_hoLGc6rzFwQ1EQHRm9PDg8ni3OPcOIVssYoH27NKAu8zlRpA/exec';
+        // !!! この行は不要です !!!
 
         try {
-            const response = await fetch(scriptURL, {
+            // グローバルで定義した scriptURL をそのまま使う
+            const response = await fetch(scriptURL, { 
                 method: 'POST',
                 body: formData,
             });
-            const data = await response.json();
-             if (data.result === 'error' && data.message === 'reCAPTCHA validation failed') {
+            const data = await response.json(); 
+            if (data.result === 'error' && data.message === 'reCAPTCHA validation failed') {
                 errorMessage.textContent = 'ボットの可能性があるため、送信できませんでした';
                 errorMessage.style.display = 'block';
                 isSubmitting = false; // エラー発生時は送信中フラグをリセット
@@ -605,7 +607,6 @@ rulesOverlay.addEventListener('click', (event) => {
         rulesOverlay.style.display = 'none';
     }
 });
-
 </script>
 
 </body>
