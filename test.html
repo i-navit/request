@@ -544,6 +544,7 @@ async function submitForm() {
     errorMessage.style.display = 'none';
 
     grecaptcha.ready(async () => {
+        // 【！重要！】reCAPTCHAの認証(サイトキーを記入)
         const token = await grecaptcha.execute('6Lf6STQrAAAAAOrsIXuWUujmwytnGlS8DGd_KsBe', { action: 'submit' });
         const timestamp = new Date().toLocaleString('ja-JP');
         const formData = new FormData();
