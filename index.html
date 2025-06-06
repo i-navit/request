@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex,nofollow">
-    <title>16ぼっちんガイドフレンド申請フォーム</title>
+    <title>ぼっちんガイドフレンド申請フォーム</title>
     <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
     <script>/* 【！重要！】reCAPTCHAの認証(サイトキーを記入)  */</script>
     <script src="https://www.google.com/recaptcha/api.js?render=6Lf6STQrAAAAAOrsIXuWUujmwytnGlS8DGd_KsBe"></script>
@@ -552,10 +552,6 @@ async function submitForm() {
         formData.append('id', idInput.value.trim());
         formData.append('nickname', nicknameInput.value.trim());
         formData.append('recaptcha_token', token); // トークンをformDataに追加
-
-        // !!! ここを削除する !!!
-        // const scriptURL = 'https://script.google.com/macros/s/AKfycbzq_LL7FmgzgRb5NdvJ9_hoLGc6rzFwQ1EQHRm9PDg8ni3OPcOIVssYoH27NKAu8zlRpA/exec';
-        // !!! この行は不要です !!!
 
         try {
             // グローバルで定義した scriptURL をそのまま使う
