@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>定型文ワンクリックコピー</title>
+<style>
+  body {
+    font-family: sans-serif;
+    font-size: 13px;
+    padding: 5px 20px;
+    text-align: left;
+    background-color: #000;
+  }
+
+  .container {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .copyTarget {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .copyTarget:hover {
+    background-color: yellow;
+  }
+
+  .message {
+    display: none;
+    margin-top: 5px;
+    color: #FFBFEF;
+  }
+  
+  .white{
+    color: #fff;
+  }
+  .red{
+    color: #ff0000;
+  }
+
+  #customKeyContainer {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+  }
+
+  #customKeyInput {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+
+  #customKeyDisplay {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #FFBFEF;
+  }
+
+  #updateButton { /* 更新ボタンのスタイル */
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    display: block; /* ボタンを単独の行に表示 */
+  }
+
+  #updateButton:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+
+<div id="customKeyContainer">
+  <label for="customKeyInput" class="white">カスタムキーを入力してください:</label><br>
+  <input type="text" id="customKeyInput" placeholder="例: 12345">
+  <div id="customKeyDisplay" class="copyTarget" style="display: none;"></div>
+  <p class="message" id="customKeyMessage">コピー完了！</p>
+</div>
+
+<button id="updateButton">定型文を更新</button> <div id="templateTexts">
+  </div>
+
+<script>
+const SPREADSHEET_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyC6pufaGpM2IAbR1hEUwkPs2MNy00aQo0sDgfzbT_oe8CxinIU6PkmiQ2wbGUIjOpjbg/exec'; // ★★★ここをGASで発行したURLに書き換える★★★
+
+document.addEventListener('DOMContentLoaded', function() {
+  loadTemplates(); // ページの読み込み時に定型文を読み込む
+  
+  const customKeyInput = document.getElementById('customKeyInput');
+  const customKeyDisplay = document.getElementById('customKeyDisplay');
+  const customKeyMessage = document.getElementById('customKeyMessage');
+  const updateButton = document.getElementById('updateButton'); // 更新ボタンを取得
+
+  customKeyInput.addEventListener('input', function() {
+    const key = this.value;
+    if (key) {
+      customKeyDisplay.textContent = `【カスタムキー🔑${key}】`;
+      customKeyDisplay.style.display = 'block';
+    } else {
+      customKeyDisplay.style.display = 'none';
+    }
+  });
+
+  customKeyDisplay.addEventListener('click', function() {
+    const textToCopy = this.innerText;
+    navigator.clipboard.writeText(textToCopy)
+      .then(() => {
+        customKeyMessage.style.display = "block";
+        setTimeout(function() {
+          customKeyMessage.style.display = "none";
+        }, 1000);
+      })
+      .catch(err => {
+        console.error('クリップボードへの書き込みに失敗しました:', err);
+        customKeyMessage.textContent = "コピーに失敗しました。";
+        customKeyMessage.style.color = "red";
+        customKeyMessage.style.display = "block";
+        setTimeout(function() {
+          customKeyMessage.style.display = "none";
+          customKeyMessage.textContent = "コピー完了！";
+          customKeyMessage.style.color = "#FFBFEF"; // 元の色に戻す
+        }, 3000);
+      });
+  });
+
+  // 更新ボタンのクリックイベントリスナー
+  updateButton.addEventListener('click', function() {
+    loadTemplates(); // 定型文を再読み込み
+    // カスタムキーの入力フォームと表示をリセット
+    customKeyInput.value = '';
+    customKeyDisplay.style.display = 'none';
+  });
+});
+
+function loadTemplates() {
+  const templateTextsDiv = document.getElementById('templateTexts');
+  templateTextsDiv.innerHTML = ''; // 既存の定型文をクリアしてから追加
+
+  fetch(SPREADSHEET_WEB_APP_URL)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.length === 0) {
+        templateTextsDiv.innerHTML = '<p class="white">スプレッドシートに定型文がありません。</p>';
+        return;
+      }
+      data.forEach(row => {
+        const templateText = row[0];
+        if (templateText) {
+          const containerDiv = document.createElement('div');
+          containerDiv.className = 'container';
+          
+          const pTarget = document.createElement('p');
+          pTarget.className = 'copyTarget';
+          pTarget.textContent = templateText;
+          
+          const pMessage = document.createElement('p');
+          pMessage.className = 'message';
+          pMessage.textContent = 'コピー完了！';
+
+          containerDiv.appendChild(pTarget);
+          containerDiv.appendChild(pMessage);
+          templateTextsDiv.appendChild(containerDiv);
+
+          pTarget.addEventListener('click', function() {
+            const textToCopy = this.innerText;
+            const messageElement = this.nextElementSibling;
+            
+            navigator.clipboard.writeText(textToCopy)
+              .then(() => {
+                messageElement.style.display = "block";
+                setTimeout(function() {
+                  messageElement.style.display = "none";
+                }, 1000);
+              })
+              .catch(err => {
+                console.error('クリップボードへの書き込みに失敗しました:', err);
+                messageElement.textContent = "コピーに失敗しました。";
+                messageElement.style.color = "red";
+                messageElement.style.display = "block";
+                setTimeout(function() {
+                  messageElement.style.display = "none";
+                  messageElement.textContent = "コピー完了！";
+                  messageElement.style.color = "#FFBFEF";
+                }, 3000);
+              });
+          });
+        }
+      });
+    })
+    .catch(error => {
+      console.error('スプレッドシートの読み込みに失敗しました:', error);
+      templateTextsDiv.innerHTML = '<p class="red">定型文の読み込みに失敗しました。GASのURLが正しいか、アクセス権限があるか確認してください。<br>エラー: ' + error.message + '</p>';
+    });
+}
+</script>
+
+</body>
+</html>
