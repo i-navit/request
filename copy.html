@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>定型文ワンクリックコピー（スプレッドシート連携版）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   body {
     font-family: sans-serif;
@@ -9,6 +10,8 @@
     text-align: left;
     background-color: #fff;
     color: #3e3e3e;
+    /* PC表示でのベースの文字サイズを少し大きくして見やすく調整 */
+    font-size: 16px;
   }
   .container {
     width: 100%;
@@ -51,9 +54,35 @@
   }
   #customkey-input {
     width: 100%;
-    padding: 5px;
+    padding: 8px; /* 少し余白を広げる */
     box-sizing: border-box;
+    font-size: 1em; /* 親要素の文字サイズを継承 */
   }
+
+  /* ★★★【変更点②】スマホ表示用のスタイルを追加 ★★★ */
+  @media screen and (max-width: 768px) {
+    body {
+      /* 全体の文字サイズをスマホ向けに調整 */
+      font-size: 14px;
+      /* 左右の余白を少し狭くする */
+      padding: 5px 15px;
+      /* テキストが長くなった時に、変なところで改行されるのを防ぐ */
+      -webkit-text-size-adjust: 100%;
+    }
+
+    .copyTarget {
+      /* ボタン内の文字サイズを調整 (bodyに合わせる) */
+      font-size: 1em;
+      /* 上下の余白を少し広げてタップしやすくする */
+      padding: 14px 12px;
+    }
+
+    .customkey_ttl {
+      /* タイトルの文字サイズを調整 */
+      font-size: 0.9em;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -66,6 +95,8 @@
     <p class="message">コピー完了！</p>
   </div>
 </div>
+
+<hr style="margin-top:25px; margin-bottom: 25px; border-top: 1px dashed #ccc;">
 
 <div id="spreadsheet-data-container">
   <p>読み込み中...</p>
