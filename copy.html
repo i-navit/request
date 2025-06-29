@@ -10,14 +10,12 @@
     background-color: #fff;
     color: #3e3e3e;
   }
-
   .container {
     width: 100%;
     margin-bottom: 15px;
   }
-
   .copyTarget {
-    padding: 5px 10px;
+    padding: 10px 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
@@ -25,162 +23,159 @@
     box-sizing: border-box;
     text-align: left;
     cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+    transition: background-color 0.2s ease-in-out; /* アニメーションを追加 */
+    word-wrap: break-word;
   }
-
   .copyTarget:hover {
-    background-color: yellow;
+    background-color: #ffff99; /* マウスオーバー時の背景色 */
   }
-
   .message {
     display: none;
     margin-top: 5px;
     color: #ff0099;
+    font-weight: bold;
   }
-
-  .white{
+  .customkey_ttl {
+    background: #a78acb;
     color: #fff;
+    font-weight: bold;
+    padding: 0.5em 1em 0.2em;
+    display: inline-block;
+    margin-bottom: 0;
+    border-radius: 5px 5px 0 0;
   }
-  .red{
-    color: #ff0000;
+  .customkey_box {
+    border-radius: 0 5px 5px 5px;
+    background: #e0e0ff;
+    padding: 1em;
   }
-
-.customkey_ttl {
-	background: #a78acb;
-	color: #fff;
-	font-weight: bold;
-	padding: 0.5em 1em 0.2em;
-	display: inline-block;
-	margin-bottom: 0;
-	border-radius: 5px 5px 0 0;
-	}
-.customkey_box {
-	border-radius: 0 5px 5px 5px;
-	background: #e0e0ff;
-	padding: 1em;
-	}
+  #customkey-input {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+  }
 </style>
 </head>
 <body>
 
 <div class="customkey_ttl">カスタムキーを入力してね</div>
 <div class="customkey_box">
-<input type="text" id="customKeyInput" name="customkey" onkeyup="updateCustomKey()">
-<div class="container">
-  <p class="copyTarget" id="customKeyCopyTarget">カスタムキー🔑★</p>
-  <p class="message">コピー完了！</p>
-</div>
+  <input type="text" id="customkey-input" placeholder="ここにキーを入力">
+  <div class="container" style="margin-top:10px;">
+    <p class="copyTarget" id="customkey-output"></p>
+    <p class="message">コピー完了！</p>
+  </div>
 </div>
 
-<div id="spreadsheetTexts">
-  </div>
+<hr style="margin-top:25px; margin-bottom: 25px; border-top: 1px dashed #ccc;">
+
+<div id="spreadsheet-data-container">
+  <p>読み込み中...</p>
+</div>
 
 <script>
-// ①カスタムキーの即時反映と保存
-const customKeyInput = document.getElementById('customKeyInput');
-const customKeyCopyTarget = document.getElementById('customKeyCopyTarget');
+// ★★★【要設定】ステップ3でコピーしたGASのウェブアプリURLを貼り付けてね！ ★★★
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxAVo3CFefJDJKfYwmMfZlvv1IgCQdLvzZackMxaamwyQeFZZBo-1o70pmZ4YjHGPA-Ag/exec';
 
-function updateCustomKey() {
-  const customKeyValue = customKeyInput.value;
-  customKeyCopyTarget.innerText = `カスタムキー🔑${customKeyValue}★`;
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const customKeyInput = document.getElementById('customkey-input');
+  const customKeyOutput = document.getElementById('customkey-output');
+  const dataContainer = document.getElementById('spreadsheet-data-container');
+  let customKeyTemplate = '';
 
-// ページ読み込み時にカスタムキーをスプレッドシートから取得して反映
-google.script.run.withSuccessHandler(function(customKey) {
-  if (customKey) {
-    customKeyInput.value = customKey;
-    updateCustomKey();
+  // ① カスタムキーの入力にリアルタイムで反応する処理
+  customKeyInput.addEventListener('input', updateCustomKeyOutput);
+
+  function updateCustomKeyOutput() {
+    const inputValue = customKeyInput.value;
+    // テンプレートの '★' を入力値で置き換える
+    customKeyOutput.innerText = customKeyTemplate.replace('★', inputValue);
   }
-}).getCustomKey();
 
-
-// ②スプレッドシートから文章を読み込んで表示
-google.script.run.withSuccessHandler(function(data) {
-  const spreadsheetTextsDiv = document.getElementById('spreadsheetTexts');
-  data.forEach(function(text) {
-    if (text) { // 空のセルは表示しない
-      const containerDiv = document.createElement('div');
-      containerDiv.className = 'container';
-
-      const pCopyTarget = document.createElement('p');
-      pCopyTarget.className = 'copyTarget';
-      pCopyTarget.innerText = text;
-
-      const pMessage = document.createElement('p');
-      pMessage.className = 'message';
-      pMessage.innerText = 'コピー完了！';
-
-      containerDiv.appendChild(pCopyTarget);
-      containerDiv.appendChild(pMessage);
-      spreadsheetTextsDiv.appendChild(containerDiv);
-    }
-  });
-  // DOMContentLoadedの代わりにここでコピー機能を再設定
-  setupCopyFunctionality();
-}).getSpreadsheetData();
-
-// コピー機能の汎用化
-function setupCopyFunctionality() {
-  const copyTargets = document.querySelectorAll('.copyTarget');
-  const messages = document.querySelectorAll('.message');
-
-  copyTargets.forEach((target, index) => {
-    target.addEventListener('click', function() {
-      const textToCopy = this.innerText;
-      const messageElement = messages[index]; // 対応するメッセージ要素を取得
-
-      // カスタムキーの場合、カスタムキーだけをコピーするように調整
-      if (this.id === 'customKeyCopyTarget') {
-        const customKeyValue = customKeyInput.value;
-        navigator.clipboard.writeText(customKeyValue)
-          .then(() => {
-            messageElement.style.display = "block";
-            setTimeout(function() {
-              messageElement.style.display = "none";
-            }, 1000);
-            // カスタムキーをスプレッドシートに保存
-            google.script.run.saveCustomKey(customKeyValue);
-          })
-          .catch(err => {
-            console.error('クリップボードへの書き込みに失敗しました:', err);
-            messageElement.textContent = "コピーに失敗しました。";
-            messageElement.style.color = "red";
-            messageElement.style.display = "block";
-            setTimeout(function() {
-              messageElement.style.display = "none";
-              messageElement.textContent = "コピー完了！";
-              messageElement.style.color = "#ff0099"; // 元の色に戻す
-            }, 3000);
-          });
-      } else {
-        // それ以外の定型文
-        navigator.clipboard.writeText(textToCopy)
-          .then(() => {
-            messageElement.style.display = "block";
-            setTimeout(function() {
-              messageElement.style.display = "none";
-            }, 1000);
-          })
-          .catch(err => {
-            console.error('クリップボードへの書き込みに失敗しました:', err);
-            messageElement.textContent = "コピーに失敗しました。";
-            messageElement.style.color = "red";
-            messageElement.style.display = "block";
-            setTimeout(function() {
-              messageElement.style.display = "none";
-              messageElement.textContent = "コピー完了！";
-              messageElement.style.color = "#ff0099"; // 元の色に戻す
-            }, 3000);
-          });
+  // ② Googleスプレッドシートからデータを読み込む処理
+  fetch(GAS_WEB_APP_URL)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('ネットワークの応答がありませんでした。');
       }
+      return response.json();
+    })
+    .then(data => {
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      dataContainer.innerHTML = ''; // 「読み込み中...」を消去
+
+      // カスタムキーのテンプレートを更新
+      customKeyTemplate = data.customKey || 'カスタムキー🔑★';
+      updateCustomKeyOutput();
+
+      // 定型文をHTMLに描画
+      if (data.phrases.length > 0) {
+        data.phrases.forEach(phrase => {
+          const div = document.createElement('div');
+          div.className = 'container';
+
+          const pCopy = document.createElement('p');
+          pCopy.className = 'copyTarget';
+          pCopy.innerText = phrase;
+
+          const pMessage = document.createElement('p');
+          pMessage.className = 'message';
+          pMessage.innerText = 'コピー完了！';
+
+          div.appendChild(pCopy);
+          div.appendChild(pMessage);
+          dataContainer.appendChild(div);
+        });
+      } else {
+        dataContainer.innerHTML = '<p>登録されている定型文はありません。</p>';
+      }
+    })
+    .catch(error => {
+      console.error('Fetch Error:', error);
+      dataContainer.innerHTML = `<p style="color:red;">データの読み込みに失敗しました: ${error.message}</p>`;
     });
-  });
-}
+});
 
-// 初期ロード時にもコピー機能を有効にする
-// DOMContentLoadedで実行すると、GASからのデータ取得前に実行される可能性があるため、
-// `getSpreadsheetData()` の `withSuccessHandler` 内で `setupCopyFunctionality()` を呼び出すように変更。
+// ③ コピークリックイベントのセットアップ（イベント委任）
+document.body.addEventListener('click', function(event) {
+  if (event.target && event.target.classList.contains('copyTarget')) {
+    const targetElement = event.target;
+    // テキストが空の場合はコピーしない
+    if (!targetElement.innerText.trim()) {
+      return;
+    }
 
+    const textToCopy = targetElement.innerText;
+    const messageElement = targetElement.nextElementSibling; 
+
+    if (!messageElement || !messageElement.classList.contains('message')) {
+      console.error('対応するメッセージ要素が見つかりません。');
+      return;
+    }
+
+    navigator.clipboard.writeText(textToCopy)
+      .then(() => {
+        messageElement.style.display = "block";
+        setTimeout(() => {
+          messageElement.style.display = "none";
+        }, 1200);
+      })
+      .catch(err => {
+        console.error('クリップボードへの書き込みに失敗しました:', err);
+        messageElement.textContent = "コピーに失敗しました。";
+        messageElement.style.color = "red";
+        messageElement.style.display = "block";
+        setTimeout(() => {
+          messageElement.style.display = "none";
+          messageElement.textContent = "コピー完了！";
+          messageElement.style.color = "#ff0099"; // 元の色に戻す
+        }, 3000);
+      });
+  }
+});
 </script>
 
 </body>
