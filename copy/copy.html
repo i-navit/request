@@ -31,11 +31,16 @@
     box-sizing: border-box;
     text-align: left;
     cursor: pointer;
-    transition: background-color 0.2s ease-in-out; /* アニメーションを追加 */
+    transition: background-color 0.2s ease-in-out; /* アニメーションは残す */
     word-wrap: break-word;
   }
+  /* ここを削除するか、コメントアウトする！
   .copyTarget:hover {
-    background-color: #ffff99; /* マウスオーバー時の背景色 */
+    background-color: #ffff99; 
+  }
+  */
+  .copyTarget.clicked { /* 新しく追加するクラス */
+    background-color: #ffff99;
   }
   .message {
     display: none;
@@ -181,18 +186,27 @@ document.body.addEventListener('click', function(event) {
     }
 
     const textToCopy = targetElement.innerText;
-    const messageElement = targetElement.nextElementSibling; 
+    const messageElement = targetElement.nextElementSibling;  
 
     if (!messageElement || !messageElement.classList.contains('message')) {
       console.error('対応するメッセージ要素が見つかりません。');
       return;
     }
 
+    // ★追加ここから★
+    // クリック時にクラスを追加して背景色を変える
+    targetElement.classList.add('clicked'); 
+    // ★追加ここまで★
+
     navigator.clipboard.writeText(textToCopy)
       .then(() => {
         messageElement.style.display = "block";
         setTimeout(() => {
           messageElement.style.display = "none";
+          // ★追加ここから★
+          // メッセージ表示後にクラスを削除して背景色を元に戻す
+          targetElement.classList.remove('clicked'); 
+          // ★追加ここまで★
         }, 1200);
       })
       .catch(err => {
@@ -204,6 +218,10 @@ document.body.addEventListener('click', function(event) {
           messageElement.style.display = "none";
           messageElement.textContent = "コピー完了！";
           messageElement.style.color = "#ff0099"; // 元の色に戻す
+          // ★追加ここから★
+          // エラー時にもクラスを削除して背景色を元に戻す
+          targetElement.classList.remove('clicked'); 
+          // ★追加ここまで★
         }, 3000);
       });
   }
