@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>定型文ワンクリックコピー(サンプル)</title>
+<link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+<style>
+  body {
+    font-family: sans-serif;
+    padding: 5px 20px;
+    text-align: left;
+    background-color: #fff;
+    color: #3e3e3e;
+    font-size: 16px;
+  }
+  .container {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .copyTarget {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    word-wrap: break-word;
+  }
+  .copyTarget.clicked {
+    background-color: #ffff99;
+  }
+  .message {
+    display: none;
+    margin-top: 5px;
+    color: #ff0099;
+    font-weight: bold;
+  }
+
+  /* スマホ表示用のスタイル */
+  @media screen and (max-width: 768px) {
+    body {
+      font-size: 14px;
+      padding: 5px 15px;
+      -webkit-text-size-adjust: 100%;
+    }
+    .copyTarget {
+      font-size: 1em;
+      padding: 8px 12px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="copy-phrases-container">
+  <div class="container">
+    <p class="copyTarget">✨1人1人のコメント💬が素晴らしい配信を造ります💯プレイを褒めたり👍参加者同士の挨拶🙋‍♂️で配信を盛り上げてﾈ✨</p>
+    <p class="message">コピー完了！</p>
+  </div>
+  <div class="container">
+    <p class="copyTarget">ぼっちんガイドは、毎週日曜PM1時頃から配信をしています。高評価👍チャンネル登録♥クリエイターサポート【bottin】で応援よろしく🤗</p>
+    <p class="message">コピー完了！</p>
+  </div>
+  <div class="container">
+    <p class="copyTarget">【受付中】フレンド申請フォーム https://i-navit.github.io/request/</p>
+    <p class="message">コピー完了！</p>
+  </div>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // コピークリックイベントのセットアップ（イベント委任）
+  document.body.addEventListener('click', function(event) {
+    if (event.target && event.target.classList.contains('copyTarget')) {
+      const targetElement = event.target;
+      // テキストが空の場合はコピーしない
+      if (!targetElement.innerText.trim()) {
+        return;
+      }
+
+      const textToCopy = targetElement.innerText;
+      const messageElement = targetElement.nextElementSibling;
+        
+      if (!messageElement || !messageElement.classList.contains('message')) {
+        console.error('対応するメッセージ要素が見つかりません。');
+        return;
+      }
+
+      // クリック時にクラスを追加して背景色を変える
+      targetElement.classList.add('clicked');
+
+      navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+          messageElement.style.display = "block";
+          setTimeout(() => {
+            messageElement.style.display = "none";
+            // メッセージ表示後にクラスを削除して背景色を元に戻す
+            targetElement.classList.remove('clicked');
+          }, 1200);
+        })
+        .catch(err => {
+          console.error('クリップボードへの書き込みに失敗しました:', err);
+          messageElement.textContent = "コピーに失敗しました。";
+          messageElement.style.color = "red";
+          messageElement.style.display = "block";
+          setTimeout(() => {
+            messageElement.style.display = "none";
+            messageElement.textContent = "コピー完了！";
+            messageElement.style.color = "#ff0099"; // 元の色に戻す
+            // エラー時にもクラスを削除して背景色を元に戻す
+            targetElement.classList.remove('clicked');
+          }, 3000);
+        });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
