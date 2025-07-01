@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateCustomKeyOutput() {
     const inputValue = customKeyInput.value;
     // テンプレートの '★' を入力値で置き換える
-    customKeyOutput.innerText = customKeyTemplate.replace('★', inputValue);
+    customKeyOutput.innerHTML = customKeyTemplate.replace('★', inputValue); // ★ここをinnerTextからinnerHTMLに変更★
   }
 
   // ★ここから追加★
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           const pCopy = document.createElement('p');
           pCopy.className = 'copyTarget';
-          pCopy.innerText = phrase;
+          pCopy.innerHTML = phrase; // ★ここをinnerTextからinnerHTMLに変更★
 
           const pMessage = document.createElement('p');
           pMessage.className = 'message';
