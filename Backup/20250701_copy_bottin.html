@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>定型文クイックコピー(ぼっちん用)</title>
+<link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+<style>
+  body {
+    font-family: sans-serif;
+    padding: 5px 20px;
+    text-align: left;
+    background-color: #fff;
+    color: #3e3e3e;
+    /* PC表示でのベースの文字サイズ */
+    font-size: 14px;
+  }
+  .container {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .copyTarget {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out; /* アニメーションは残す */
+    word-wrap: break-word;
+  }
+  .copyTarget.clicked { /* 新しく追加するクラス */
+    background-color: #ffff99;
+  }
+  .message {
+    display: none;
+    margin-top: 5px;
+    color: #ff0099;
+    font-weight: bold;
+  }
+  .customkey_ttl {
+    background: #a78acb;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.5em 1em 0.2em;
+    display: inline-block;
+    margin-bottom: 0;
+    border-radius: 5px 5px 0 0;
+  }
+  .customkey_box {
+    border-radius: 0 5px 5px 5px;
+    background: #e0e0ff;
+    padding: 1em;
+  }
+  #customkey-input {
+    width: 100%;
+    max-width: 180px; /* ★ここを追加 (サイズ調整済み)★ */
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 1em;
+    display: inline-block; /* ★ここも追加 (ボタンと横並びにするため)★ */
+    vertical-align: middle; /* ★ここも追加 (ボタンと中央揃えにするため)★ */
+  }
+  /* 1文字消すボタンのスタイル */
+  #delete-last-char-button {
+    margin-left: 5px;
+    padding: 5px 8px;
+    font-size: 0.8em;
+    vertical-align: middle; /* ★ここも追加 (inputと中央揃えにするため)★ */
+    border: 1px solid #a78acb;
+    border-radius: 5px;
+    background-color: #f0f0ff;
+    cursor: pointer;
+  }
+  #delete-last-char-button:hover {
+    background-color: #dcdcfe;
+  }
+
+  /* ★★★【変更点②】スマホ表示用のスタイルを追加 ★★★ */
+  @media screen and (max-width: 768px) {
+    body {
+      /* 全体の文字サイズをスマホ向けに調整 */
+      font-size: 13px;
+      /* 左右の余白を少し狭くする */
+      padding: 5px 15px;
+      /* テキストが長くなった時に、変なところで改行されるのを防ぐ */
+      -webkit-text-size-adjust: 100%;
+    }
+
+    .copyTarget {
+      /* ボタン内の文字サイズを調整 (bodyに合わせる) */
+      font-size: 1em;
+      /* 上下の余白を少し広げてタップしやすくする */
+      padding: 8px 12px;
+    }
+
+    .customkey_ttl {
+      /* タイトルの文字サイズを調整 */
+      font-size: 0.9em;
+    }
+    /* スマホでのボタンと入力欄の調整 */
+    #customkey-input {
+      max-width: calc(100% - 80px); /* ボタンの幅を考慮して調整 */
+    }
+    #delete-last-char-button {
+      font-size: 0.7em;
+      padding: 4px 6px;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="customkey_ttl">カスタムキーを入力してね</div>
+<div class="customkey_box">
+  <input type="text" id="customkey-input" placeholder="ここにキーを入力">
+  <button id="delete-last-char-button">◀</button>
+  <div class="container" style="margin-top:10px;">
+    <p class="copyTarget" id="customkey-output"></p>
+    <p class="message">コピー完了！</p>
+  </div>
+</div>
+
+<div id="spreadsheet-data-container">
+  <p>読み込み中...</p>
+</div>
+
+<script>
+// ★★★【要設定】ステップ3でコピーしたGASのウェブアプリURLを貼り付ける ★★★
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbz7kyB_Ys8X2SM5fFNpa0T6jO2jU6X0R9_PKBuye8qCY8_a__h8Q__wPwJ9kjNsYIg7/exec';
+
+document.addEventListener('DOMContentLoaded', () => {
+  const customKeyInput = document.getElementById('customkey-input');
+  const customKeyOutput = document.getElementById('customkey-output');
+  const dataContainer = document.getElementById('spreadsheet-data-container');
+  const deleteButton = document.getElementById('delete-last-char-button'); // ★ここを追加★
+  let customKeyTemplate = '';
+
+  // ① カスタムキーの入力にリアルタイムで反応する処理
+  customKeyInput.addEventListener('input', updateCustomKeyOutput);
+
+  function updateCustomKeyOutput() {
+    const inputValue = customKeyInput.value;
+    // テンプレートの '★' を入力値で置き換える
+    customKeyOutput.innerText = customKeyTemplate.replace('★', inputValue);
+  }
+
+  // ★ここから追加★
+  // ③ 1文字消すボタンのクリックイベント
+  deleteButton.addEventListener('click', () => {
+    let currentValue = customKeyInput.value;
+    if (currentValue.length > 0) {
+      customKeyInput.value = currentValue.slice(0, -1); // 最後の1文字を削除
+      updateCustomKeyOutput(); // 表示も更新
+    }
+    // フォーカスを戻して続けて入力できるようにする
+    customKeyInput.focus();
+  });
+  // ★ここまで追加★
+
+  // ② Googleスプレッドシートからデータを読み込む処理
+  fetch(GAS_WEB_APP_URL)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('ネットワークの応答がありませんでした。');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      dataContainer.innerHTML = ''; // 「読み込み中...」を消去
+
+      // カスタムキーのテンプレートを更新
+      customKeyTemplate = data.customKey || 'カスタムキー🔑★';
+      updateCustomKeyOutput();
+
+      // 定型文をHTMLに描画
+      if (data.phrases.length > 0) {
+        data.phrases.forEach(phrase => {
+          const div = document.createElement('div');
+          div.className = 'container';
+
+          const pCopy = document.createElement('p');
+          pCopy.className = 'copyTarget';
+          pCopy.innerText = phrase;
+
+          const pMessage = document.createElement('p');
+          pMessage.className = 'message';
+          pMessage.innerText = 'コピー完了！';
+
+          div.appendChild(pCopy);
+          div.appendChild(pMessage);
+          dataContainer.appendChild(div);
+        });
+      } else {
+        dataContainer.innerHTML = '<p>登録されている定型文はありません。</p>';
+      }
+    })
+    .catch(error => {
+      console.error('Fetch Error:', error);
+      dataContainer.innerHTML = `<p style="color:red;">データの読み込みに失敗しました: ${error.message}</p>`;
+    });
+});
+
+// ③ コピークリックイベントのセットアップ（イベント委任）
+document.body.addEventListener('click', function(event) {
+  if (event.target && event.target.classList.contains('copyTarget')) {
+    const targetElement = event.target;
+    // テキストが空の場合はコピーしない
+    if (!targetElement.innerText.trim()) {
+      return;
+    }
+
+    const textToCopy = targetElement.innerText;
+    const messageElement = targetElement.nextElementSibling;  
+
+    if (!messageElement || !messageElement.classList.contains('message')) {
+      console.error('対応するメッセージ要素が見つかりません。');
+      return;
+    }
+
+    // ★追加ここから★
+    // クリック時にクラスを追加して背景色を変える
+    targetElement.classList.add('clicked'); 
+    // ★追加ここまで★
+
+    navigator.clipboard.writeText(textToCopy)
+      .then(() => {
+        messageElement.style.display = "block";
+        setTimeout(() => {
+          messageElement.style.display = "none";
+          // ★追加ここから★
+          // メッセージ表示後にクラスを削除して背景色を元に戻す
+          targetElement.classList.remove('clicked'); 
+          // ★追加ここまで★
+        }, 1200);
+      })
+      .catch(err => {
+        console.error('クリップボードへの書き込みに失敗しました:', err);
+        messageElement.textContent = "コピーに失敗しました。";
+        messageElement.style.color = "red";
+        messageElement.style.display = "block";
+        setTimeout(() => {
+          messageElement.style.display = "none";
+          messageElement.textContent = "コピー完了！";
+          messageElement.style.color = "#ff0099"; // 元の色に戻す
+          // ★追加ここから★
+          // エラー時にもクラスを削除して背景色を元に戻す
+          targetElement.classList.remove('clicked'); 
+          // ★追加ここまで★
+        }, 3000);
+      });
+  }
+});
+</script>
+
+</body>
+</html>
