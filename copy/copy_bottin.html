@@ -57,19 +57,19 @@
   }
   #customkey-input {
     width: 100%;
-    max-width: 180px; /* ★ここを追加 (サイズ調整済み)★ */
+    max-width: 180px; /* ★入力フォームのサイズ調整★ */
     padding: 8px;
     box-sizing: border-box;
     font-size: 1em;
-    display: inline-block; /* ★ここも追加 (ボタンと横並びにするため)★ */
-    vertical-align: middle; /* ★ここも追加 (ボタンと中央揃えにするため)★ */
+    display: inline-block; /* ★ボタンと横並びにする★ */
+    vertical-align: middle; /* ★ボタンと中央揃えにする★ */
   }
   /* 1文字消すボタンのスタイル */
   #delete-last-char-button {
     margin-left: 5px;
     padding: 5px 8px;
     font-size: 0.8em;
-    vertical-align: middle; /* ★ここも追加 (inputと中央揃えにするため)★ */
+    vertical-align: middle; /* ★inputと中央揃えにする★ */
     border: 1px solid #a78acb;
     border-radius: 5px;
     background-color: #f0f0ff;
@@ -77,6 +77,9 @@
   }
   #delete-last-char-button:hover {
     background-color: #dcdcfe;
+  }
+  .ColorTxt {
+  color: #00A313; /* ★span class="ColorTxt"で文字色を変えられる★ */
   }
 
   /* ★★★【変更点②】スマホ表示用のスタイルを追加 ★★★ */
@@ -137,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const customKeyInput = document.getElementById('customkey-input');
   const customKeyOutput = document.getElementById('customkey-output');
   const dataContainer = document.getElementById('spreadsheet-data-container');
-  const deleteButton = document.getElementById('delete-last-char-button'); // ★ここを追加★
+  const deleteButton = document.getElementById('delete-last-char-button');
   let customKeyTemplate = '';
 
   // ① カスタムキーの入力にリアルタイムで反応する処理
@@ -146,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateCustomKeyOutput() {
     const inputValue = customKeyInput.value;
     // テンプレートの '★' を入力値で置き換える
-    customKeyOutput.innerText = customKeyTemplate.replace('★', inputValue);
+    customKeyOutput.innerHTML = customKeyTemplate.replace('★', inputValue); // ★ここをinnerTextからinnerHTMLに変更★
   }
 
   // ★ここから追加★
@@ -189,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           const pCopy = document.createElement('p');
           pCopy.className = 'copyTarget';
-          pCopy.innerText = phrase;
+          pCopy.innerHTML = phrase; // ★ここをinnerTextからinnerHTMLに変更★
 
           const pMessage = document.createElement('p');
           pMessage.className = 'message';
