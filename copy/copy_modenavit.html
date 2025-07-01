@@ -55,12 +55,13 @@
     background: #e0e0ff;
     padding: 1em;
   }
-  #customkey-input {
-    width: 100%;
-    padding: 8px; /* 少し余白を広げる */
+ #customkey-input {
+    width: 100%; /* ←これは残す */
+    max-width: 250px; /* ★ここを追加★ 例として250pxだけど、適宜調整してみてね */
+    padding: 8px;
     box-sizing: border-box;
-    font-size: 1em; /* 親要素の文字サイズを継承 */
-  }
+    font-size: 1em;
+}
 
   /* ★★★【変更点②】スマホ表示用のスタイルを追加 ★★★ */
   @media screen and (max-width: 768px) {
