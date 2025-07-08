@@ -1,137 +1,228 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>フレンド検索フォーム</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            padding: 5px 20px;
-            text-align: left;
-            background-color: #fff;
-            color: #333333;
-            font-size: 14px;
-        }
-        .customkey_ttl {
-            background: #a78acb;
-            color: #fff;
-            font-weight: bold;
-            padding: 0.5em 1em 0.2em;
-            display: inline-block;
-            margin-bottom: 0;
-            border-radius: 5px 5px 0 0;
-        }
-        .customkey_box {
-            border-radius: 0 5px 5px 5px;
-            background: #e0e0ff;
-            padding: 1em;
-            margin-bottom: 20px;
-            max-width: 600px; /* BOX全体の最大幅 */
-            margin-left: 0;
-            margin-right: auto;
-        }
-        .search-group {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 10px;
-        }
-        .search-item {
-            flex: 1;
-        }
-        .search-input {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            font-size: 1em;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .search-button {
-            width: 100%;
-            padding: 8px 15px;
-            font-size: 0.9em;
-            border: 1px solid #a78acb;
-            border-radius: 5px;
-            background-color: #f0f0ff;
-            cursor: pointer;
-            box-sizing: border-box;
-        }
-        .search-button:hover {
-            background-color: #dcdcfe;
-        }
-        .result-item { /* 結果表示はGAS側で生成するので、ここではスタイルのみ */
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        .result-item p {
-            margin: 5px 0;
-        }
-        .result-item a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .result-item a:hover {
-            text-decoration: underline;
-        }
-        .no-results {
-            color: #ff0000;
-            font-weight: bold;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>フレンド検索フォーム1</title>
+<style>
+  body {
+    font-family: sans-serif;
+    padding: 5px 20px;
+    text-align: left;
+    background-color: #fff;
+    color: #333333;
+    font-size: 14px;
+  }
+  .container {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .copyTarget {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    word-wrap: break-word;
+  }
+  .copyTarget.clicked {
+    background-color: #ffff99;
+  }
+  .message {
+    display: none;
+    margin-top: 5px;
+    color: #ff0099;
+    font-weight: bold;
+  }
+  .customkey_ttl {
+    background: #a78acb;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.5em 1em 0.2em;
+    display: inline-block;
+    margin-bottom: 0;
+    border-radius: 5px 5px 0 0;
+  }
+  .customkey_box {
+    border-radius: 0 5px 5px 5px;
+    background: #e0e0ff;
+    padding: 1em;
+    max-width: 600px; /* BOX全体の最大幅を調整 */
+    margin: 0 auto; /* 中央寄せ */
+  }
+  .search-form-group {
+    display: flex;
+    gap: 10px; /* フォーム間の隙間 */
+    margin-bottom: 10px;
+  }
+  .search-input-wrapper {
+    flex: 1; /* 均等な幅にする */
+  }
+  .search-input-wrapper input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    font-size: 1em;
+  }
+  .search-input-wrapper button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px; /* ボタンと入力フォームの間に少しスペース */
+    font-size: 1em;
+    border: 1px solid #a78acb;
+    border-radius: 5px;
+    background-color: #f0f0ff;
+    cursor: pointer;
+  }
+  .search-input-wrapper button:hover {
+    background-color: #dcdcfe;
+  }
+  .ColorTxt {
+    color: #00A313;
+  }
+  .results-box {
+    border-radius: 5px;
+    background: #f9f9f9;
+    padding: 1em;
+    margin-top: 20px;
+    border: 1px solid #e0e0ff;
+    max-width: 600px; /* BOX全体の最大幅に合わせる */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .result-item {
+    padding: 8px;
+    margin-bottom: 5px;
+    border-bottom: 1px dashed #ccc;
+  }
+  .result-item:last-child {
+    border-bottom: none;
+  }
+  .result-item a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  .result-item a:hover {
+    text-decoration: underline;
+  }
+  #no-results {
+    color: #888;
+    text-align: center;
+    padding: 10px;
+  }
 
-        /* スマホ表示用のスタイル */
-        @media screen and (max-width: 768px) {
-            body {
-                font-size: 13px;
-                padding: 5px 15px;
-                -webkit-text-size-adjust: 100%;
-            }
-            .customkey_ttl {
-                font-size: 0.9em;
-            }
-            .customkey_box {
-                max-width: 100%;
-            }
-            .search-group {
-                flex-direction: column;
-                gap: 0;
-            }
-            .search-item {
-                flex: 1 1 auto;
-                max-width: 100%;
-                margin-bottom: 15px;
-            }
-            .search-item:last-child {
-                margin-bottom: 0;
-            }
-            .search-input, .search-button {
-                width: 100%;
-                font-size: 1em;
-                padding: 8px;
-            }
-        }
-    </style>
+  /* スマホ表示用のスタイル */
+  @media screen and (max-width: 768px) {
+    body {
+      font-size: 13px;
+      padding: 5px 15px;
+      -webkit-text-size-adjust: 100%;
+    }
+    .customkey_ttl {
+      font-size: 0.9em;
+    }
+    .search-form-group {
+      flex-direction: column; /* 縦並びにする */
+      gap: 15px; /* 縦並びになった時のフォーム間の隙間 */
+    }
+    .search-input-wrapper input,
+    .search-input-wrapper button {
+      width: 100%; /* スマホでは全幅にする */
+    }
+    .search-input-wrapper button {
+      margin-top: 8px; /* スマホではボタンと入力フォームの間のスペースを少し広げる */
+    }
+  }
+</style>
 </head>
 <body>
 
-    <div class="customkey_ttl">フレンド検索</div>
-    <div class="customkey_box">
-        <form id="searchForm" method="GET" action="https://script.google.com/macros/s/AKfycbxxWOM4ewOVVwYwxgX3hgOAXXMmZPsiACAqXt18LpoZ4lF4mtwXLo5cJExgPQh5JMc/exec">
-            <div class="search-group">
-                <div class="search-item">
-                    <input type="text" name="channelName" class="search-input" placeholder="チャンネル名を入力">
-                    <button type="submit" name="searchType" value="channelName" class="search-button">チャンネル名で検索</button>
-                </div>
-                <div class="search-item">
-                    <input type="text" name="handle" class="search-input" placeholder="@ハンドル名を入力">
-                    <button type="submit" name="searchType" value="handle" class="search-button">@ハンドル名で検索</button>
-                </div>
-            </div>
-        </form>
+<div class="customkey_ttl">フレンド検索フォーム</div>
+<div class="customkey_box">
+  <div class="search-form-group">
+    <div class="search-input-wrapper">
+      <input type="text" id="channelNameInput" placeholder="チャンネル名を入力">
+      <button onclick="searchFriends('channelName')">チャンネル名で検索</button>
     </div>
+    <div class="search-input-wrapper">
+      <input type="text" id="handleInput" placeholder="@ハンドル名を入力">
+      <button onclick="searchFriends('handle')">@ハンドル名で検索</button>
+    </div>
+  </div>
+</div>
 
-    </body>
+<div class="results-box" id="resultsBox" style="display: none;">
+  <div id="searchResults"></div>
+  <div id="no-results" style="display: none;">該当するフレンドは見つかりませんでした。</div>
+</div>
+
+<script>
+  function searchFriends(searchType) {
+    const sheetId = '1NJKVcWml1ETnK8Qhf3UUdcNLjL1vhb0nRFQJtGPwM5HY'; // スプレッドシートID
+    let searchTerm = '';
+    let url = '';
+
+    if (searchType === 'channelName') {
+      searchTerm = document.getElementById('channelNameInput').value;
+      if (!searchTerm) {
+        alert('チャンネル名を入力してください。');
+        return;
+      }
+      url = `https://script.google.com/macros/s/AKfycbz_REPLACE_WITH_YOUR_DEPLOYMENT_ID/exec?sheetId=${sheetId}&searchType=channelName&searchTerm=${encodeURIComponent(searchTerm)}`;
+    } else if (searchType === 'handle') {
+      searchTerm = document.getElementById('handleInput').value;
+      if (!searchTerm) {
+        alert('@ハンドル名を入力してください。');
+        return;
+      }
+      url = `https://script.google.com/macros/s/AKfycbz_REPLACE_WITH_YOUR_DEPLOYMENT_ID/exec?sheetId=${sheetId}&searchType=handle&searchTerm=${encodeURIComponent(searchTerm)}`;
+    }
+
+    // Google Apps ScriptのWebアプリのデプロイIDを置き換える必要があるよ！
+    // 例: AKfycbz_YOUR_ACTUAL_DEPLOYMENT_ID
+    // TODO: 上の url 変数の 'AKfycbz_REPLACE_WITH_YOUR_DEPLOYMENT_ID' を自分のデプロイIDに置き換えてね！
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const searchResultsDiv = document.getElementById('searchResults');
+        const noResultsDiv = document.getElementById('no-results');
+        const resultsBox = document.getElementById('resultsBox');
+        searchResultsDiv.innerHTML = ''; // 検索結果をクリア
+
+        if (data && data.length > 0) {
+          data.forEach(item => {
+            const resultItem = document.createElement('div');
+            resultItem.className = 'result-item';
+            
+            // チャンネルURLの形式はhttps://youtube.com/channel/CHANNEL_IDだから、これに沿って表示するね
+            const channelURL = item['チャンネルURL'] ? `<a href="${item['チャンネルURL']}" target="_blank">YouTubeチャンネル</a>` : 'URLなし';
+
+            resultItem.innerHTML = `
+              <strong>ニックネーム:</strong> ${item['ニックネーム']}<br>
+              <strong>フォトナID:</strong> ${item['フォトナID']}<br>
+              <strong>チャンネル:</strong> ${channelURL}
+            `;
+            searchResultsDiv.appendChild(resultItem);
+          });
+          resultsBox.style.display = 'block';
+          noResultsDiv.style.display = 'none';
+        } else {
+          resultsBox.style.display = 'block';
+          noResultsDiv.style.display = 'block';
+        }
+      })
+      .catch(error => {
+        console.error('検索中にエラーが発生しました:', error);
+        alert('検索中にエラーが発生しました。スクリプトのデプロイ設定を確認してください。');
+        document.getElementById('resultsBox').style.display = 'none';
+      });
+  }
+</script>
+
+</body>
 </html>
