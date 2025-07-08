@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>フレンド検索フォーム1</title>
+    <title>フレンド検索フォーム</title>
     <style>
         body {
             font-family: sans-serif;
@@ -12,31 +12,6 @@
             background-color: #fff;
             color: #333333;
             font-size: 14px;
-        }
-        .container {
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        .copyTarget {
-            padding: 8px 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            width: 100%;
-            box-sizing: border-box;
-            text-align: left;
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out;
-            word-wrap: break-word;
-        }
-        .copyTarget.clicked {
-            background-color: #ffff99;
-        }
-        .message {
-            display: none;
-            margin-top: 5px;
-            color: #ff0099;
-            font-weight: bold;
         }
         .customkey_ttl {
             background: #a78acb;
@@ -52,32 +27,30 @@
             background: #e0e0ff;
             padding: 1em;
             margin-bottom: 20px;
-            /* BOX全体の最大幅と左寄せ */
-            max-width: 600px; /* BOX全体の最大幅を600pxに変更 */
+            max-width: 600px; /* BOX全体の最大幅 */
             margin-left: 0;
             margin-right: auto;
         }
         .search-group {
             display: flex;
-            gap: 15px; /* フォーム間のスペースを広げてバランス調整 */
+            gap: 15px;
             margin-bottom: 10px;
         }
         .search-item {
-            flex: 1; /* 均等な幅に広げる */
-            /* 各検索アイテムの最大幅をなくして、flexで調整 */
+            flex: 1;
         }
         .search-input {
             width: 100%;
-            padding: 8px; /* パディングを少し戻して見やすく */
+            padding: 8px;
             box-sizing: border-box;
-            font-size: 1em; /* フォントサイズも標準に */
+            font-size: 1em;
             display: block;
-            margin-bottom: 5px; /* 入力フォームとボタンの間のスペース */
+            margin-bottom: 5px;
         }
         .search-button {
             width: 100%;
-            padding: 8px 15px; /* パディングを少し戻して見やすく */
-            font-size: 0.9em; /* フォントサイズも標準に */
+            padding: 8px 15px;
+            font-size: 0.9em;
             border: 1px solid #a78acb;
             border-radius: 5px;
             background-color: #f0f0ff;
@@ -87,10 +60,7 @@
         .search-button:hover {
             background-color: #dcdcfe;
         }
-        .ColorTxt {
-            color: #00A313;
-        }
-        .result-item {
+        .result-item { /* 結果表示はGAS側で生成するので、ここではスタイルのみ */
             margin-bottom: 10px;
             padding: 10px;
             border: 1px solid #ccc;
@@ -119,32 +89,28 @@
                 padding: 5px 15px;
                 -webkit-text-size-adjust: 100%;
             }
-            .copyTarget {
-                font-size: 1em;
-                padding: 8px 12px;
-            }
             .customkey_ttl {
                 font-size: 0.9em;
             }
             .customkey_box {
-                max-width: 100%; /* スマホでは最大幅をなくす */
+                max-width: 100%;
             }
             .search-group {
-                flex-direction: column; /* スマホでは縦並びにする */
-                gap: 0; /* 縦並びの時はgapをなくす */
+                flex-direction: column;
+                gap: 0;
             }
             .search-item {
-                flex: 1 1 auto; /* スマホでは幅をautoにして縦に積む */
-                max-width: 100%; /* スマホでは幅いっぱいに */
-                margin-bottom: 15px; /* 各検索フォームの下にスペース */
+                flex: 1 1 auto;
+                max-width: 100%;
+                margin-bottom: 15px;
             }
             .search-item:last-child {
-                margin-bottom: 0; /* 最後の要素の余分なスペースを削除 */
+                margin-bottom: 0;
             }
             .search-input, .search-button {
-                width: 100%; /* スマホでは幅いっぱいに */
-                font-size: 1em; /* スマホでのフォントサイズを調整 */
-                padding: 8px; /* スマホでのパディングを調整 */
+                width: 100%;
+                font-size: 1em;
+                padding: 8px;
             }
         }
     </style>
@@ -153,109 +119,19 @@
 
     <div class="customkey_ttl">フレンド検索</div>
     <div class="customkey_box">
-        <div class="search-group">
-            <div class="search-item">
-                <input type="text" id="channelNameInput" class="search-input" placeholder="チャンネル名を入力">
-                <button id="searchChannelNameButton" class="search-button">チャンネル名で検索</button>
+        <form id="searchForm" method="GET" action="ここにデプロイしたGoogle Apps ScriptのURLを貼り付ける">
+            <div class="search-group">
+                <div class="search-item">
+                    <input type="text" name="channelName" class="search-input" placeholder="チャンネル名を入力">
+                    <button type="submit" name="searchType" value="channelName" class="search-button">チャンネル名で検索</button>
+                </div>
+                <div class="search-item">
+                    <input type="text" name="handle" class="search-input" placeholder="@ハンドル名を入力">
+                    <button type="submit" name="searchType" value="handle" class="search-button">@ハンドル名で検索</button>
+                </div>
             </div>
-            <div class="search-item">
-                <input type="text" id="handleInput" class="search-input" placeholder="@ハンドル名を入力">
-                <button id="searchHandleButton" class="search-button">@ハンドル名で検索</button>
-            </div>
-        </div>
+        </form>
     </div>
 
-    <div id="searchResults">
-        </div>
-
-    <script>
-        // Google Apps ScriptのWebアプリURLに置き換えてね
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxxWOM4ewOVVwYwxgX3hgOAXXMmZPsiACAqXt18LpoZ4lF4mtwXLo5cJExgPQh5JMc/exec';
-
-        async function searchData(searchColumn, searchText) {
-            const resultsDiv = document.getElementById('searchResults');
-            resultsDiv.innerHTML = '検索中...';
-
-            if (!searchText.trim()) { // 検索テキストが空の場合
-                resultsDiv.innerHTML = '<p class="no-results">検索キーワードを入力してね。</p>';
-                return;
-            }
-
-            try {
-                const response = await fetch(WEB_APP_URL, {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        action: 'search',
-                        searchColumn: searchColumn,
-                        searchText: searchText
-                    })
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                displayResults(data.results);
-
-            } catch (error) {
-                console.error('検索中にエラーが発生しました:', error);
-                resultsDiv.innerHTML = '<p class="no-results">検索中にエラーが発生しました。スクリプトが正しくデプロイされているか確認してね。</p>';
-            }
-        }
-
-        function displayResults(results) {
-            const resultsDiv = document.getElementById('searchResults');
-            resultsDiv.innerHTML = ''; // 前の検索結果をクリア
-
-            if (results && results.length > 0) {
-                results.forEach(item => {
-                    const resultItem = document.createElement('div');
-                    resultItem.classList.add('result-item');
-
-                    const nickname = document.createElement('p');
-                    nickname.textContent = `ニックネーム: ${item.nickname}`;
-                    resultItem.appendChild(nickname);
-
-                    const fortniteId = document.createElement('p');
-                    fortniteId.textContent = `フォトナID: ${item.fortniteId}`;
-                    resultItem.appendChild(fortniteId);
-
-                    if (item.channelUrl) {
-                        const channelUrl = document.createElement('p');
-                        const link = document.createElement('a');
-                        link.href = item.channelUrl;
-                        link.target = "_blank"; // 別ウィンドウで開く
-                        link.rel = "noopener noreferrer"; // セキュリティ対策
-                        link.textContent = 'チャンネルURLへ移動';
-                        channelUrl.appendChild(link);
-                        resultItem.appendChild(channelUrl);
-                    } else {
-                        const noUrl = document.createElement('p');
-                        noUrl.textContent = 'チャンネルURL: なし';
-                        resultItem.appendChild(noUrl);
-                    }
-
-                    resultsDiv.appendChild(resultItem);
-                });
-            } else {
-                resultsDiv.innerHTML = '<p class="no-results">該当するデータは見つかりませんでした。</p>';
-            }
-        }
-
-        document.getElementById('searchChannelNameButton').addEventListener('click', () => {
-            const searchText = document.getElementById('channelNameInput').value;
-            searchData('チャンネル名', searchText);
-        });
-
-        document.getElementById('searchHandleButton').addEventListener('click', () => {
-            const searchText = document.getElementById('handleInput').value;
-            searchData('@ハンドル', searchText);
-        });
-    </script>
-</body>
+    </body>
 </html>
