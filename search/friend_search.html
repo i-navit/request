@@ -1,228 +1,240 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>フレンド検索フォーム1</title>
-<style>
-  body {
-    font-family: sans-serif;
-    padding: 5px 20px;
-    text-align: left;
-    background-color: #fff;
-    color: #333333;
-    font-size: 14px;
-  }
-  .container {
-    width: 100%;
-    margin-bottom: 15px;
-  }
-  .copyTarget {
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    width: 100%;
-    box-sizing: border-box;
-    text-align: left;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    word-wrap: break-word;
-  }
-  .copyTarget.clicked {
-    background-color: #ffff99;
-  }
-  .message {
-    display: none;
-    margin-top: 5px;
-    color: #ff0099;
-    font-weight: bold;
-  }
-  .customkey_ttl {
-    background: #a78acb;
-    color: #fff;
-    font-weight: bold;
-    padding: 0.5em 1em 0.2em;
-    display: inline-block;
-    margin-bottom: 0;
-    border-radius: 5px 5px 0 0;
-  }
-  .customkey_box {
-    border-radius: 0 5px 5px 5px;
-    background: #e0e0ff;
-    padding: 1em;
-    max-width: 600px; /* BOX全体の最大幅を調整 */
-    margin: 0 auto; /* 中央寄せ */
-  }
-  .search-form-group {
-    display: flex;
-    gap: 10px; /* フォーム間の隙間 */
-    margin-bottom: 10px;
-  }
-  .search-input-wrapper {
-    flex: 1; /* 均等な幅にする */
-  }
-  .search-input-wrapper input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    font-size: 1em;
-  }
-  .search-input-wrapper button {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px; /* ボタンと入力フォームの間に少しスペース */
-    font-size: 1em;
-    border: 1px solid #a78acb;
-    border-radius: 5px;
-    background-color: #f0f0ff;
-    cursor: pointer;
-  }
-  .search-input-wrapper button:hover {
-    background-color: #dcdcfe;
-  }
-  .ColorTxt {
-    color: #00A313;
-  }
-  .results-box {
-    border-radius: 5px;
-    background: #f9f9f9;
-    padding: 1em;
-    margin-top: 20px;
-    border: 1px solid #e0e0ff;
-    max-width: 600px; /* BOX全体の最大幅に合わせる */
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .result-item {
-    padding: 8px;
-    margin-bottom: 5px;
-    border-bottom: 1px dashed #ccc;
-  }
-  .result-item:last-child {
-    border-bottom: none;
-  }
-  .result-item a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  .result-item a:hover {
-    text-decoration: underline;
-  }
-  #no-results {
-    color: #888;
-    text-align: center;
-    padding: 10px;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フレンド検索フォーム2</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 5px 20px;
+            text-align: left;
+            background-color: #fff;
+            color: #333333;
+            font-size: 14px;
+        }
+        .container {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .copyTarget {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            word-wrap: break-word;
+        }
+        .copyTarget.clicked {
+            background-color: #ffff99;
+        }
+        .message {
+            display: none;
+            margin-top: 5px;
+            color: #ff0099;
+            font-weight: bold;
+        }
+        .customkey_ttl {
+            background: #a78acb;
+            color: #fff;
+            font-weight: bold;
+            padding: 0.5em 1em 0.2em;
+            display: inline-block;
+            margin-bottom: 0;
+            border-radius: 5px 5px 0 0;
+        }
+        .customkey_box {
+            border-radius: 0 5px 5px 5px;
+            background: #e0e0ff;
+            padding: 1em;
+            margin-bottom: 20px;
+            /* BOX全体の最大幅と左寄せ */
+            max-width: 600px; /* BOX全体の最大幅を600pxに変更 */
+            margin-left: 0;
+            margin-right: auto;
+        }
+        .search-group {
+            display: flex;
+            gap: 15px; /* フォーム間のスペースを広げてバランス調整 */
+            margin-bottom: 10px;
+        }
+        .search-item {
+            flex: 1; /* 均等な幅に広げる */
+            /* 各検索アイテムの最大幅をなくして、flexで調整 */
+        }
+        .search-input {
+            width: 100%;
+            padding: 8px; /* パディングを少し戻して見やすく */
+            box-sizing: border-box;
+            font-size: 1em; /* フォントサイズも標準に */
+            display: block;
+            margin-bottom: 5px; /* 入力フォームとボタンの間のスペース */
+        }
+        .search-button {
+            width: 100%;
+            padding: 8px 15px; /* パディングを少し戻して見やすく */
+            font-size: 0.9em; /* フォントサイズも標準に */
+            border: 1px solid #a78acb;
+            border-radius: 5px;
+            background-color: #f0f0ff;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+        .search-button:hover {
+            background-color: #dcdcfe;
+        }
+        .ColorTxt {
+            color: #00A313;
+        }
+        .result-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .result-item p {
+            margin: 5px 0;
+        }
+        .result-item a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .result-item a:hover {
+            text-decoration: underline;
+        }
+        .no-results {
+            color: #ff0000;
+            font-weight: bold;
+        }
 
-  /* スマホ表示用のスタイル */
-  @media screen and (max-width: 768px) {
-    body {
-      font-size: 13px;
-      padding: 5px 15px;
-      -webkit-text-size-adjust: 100%;
-    }
-    .customkey_ttl {
-      font-size: 0.9em;
-    }
-    .search-form-group {
-      flex-direction: column; /* 縦並びにする */
-      gap: 15px; /* 縦並びになった時のフォーム間の隙間 */
-    }
-    .search-input-wrapper input,
-    .search-input-wrapper button {
-      width: 100%; /* スマホでは全幅にする */
-    }
-    .search-input-wrapper button {
-      margin-top: 8px; /* スマホではボタンと入力フォームの間のスペースを少し広げる */
-    }
-  }
-</style>
+        /* スマホ表示用のスタイル */
+        @media screen and (max-width: 768px) {
+            body {
+                font-size: 13px;
+                padding: 5px 15px;
+                -webkit-text-size-adjust: 100%;
+            }
+            .copyTarget {
+                font-size: 1em;
+                padding: 8px 12px;
+            }
+            .customkey_ttl {
+                font-size: 0.9em;
+            }
+            .customkey_box {
+                max-width: 100%; /* スマホでは最大幅をなくす */
+            }
+            .search-group {
+                flex-direction: column; /* スマホでは縦並びにする */
+                gap: 0; /* 縦並びの時はgapをなくす */
+            }
+            .search-item {
+                flex: 1 1 auto; /* スマホでは幅をautoにして縦に積む */
+                max-width: 100%; /* スマホでは幅いっぱいに */
+                margin-bottom: 15px; /* 各検索フォームの下にスペース */
+            }
+            .search-item:last-child {
+                margin-bottom: 0; /* 最後の要素の余分なスペースを削除 */
+            }
+            .search-input, .search-button {
+                width: 100%; /* スマホでは幅いっぱいに */
+                font-size: 1em; /* スマホでのフォントサイズを調整 */
+                padding: 8px; /* スマホでのパディングを調整 */
+            }
+        }
+    </style>
 </head>
 <body>
 
-<div class="customkey_ttl">フレンド検索フォーム</div>
-<div class="customkey_box">
-  <div class="search-form-group">
-    <div class="search-input-wrapper">
-      <input type="text" id="channelNameInput" placeholder="チャンネル名を入力">
-      <button onclick="searchFriends('channelName')">チャンネル名で検索</button>
+    <div class="customkey_ttl">フレンド検索</div>
+    <div class="customkey_box">
+        <div class="search-group">
+            <div class="search-item">
+                <input type="text" id="channelNameInput" class="search-input" placeholder="チャンネル名を入力">
+                <button id="searchChannelNameButton" class="search-button">チャンネル名で検索</button>
+            </div>
+            <div class="search-item">
+                <input type="text" id="handleInput" class="search-input" placeholder="@ハンドル名を入力">
+                <button id="searchHandleButton" class="search-button">@ハンドル名で検索</button>
+            </div>
+        </div>
     </div>
-    <div class="search-input-wrapper">
-      <input type="text" id="handleInput" placeholder="@ハンドル名を入力">
-      <button onclick="searchFriends('handle')">@ハンドル名で検索</button>
+
+    <div id="searchResults">
     </div>
-  </div>
-</div>
 
-<div class="results-box" id="resultsBox" style="display: none;">
-  <div id="searchResults"></div>
-  <div id="no-results" style="display: none;">該当するフレンドは見つかりませんでした。</div>
-</div>
+    <script>
+        document.getElementById('searchChannelNameButton').addEventListener('click', function() {
+            const query = document.getElementById('channelNameInput').value;
+            if (query) {
+                google.script.run.withSuccessHandler(displayResults).searchFriends(query, 'channelName');
+            }
+        });
 
-<script>
-  function searchFriends(searchType) {
-    const sheetId = '1NJKVcWml1ETnK8Qhf3UUdcNLjL1vhb0nRFQJtGPwM5HY'; // スプレッドシートID
-    let searchTerm = '';
-    let url = '';
+        document.getElementById('searchHandleButton').addEventListener('click', function() {
+            const query = document.getElementById('handleInput').value;
+            if (query) {
+                google.script.run.withSuccessHandler(displayResults).searchFriends(query, 'handle');
+            }
+        });
 
-    if (searchType === 'channelName') {
-      searchTerm = document.getElementById('channelNameInput').value;
-      if (!searchTerm) {
-        alert('チャンネル名を入力してください。');
-        return;
-      }
-      url = `https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbyjkRbczXpo7uty28W9Ayb3Qi68PHNhUmNhRLXZ8UKwT5pQ9BlTjWCXh3BVX7wEyaCu6Q/exec?sheetId=${sheetId}&searchType=channelName&searchTerm=${encodeURIComponent(searchTerm)}`;
-    } else if (searchType === 'handle') {
-      searchTerm = document.getElementById('handleInput').value;
-      if (!searchTerm) {
-        alert('@ハンドル名を入力してください。');
-        return;
-      }
-      url = `https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbyjkRbczXpo7uty28W9Ayb3Qi68PHNhUmNhRLXZ8UKwT5pQ9BlTjWCXh3BVX7wEyaCu6Q/exec?sheetId=${sheetId}&searchType=handle&searchTerm=${encodeURIComponent(searchTerm)}`;
-    }
+        function displayResults(results) {
+            const searchResultsDiv = document.getElementById('searchResults');
+            searchResultsDiv.innerHTML = ''; // 既存の結果をクリア
 
-    // Google Apps ScriptのWebアプリのデプロイIDを置き換える必要があるよ！
-    // 例: AKfycbz_YOUR_ACTUAL_DEPLOYMENT_ID
-    // TODO: 上の url 変数の 'AKfycbz_REPLACE_WITH_YOUR_DEPLOYMENT_ID' を自分のデプロイIDに置き換えてね！
+            if (results.length === 0) {
+                searchResultsDiv.innerHTML = '<p class="no-results">検索結果はありませんでした。</p>';
+                return;
+            }
 
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        const searchResultsDiv = document.getElementById('searchResults');
-        const noResultsDiv = document.getElementById('no-results');
-        const resultsBox = document.getElementById('resultsBox');
-        searchResultsDiv.innerHTML = ''; // 検索結果をクリア
+            results.forEach(result => {
+                const resultItem = document.createElement('div');
+                resultItem.classList.add('result-item');
 
-        if (data && data.length > 0) {
-          data.forEach(item => {
-            const resultItem = document.createElement('div');
-            resultItem.className = 'result-item';
-            
-            // チャンネルURLの形式はhttps://youtube.com/channel/CHANNEL_IDだから、これに沿って表示するね
-            const channelURL = item['チャンネルURL'] ? `<a href="${item['チャンネルURL']}" target="_blank">YouTubeチャンネル</a>` : 'URLなし';
+                const nicknameP = document.createElement('p');
+                nicknameP.textContent = 'ニックネーム: ' + result.nickname;
+                resultItem.appendChild(nicknameP);
 
-            resultItem.innerHTML = `
-              <strong>ニックネーム:</strong> ${item['ニックネーム']}<br>
-              <strong>フォトナID:</strong> ${item['フォトナID']}<br>
-              <strong>チャンネル:</strong> ${channelURL}
-            `;
-            searchResultsDiv.appendChild(resultItem);
-          });
-          resultsBox.style.display = 'block';
-          noResultsDiv.style.display = 'none';
-        } else {
-          resultsBox.style.display = 'block';
-          noResultsDiv.style.display = 'block';
+                const fortniteIdP = document.createElement('p');
+                fortniteIdP.textContent = 'フォトナID: ' + result.fortniteId;
+                resultItem.appendChild(fortniteIdP);
+
+                const channelUrlP = document.createElement('p');
+                const channelLink = document.createElement('a');
+                channelLink.href = result.channelUrl;
+                channelLink.target = '_blank'; // 別ウィンドウで開く
+                channelLink.textContent = result.channelUrl;
+                channelUrlP.innerHTML = 'チャンネルURL: ';
+                channelUrlP.appendChild(channelLink);
+                resultItem.appendChild(channelUrlP);
+
+                const copyTextP = document.createElement('p');
+                const copySpan = document.createElement('span');
+                copySpan.classList.add('copyTarget');
+                copySpan.textContent = result.nickname + 'さんのチャンネル： ' + result.channelUrl;
+                copySpan.onclick = function() {
+                    navigator.clipboard.writeText(copySpan.textContent).then(function() {
+                        const originalBg = copySpan.style.backgroundColor;
+                        copySpan.style.backgroundColor = '#ffff99'; // クリック時の色
+                        setTimeout(() => {
+                            copySpan.style.backgroundColor = originalBg; // 元に戻す
+                        }, 500);
+                    }).catch(function(err) {
+                        console.error('テキストのコピーに失敗しました', err);
+                    });
+                };
+                copyTextP.appendChild(copySpan);
+                resultItem.appendChild(copyTextP);
+
+                searchResultsDiv.appendChild(resultItem);
+            });
         }
-      })
-      .catch(error => {
-        console.error('検索中にエラーが発生しました:', error);
-        alert('検索中にエラーが発生しました。スクリプトのデプロイ設定を確認してください。');
-        document.getElementById('resultsBox').style.display = 'none';
-      });
-  }
-</script>
+    </script>
 
 </body>
 </html>
