@@ -172,14 +172,14 @@
         alert('チャンネル名を入力してください。');
         return;
       }
-      url = `https://script.google.com/macros/s/AKfycbz_REPLACE_WITH_YOUR_DEPLOYMENT_ID/exec?sheetId=${sheetId}&searchType=channelName&searchTerm=${encodeURIComponent(searchTerm)}`;
+      url = `https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbyjkRbczXpo7uty28W9Ayb3Qi68PHNhUmNhRLXZ8UKwT5pQ9BlTjWCXh3BVX7wEyaCu6Q/exec?sheetId=${sheetId}&searchType=channelName&searchTerm=${encodeURIComponent(searchTerm)}`;
     } else if (searchType === 'handle') {
       searchTerm = document.getElementById('handleInput').value;
       if (!searchTerm) {
         alert('@ハンドル名を入力してください。');
         return;
       }
-      url = `https://script.google.com/macros/s/AKfycbz_REPLACE_WITH_YOUR_DEPLOYMENT_ID/exec?sheetId=${sheetId}&searchType=handle&searchTerm=${encodeURIComponent(searchTerm)}`;
+      url = `https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbyjkRbczXpo7uty28W9Ayb3Qi68PHNhUmNhRLXZ8UKwT5pQ9BlTjWCXh3BVX7wEyaCu6Q/exec?sheetId=${sheetId}&searchType=handle&searchTerm=${encodeURIComponent(searchTerm)}`;
     }
 
     // Google Apps ScriptのWebアプリのデプロイIDを置き換える必要があるよ！
