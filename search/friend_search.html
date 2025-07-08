@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>フレンド検索フォーム2</title>
+    <title>フレンド検索フォーム</title>
     <style>
         body {
             font-family: sans-serif;
@@ -169,19 +169,45 @@
     </div>
 
     <script>
+        // ★ここにGoogle Apps ScriptでデプロイしたウェブアプリのURLを入れる★
+        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw-CQBOqmLnPvOUQDD7nFxhNwpFmuKhRItSDshgpM89G6nSHUM6b7LpdtTIlvYCNLjEFQ/exec';
+
         document.getElementById('searchChannelNameButton').addEventListener('click', function() {
             const query = document.getElementById('channelNameInput').value;
             if (query) {
-                google.script.run.withSuccessHandler(displayResults).searchFriends(query, 'channelName');
+                sendSearchRequest(query, 'channelName');
             }
         });
 
         document.getElementById('searchHandleButton').addEventListener('click', function() {
             const query = document.getElementById('handleInput').value;
             if (query) {
-                google.script.run.withSuccessHandler(displayResults).searchFriends(query, 'handle');
+                sendSearchRequest(query, 'handle');
             }
         });
+
+        async function sendSearchRequest(query, searchType) {
+            try {
+                const response = await fetch(GAS_WEB_APP_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query: query, searchType: searchType })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const results = await response.json();
+                displayResults(results);
+            } catch (error) {
+                console.error('検索中にエラーが発生しました:', error);
+                const searchResultsDiv = document.getElementById('searchResults');
+                searchResultsDiv.innerHTML = '<p class="no-results">検索中にエラーが発生しました。</p>';
+            }
+        }
 
         function displayResults(results) {
             const searchResultsDiv = document.getElementById('searchResults');
