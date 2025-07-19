@@ -531,7 +531,7 @@ async function submitForm() {
     const completionMessage = document.getElementById('completion-message');
 
     if (!check1.checked || !check2.checked || !check3.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
-        errorMessage.textContent = 'ぜんぶ入力してから送信してね';
+        errorMessage.textContent = '3つのチェックと2つの入力をしてから送信してね';
         errorMessage.style.display = 'block';
         isSubmitting = false; // エラー発生時は送信中フラグをリセット
         if (submitButton) {
