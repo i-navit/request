@@ -9,6 +9,13 @@
             font-family: sans-serif;
             text-align: center;
             margin: 20px;
+            background-color: white;
+            color: black;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        body.dark-mode {
+            background-color: #000;
+            color: white;
         }
         .image-container {
             margin-bottom: 10px;
@@ -17,7 +24,6 @@
         }
         img {
             image-rendering: pixelated;
-            border: 1px solid #eee;
         }
         .member-badge {
             width: 32px;
@@ -27,8 +33,15 @@
             width: 48px;
             height: 48px;
         }
-        H1 {
-        font-size: 16px;
+        h1 {
+            font-size: 16px;
+        }
+        .toggle-button {
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            display: block; /* 中央寄せのためにブロック要素にする */
         }
     </style>
 </head>
@@ -36,45 +49,62 @@
 
     <h1>右クリック→名前をつけて画像を保存でダウンロードしてね</h1>
 
-    <div class="image-container">
-        <img src="member_badge_green.png" alt="member_badge_green" class="member-badge">
+    <div class="images-wrapper">
+        <div class="image-container">
+            <img src="member_badge_green.png" alt="member_badge_green" class="member-badge">
+        </div>
+        <div class="image-container">
+            <img src="member_badge_purple.png" alt="member_badge_purple" class="member-badge">
+        </div>
+        <div class="image-container">
+            <img src="member_badge_pink.png" alt="member_badge_pink" class="member-badge">
+        </div>
+        <div class="image-container">
+            <img src="member_badge_blue.png" alt="member_badge_blue" class="member-badge">
+        </div>
+        <div class="image-container">
+            <img src="member_badge_orange.png" alt="member_badge_orange" class="member-badge">
+        </div>
+        <div class="image-container">
+            <img src="custom_gg.png" alt="custom_gg" class="custom-emoji">
+        </div>
+        <div class="image-container">
+            <img src="custom_naisupa.png" alt="custom_naisupa" class="custom-emoji">
+        </div>
+        <div class="image-container">
+            <img src="custom_naibiku.png" alt="custom_naibiku" class="custom-emoji">
+        </div>
+        <div class="image-container">
+            <img src="custom_naifai.png" alt="custom_naifai" class="custom-emoji">
+        </div>
+        <div class="image-container">
+            <img src="custom_fight.png" alt="custom_fight" class="custom-emoji">
+        </div>
+        <div class="image-container">
+            <img src="custom_ganbare.png" alt="custom_ganbare" class="custom-emoji">
+        </div>
+        <div class="image-container">
+            <img src="custom_ok.png" alt="custom_ok" class="custom-emoji">
+        </div>
+        <div class="image-container">
+            <img src="custom_iine.png" alt="custom_iine" class="custom-emoji">
+        </div>
+        <div class="image-container">
+            <img src="custom_majika.png" alt="custom_majika" class="custom-emoji">
+        </div>
+        <div class="image-container">
+            <img src="custom_paypay.png" alt="custom_paypay" class="custom-emoji">
+        </div>
     </div>
+    
+    <button class="toggle-button" onclick="toggleDarkMode()">背景を切り替える</button>
 
-    <div class="image-container">
-        <img src="member_badge_purple.png" alt="member_badge_purple" class="member-badge">
-    </div>
-
-    <div class="image-container">
-        <img src="member_badge_pink.png" alt="member_badge_pink" class="member-badge">
-    </div>
-
-    <div class="image-container">
-        <img src="member_badge_blue.png" alt="member_badge_blue" class="member-badge">
-    </div>
-
-    <div class="image-container">
-        <img src="member_badge_orange.png" alt="member_badge_orange" class="member-badge">
-    </div>
-
-    <div class="image-container">
-        <img src="custom_fight.png" alt="custom_fight" class="custom-emoji">
-    </div>
-
-    <div class="image-container">
-        <img src="custom_gg.png" alt="custom_gg" class="custom-emoji">
-    </div>
-
-    <div class="image-container">
-        <img src="custom_naisupa.png" alt="custom_naisupa" class="custom-emoji">
-    </div>
-
-    <div class="image-container">
-        <img src="custom_naibiku.png" alt="custom_naibiku" class="custom-emoji">
-    </div>
-
-    <div class="image-container">
-        <img src="custom_naifai.png" alt="custom_naifai" class="custom-emoji">
-    </div>
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+        }
+    </script>
 
 </body>
 </html>
