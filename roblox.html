@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,14 @@
     <script src="https://www.google.com/recaptcha/api.js?render=6Lf6STQrAAAAAOrsIXuWUujmwytnGlS8DGd_KsBe"></script>
     <style>
         /* ブラウザデフォルトの padding と margin を 0 に設定 */
-        body, h1, p, div, form, label, input, button {
+        body,
+        h1,
+        p,
+        div,
+        form,
+        label,
+        input,
+        button {
             margin: 0;
             padding: 0;
         }
@@ -57,14 +65,17 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 1em;
-            margin-bottom: 20px; /* フォーム項目との間に余白 */
-            width: 100%; /* 親要素 (form-container) いっぱいに広げる */
+            margin-bottom: 20px;
+            /* フォーム項目との間に余白 */
+            width: 100%;
+            /* 親要素 (form-container) いっぱいに広げる */
             box-sizing: border-box;
             transition: background-color 0.3s ease;
         }
 
         #showRulesButton:hover {
-            background-color: #45a049; /* ホバー時の色 */
+            background-color: #7c479f;
+            /* ホバー時の色 */
         }
 
 
@@ -76,13 +87,15 @@
             width: 90%;
             max-width: 500px;
             box-sizing: border-box;
-            margin-bottom: 20px; /* フォーム下の余白を追加 */
+            margin-bottom: 20px;
+            /* フォーム下の余白を追加 */
             display: flex;
             flex-direction: column;
-            align-items: center; /* 子要素を中央揃え */
+            align-items: center;
+            /* 子要素を中央揃え */
         }
 
-         /* エラーメッセージ領域 */
+        /* エラーメッセージ領域 */
         #error-area {
             height: 12px;
             margin-top: 0px;
@@ -100,8 +113,10 @@
 
         .checkbox-group {
             margin-bottom: 25px;
-            margin-top: 0px; /* ボタンの直後になるため上余白を調整 */
-            width: 100%; /* 親要素いっぱいに広げる */
+            margin-top: 0px;
+            /* ボタンの直後になるため上余白を調整 */
+            width: 100%;
+            /* 親要素いっぱいに広げる */
             box-sizing: border-box;
         }
 
@@ -120,12 +135,15 @@
             color: red;
             margin-left: 5px;
         }
+
         .red-mark {
             color: red;
         }
+
         .form-group {
             margin-bottom: 10px;
-            width: 100%; /* 親要素いっぱいに広げる */
+            width: 100%;
+            /* 親要素いっぱいに広げる */
             box-sizing: border-box;
         }
 
@@ -144,11 +162,13 @@
             box-sizing: border-box;
             font-size: 16px;
             margin-top: 5px;
-            color: #333; /* 入力文字の色 */
+            color: #333;
+            /* 入力文字の色 */
         }
 
         input::placeholder {
-            color: #ccc; /* プレースホルダーの色 */
+            color: #ccc;
+            /* プレースホルダーの色 */
         }
 
         .button-container {
@@ -156,10 +176,14 @@
             gap: 15px;
             justify-content: center;
             margin-top: 10px;
-            margin-bottom: 0px; /* 送信ボタン下の余白 */
-            flex-direction: column; /* ボタンと注意書きを縦に並べる */
-            align-items: center; /* 中央揃え */
-            width: 100%; /* 親要素いっぱいに広げる */
+            margin-bottom: 0px;
+            /* 送信ボタン下の余白 */
+            flex-direction: column;
+            /* ボタンと注意書きを縦に並べる */
+            align-items: center;
+            /* 中央揃え */
+            width: 100%;
+            /* 親要素いっぱいに広げる */
             box-sizing: border-box;
         }
 
@@ -172,17 +196,21 @@
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            width: 100%; /* ボタンを親要素いっぱいに広げる */
-            max-width: 300px; /* ボタンの最大幅を設定 */
+            width: 100%;
+            /* ボタンを親要素いっぱいに広げる */
+            max-width: 300px;
+            /* ボタンの最大幅を設定 */
             box-sizing: border-box;
         }
 
         .button-container button:first-child {
-            background-color: #45a049; /* 枝豆グリーン */
+            background-color: #45a049;
+            /* 枝豆グリーン */
         }
 
         .button-container button:first-child:hover {
-            background-color: #e50914; /* ホバー時濃いレッド */
+            background-color: #e50914;
+            /* ホバー時濃いレッド */
         }
 
         .button-note {
@@ -199,34 +227,47 @@
         }
 
         #form-area {
-            display: block; /* フォーム表示エリア */
-            width: 90%; /* フォーム領域の幅を固定 */
-            max-width: 500px; /* フォーム領域の最大幅を固定 */
+            display: block;
+            /* フォーム表示エリア */
+            width: 90%;
+            /* フォーム領域の幅を固定 */
+            max-width: 500px;
+            /* フォーム領域の最大幅を固定 */
         }
 
         #message-area {
-            display: none; /* 送信完了メッセージエリア 初期非表示 */
+            display: none;
+            /* 送信完了メッセージエリア 初期非表示 */
             text-align: center;
             margin-top: 30px;
             font-size: 20px;
-            background-color: #fff; /* メッセージエリアの背景を白に */
-            padding: 20px; /* メッセージエリアにもpaddingを追加して見やすく */
-            border-radius: 8px; /* メッセージエリアにも角丸を追加 */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* メッセージエリアにも影を追加 */
-            width: 90%; /* メッセージ領域の幅をフォームと同じに */
-            max-width: 500px; /* メッセージ領域の最大幅をフォームと同じに */
-            box-sizing: border-box; /* padding, border を含めた幅にする */
+            background-color: #fff;
+            /* メッセージエリアの背景を白に */
+            padding: 20px;
+            /* メッセージエリアにもpaddingを追加して見やすく */
+            border-radius: 8px;
+            /* メッセージエリアにも角丸を追加 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* メッセージエリアにも影を追加 */
+            width: 90%;
+            /* メッセージ領域の幅をフォームと同じに */
+            max-width: 500px;
+            /* メッセージ領域の最大幅をフォームと同じに */
+            box-sizing: border-box;
+            /* padding, border を含めた幅にする */
         }
 
         #message-area p {
-            margin-bottom: 0; /* メッセージ内のp要素のデフォルトmarginを削除 */
+            margin-bottom: 0;
+            /* メッセージ内のp要素のデフォルトmarginを削除 */
         }
 
         /* ルビの表示位置を調整 */
         ruby {
             display: inline-block;
             text-align: center;
-            line-height: 1; /* 行の高さを詰める */
+            line-height: 1;
+            /* 行の高さを詰める */
         }
 
         rt {
@@ -237,9 +278,12 @@
         }
 
         .highlight-underline {
-            background: linear-gradient(transparent 60%, rgba(255, 255, 0, 0.7) 60%); /* 黄色、透過 */
-            padding: 0 0.2em; /* 左右の余白を調整 */
-            text-decoration: none !important; /* デフォルトの下線を打ち消す */
+            background: linear-gradient(transparent 60%, rgba(255, 255, 0, 0.7) 60%);
+            /* 黄色、透過 */
+            padding: 0 0.2em;
+            /* 左右の余白を調整 */
+            text-decoration: none !important;
+            /* デフォルトの下線を打ち消す */
         }
 
         .highlight-nickname {
@@ -248,24 +292,33 @@
         }
 
         .checkbox-text {
-            margin-bottom: 0px; /* チェックボックス余白 */
+            margin-bottom: 0px;
+            /* チェックボックス余白 */
             color: #555;
         }
 
         /* オーバーレイのスタイル */
         .overlay {
-            position: fixed; /* 画面に固定 */
+            position: fixed;
+            /* 画面に固定 */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* 半透明の黒背景 */
-            display: none; /* 初期状態では非表示 */
-            justify-content: center; /* 水平中央揃え */
-            align-items: center; /* 垂直中央揃え */
-            z-index: 1000; /* 他の要素より手前に表示 */
-            overflow-y: auto; /* 内容が多い場合にスクロール可能にする */
-            padding: 20px; /* スマホ表示などで端に寄りすぎないように */
+            background-color: rgba(0, 0, 0, 0.7);
+            /* 半透明の黒背景 */
+            display: none;
+            /* 初期状態では非表示 */
+            justify-content: center;
+            /* 水平中央揃え */
+            align-items: center;
+            /* 垂直中央揃え */
+            z-index: 1000;
+            /* 他の要素より手前に表示 */
+            overflow-y: auto;
+            /* 内容が多い場合にスクロール可能にする */
+            padding: 20px;
+            /* スマホ表示などで端に寄りすぎないように */
             box-sizing: border-box;
         }
 
@@ -273,41 +326,61 @@
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
-            max-width: 600px; /* 内容エリアの最大幅 */
-            width: 95%; /* 内容エリアの幅 */
-            position: relative; /* （閉じるボタンが下に移動したので不要ですが、残しておいても影響なし） */
+            max-width: 600px;
+            /* 内容エリアの最大幅 */
+            width: 95%;
+            /* 内容エリアの幅 */
+            position: relative;
+            /* （閉じるボタンが下に移動したので不要ですが、残しておいても影響なし） */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-height: 90vh; /* 内容エリアの最大高さ (画面高さの90%) */
-            overflow-y: auto; /* 内容が高さより大きい場合にスクロール */
+            max-height: 90vh;
+            /* 内容エリアの最大高さ (画面高さの90%) */
+            overflow-y: auto;
+            /* 内容が高さより大きい場合にスクロール */
             box-sizing: border-box;
-             /* 子要素（テキストやボタン）をflexアイテムとして縦に並べる設定を追加 */
+            /* 子要素（テキストやボタン）をflexアイテムとして縦に並べる設定を追加 */
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* 基本左寄せ（ボタンはautoマージンで中央寄せ） */
+            align-items: flex-start;
+            /* 基本左寄せ（ボタンはautoマージンで中央寄せ） */
         }
 
         /* 「とじる」ボタンのスタイル */
-        .overlay-content button.close-button { /* button要素でclass="close-button"を持つものに適用 */
-            /* position: static; */ /* 絶対位置指定を解除（デフォルトがstaticなので改めて指定不要だが明示的に書いても良い） */
-            /* top: auto; right: auto; */ /* 位置指定を解除 */
-            display: block; /* ブロック要素にして中央寄せ可能に */
-            margin: 30px auto 0 auto; /* 上に大きな余白、左右autoで中央寄せ */
-            font-size: 1em; /* サイズ調整 */
-            font-weight: bold; /* 太字に */
-            color: white; /* 文字色を白に */
-            background-color: #f44336; /* 赤っぽい背景色 */
-            padding: 10px 20px; /* パディング */
+        .overlay-content button.close-button {
+            /* button要素でclass="close-button"を持つものに適用 */
+            /* position: static; */
+            /* 絶対位置指定を解除（デフォルトがstaticなので改めて指定不要だが明示的に書いても良い） */
+            /* top: auto; right: auto; */
+            /* 位置指定を解除 */
+            display: block;
+            /* ブロック要素にして中央寄せ可能に */
+            margin: 30px auto 0 auto;
+            /* 上に大きな余白、左右autoで中央寄せ */
+            font-size: 1em;
+            /* サイズ調整 */
+            font-weight: bold;
+            /* 太字に */
+            color: white;
+            /* 文字色を白に */
+            background-color: #f44336;
+            /* 赤っぽい背景色 */
+            padding: 10px 20px;
+            /* パディング */
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            width: fit-content; /* テキストに合わせて幅を調整 */
-            align-self: center; /* flexコンテナ内で自分自身を中央寄せ */
+            width: fit-content;
+            /* テキストに合わせて幅を調整 */
+            align-self: center;
+            /* flexコンテナ内で自分自身を中央寄せ */
         }
 
         .overlay-content button.close-button:hover {
-            background-color: #d32f2f; /* ホバー時の色を濃く */
-            color: white; /* ホバー時も文字色は白 */
+            background-color: #d32f2f;
+            /* ホバー時の色を濃く */
+            color: white;
+            /* ホバー時も文字色は白 */
         }
 
         .overlay-content h2 {
@@ -315,7 +388,8 @@
             margin-bottom: 20px;
             color: #333;
             text-align: center;
-            width: 100%; /* 中央寄せを効かせるため */
+            width: 100%;
+            /* 中央寄せを効かせるため */
         }
 
         .overlay-content p {
@@ -326,53 +400,108 @@
 
         /* ルールテキスト内のrubyタグのスタイル調整（オーバーレイ内でも適用） */
         .overlay-content ruby {
-            display: inline-block; /* pタグ内でインライン要素として扱われるように */
+            display: inline-block;
+            /* pタグ内でインライン要素として扱われるように */
             text-align: center;
-            line-height: 1; /* 行の高さを詰める */
+            line-height: 1;
+            /* 行の高さを詰める */
         }
 
-         .overlay-content rt {
+        .overlay-content rt {
             display: block;
             font-size: 0.5em;
             color: gray;
             text-align: center;
         }
 
-/* ボタン風スタイル */
-.centered-text {
-  text-align: center; /* 段落内の要素を中央寄せにする */
-  margin-bottom: 5px; /* 下側の余白をさらに少なくする */
-  width: 100%; /* 幅を100%にして中央寄せを適用 */
-}
-.link-btn {
-  text-align: center; /* 段落内の要素を中央寄せにする */
-  margin: 0; /* 段落自体のマージンをリセット */
-  width: 100%; /* 幅を100%にして中央寄せを適用 */
-}
-.link-btn a {
-  display: inline-block; /* インラインブロック要素にする */
-  padding: 3px 20px; /* ボタンの内側の余白（上下・左右） */
-  color: white; /* 文字色を白に設定 */
-  text-decoration: none; /* 下線を非表示 */
-  border: 2px solid transparent; /* ボタンの枠線を透明に設定 */
-  transition: all 0.3s ease; /* ホバー時の変化をなめらかに */
-  margin: 0px 0; /* ボタン自体の上下の余白を少なくする */
-}
-.link-btn a:hover {
-  background-color: transparent; /* ホバー時に背景色を透明に設定 */
-}
-.color a{
-/* ショート動画へのリンクボタンの パステルパープルに設定 */
---btn-color:#a78acb;
-  background-color: var(--btn-color);
-}
-.color a:hover {
-  color: var(--btn-color);
-  border-color:var(--btn-color);
-}
+        /* ボタン風スタイル */
+        .centered-text {
+            text-align: center;
+            /* 段落内の要素を中央寄せにする */
+            margin-bottom: 5px;
+            /* 下側の余白をさらに少なくする */
+            width: 100%;
+            /* 幅を100%にして中央寄せを適用 */
+        }
 
+        .link-btn {
+            text-align: center;
+            /* 段落内の要素を中央寄せにする */
+            margin: 0;
+            /* 段落自体のマージンをリセット */
+            width: 100%;
+            /* 幅を100%にして中央寄せを適用 */
+        }
+
+        .link-btn a {
+            display: inline-block;
+            /* インラインブロック要素にする */
+            padding: 3px 20px;
+            /* ボタンの内側の余白（上下・左右） */
+            color: white;
+            /* 文字色を白に設定 */
+            text-decoration: none;
+            /* 下線を非表示 */
+            border: 2px solid transparent;
+            /* ボタンの枠線を透明に設定 */
+            transition: all 0.3s ease;
+            /* ホバー時の変化をなめらかに */
+            margin: 0px 0;
+            /* ボタン自体の上下の余白を少なくする */
+        }
+
+        .link-btn a:hover {
+            background-color: transparent;
+            /* ホバー時に背景色を透明に設定 */
+        }
+
+        .color a {
+            /* ショート動画へのリンクボタンの パステルパープルに設定 */
+            --btn-color: #a78acb;
+            background-color: var(--btn-color);
+        }
+
+        .color a:hover {
+            color: var(--btn-color);
+            border-color: var(--btn-color);
+        }
+
+        /* --- 追加したスタイル --- */
+
+        /* 送信中メッセージの点滅アニメーション */
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* 送信中インジケーターのスタイルを送信ボタンと合わせる */
+        .loading-message {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #45a049;
+            /* 枝豆グリーン */
+            animation: blink 1s infinite step-end;
+            margin-top: 10px;
+            /* 見栄えを調整 */
+            padding: 14px 24px;
+            /* ボタンと高さを合わせる */
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        /* --- 追加したスタイルここまで --- */
     </style>
 </head>
+
 <body>
     <h1>
         <img src="https://i-navit.github.io/request/bottin.jpg?raw=true" alt="ぼっちんガイド">
@@ -380,39 +509,85 @@
     </h1>
 
     <div id="form-area" class="form-container">
-        <button id="showRulesButton">参加方法とルール</button> <div class="checkbox-group">
-             <div class="checkbox-text"><span class="required-mark">※</span><ruby><rt style="color: gray;">うえ</rt>上</ruby>の<ruby><rt style="color: gray;">さんかほうほう</rt>参加方法</ruby>とルールは<ruby><rt style="color: gray;">よ</rt>読</ruby>んだ？</div>
+        <button id="showRulesButton">参加方法とルール</button>
+        <div class="checkbox-group">
+            <div class="checkbox-text"><span class="required-mark">※</span><ruby>
+                    <rt style="color: gray;">うえ</rt>上
+                </ruby>の<ruby>
+                    <rt style="color: gray;">さんかほうほう</rt>参加方法
+                </ruby>とルールは<ruby>
+                    <rt style="color: gray;">よ</rt>読
+                </ruby>んだ？</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check1" name="check1" required>
-                <label for="check1"><ruby><rt style="color: gray;">よ</rt>読</ruby>んだよ！</label>
+                <label for="check1"><ruby>
+                        <rt style="color: gray;">よ</rt>読
+                    </ruby>んだよ！</label>
             </div>
-            <div class="checkbox-text"><span class="required-mark">※</span><ruby><rt style="color: gray;">はいしんがい</rt>配信外</ruby>で<ruby><rt style="color: gray;">くり</rt>繰</ruby>り<ruby><rt style="color: gray;">かえ</rt>返</ruby>し<ruby><rt style="color: gray;">しょうたい</rt>招待</ruby>・<ruby><rt style="color: gray;">さんか</rt>参加</ruby>リクエストを<ruby><rt style="color: gray;">おく</rt>送</ruby>らないでね。</div>
+            <div class="checkbox-text"><span class="required-mark">※</span><ruby>
+                    <rt style="color: gray;">はいしんがい</rt>配信外
+                </ruby>で<ruby>
+                    <rt style="color: gray;">くり</rt>繰
+                </ruby>り<ruby>
+                    <rt style="color: gray;">かえ</rt>返
+                </ruby>し<ruby>
+                    <rt style="color: gray;">しょうたい</rt>招待
+                </ruby>・<ruby>
+                    <rt style="color: gray;">さんか</rt>参加
+                </ruby>リクエストを<ruby>
+                    <rt style="color: gray;">おく</rt>送
+                </ruby>らないでね。</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check2" name="check2" required>
-                <label for="check2"><ruby><rt style="color: gray;">わ</rt>分</ruby>かったよ</label>
+                <label for="check2"><ruby>
+                        <rt style="color: gray;">わ</rt>分
+                    </ruby>かったよ</label>
             </div>
             <div class="checkbox-text">
                 <span class="required-mark">※</span>
-                <ruby><rt style="color: gray;">だれ</rt>誰</ruby>が<ruby><rt style="color: gray;">おく</rt>送</ruby>ったかわかるように<ruby><rt style="color: gray;">はいしん</rt>配信</ruby>のコメントで「●●が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ」と<ruby><rt style="color: gray;">おし</rt>教</ruby>えてね🙋
+                <ruby>
+                    <rt style="color: gray;">だれ</rt>誰
+                </ruby>が<ruby>
+                    <rt style="color: gray;">おく</rt>送
+                </ruby>ったかわかるように<ruby>
+                    <rt style="color: gray;">はいしん</rt>配信
+                </ruby>のコメントで「●●が<ruby>
+                    <rt style="color: gray;">とうろく</rt>登録
+                </ruby>したよ」と<ruby>
+                    <rt style="color: gray;">おし</rt>教
+                </ruby>えてね🙋
             </div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check3" name="check3" required>
-                <label for="check3">コメント<ruby><rt style="color: gray;">か</rt>書</ruby>くよ</label>
+                <label for="check3">コメント<ruby>
+                        <rt style="color: gray;">か</rt>書
+                    </ruby>くよ</label>
             </div>
         </div>
         <div class="form-group">
-            <label for="id"><span class="required-mark">※</span>ロビーで<ruby><rt style="color: gray;">ひょうじ</rt>表示</ruby>されているあなたのロブロックスIDを<ruby><rt style="color: gray;">か</rt>書</ruby>いてね</label>
+            <label for="id"><span class="required-mark">※</span>ロビーで<ruby>
+                    <rt style="color: gray;">ひょうじ</rt>表示
+                </ruby>されているあなたのロブロックスIDを<ruby>
+                    <rt style="color: gray;">か</rt>書
+                </ruby>いてね</label>
             <input type="text" id="id" name="id" placeholder="例：Roblox12345" required>
         </div>
         <div class="form-group">
-            <label for="nickname"><span class="required-mark">※</span>なんて<ruby><rt style="color: gray;">よ</rt>呼</ruby>んでほしい？</label>
+            <label for="nickname"><span class="required-mark">※</span>なんて<ruby>
+                    <rt style="color: gray;">よ</rt>呼
+                </ruby>んでほしい？</label>
             <input type="text" id="nickname" name="nickname" placeholder="例：ロブロくん" required>
         </div>
         <div id="error-area">
             <p id="error-message" class="error"></p>
         </div>
         <div class="button-container">
-            <button id="submitButton" onclick="disableSubmitButton()">送信</button>
+            <!-- 変更: onclickで直接submitFormを呼び出すようにし、古いdisableSubmitButtonを削除 -->
+            <button id="submitButton" onclick="submitForm()">送信</button>
+            <!-- 追加: 送信中のインジケーター -->
+            <div id="loadingIndicator" style="display:none;" class="loading-message">
+                送信中・・・
+            </div>
         </div>
     </div>
 
@@ -423,183 +598,192 @@
     <div id="rulesOverlay" class="overlay">
         <div class="overlay-content">
             <h2>参加方法とルール</h2>
-<!--
+            <!--
 <div class="centered-text">読むのはメンドイって人は</div>
 <p class="link-btn color"><a href="https://www.youtube.com/shorts/o8qFuRdrESI">ショート動画を見てね</a></p>
 -->
- <p>
-<span class="required-mark">【！重要！】</span><br>
-⛔配信中のフレンド交換は禁止です。<span class="required-mark">配信中にフレンドリクエストを送信、承諾しない</span>ようにお願いします。
-</p>           
+            <p>
+                <span class="required-mark">【！重要！】</span><br>
+                ⛔配信中のフレンド交換は禁止です。<span class="required-mark">配信中にフレンドリクエストを送信、承諾しない</span>ようにお願いします。
+            </p>
 
-<p>
-【禁止事項/ルールとマナー】<br>
-🚫他の人が不快になるコメント、過度な連投<br>
-🚫リスナー同士での配信以外の個人的な会話やチャット<br>
-🚫死体撃ち、煽り行為、チーミング、ゴースティング、チート、利敵行為は原則禁止です<br>
-🚫ボイスチャットは声以外の音声（ゲーム音、生活音、配信音など）が入らないように設定してください<br>
-✅試合中はパーティーメンバーとのボイス設定をオフにする場合があります<br>
-⛔他の参加者へ不快、迷惑行為とみなされた場合は出禁、ブロックさせていただきます
-</p>
+            <p>
+                【禁止事項/ルールとマナー】<br>
+                🚫他の人が不快になるコメント、過度な連投<br>
+                🚫リスナー同士での配信以外の個人的な会話やチャット<br>
+                🚫死体撃ち、煽り行為、チーミング、ゴースティング、チート、利敵行為は原則禁止です<br>
+                🚫ボイスチャットは声以外の音声（ゲーム音、生活音、配信音など）が入らないように設定してください<br>
+                ✅試合中はパーティーメンバーとのボイス設定をオフにする場合があります<br>
+                ⛔他の参加者へ不快、迷惑行為とみなされた場合は出禁、ブロックさせていただきます
+            </p>
 
-<p>
-【カスタムマッチの遊び方】<br>
-✅ロビーでカスタムキー🔑をコメントします<br>
-✅フレンド申請、参加希望コメント不要！カスタキーを入力して参加してね🎵<br>
-⛔フレンド同士パーティーを組んでの参加は禁止🆖❌です。参加者の方は必ず「埋める」でマッチングしてね<br>
-※配信主チームのみ事前にパーティーを組んでマッチングさせてもらう場合があります！
-</p>
-            
-<p>
-【参加型の遊び方とフレンド申請】<br>
-①『参加希望』とコメントしてね<br>
-②お試し参加の方は『bottin-gaido』までフレンド申請してね<br>
-③送った方のディスプレイネーム(ID)をコメントしてね<br>
-📍お試し参加は配信後はフレンドに残りません<br>
-📍申請フォームから【ニックネーム/ID】を送信して登録してくれた方は配信後もフレンドに残ります<br>
-※登録したら配信のコメントで「●●が登録したよ」と教えてね<br>
-🚫参加型は匿名参加🆖❌です。匿名設定を解除して参加してね<br>
-🚫暴力ハラスメントを連想させるアカウント名のフレンド申請はお断りする場合があります<br>
-⛔配信外で繰り返し招待、参加リクエストを送らないようにしてね<br>
-※しばらく配信に参加していないフレンド、繰り返し招待をされる方をフレンド整理させていただく場合があります
-</p>
+            <p>
+                【カスタムマッチの遊び方】<br>
+                ✅ロビーでカスタムキー🔑をコメントします<br>
+                ✅フレンド申請、参加希望コメント不要！カスタキーを入力して参加してね🎵<br>
+                ⛔フレンド同士パーティーを組んでの参加は禁止🆖❌です。参加者の方は必ず「埋める」でマッチングしてね<br>
+                ※配信主チームのみ事前にパーティーを組んでマッチングさせてもらう場合があります！
+            </p>
 
-<p>
-※<span class="required-mark">13歳未満</span>の参加者は必ず<span class="required-mark">保護者の方から同意をもらったうえで参加</span>してください。<br>
-【保護者の皆様へ】<br>
-当チャンネル『ぼっちんガイド』はYouTube規約・ガイドラインを遵守し、フォートナイトを安心してプレイ・参加できるプラットホームを運営しております。親子参加も大歓迎です✨<br>
-※未成年の参加時間は以下の通りです。<br>
-・15歳未満の方⏱20:00まで<br>
-・18歳未満の方⏱22:00まで
-</p>
-            
-<p>
-🎞️配信の様子を動画コンテンツとして使用する場合があります。予めご了承ください。
-</p>
+            <p>
+                【参加型の遊び方とフレンド申請】<br>
+                ①『参加希望』とコメントしてね<br>
+                ②お試し参加の方は『bottin-gaido』までフレンド申請してね<br>
+                ③送った方のディスプレイネーム(ID)をコメントしてね<br>
+                📍お試し参加は配信後はフレンドに残りません<br>
+                📍申請フォームから【ニックネーム/ID】を送信して登録してくれた方は配信後もフレンドに残ります<br>
+                ※登録したら配信のコメントで「●●が登録したよ」と教えてね<br>
+                🚫参加型は匿名参加🆖❌です。匿名設定を解除して参加してね<br>
+                🚫暴力ハラスメントを連想させるアカウント名のフレンド申請はお断りする場合があります<br>
+                ⛔配信外で繰り返し招待、参加リクエストを送らないようにしてね<br>
+                ※しばらく配信に参加していないフレンド、繰り返し招待をされる方をフレンド整理させていただく場合があります
+            </p>
+
+            <p>
+                ※<span class="required-mark">13歳未満</span>の参加者は必ず<span
+                    class="required-mark">保護者の方から同意をもらったうえで参加</span>してください。<br>
+                【保護者の皆様へ】<br>
+                当チャンネル『ぼっちんガイド』はYouTube規約・ガイドラインを遵守し、フォートナイトを安心してプレイ・参加できるプラットホームを運営しております。親子参加も大歓迎です✨<br>
+                ※未成年の参加時間は以下の通りです。<br>
+                ・15歳未満の方⏱20:00まで<br>
+                ・18歳未満の方⏱22:00まで
+            </p>
+
+            <p>
+                🎞️配信の様子を動画コンテンツとして使用する場合があります。予めご了承ください。
+            </p>
             <button class="close-button">とじる</button>
-            </div>
+        </div>
     </div>
 
-<script>
-// 【！重要！】Google Apps Script 最新のデプロイURLを貼り付ける        
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyGMfZO58NalchFrzRRKCssbpkqkQ7nNX5iW9GpdPXqN9D5NAkDj-enPpKQ-8OFrvO1rg/exec';
+    <script>
+        // 【！重要！】Google Apps Script 最新のRobloxフレンド申請デプロイURLを貼り付ける        
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyGMfZO58NalchFrzRRKCssbpkqkQ7nNX5iW9GpdPXqN9D5NAkDj-enPpKQ-8OFrvO1rg/exec';
 
-const submitButton = document.getElementById('submitButton');
-const disableDuration = 10000; // 無効化する時間 (ミリ秒) を10秒にする
-let isSubmitting = false; // 送信中フラグを追加
+        const submitButton = document.getElementById('submitButton');
+        const loadingIndicator = document.getElementById('loadingIndicator'); // 追加
+        let isSubmitting = false; // 送信中フラグ
 
-// オーバーレイ関連の要素を取得
-const showRulesButton = document.getElementById('showRulesButton');
-const rulesOverlay = document.getElementById('rulesOverlay');
-const closeButton = rulesOverlay.querySelector('button.close-button');
+        // 💡 変更点: 古い disableDuration と disableSubmitButton 関数は削除されました。
 
-function disableSubmitButton() {
-    if (!submitButton || isSubmitting) {
-        return; // ボタンが存在しないか、送信中の場合は何もしない
-    }
-
-    isSubmitting = true;
-    submitButton.disabled = true; // ボタンを無効化
-
-    // 一定時間後にボタンを再度有効化し、送信中フラグをリセット
-    setTimeout(() => {
-        if (submitButton) {
-            submitButton.disabled = false;
+        /**
+         * 送信中アニメーションを表示し、二重送信を防ぎます
+         */
+        function showLoading() {
+            if (submitButton) submitButton.style.display = 'none'; // ボタンを非表示
+            if (loadingIndicator) loadingIndicator.style.display = 'block'; // ローディングを表示
+            isSubmitting = true;
         }
-        isSubmitting = false;
-    }, disableDuration);
 
-    // ここで実際のフォーム送信処理を行う既存の submitForm 関数を呼び出す
-    submitForm();
-}
-
-async function submitForm() {
-    // (既存の submitForm 関数のコード)
-    const check1 = document.getElementById('check1');
-    const check2 = document.getElementById('check2');
-    const check3 = document.getElementById('check3');
-    const idInput = document.getElementById('id');
-    const nicknameInput = document.getElementById('nickname');
-    const errorMessage = document.getElementById('error-message');
-    const errorArea = document.getElementById('error-area');
-    const formArea = document.getElementById('form-area');
-    const messageArea = document.getElementById('message-area');
-    const completionMessage = document.getElementById('completion-message');
-
-    if (!check1.checked || !check2.checked || !check3.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
-        errorMessage.textContent = '3つのチェックと2つの入力をしてから送信してね';
-        errorMessage.style.display = 'block';
-        isSubmitting = false; // エラー発生時は送信中フラグをリセット
-        if (submitButton) {
-            submitButton.disabled = false; // ボタンを有効に戻す
+        /**
+         * 送信中アニメーションを非表示にし、エラー時はボタンを再表示します
+         * @param {boolean} success - 送信が成功したかどうか
+         */
+        function hideLoading(success = false) {
+            isSubmitting = false;
+            if (loadingIndicator) loadingIndicator.style.display = 'none'; // ローディングを非表示
+            // 成功した場合はフォーム全体が非表示になるため、ボタンは再表示しない
+            if (!success && submitButton) {
+                submitButton.style.display = 'block'; // エラー時はボタンを再表示
+            }
         }
-        return;
-    }
 
-    errorMessage.textContent = '';
-    errorMessage.style.display = 'none';
 
-    grecaptcha.ready(async () => {
-        // 【！重要！】reCAPTCHAの認証(サイトキーを記入)
-        const token = await grecaptcha.execute('6Lf6STQrAAAAAOrsIXuWUujmwytnGlS8DGd_KsBe', { action: 'submit' });
-        const timestamp = new Date().toLocaleString('ja-JP');
-        const formData = new FormData();
-        formData.append('timestamp', timestamp);
-        formData.append('id', idInput.value.trim());
-        formData.append('nickname', nicknameInput.value.trim());
-        formData.append('recaptcha_token', token); // トークンをformDataに追加
+        /**
+         * フォームのバリデーションと送信処理を実行します
+         */
+        async function submitForm() {
+            if (isSubmitting) return; // 二重送信防止
 
-        try {
-            // グローバルで定義した scriptURL をそのまま使う
-            const response = await fetch(scriptURL, { 
-                method: 'POST',
-                body: formData,
-            });
-            const data = await response.json(); 
-            if (data.result === 'error' && data.message === 'reCAPTCHA validation failed') {
-                errorMessage.textContent = 'ボットの可能性があるため、送信できませんでした';
+            const check1 = document.getElementById('check1');
+            const check2 = document.getElementById('check2');
+            const check3 = document.getElementById('check3');
+            const idInput = document.getElementById('id');
+            const nicknameInput = document.getElementById('nickname');
+            const errorMessage = document.getElementById('error-message');
+            const errorArea = document.getElementById('error-area');
+            const formArea = document.getElementById('form-area');
+            const messageArea = document.getElementById('message-area');
+            const completionMessage = document.getElementById('completion-message');
+
+            // --- バリデーションチェック ---
+            if (!check1.checked || !check2.checked || !check3.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
+                errorMessage.textContent = '3つのチェックと2つの入力をしてから送信してね';
                 errorMessage.style.display = 'block';
-                isSubmitting = false; // エラー発生時は送信中フラグをリセット
-                if (submitButton) {
-                  submitButton.disabled = false; // ボタンを有効に戻す
+                return; // バリデーション失敗時はここで処理を終了
+            }
+
+            errorMessage.textContent = '';
+            errorMessage.style.display = 'none';
+
+            showLoading(); // 💡 変更点: 送信開始。ボタンを消して「送信中・・・」表示
+
+            grecaptcha.ready(async () => {
+                // 【！重要！】reCAPTCHAの認証(サイトキーを記入)
+                const token = await grecaptcha.execute('6Lf6STQrAAAAAOrsIXuWUujmwytnGlS8DGd_KsBe', { action: 'submit' });
+                const timestamp = new Date().toLocaleString('ja-JP');
+                const formData = new FormData();
+                formData.append('timestamp', timestamp);
+                formData.append('id', idInput.value.trim());
+                formData.append('nickname', nicknameInput.value.trim());
+                formData.append('recaptcha_token', token); // トークンをformDataに追加
+
+                try {
+                    // グローバルで定義した scriptURL をそのまま使う
+                    const response = await fetch(scriptURL, {
+                        method: 'POST',
+                        body: formData,
+                    });
+                    const data = await response.json();
+
+                    if (data.result === 'error' && data.message === 'reCAPTCHA validation failed') {
+                        errorMessage.textContent = 'ボットの可能性があるため、送信できませんでした';
+                        errorMessage.style.display = 'block';
+                        hideLoading(false); // エラー時はローディングを隠し、ボタンを再表示
+                        return;
+                    }
+
+                    // --- 成功時 ---
+                    formArea.style.display = 'none';
+                    completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br><ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ</span>」<br>ってコメントしてから、<br>【bottin-gaido】までフレンド<ruby><rt style="color: gray;">しんせい</rt>申請</ruby>してね。`;
+                    messageArea.style.display = 'block';
+                    hideLoading(true); // 成功時はローディングを隠す（ボタンは再表示しない）
+
+                } catch (error) {
+                    // --- 失敗時 ---
+                    errorMessage.textContent = '送信に失敗しました';
+                    errorMessage.style.display = 'block';
+                    console.error('Error!', error.message);
+                    hideLoading(false); // 失敗時はローディングを隠し、ボタンを再表示
                 }
-                return;
-            }
-
-            formArea.style.display = 'none';
-            completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br><ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ</span>」<br>ってコメントしてから、<br>【bottin-gaido】までフレンド<ruby><rt style="color: gray;">しんせい</rt>申請</ruby>してね。`;
-            messageArea.style.display = 'block';
-        } catch (error) {
-            errorMessage.textContent = '送信に失敗しました';
-            errorMessage.style.display = 'block';
-            console.error('Error!', error.message);
-        } finally {
-            isSubmitting = false; // 最終的に送信中フラグをリセット
-            if (submitButton) {
-                submitButton.disabled = false; // 最終的にボタンを有効に戻す
-            }
+                // 💡 変更点: finallyブロックは、try/catchの内部でhideLoadingを呼ぶようになったため削除
+            });
         }
-    });
-}
 
-// オーバーレイ表示/非表示のJavaScript
-showRulesButton.addEventListener('click', () => {
-    rulesOverlay.style.display = 'flex'; // CSSでdisplay: flexに設定しているのでflexで表示
-});
+        // オーバーレイ関連の要素を取得
+        const showRulesButton = document.getElementById('showRulesButton');
+        const rulesOverlay = document.getElementById('rulesOverlay');
+        const closeButton = rulesOverlay.querySelector('button.close-button');
 
-// 閉じるボタンがクリックされたらオーバーレイを非表示
-closeButton.addEventListener('click', () => {
-    rulesOverlay.style.display = 'none';
-});
+        // オーバーレイ表示/非表示のJavaScript
+        showRulesButton.addEventListener('click', () => {
+            rulesOverlay.style.display = 'flex'; // CSSでdisplay: flexに設定しているのでflexで表示
+        });
 
-// （任意）オーバーレイの背景をクリックされたらオーバーレイを非表示
-rulesOverlay.addEventListener('click', (event) => {
-    // クリックされた要素がオーバーレイ自身であるか確認
-    if (event.target === rulesOverlay) {
-        rulesOverlay.style.display = 'none';
-    }
-});
-</script>
+        // 閉じるボタンがクリックされたらオーバーレイを非表示
+        closeButton.addEventListener('click', () => {
+            rulesOverlay.style.display = 'none';
+        });
+
+        // （任意）オーバーレイの背景をクリックされたらオーバーレイを非表示
+        rulesOverlay.addEventListener('click', (event) => {
+            // クリックされた要素がオーバーレイ自身であるか確認
+            if (event.target === rulesOverlay) {
+                rulesOverlay.style.display = 'none';
+            }
+        });
+    </script>
 
 </body>
+
 </html>
