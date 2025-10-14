@@ -565,9 +565,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="id"><span class="required-mark">※</span>ロビーで<ruby>
-                    <rt style="color: gray;">ひょうじ</rt>表示
-                </ruby>されているあなたのロブロックスIDを<ruby>
+            <label for="id"><span class="required-mark">※</span>あなたのユーザーネーム(ロブロックスID)を<ruby>
                     <rt style="color: gray;">か</rt>書
                 </ruby>いてね</label>
             <input type="text" id="id" name="id" placeholder="例：Tung Tung Tung Sahur" required>
@@ -745,7 +743,7 @@
 
                     // --- 成功時 ---
                     formArea.style.display = 'none';
-                    completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br><ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ</span>」<br>ってコメントしてから、<br>【bottin-gaido】までフレンド<ruby><rt style="color: gray;">しんせい</rt>申請</ruby>してね。`;
+                    completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br><ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ</span>」<br>ってコメントしてから、<br>【★★★】まで「つながりリクエスト」を送ってね。`;
                     messageArea.style.display = 'block';
                     hideLoading(true); // 成功時はローディングを隠す（ボタンは再表示しない）
 
