@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex,nofollow">
-    <title>ぼっちんガイドフレンド申請フォーム</title>
+    <title>ぼっちんガイド「Fortnite」フレンド申請フォーム</title>
     <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
     <script>/* 【！重要！】reCAPTCHAの認証(サイトキーを記入)  */</script>
     <script src="https://www.google.com/recaptcha/api.js?render=6Lf6STQrAAAAAOrsIXuWUujmwytnGlS8DGd_KsBe"></script>
@@ -370,13 +370,42 @@
   color: var(--btn-color);
   border-color:var(--btn-color);
 }
+        /* --- 追加したスタイル --- */
+
+        /* 送信中メッセージの点滅アニメーション */
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* 送信中インジケーターのスタイルを送信ボタンと合わせる */
+        .loading-message {
+            font-size: 1.0em;
+            font-weight: bold;
+            color: #800080; /* 濃いパープル (ボタンの色と合わせる) */
+            animation: blink 1s infinite step-end;
+            margin-top: 10px;
+            /* 見栄えを調整 */
+            padding: 14px 24px;
+            /* ボタンと高さを合わせる */
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        /* --- 追加したスタイルここまで --- */
 
     </style>
 </head>
 <body>
     <h1>
         <img src="https://i-navit.github.io/request/bottin.jpg?raw=true" alt="ぼっちんガイド">
-        <div>ぼっちんガイド<br>フレンド申請フォーム</div>
+        <div>ぼっちんガイド@Fortnite<br>フレンド申請フォーム</div>
     </h1>
 
     <div id="form-area" class="form-container">
@@ -412,7 +441,12 @@
             <p id="error-message" class="error"></p>
         </div>
         <div class="button-container">
-            <button id="submitButton" onclick="disableSubmitButton()">送信</button>
+            <!-- 変更: onclickで直接submitFormを呼び出すように変更 -->
+            <button id="submitButton" onclick="submitForm()">送信</button>
+            <!-- 追加: 送信中のインジケーター -->
+            <div id="loadingIndicator" style="display:none;" class="loading-message">
+                送信中⋯ちょっと待ってね
+            </div>
         </div>
     </div>
 
@@ -481,40 +515,40 @@
     </div>
 
 <script>
-// 【！重要！】Google Apps Script 最新のデプロイURLを貼り付ける        
+// 【！重要！】Google Apps Script 最新のフォトナ用フレンド申請デプロイURLを貼り付ける        
 const scriptURL = 'https://script.google.com/macros/s/AKfycbzlVzpXwSpy1VkwrZtMe9at56LWfFPxa8_i54QXTpd8wBvNUx_zjUBYcNr4cDSeeMBkmw/exec';
-
 const submitButton = document.getElementById('submitButton');
-const disableDuration = 10000; // 無効化する時間 (ミリ秒) を10秒にする
-let isSubmitting = false; // 送信中フラグを追加
+const loadingIndicator = document.getElementById('loadingIndicator'); // 追加: ローディングインジケーター要素
+let isSubmitting = false; // 送信中フラグ
 
-// オーバーレイ関連の要素を取得
-const showRulesButton = document.getElementById('showRulesButton');
-const rulesOverlay = document.getElementById('rulesOverlay');
-const closeButton = rulesOverlay.querySelector('button.close-button');
+// 💡 変更点: 古い disableDuration と disableSubmitButton 関数は削除されました。
 
-function disableSubmitButton() {
-    if (!submitButton || isSubmitting) {
-        return; // ボタンが存在しないか、送信中の場合は何もしない
-    }
-
+/**
+ * 送信中アニメーションを表示し、二重送信を防ぎます
+ */
+function showLoading() {
+    if (submitButton) submitButton.style.display = 'none'; // ボタンを非表示
+    if (loadingIndicator) loadingIndicator.style.display = 'block'; // ローディングを表示
     isSubmitting = true;
-    submitButton.disabled = true; // ボタンを無効化
-
-    // 一定時間後にボタンを再度有効化し、送信中フラグをリセット
-    setTimeout(() => {
-        if (submitButton) {
-            submitButton.disabled = false;
-        }
-        isSubmitting = false;
-    }, disableDuration);
-
-    // ここで実際のフォーム送信処理を行う既存の submitForm 関数を呼び出す
-    submitForm();
 }
 
+/**
+ * 送信中アニメーションを非表示にし、エラー時はボタンを再表示します
+ * @param {boolean} success - 送信が成功したかどうか
+ */
+function hideLoading(success = false) {
+    isSubmitting = false;
+    if (loadingIndicator) loadingIndicator.style.display = 'none'; // ローディングを非表示
+    // 成功した場合はフォーム全体が非表示になるため、ボタンは再表示しない
+    if (!success && submitButton) {
+        submitButton.style.display = 'block'; // エラー時はボタンを再表示
+    }
+}
+
+
 async function submitForm() {
-    // (既存の submitForm 関数のコード)
+    if (isSubmitting) return; // 二重送信防止
+
     const check1 = document.getElementById('check1');
     const check2 = document.getElementById('check2');
     const check3 = document.getElementById('check3');
@@ -529,15 +563,13 @@ async function submitForm() {
     if (!check1.checked || !check2.checked || !check3.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
         errorMessage.textContent = '3つのチェックと2つの入力をしてから送信してね';
         errorMessage.style.display = 'block';
-        isSubmitting = false; // エラー発生時は送信中フラグをリセット
-        if (submitButton) {
-            submitButton.disabled = false; // ボタンを有効に戻す
-        }
-        return;
+        return; // バリデーション失敗時はここで処理を終了
     }
 
     errorMessage.textContent = '';
     errorMessage.style.display = 'none';
+    
+    showLoading(); // 💡 変更点: 送信開始。ボタンを消して「送信中・・・」表示
 
     grecaptcha.ready(async () => {
         // 【！重要！】reCAPTCHAの認証(サイトキーを記入)
@@ -556,31 +588,35 @@ async function submitForm() {
                 body: formData,
             });
             const data = await response.json(); 
+
             if (data.result === 'error' && data.message === 'reCAPTCHA validation failed') {
                 errorMessage.textContent = 'ボットの可能性があるため、送信できませんでした';
                 errorMessage.style.display = 'block';
-                isSubmitting = false; // エラー発生時は送信中フラグをリセット
-                if (submitButton) {
-                  submitButton.disabled = false; // ボタンを有効に戻す
-                }
+                hideLoading(false); // エラー時はローディングを隠し、ボタンを再表示
                 return;
             }
 
+            // --- 成功時 ---
             formArea.style.display = 'none';
             completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br><ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ</span>」<br>ってコメントしてから、<br>【bottin-gaido】までフレンド<ruby><rt style="color: gray;">しんせい</rt>申請</ruby>してね。`;
             messageArea.style.display = 'block';
+            hideLoading(true); // 成功時はローディングを隠す（ボタンは再表示しない）
+
         } catch (error) {
+            // --- 失敗時 ---
             errorMessage.textContent = '送信に失敗しました';
             errorMessage.style.display = 'block';
             console.error('Error!', error.message);
-        } finally {
-            isSubmitting = false; // 最終的に送信中フラグをリセット
-            if (submitButton) {
-                submitButton.disabled = false; // 最終的にボタンを有効に戻す
-            }
-        }
+            hideLoading(false); // 失敗時はローディングを隠し、ボタンを再表示
+        } 
+        // 💡 変更点: finallyブロックは、try/catchの内部でhideLoadingを呼ぶようになったため削除
     });
 }
+
+// オーバーレイ関連の要素を取得
+const showRulesButton = document.getElementById('showRulesButton');
+const rulesOverlay = document.getElementById('rulesOverlay');
+const closeButton = rulesOverlay.querySelector('button.close-button');
 
 // オーバーレイ表示/非表示のJavaScript
 showRulesButton.addEventListener('click', () => {
