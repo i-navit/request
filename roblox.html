@@ -284,6 +284,7 @@
             /* 左右の余白を調整 */
             text-decoration: none !important;
             /* デフォルトの下線を打ち消す */
+            display: inline;
         }
 
         .highlight-nickname {
@@ -524,45 +525,27 @@
                         <rt style="color: gray;">よ</rt>読
                     </ruby>んだよ！</label>
             </div>
-            <div class="checkbox-text"><span class="required-mark">※</span><ruby>
-                    <rt style="color: gray;">はいしんがい</rt>配信外
-                </ruby>で<ruby>
-                    <rt style="color: gray;">くり</rt>繰
-                </ruby>り<ruby>
-                    <rt style="color: gray;">かえ</rt>返
-                </ruby>し<ruby>
-                    <rt style="color: gray;">しょうたい</rt>招待
-                </ruby>・<ruby>
+            <!-- 2番目のチェックボックスのテキストを更新 -->
+            <div class="checkbox-text"><span class="required-mark">※</span>ゲームに<ruby>
                     <rt style="color: gray;">さんか</rt>参加
-                </ruby>リクエストを<ruby>
-                    <rt style="color: gray;">おく</rt>送
-                </ruby>らないでね。</div>
+                </ruby>する<ruby>
+                    <rt style="color: gray;">まえ</rt>前
+                </ruby>に<ruby>
+                    <rt style="color: gray;">かなら</rt>必
+                </ruby>ずDiscordのぼっちんオンラインステータスを<ruby>
+                    <rt style="color: gray;">かくにん</rt>確認
+                </ruby>してね(オンライン<ruby>
+                    <rt style="color: gray;">いがい</rt>以外
+                </ruby>は<ruby>
+                    <rt style="color: gray;">あそ</rt>遊
+                </ruby>べないよ！)</div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check2" name="check2" required>
                 <label for="check2"><ruby>
                         <rt style="color: gray;">わ</rt>分
                     </ruby>かったよ</label>
             </div>
-            <div class="checkbox-text">
-                <span class="required-mark">※</span>
-                <ruby>
-                    <rt style="color: gray;">だれ</rt>誰
-                </ruby>が<ruby>
-                    <rt style="color: gray;">おく</rt>送
-                </ruby>ったかわかるように<ruby>
-                    <rt style="color: gray;">はいしん</rt>配信
-                </ruby>のコメントで「●●が<ruby>
-                    <rt style="color: gray;">とうろく</rt>登録
-                </ruby>したよ」と<ruby>
-                    <rt style="color: gray;">おし</rt>教
-                </ruby>えてね🙋
-            </div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="check3" name="check3" required>
-                <label for="check3">コメント<ruby>
-                        <rt style="color: gray;">か</rt>書
-                    </ruby>くよ</label>
-            </div>
+            <!-- チェックボックス3番目はユーザーの要求により削除されました -->
         </div>
         <div class="form-group">
             <label for="id"><span class="required-mark">※</span>あなたのユーザーネーム(ロブロックスID)を<ruby>
@@ -662,7 +645,7 @@
 
             const check1 = document.getElementById('check1');
             const check2 = document.getElementById('check2');
-            const check3 = document.getElementById('check3');
+            // 💡 変更点: check3の取得は既に削除されています
             const idInput = document.getElementById('id');
             const nicknameInput = document.getElementById('nickname');
             const errorMessage = document.getElementById('error-message');
@@ -672,8 +655,9 @@
             const completionMessage = document.getElementById('completion-message');
 
             // --- バリデーションチェック ---
-            if (!check1.checked || !check2.checked || !check3.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
-                errorMessage.textContent = '3つのチェックと2つの入力をしてから送信してね';
+            // 💡 変更点: check3のチェックは既に削除されています
+            if (!check1.checked || !check2.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
+                errorMessage.textContent = '2つのチェックと2つの入力をしてから送信してね'; // メッセージは「2つのチェック」で正しいです
                 errorMessage.style.display = 'block';
                 return; // バリデーション失敗時はここで処理を終了
             }
