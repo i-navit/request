@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>ぼっちんガイド「テスト」フレンド申請フォーム</title>
+    <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+    <script>/* 【！重要！】reCAPTCHAの認証(サイトキーを記入)  */</script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lf6STQrAAAAAOrsIXuWUujmwytnGlS8DGd_KsBe"></script>
+    <style>
+        /* ブラウザデフォルトの padding と margin を 0 に設定 */
+        body,
+        h1,
+        p,
+        div,
+        form,
+        label,
+        input,
+        button {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: sans-serif;
+            background-color: #D7EED9;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 15px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.3em;
+            margin-top: 0px;
+        }
+
+        h1 img {
+            width: 70px;
+            height: auto;
+        }
+
+        h1 div {
+            text-align: left;
+            line-height: 1.2;
+        }
+
+        /* 参加方法ボタンのスタイル 淡いパープルボタン*/
+        #showRulesButton {
+            background-color: #ad80cb;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-bottom: 20px;
+            /* フォーム項目との間に余白 */
+            width: 100%;
+            /* 親要素 (form-container) いっぱいに広げる */
+            box-sizing: border-box;
+            transition: background-color 0.3s ease;
+            position: relative; /* z-indexを有効にするため */
+            z-index: 10; /* 指画像より奥に配置 */
+        }
+
+        #showRulesButton:hover {
+            background-color: #7c479f;
+            /* ホバー時の色 */
+        }
+
+
+        .form-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            /* フォーム下の余白を追加 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* 子要素を中央揃え */
+            position: relative; /* 【重要】指画像の位置指定の基準にする */
+        }
+
+        /* エラーメッセージ領域 */
+        #error-area {
+            height: 12px;
+            margin-top: 0px;
+            margin-bottom: 12px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #error-message {
+            color: red;
+            font-weight: bold;
+            display: none;
+        }
+
+        .checkbox-group {
+            margin-bottom: 25px;
+            margin-top: 0px;
+            /* ボタンの直後になるため上余白を調整 */
+            width: 100%;
+            /* 親要素いっぱいに広げる */
+            box-sizing: border-box;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .required-mark {
+            color: red;
+            margin-left: 5px;
+        }
+
+        .red-mark {
+            color: red;
+        }
+
+        .form-group {
+            margin-bottom: 10px;
+            width: 100%;
+            /* 親要素いっぱいに広げる */
+            box-sizing: border-box;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 16px);
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            margin-top: 5px;
+            color: #333;
+            /* 入力文字の色 */
+        }
+
+        input::placeholder {
+            color: #ccc;
+            /* プレースホルダーの色 */
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 10px;
+            margin-bottom: 0px;
+            /* 送信ボタン下の余白 */
+            flex-direction: column;
+            /* ボタンと注意書きを縦に並べる */
+            align-items: center;
+            /* 中央揃え */
+            width: 100%;
+            /* 親要素いっぱいに広げる */
+            box-sizing: border-box;
+        }
+
+        .button-container button {
+            flex-grow: 1;
+            padding: 14px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            /* ボタンを親要素いっぱいに広げる */
+            max-width: 300px;
+            /* ボタンの最大幅を設定 */
+            box-sizing: border-box;
+        }
+
+        .button-container button:first-child {
+            background-color: #45a049;
+            /* 枝豆グリーン */
+        }
+
+        .button-container button:first-child:hover {
+            background-color: #e50914;
+            /* ホバー時濃いレッド */
+        }
+
+        .button-note {
+            color: #777;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        #submission-message {
+            margin-top: 30px;
+            text-align: center;
+            font-weight: bold;
+            color: green;
+        }
+
+        #form-area {
+            display: block;
+            /* フォーム表示エリア */
+            width: 90%;
+            /* フォーム領域の幅を固定 */
+            max-width: 500px;
+            /* フォーム領域の最大幅を固定 */
+        }
+
+        #message-area {
+            display: none;
+            /* 送信完了メッセージエリア 初期非表示 */
+            text-align: center;
+            margin-top: 30px;
+            font-size: 20px;
+            background-color: #fff;
+            /* メッセージエリアの背景を白に */
+            padding: 20px;
+            /* メッセージエリアにもpaddingを追加して見やすく */
+            border-radius: 8px;
+            /* メッセージエリアにも角丸を追加 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* メッセージエリアにも影を追加 */
+            width: 90%;
+            /* メッセージ領域の幅をフォームと同じに */
+            max-width: 500px;
+            /* メッセージ領域の最大幅をフォームと同じに */
+            box-sizing: border-box;
+            /* padding, border を含めた幅にする */
+        }
+
+        #message-area p {
+            margin-bottom: 0;
+            /* メッセージ内のp要素のデフォルトmarginを削除 */
+        }
+
+        /* ルビの表示位置を調整 */
+        ruby {
+            display: inline-block;
+            text-align: center;
+            line-height: 1;
+            /* 行の高さを詰める */
+        }
+
+        rt {
+            display: block;
+            font-size: 0.5em;
+            color: gray;
+            text-align: center;
+        }
+
+        .highlight-underline {
+            background: linear-gradient(transparent 60%, rgba(255, 255, 0, 0.7) 60%);
+            /* 黄色、透過 */
+            padding: 0 0.2em;
+            /* 左右の余白を調整 */
+            text-decoration: none !important;
+            /* デフォルトの下線を打ち消す */
+            display: inline;
+        }
+
+        .highlight-nickname {
+            font-weight: bold;
+            color: #800080;
+        }
+
+        .checkbox-text {
+            margin-bottom: 0px;
+            /* チェックボックス余白 */
+            color: #555;
+        }
+
+        /* オーバーレイのスタイル */
+        .overlay {
+            position: fixed;
+            /* 画面に固定 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            /* 半透明の黒背景 */
+            display: none;
+            /* 初期状態では非表示 */
+            justify-content: center;
+            /* 水平中央揃え */
+            align-items: center;
+            /* 垂直中央揃え */
+            z-index: 1000;
+            /* 他の要素より手前に表示 */
+            overflow-y: auto;
+            /* 内容が多い場合にスクロール可能にする */
+            padding: 20px;
+            /* スマホ表示などで端に寄りすぎないように */
+            box-sizing: border-box;
+        }
+
+        .overlay-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            /* 内容エリアの最大幅 */
+            width: 95%;
+            /* 内容エリアの幅 */
+            position: relative;
+            /* （閉じるボタンが下に移動したので不要ですが、残しておいても影響なし） */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            /* 内容エリアの最大高さ (画面高さの90%) */
+            overflow-y: auto;
+            /* 内容が高さより大きい場合にスクロール */
+            box-sizing: border-box;
+            /* 子要素（テキストやボタン）をflexアイテムとして縦に並べる設定を追加 */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            /* 基本左寄せ（ボタンはautoマージンで中央寄せ） */
+        }
+
+        /* 「とじる」ボタンのスタイル */
+        .overlay-content button.close-button {
+            /* button要素でclass="close-button"を持つものに適用 */
+            /* position: static; */
+            /* 絶対位置指定を解除（デフォルトがstaticなので改めて指定不要だが明示的に書いても良い） */
+            /* top: auto; right: auto; */
+            /* 位置指定を解除 */
+            display: block;
+            /* ブロック要素にして中央寄せ可能に */
+            margin: 30px auto 0 auto;
+            /* 上に大きな余白、左右autoで中央寄せ */
+            font-size: 1em;
+            /* サイズ調整 */
+            font-weight: bold;
+            /* 太字に */
+            color: white;
+            /* 文字色を白に */
+            background-color: #f44336;
+            /* 赤っぽい背景色 */
+            padding: 10px 20px;
+            /* パディング */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: fit-content;
+            /* テキストに合わせて幅を調整 */
+            align-self: center;
+            /* flexコンテナ内で自分自身を中央寄せ */
+        }
+
+        .overlay-content button.close-button:hover {
+            background-color: #d32f2f;
+            /* ホバー時の色を濃く */
+            color: white;
+            /* ホバー時も文字色は白 */
+        }
+
+        .overlay-content h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+            width: 100%;
+            /* 中央寄せを効かせるため */
+        }
+
+        .overlay-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* ルールテキスト内のrubyタグのスタイル調整（オーバーレイ内でも適用） */
+        .overlay-content ruby {
+            display: inline-block;
+            /* pタグ内でインライン要素として扱われるように */
+            text-align: center;
+            line-height: 1;
+            /* 行の高さを詰める */
+        }
+
+        .overlay-content rt {
+            display: block;
+            font-size: 0.5em;
+            color: gray;
+            text-align: center;
+        }
+
+        /* ボタン風スタイル */
+        .centered-text {
+            text-align: center;
+            /* 段落内の要素を中央寄せにする */
+            margin-bottom: 5px;
+            /* 下側の余白をさらに少なくする */
+            width: 100%;
+            /* 幅を100%にして中央寄せを適用 */
+        }
+
+        .link-btn {
+            text-align: center;
+            /* 段落内の要素を中央寄せにする */
+            margin: 0;
+            /* 段落自体のマージンをリセット */
+            width: 100%;
+            /* 幅を100%にして中央寄せを適用 */
+        }
+
+        .link-btn a {
+            display: inline-block;
+            /* インラインブロック要素にする */
+            padding: 3px 20px;
+            /* ボタンの内側の余白（上下・左右） */
+            color: white;
+            /* 文字色を白に設定 */
+            text-decoration: none;
+            /* 下線を非表示 */
+            border: 2px solid transparent;
+            /* ボタンの枠線を透明に設定 */
+            transition: all 0.3s ease;
+            /* ホバー時の変化をなめらかに */
+            margin: 0px 0;
+            /* ボタン自体の上下の余白を少なくする */
+        }
+
+        .link-btn a:hover {
+            background-color: transparent;
+            /* ホバー時に背景色を透明に設定 */
+        }
+
+        .color a {
+            /* ショート動画へのリンクボタンの パステルパープルに設定 */
+            --btn-color: #a78acb;
+            background-color: var(--btn-color);
+        }
+
+        .color a:hover {
+            color: var(--btn-color);
+            border-color: var(--btn-color);
+        }
+
+        /* --- 追加したスタイル --- */
+
+        /* 送信中メッセージの点滅アニメーション */
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* 送信中インジケーターのスタイルを送信ボタンと合わせる */
+        .loading-message {
+            font-size: 1.0em;
+            font-weight: bold;
+            color: #45a049;
+            /* 枝豆グリーン */
+            animation: blink 1s infinite step-end;
+            margin-top: 0px;
+            /* 見栄えを調整 */
+            padding: 14px 24px;
+            /* ボタンと高さを合わせる */
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        
+        /* === 指アニメーション用に追加したCSS === */
+        #fingerPointer {
+            position: absolute;
+            width: 60px; /* 画像のサイズ。適宜調整してね */
+            height: auto;
+            /* 初期位置はアニメーションで指定 */
+            top: 0; 
+            right: 0; 
+            left: auto;
+            opacity: 0; 
+            
+            z-index: 20; /* ボタンより手前に表示 */
+            
+            /* アニメーションの適用 */
+            animation: pointAndClick 2.5s ease-out forwards infinite; 
+        }
+
+        /* アニメーションの定義 (ボタンの30px下から右よりへ) */
+        @keyframes pointAndClick {
+            0% {
+                /* スタート: ボタンの約30px下、右側 */
+                top: 90px; /* ボタンの底部(約70px)から30px下あたり */
+                right: 40px; /* コンテナ右端から40pxの位置 */
+                opacity: 0; 
+                transform: rotate(10deg) scale(0.8);
+            }
+            20% {
+                /* 少し上がって、表示 */
+                top: 70px;
+                right: 50px;
+                opacity: 1; 
+                transform: rotate(0deg) scale(1);
+            }
+            60% {
+                /* ターゲット位置: ボタンの右半分を指し示す位置 */
+                top: 50px; /* ボタンの中央(Y軸)付近 */
+                right: 70px; /* ボタンの右端から内側へ少し入った位置 */
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+            80% {
+                /* クリックの表現 */
+                top: 55px;
+                right: 75px;
+                transform: scale(0.9); 
+                opacity: 1;
+            }
+            100% {
+                /* 透明になりながら、終了 */
+                opacity: 0; 
+                top: 50px; 
+                right: 70px; 
+                transform: scale(0.9);
+            }
+        }
+        /* --- 追加したスタイルここまで --- */
+
+    </style>
+</head>
+
+<body>
+    <h1>
+        <img src="https://i-navit.github.io/request/img/roblox.png?raw=true" alt="ぼっちんガイド">
+        <div>ぼっちんガイド@Roblox<br>フレンド申請フォーム</div>
+    </h1>
+
+    <div id="form-area" class="form-container">
+        <button id="showRulesButton">参加方法とルール</button>
+        <!-- 【追加】指の画像をボタンの直後、form-containerの子要素として配置 -->
+        <img id="fingerPointer" src="img/finger.png" alt="クリックを促す指">
+        
+        <div class="checkbox-group">
+            <div class="checkbox-text"><span class="required-mark">※</span><ruby>
+                    <rt style="color: gray;">うえ</rt>上
+                </ruby>の<ruby>
+                    <rt style="color: gray;">さんかほうほう</rt>参加方法
+                </ruby>とルールは<ruby>
+                    <rt style="color: gray;">よ</rt>読
+                </ruby>んだ？</div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check1" name="check1" required>
+                <label for="check1"><ruby>
+                        <rt style="color: gray;">よ</rt>読
+                    </ruby>んだよ！</label>
+            </div>
+            <!-- 2番目のチェックボックスのテキストを更新 -->
+            <div class="checkbox-text"><span class="required-mark">※</span>ゲームに<ruby>
+                    <rt style="color: gray;">さんか</rt>参加
+                </ruby>する<ruby>
+                    <rt style="color: gray;">まえ</rt>前
+                </ruby>に<ruby>
+                    <rt style="color: gray;">かなら</rt>必
+                </ruby>ずDiscordのぼっちんオンラインステータスを<ruby>
+                    <rt style="color: gray;">かくにん</rt>確認
+                </ruby>してね(オンライン<ruby>
+                    <rt style="color: gray;">いがい</rt>以外
+                </ruby>は<ruby>
+                    <rt style="color: gray;">あそ</rt>遊
+                </ruby>べないよ！)</div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check2" name="check2" required>
+                <label for="check2"><ruby>
+                        <rt style="color: gray;">わ</rt>分
+                    </ruby>かったよ</label>
+            </div>
+            <!-- チェックボックス3番目はユーザーの要求により削除されました -->
+        </div>
+        <div class="form-group">
+            <label for="id"><span class="required-mark">※</span>あなたのユーザーネーム(@ロブロックスID)を<ruby>
+                    <rt style="color: gray;">か</rt>書
+                </ruby>いてね</label>
+            <input type="text" id="id" name="id" placeholder="例：@TungTungTung_Sahur" required>
+        </div>
+        <div class="form-group">
+            <label for="nickname"><span class="required-mark">※</span>なんて<ruby>
+                    <rt style="color: gray;">よ</rt>呼
+                </ruby>んでほしい？</label>
+            <input type="text" id="nickname" name="nickname" placeholder="例：トゥントゥントゥンサフール" required>
+        </div>
+        <div id="error-area">
+            <p id="error-message" class="error"></p>
+        </div>
+        <div class="button-container">
+            <!-- 変更: onclickで直接submitFormを呼び出すようにし、古いdisableSubmitButtonを削除 -->
+            <button id="submitButton" onclick="submitForm()">送信</button>
+            <!-- 追加: 送信中のインジケーター -->
+            <div id="loadingIndicator" style="display:none;" class="loading-message">
+                送信中⋯ちょっと待ってね
+            </div>
+        </div>
+    </div>
+
+    <div id="message-area" style="display:none;">
+        <p id="completion-message"></p>
+    </div>
+
+    <div id="rulesOverlay" class="overlay">
+        <div class="overlay-content">
+            <h2>参加方法とルール</h2>
+
+            <p>
+                【フレンドのお約束】<br>
+                プライベートアカウントの為、必ずルールを守ってください。🚫ルール違反はフレンド整理、サーバーBANの対象となります。
+            </p>
+            <p>
+                <span class="required-mark">【重要】ぼっちんがプレイ中のサーバー(ゲーム)に入る場合は必ず確認してください。</span>
+            </p>
+            <p>
+                📍Discordのオンラインステータスがオンラインの場合のみ一緒にプレイ出来ます。※オンライン表示以外の場合はプライベートおよび動画撮影中のためゲームに参加しないようにしてください。
+            </p>
+            <p>
+                📍トラブル防止の為フレンド交換、ゲームへの勧誘等は一切禁止です。
+            </p>
+            <p>
+                📍プレイ中、ボイスチャット&テキストのやりとりはDiscordチャンネルを使用しましょう。※ゲーム内のチャット欄は使用しません。
+            </p>
+            <p>
+                🎞️プレイ中の一部を動画として使用させてもらう場合があります。
+            </p>
+
+            <button class="close-button">とじる</button>
+        </div>
+    </div>
+
+    <script>
+        // 【！重要！】Google Apps Script 最新のRobloxフレンド申請デプロイURLを貼り付ける        
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyGMfZO58NalchFrzRRKCssbpkqkQ7nNX5iW9GpdPXqN9D5NAkDj-enPpKQ-8OFrvO1rg/exec';
+
+        const submitButton = document.getElementById('submitButton');
+        const loadingIndicator = document.getElementById('loadingIndicator'); // 追加
+        let isSubmitting = false; // 送信中フラグ
+
+        // 💡 変更点: 古い disableDuration と disableSubmitButton 関数は削除されました。
+
+        /**
+         * 送信中アニメーションを表示し、二重送信を防ぎます
+         */
+        function showLoading() {
+            if (submitButton) submitButton.style.display = 'none'; // ボタンを非表示
+            if (loadingIndicator) loadingIndicator.style.display = 'block'; // ローディングを表示
+            isSubmitting = true;
+        }
+
+        /**
+         * 送信中アニメーションを非表示にし、エラー時はボタンを再表示します
+         * @param {boolean} success - 送信が成功したかどうか
+         */
+        function hideLoading(success = false) {
+            isSubmitting = false;
+            if (loadingIndicator) loadingIndicator.style.display = 'none'; // ローディングを非表示
+            // 成功した場合はフォーム全体が非表示になるため、ボタンは再表示しない
+            if (!success && submitButton) {
+                submitButton.style.display = 'block'; // エラー時はボタンを再表示
+            }
+        }
+
+
+        /**
+         * フォームのバリデーションと送信処理を実行します
+         */
+        async function submitForm() {
+            if (isSubmitting) return; // 二重送信防止
+
+            const check1 = document.getElementById('check1');
+            const check2 = document.getElementById('check2');
+            // 💡 変更点: check3の取得は既に削除されています
+            const idInput = document.getElementById('id');
+            const nicknameInput = document.getElementById('nickname');
+            const errorMessage = document.getElementById('error-message');
+            const errorArea = document.getElementById('error-area');
+            const formArea = document.getElementById('form-area');
+            const messageArea = document.getElementById('message-area');
+            const completionMessage = document.getElementById('completion-message');
+
+            // --- バリデーションチェック ---
+            // 💡 変更点: check3のチェックは既に削除されています
+            if (!check1.checked || !check2.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
+                errorMessage.textContent = '✅️と入力を全部してから送信してね'; // メッセージは「2つのチェック」で正しいです
+                errorMessage.style.display = 'block';
+                return; // バリデーション失敗時はここで処理を終了
+            }
+
+            errorMessage.textContent = '';
+            errorMessage.style.display = 'none';
+
+            showLoading(); // 💡 変更点: 送信開始。ボタンを消して「送信中・・・」表示
+
+            grecaptcha.ready(async () => {
+                // 【！重要！】reCAPTCHAの認証(サイトキーを記入)
+                const token = await grecaptcha.execute('6Lf6STQrAAAAAOrsIXuWUujmwytnGlS8DGd_KsBe', { action: 'submit' });
+                const timestamp = new Date().toLocaleString('ja-JP');
+                const formData = new FormData();
+                formData.append('timestamp', timestamp);
+                formData.append('id', idInput.value.trim());
+                formData.append('nickname', nicknameInput.value.trim());
+                formData.append('recaptcha_token', token); // トークンをformDataに追加
+
+                try {
+                    // グローバルで定義した scriptURL をそのまま使う
+                    const response = await fetch(scriptURL, {
+                        method: 'POST',
+                        body: formData,
+                    });
+                    const data = await response.json();
+
+                    if (data.result === 'error' && data.message === 'reCAPTCHA validation failed') {
+                        errorMessage.textContent = 'ボットの可能性があるため、送信できませんでした';
+                        errorMessage.style.display = 'block';
+                        hideLoading(false); // エラー時はローディングを隠し、ボタンを再表示
+                        return;
+                    }
+
+                    // --- 成功時 ---
+                    formArea.style.display = 'none';
+                    completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ</span>」<br>ってDiscordのチャットで<ruby><rt style="color: gray;">おし</rt>教</ruby>えてね<br><br>【@bottingaido】まで「つながりリクエスト」を送ってね。`;
+                    messageArea.style.display = 'block';
+                    hideLoading(true); // 成功時はローディングを隠す（ボタンは再表示しない）
+
+                } catch (error) {
+                    // --- 失敗時 ---
+                    errorMessage.textContent = '送信に失敗しました';
+                    errorMessage.style.display = 'block';
+                    console.error('Error!', error.message);
+                    hideLoading(false); // 失敗時はローディングを隠し、ボタンを再表示
+                }
+                // 💡 変更点: finallyブロックは、try/catchの内部でhideLoadingを呼ぶようになったため削除
+            });
+        }
+
+        // オーバーレイ関連の要素を取得
+        const showRulesButton = document.getElementById('showRulesButton');
+        const rulesOverlay = document.getElementById('rulesOverlay');
+        const closeButton = rulesOverlay.querySelector('button.close-button');
+        
+        // 【追加】指アニメーション関連の要素を取得
+        const fingerPointer = document.getElementById('fingerPointer');
+
+        // オーバーレイ表示/非表示のJavaScript
+        showRulesButton.addEventListener('click', () => {
+            rulesOverlay.style.display = 'flex'; // CSSでdisplay: flexに設定しているのでflexで表示
+            fingerPointer.style.display = 'none'; // 【追加】クリックしたら指を非表示
+        });
+
+        // 閉じるボタンがクリックされたらオーバーレイを非表示
+        closeButton.addEventListener('click', () => {
+            rulesOverlay.style.display = 'none';
+        });
+
+        // （任意）オーバーレイの背景をクリックされたらオーバーレイを非表示
+        rulesOverlay.addEventListener('click', (event) => {
+            // クリックされた要素がオーバーレイ自身であるか確認
+            if (event.target === rulesOverlay) {
+                rulesOverlay.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+
+</html>
