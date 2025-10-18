@@ -416,36 +416,36 @@
             z-index: 20; /* ボタンより手前に表示 */
             
             /* アニメーションの適用 */
-            animation: pointAndClick 2.5s ease-out forwards infinite; 
+            animation: pointAndClick 3.0s ease-out forwards infinite; 
         }
 
         /* アニメーションの定義 (ボタンの30px下から右よりへ) */
         @keyframes pointAndClick {
             0% {
-                /* スタート: ボタンの約30px下、右側 */
+                /* スタート: ボタンの右端と揃え、30px下 */
                 top: 90px; /* ボタンの底部(約70px)から30px下あたり */
-                right: 40px; /* コンテナ右端から40pxの位置 */
+                right: 30px; /* 【修正済】コンテナ右端から30pxの位置 (ボタンの右端と揃う) */
                 opacity: 0; 
                 transform: rotate(10deg) scale(0.8);
             }
             20% {
                 /* 少し上がって、表示 */
                 top: 70px;
-                right: 50px;
+                right: 40px; /* 【修正済】中間点も10px左に寄せた */
                 opacity: 1; 
                 transform: rotate(0deg) scale(1);
             }
             60% {
                 /* ターゲット位置: ボタンの右半分を指し示す位置 */
                 top: 50px; /* ボタンの中央(Y軸)付近 */
-                right: 70px; /* ボタンの右端から内側へ少し入った位置 */
+                right: 60px; /* ボタンの右端から内側へ少し入った位置 */
                 opacity: 1;
                 transform: rotate(0deg) scale(1);
             }
             80% {
                 /* クリックの表現 */
                 top: 55px;
-                right: 75px;
+                right: 65px;
                 transform: scale(0.9); 
                 opacity: 1;
             }
@@ -453,11 +453,11 @@
                 /* 透明になりながら、終了 */
                 opacity: 0; 
                 top: 50px; 
-                right: 70px; 
+                right: 60px; 
                 transform: scale(0.9);
             }
         }
-        /* --- 追加したスタイルここまで --- */
+        /* --- 指アニメーション追加したスタイルここまで --- */
 
     </style>
 </head>
