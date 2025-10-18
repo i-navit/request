@@ -657,7 +657,7 @@
             // --- バリデーションチェック ---
             // 💡 変更点: check3のチェックは既に削除されています
             if (!check1.checked || !check2.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
-                errorMessage.textContent = '2つのチェックと2つの入力をしてから送信してね'; // メッセージは「2つのチェック」で正しいです
+                errorMessage.textContent = '✅️と入力を全部してから送信してね'; // メッセージは「2つのチェック」で正しいです
                 errorMessage.style.display = 'block';
                 return; // バリデーション失敗時はここで処理を終了
             }
