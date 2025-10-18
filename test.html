@@ -756,7 +756,7 @@
 
                     // --- 成功時 ---
                     formArea.style.display = 'none';
-                    completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ</span>」<br>ってDiscordのチャットで<ruby><rt style="color: gray;">おし</rt>教</ruby>えてね<br><br>【@bottingaido】まで「つながりリクエスト」を送ってね。`;
+                    completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ</span>」<br>ってDiscordのチャットで<ruby><rt style="color: gray;">おし</rt>教</ruby>えてね<br><br>【<span class="highlight-nickname">@bottingaido</span>】まで「つながりリクエスト」を送ってね。`;
                     messageArea.style.display = 'block';
                     hideLoading(true); // 成功時はローディングを隠す（ボタンは再表示しない）
 
