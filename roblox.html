@@ -71,6 +71,8 @@
             /* 親要素 (form-container) いっぱいに広げる */
             box-sizing: border-box;
             transition: background-color 0.3s ease;
+            position: relative; /* z-indexを有効にするため */
+            z-index: 10; /* 指画像より奥に配置 */
         }
 
         #showRulesButton:hover {
@@ -93,6 +95,7 @@
             flex-direction: column;
             align-items: center;
             /* 子要素を中央揃え */
+            position: relative; /* 【重要】指画像の位置指定の基準にする */
         }
 
         /* エラーメッセージ領域 */
@@ -498,8 +501,64 @@
             text-align: center;
             box-sizing: border-box;
         }
+        
+        /* === 指アニメーション用に追加したCSS === */
+        #fingerPointer {
+            position: absolute;
+            width: 60px; /* 画像のサイズ。適宜調整してね */
+            height: auto;
+            /* 初期位置はアニメーションで指定 */
+            top: 0; 
+            right: 0; 
+            left: auto;
+            opacity: 0; 
+            
+            z-index: 20; /* ボタンより手前に表示 */
+            
+            /* アニメーションの適用 */
+            animation: pointAndClick 2.5s ease-out forwards infinite; 
+        }
 
+        /* アニメーションの定義 (ボタンの30px下から右よりへ) */
+        @keyframes pointAndClick {
+            0% {
+                /* スタート: ボタンの約30px下、右側 */
+                top: 90px; /* ボタンの底部(約70px)から30px下あたり */
+                right: 40px; /* コンテナ右端から40pxの位置 */
+                opacity: 0; 
+                transform: rotate(10deg) scale(0.8);
+            }
+            20% {
+                /* 少し上がって、表示 */
+                top: 70px;
+                right: 50px;
+                opacity: 1; 
+                transform: rotate(0deg) scale(1);
+            }
+            60% {
+                /* ターゲット位置: ボタンの右半分を指し示す位置 */
+                top: 50px; /* ボタンの中央(Y軸)付近 */
+                right: 70px; /* ボタンの右端から内側へ少し入った位置 */
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+            80% {
+                /* クリックの表現 */
+                top: 55px;
+                right: 75px;
+                transform: scale(0.9); 
+                opacity: 1;
+            }
+            100% {
+                /* 透明になりながら、終了 */
+                opacity: 0; 
+                top: 50px; 
+                right: 70px; 
+                transform: scale(0.9);
+            }
+        }
         /* --- 追加したスタイルここまで --- */
+
     </style>
 </head>
 
@@ -511,6 +570,9 @@
 
     <div id="form-area" class="form-container">
         <button id="showRulesButton">参加方法とルール</button>
+        <!-- 【追加】指の画像をボタンの直後、form-containerの子要素として配置 -->
+        <img id="fingerPointer" src="img/finger.png" alt="クリックを促す指">
+        
         <div class="checkbox-group">
             <div class="checkbox-text"><span class="required-mark">※</span><ruby>
                     <rt style="color: gray;">うえ</rt>上
@@ -694,7 +756,7 @@
 
                     // --- 成功時 ---
                     formArea.style.display = 'none';
-                    completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ</span>」<br>ってDiscordのチャットで<ruby><rt style="color: gray;">おし</rt>教</ruby>えてね<br><br>【@bottingaido】まで「つながりリクエスト」を送ってね。`;
+                    completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ</span>」<br>ってDiscordのチャットで<ruby><rt style="color: gray;">おし</rt>教</ruby>えてね<br><br>【<span class="highlight-nickname">@bottingaido</span>】まで「つながりリクエスト」を送ってね。`;
                     messageArea.style.display = 'block';
                     hideLoading(true); // 成功時はローディングを隠す（ボタンは再表示しない）
 
@@ -713,10 +775,14 @@
         const showRulesButton = document.getElementById('showRulesButton');
         const rulesOverlay = document.getElementById('rulesOverlay');
         const closeButton = rulesOverlay.querySelector('button.close-button');
+        
+        // 【追加】指アニメーション関連の要素を取得
+        const fingerPointer = document.getElementById('fingerPointer');
 
         // オーバーレイ表示/非表示のJavaScript
         showRulesButton.addEventListener('click', () => {
             rulesOverlay.style.display = 'flex'; // CSSでdisplay: flexに設定しているのでflexで表示
+            fingerPointer.style.display = 'none'; // 【追加】クリックしたら指を非表示
         });
 
         // 閉じるボタンがクリックされたらオーバーレイを非表示
