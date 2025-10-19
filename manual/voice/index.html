@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord ボイスチャット設定</title>
+    <style>
+        /* -------------------------------------------
+        リセットCSS
+        ------------------------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* -------------------------------------------
+        全体スタイル（スマホをベースに設定）
+        ------------------------------------------- */
+        body {
+            font-family: sans-serif;
+            /* 修正1: 左右の余白を20pxに設定 */
+            padding: 20px 20px; 
+            background-color: #fff;
+            color: #333333;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        /* -------------------------------------------
+        コンテンツの中央寄せと最大幅の制御
+        ------------------------------------------- */
+        .content-wrapper {
+            max-width: 800px; /* PCでの表示を800pxに制御 */
+            width: 100%;
+            margin: 0 auto; /* 中央寄せ */
+        }
+
+        /* -------------------------------------------
+        トップページ専用スタイル 
+        ------------------------------------------- */
+        
+        .header-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #5d3f8a;
+            margin-top: 10px; 
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .selection-box {
+            /* 修正2: ボックス内の左右のパディングを20pxに設定 */
+            padding: 20px 20px; 
+            background-color: #f0f0ff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .prompt-text {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 25px; 
+            border-bottom: 2px solid #a78acb;
+            padding-bottom: 10px;
+        }
+        
+        .device-button {
+            display: block;
+            width: 80%; /* ボタンの幅を80%に設定 */
+            margin: 15px auto; 
+            padding: 15px 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: 2px solid; 
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+        }
+
+        /* スマホ選択ボタン (淡いグリーン) */
+        #button-smartphone {
+            background-color: #DCECDA;
+            border-color: #7CAD87;
+            color: #2D583A;
+        }
+        #button-smartphone:hover {
+            background-color: #CDE0C8;
+            transform: translateY(-2px);
+        }
+
+        /* パソコン選択ボタン (淡いパープル) */
+        #button-pc {
+            background-color: #E6E0F0;
+            border-color: #a78acb;
+            color: #5d3f8a;
+        }
+        #button-pc:hover {
+            background-color: #DCDCFE;
+            transform: translateY(-2px);
+        }
+
+        .manual-title {
+            font-size: 1.7em;
+            font-weight: bold;
+            color: #5d3f8a; /* 濃いめのパープル */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* 補足メッセージ */
+        .note-text {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content-wrapper">
+        <h1 class="manual-title">Discordボイスチャット設定</h1>
+
+        <div class="selection-box">
+            <div class="prompt-text">
+                <p>どのデバイスでDiscordを使いますか？</p>
+            </div>
+
+            <a href="voice_phone.html" class="device-button" id="button-smartphone" data-target="smartphone">
+                📱 スマホ
+            </a>
+
+            <a href="voice_pc.html" class="device-button" id="button-pc" data-target="pc">
+                💻 パソコン
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>

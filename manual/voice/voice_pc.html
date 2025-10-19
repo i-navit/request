@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discordボイスチャット設定(PC用)</title>
+    <style>
+        /* -------------------------------------------
+        リセットCSS
+        ------------------------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* -------------------------------------------
+        全体スタイル
+        ------------------------------------------- */
+        body {
+            font-family: sans-serif;
+            padding: 20px 20px; /* PC/スマホ共通で左右20pxの余白 */
+            background-color: #fff;
+            color: #333333;
+            font-size: 14px;
+            line-height: 1.6; /* 読みやすくするため行間を少し広げる */
+        }
+        
+        /* -------------------------------------------
+        コンテンツの中央寄せと最大幅の制御
+        ------------------------------------------- */
+        .content-wrapper {
+            max-width: 800px; /* PCでの表示を800pxに制御 */
+            width: 100%;
+            margin: 0 auto; /* 中央寄せ */
+        }
+
+        /* -------------------------------------------
+        マニュアルページの共通スタイル
+        ------------------------------------------- */
+        .manual-title {
+            font-size: 1.7em;
+            font-weight: bold;
+            /* パソコンボタンの色（パープル系）に合わせる */
+            color: #5d3f8a; 
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .step-section {
+            background-color: #f0f0ff; /* 淡いパープル背景 */
+            border-radius: 10px;
+            padding: 25px 20px; /* 上下25px、左右20pxの余白 */
+            margin-bottom: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-heading {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #a78acb; /* 淡いパープル */
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e0e0ff; /* 少し濃いめの線 */
+            padding-bottom: 8px;
+        }
+
+        .step-description {
+            font-size: 1.0em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #333333;
+        }
+
+        .step-image {
+            max-width: 100%; /* スマホで画像がはみ出さないように調整 */
+            height: auto;
+            display: block; /* 中央寄せのためにブロック要素に */
+            margin: 0 auto 25px auto; /* 上下25pxの余白、中央寄せ */
+            border: 1px solid #ddd; /* 画像に薄い枠線 */
+            border-radius: 5px;
+        }
+
+        /* 戻るボタン */
+        .back-button-wrapper {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 10px 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #2D583A; /* 濃い緑の文字 */
+            background-color: #DCECDA; /* 淡いグリーン */
+            border: 2px solid #7CAD87; /* 濃いめのグリーン */
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+        }
+        .back-button:hover {
+            background-color: #CDE0C8;
+            transform: translateY(-2px);
+        }
+        /* 補足メッセージ */
+        .note-text {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="content-wrapper">
+        <h1 class="manual-title">💻 Discordボイチャ設定(PC)</h1>
+
+        <div class="step-section">
+            <h2 class="step-heading">STEP1：設定画面へアクセス</h2>
+            <p class="step-description">
+                Discord画面左下の自分のユーザー名の横にある歯車アイコンをクリックしてね。
+            </p>
+            <img src="manual_img/manual_pc(1).jpg" alt="Discord PC版ユーザー設定アイコン" class="step-image">
+        </div>
+
+        <div class="step-section">
+            <h2 class="step-heading">STEP2：音声・ビデオ設定へアクセス</h2>
+            <p class="step-description">
+                左側の設定メニューにある【音声・ビデオ】をクリックしてね。
+            </p>
+            <img src="manual_img/manual_pc(2).jpg" alt="Discord PC版音声・ビデオ設定画面" class="step-image">
+        </div>
+
+        <div class="step-section">
+            <h2 class="step-heading">STEP3：入力モードを音声検出に設定</h2>
+            <p class="step-description">
+                入力モードを確認して【音声検出】に変更してね。自分の環境に合わせて入力デバイス・出力デバイスも確認しておこう。
+            </p>
+            <img src="manual_img/manual_pc(3).jpg" alt="Discord PC版入力モード設定画面" class="step-image">
+        </div>
+        
+        <div class="note-text">
+            ※うまく行かない場合は、ぼっちんとナビットに相談してね。
+        </div>
+
+        <div class="back-button-wrapper">
+            <a href="index.html" class="back-button">トップページに戻る</a>
+        </div>
+    </div>
+
+</body>
+</html>
