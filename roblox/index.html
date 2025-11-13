@@ -38,7 +38,7 @@
         }
         
         /* 汎用中央寄せ（ボタンラッパー用） */
-        .ct {
+        .member_button {
             text-align: center;
             margin-bottom: 10px;
         }
@@ -151,11 +151,33 @@
             padding: 10px 20px; /* 適切なパディングを追加 */
             margin: 15px 0; /* 適切なマージンを追加 */
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative; /* 指アイコン配置の基準とする */
+            overflow: visible; /* 指アイコンがはみ出すのを許容 */
         }
 
         .membership-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 指アイコンのスタイルとアニメーション */
+        .finger-icon {
+            position: absolute;
+            transform-origin: 50% 50%;
+            pointer-events: none; /* ボタンのクリックを邪魔しないように */
+            z-index: 10;
+            /* アニメーションの適用: 0.8s -> 1.5s に変更 */
+            animation: clicking 1.0s infinite alternate;
+        }
+
+        /* クリック風アニメーション */
+        @keyframes clicking {
+            0%, 100% {
+                transform: rotate(-70deg) translate(0, 0); 
+            }
+            50% {
+                transform: rotate(-70deg) translate(3px, 3px) scale(0.95);
+            }
         }
 
         /* 検索画像 */
@@ -199,6 +221,13 @@
                 content: "\A";
                 white-space: pre;
             }
+
+            /* 指アイコン PC設定 (100px) */
+            .finger-icon {
+                width: 100px;
+                right: -90px;
+                top: -20px;
+            }
         }
 
         /* Tablet/iPad (481pxから820px) */
@@ -211,6 +240,13 @@
                 font-size: 26px;
                 padding: 7px 20px;
                 margin: 5px 0;
+            }
+
+            /* 指アイコン Tablet設定 (70px) */
+            .finger-icon {
+                width: 70px;
+                right: -70px;
+                top: -10px;
             }
         }
 
@@ -252,6 +288,13 @@
 
             .txt-area {
                 padding: 10px;
+            }
+
+            /* 指アイコン スマホ設定 (40px) */
+            .finger-icon {
+                width: 40px;
+                right: -30px;
+                top: 0px;
             }
         }
     </style>
@@ -306,9 +349,11 @@
                         <h1>YouTubeメンバーシップ<br><ruby>限定<rt class="ruby-color">げんてい</rt></ruby>です🐥</h1>
                         
                         <!-- ボタンの中央寄せ -->
-                        <div class="ct">
+                        <div class="member_button">
                             <a href="https://www.youtube.com/channel/UCbIsTopKJQXLhg2V8gaKIVw/join" target="_blank" rel="noopener noreferrer" class="membership-button">
                                 メンバーシップはこちら
+                                <!-- ★ ここに指アイコンを追加 ★ -->
+                                <img src="img/finger.png" alt="指アイコン" class="finger-icon">
                             </a>
                         </div>
                         
@@ -336,5 +381,3 @@
 </body>
 
 </html>
-
-
