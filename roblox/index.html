@@ -14,7 +14,8 @@
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box; /* すべての要素に適用 */
+            box-sizing: border-box;
+            /* すべての要素に適用 */
         }
 
         body,
@@ -27,8 +28,11 @@
         /* ==================================== */
         .container {
             max-width: 1200px;
+            /* 最大幅を設定 */
             margin: 0 auto;
+            /* 中央寄せ */
             background-color: #def5fc;
+            /* 背景色 */
             padding-bottom: 30px;
         }
 
@@ -36,15 +40,11 @@
             width: 90%;
             margin: 0 auto;
         }
-        
-        /* 汎用中央寄せ（ボタンラッパー用） */
-        .member_button {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        
-        /* ヘッダー画像 */
-        .header-img {
+
+        /* 画像要素の基本スタイル */
+        .header-img,
+        .follow-img,
+        .title {
             width: 100%;
             height: auto;
             display: block;
@@ -52,135 +52,7 @@
             border: none;
         }
 
-        /* ==================================== */
-        /* 3. タイポグラフィ/カラー */
-        /* ==================================== */
-        /* ルビの色 */
-        .ruby-color {
-            color: #999999;
-        }
-
-        /* 強調色 */
-        .font-c1 {
-            color: #FF0FA7;
-            font-weight: bold;
-        }
-        
-        /* PC/Desktopの標準テキストサイズ */
-        .box-aisatsu p,
-        .txt-area p,
-        .box-footer p {
-            font-size: 28px;
-        }
-
-        /* コンテンツブロック内のH1 */
-        .content-blockbox h1 {
-            font-size: 40px;
-            text-align: center;
-            margin-bottom: 5px;
-            color: #1a73e8;
-        }
-
-        /* ==================================== */
-        /* 4. コンテンツブロック */
-        /* ==================================== */
-        .content-block {
-            background-size: 100% auto;
-            background-repeat: no-repeat;
-            background-position: top center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 26px;
-            margin-top: 50px;
-            margin-bottom: 60px;
-            padding-bottom: 30px;
-        }
-
-        /* 各ブロックの背景画像 */
-        .guerilla-block {
-            background-image: url('img/guerrilla.jpg');
-        }
-
-        .live-stream-block {
-            background-image: url('img/live.jpg');
-        }
-
-        .private-block {
-            background-image: url('img/private.jpg');
-        }
-
-        /* 各コンテンツブロック内のテキスト部分 */
-        .content-blockbox {
-            width: 90%;
-            padding-top: 320px; /* PC/Tabletでの背景画像に合わせたパディング */
-            margin: 0 auto 0;
-        }
-
-        .txt-area {
-            color: #333;
-            border-radius: 16px;
-            background-color: #ffffff;
-            padding: 20px;
-        }
-        
-        /* 挨拶/フッターエリアの幅調整 */
-        .box-aisatsu,
-        .box-footer {
-            width: 95%;
-            margin: 0 auto;
-        }
-
-        .box-footer {
-            text-align: center;
-        }
-
-
-        /* ==================================== */
-        /* 5. インタラクティブ要素 */
-        /* ==================================== */
-        
-        /* メンバーシップボタン */
-        .membership-button {
-            display: inline-block;
-            background-color: #2E7D32;
-            color: white;
-            text-decoration: none;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            padding: 10px 20px; /* 適切なパディングを追加 */
-            margin: 15px 0; /* 適切なマージンを追加 */
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            position: relative; /* 指アイコン配置の基準とする */
-            overflow: visible; /* 指アイコンがはみ出すのを許容 */
-        }
-
-        .membership-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        /* 指アイコンのスタイルとアニメーション */
-        .finger-icon {
-            position: absolute;
-            transform-origin: 50% 50%;
-            pointer-events: none; /* ボタンのクリックを邪魔しないように */
-            z-index: 10;
-            /* アニメーションの適用: 0.8s -> 1.5s に変更 */
-            animation: clicking 1.0s infinite alternate;
-        }
-
-        /* クリック風アニメーション */
-        @keyframes clicking {
-            0%, 100% {
-                transform: rotate(-70deg) translate(0, 0); 
-            }
-            50% {
-                transform: rotate(-70deg) translate(3px, 3px) scale(0.95);
-            }
-        }
-
-        /* 検索画像 */
+        /* 検索画像 (リンク全体) */
         .search-img {
             width: 90%;
             height: auto;
@@ -196,27 +68,188 @@
         }
 
         /* ==================================== */
+        /* 3. タイポグラフィ/カラー/強調 */
+        /* ==================================== */
+        /* ルビの色（薄いグレー） */
+        .ruby-color {
+            color: #999999;
+        }
+
+        /* 強調色（ピンク） */
+        .font-c1 {
+            color: #FF0FA7;
+            font-weight: bold;
+        }
+
+        /* 全体の標準テキストサイズ (PC/Desktopの基準) */
+        .box-aisatsu p,
+        .txt-area p,
+        .box-footer p {
+            font-size: 28px;
+        }
+
+        /* H1（コンテンツタイトル） */
+        h1 {
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 5px;
+            color: #1a73e8;
+        }
+
+        /* エリア内の注意書き（赤文字） */
+        .kome {
+            text-align: center;
+            color: #ff0000;
+        }
+
+        /* ==================================== */
+        /* 4. コンテンツブロック（背景とテキストエリア） */
+        /* ==================================== */
+
+        /* 共通の背景スタイル（背景画像と影） */
+        .content-guerrilla,
+        .content-live,
+        .content-private {
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            background-position: top center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 26px;
+            margin-top: 40px;
+            margin-bottom: 60px;
+            padding-top: 5px;
+            padding-bottom: 50px;
+        }
+
+        .content-guerrilla {
+            background-image: url('img/bg_guerrilla.jpg');
+        }
+
+        .content-live {
+            background-image: url('img/bg_live.jpg');
+        }
+
+        .content-private {
+            background-image: url('img/bg_private.jpg');
+        }
+
+        /* 白背景のテキストエリア */
+        .txt-area {
+            color: #333;
+            border-radius: 16px;
+            background-color: #ffffff;
+            padding: 30px;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+
+        /* 挨拶/フッターエリアの幅調整と中央寄せ */
+        .box-aisatsu,
+        .box-footer {
+            width: 95%;
+            margin: 0 auto;
+        }
+
+        .box-footer {
+            text-align: center;
+        }
+
+        /* ==================================== */
+        /* 5. インタラクティブ要素（ボタン/アイコン） */
+        /* ==================================== */
+
+        /* ボタンラッパー（中央寄せ用） */
+        .member_button,
+        .follow_div {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        /* メンバーシップボタンのスタイル */
+        .membership-button {
+            display: inline-block;
+            background-color: #2E7D32;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 10px 20px;
+            margin: 15px 0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            overflow: visible;
+        }
+
+        /* フォローボタンのスタイル */
+        .follow-button {
+            display: inline-block;
+            background-color: #ff708a;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 10px 20px;
+            margin: 15px 0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            overflow: visible;
+        }
+
+        .membership-button:hover,
+        .follow-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 指アイコンのスタイルとアニメーション */
+        .finger-icon {
+            position: absolute;
+            transform-origin: 50% 50%;
+            pointer-events: none;
+            /* ボタンのクリックを邪魔しないように */
+            z-index: 10;
+            animation: clicking 1.0s infinite alternate;
+        }
+
+        /* クリック風アニメーションの定義 */
+        @keyframes clicking {
+
+            0%,
+            100% {
+                transform: rotate(-70deg) translate(0, 0);
+            }
+
+            50% {
+                transform: rotate(-70deg) translate(3px, 3px) scale(0.95);
+            }
+        }
+
+        /* ==================================== */
         /* 6. フッター（著作権） */
         /* ==================================== */
         .copyright-text {
             color: #ABABAB;
             margin-top: 30px;
-            text-align: center; /* <footer>がブロック要素のため、ここで中央寄せ */
+            text-align: center;
             font-size: 16px;
-            /* 著作権は<footer>タグ自体にクラスを付けています */
         }
 
 
         /* ==================================== */
         /* 7. メディアクエリ (レスポンシブ設定) */
         /* ==================================== */
-        
-        /* PC (769px以上) 向け設定 */
+
+        /* PC/Desktop (769px以上) 向け設定 */
         @media (min-width: 769px) {
             .box-aisatsu {
                 text-align: center;
             }
 
+            /* PCでの改行 */
             .box-aisatsu p .pc-break-point::after {
                 content: "\A";
                 white-space: pre;
@@ -230,13 +263,18 @@
             }
         }
 
-        /* Tablet/iPad (481pxから820px) */
+        /* Tablet/iPad (481pxから820px) の設定 */
         @media (min-width: 481px) and (max-width: 820px) {
-            .content-blockbox {
-                padding-top: 27vw;
+
+            /* 本文のフォントサイズをPCより小さく調整 */
+            .box-aisatsu p,
+            .txt-area p,
+            .box-footer p {
+                font-size: 22px;
             }
 
-            .membership-button {
+            .membership-button,
+            .follow-button {
                 font-size: 26px;
                 padding: 7px 20px;
                 margin: 5px 0;
@@ -250,51 +288,89 @@
             }
         }
 
-        /* SmartPhone (480px以下) */
+        /* SmartPhone (480px以下) の設定 */
         @media (max-width: 480px) {
-            .content-block {
-                margin-top: 20px;
-                margin-bottom: 20px;
+
+            /* コンテンツブロックの上下余白をvwで調整 (1/3削減を維持) */
+            .content-guerrilla,
+            .content-live,
+            .content-private {
+                margin-top: 4vw;
+                padding-bottom: 8vw;
             }
 
+            /* ゲリラ、ライブブロックの下の余白 (1/3削減を維持) */
+            .content-guerrilla,
+            .content-live {
+                margin-bottom: 6vw;
+            }
+
+            /* プライベートブロックの下の余白をフッターに合わせて詰める (1/3削減を維持) */
+            .content-private {
+                margin-bottom: 2vw;
+            }
+
+            /* 本文のフォントサイズをvwで調整 */
             .box-aisatsu p,
             .txt-area p,
             .box-footer p {
-                font-size: 15px;
+                font-size: 3.8vw;
+                /* 4vw から 3.8vw に変更 */
             }
 
-            .membership-button {
-                font-size: 14px;
-                padding: 5px 16px;
-                margin: 5px 0;
+            /* H1のサイズは変更しない */
+            h1 {
+                font-size: 18px;
             }
 
-            .content-blockbox h1 {
-                font-size: 17px;
+            /* ボタンのフォントサイズを調整 */
+            .membership-button,
+            .follow-button {
+                font-size: 4.2vw;
+                /* 4.5vw から 4.2vw に変更 */
+                padding: 2.5vw 4.5vw;
+                margin: 3vw 0;
+                border-radius: 5vw;
             }
 
-            .content-blockbox {
-                padding-top: 27vw;
-            }
-
-            .content-block {
-                background-size: 100% auto;
-            }
-
+            /* 著作権フッターのサイズは変更しない */
             .copyright-text {
                 margin-top: 5vw;
-                font-size: 12px;
+                font-size: 3.5vw;
             }
 
+            /* .txt-area の左右マージンとパディング */
             .txt-area {
-                padding: 10px;
+                padding: 4vw;
+                margin-left: 6vw;
+                margin-right: 6vw;
             }
 
-            /* 指アイコン スマホ設定 (40px) */
+            /* 指アイコン スマホ設定 (40px相当) */
             .finger-icon {
-                width: 40px;
-                right: -30px;
-                top: 0px;
+                width: 10vw;
+                right: -8vw;
+                top: 0;
+            }
+
+            /* ヘッダー画像の縦の余白も調整 */
+            .search-img {
+                margin: 5vw auto 3vw;
+            }
+
+            /* ボタン・注意書き周りの余白を調整 */
+            .follow_div,
+            .member_button {
+                margin-bottom: 0;
+            }
+
+            .kome {
+                margin-top: 0;
+            }
+
+            /* プライベートブロックの最後の段落の下の余白を削除 */
+            .content-private .txt-area p:last-child {
+                margin-bottom: 0;
             }
         }
     </style>
@@ -304,77 +380,104 @@
 
     <div class="container">
 
-        <img class="header-img" src="img/header.jpg" alt="ヘッダー画像">
-        
-        <!-- 画像リンク -->
-        <a href="https://youtube.com/channel/UCbIsTopKJQXLhg2V8gaKIVw" target="_blank">
+        <img class="header-img" src="img/header.jpg" alt="ぼっちんガイド★ルミナスゲームズ">
+
+        <!-- 画像リンク --><a href="https://youtube.com/channel/UCbIsTopKJQXLhg2V8gaKIVw" target="_blank">
             <img class="search-img" src="img/search.png" alt="ぼっちんガイド★ルミナスゲームズ">
         </a>
-        
+
         <div class="box">
 
             <!-- 挨拶エリア -->
             <div class="box-aisatsu">
                 <p>
-                    <span class="pc-break-point">フレンド★つながり<ruby>希望<rt class="ruby-color">きぼう</rt></ruby>とっても<ruby>嬉<rt class="ruby-color">うれ</rt></ruby>しいです🐥</span>つながり、<ruby>遊<rt class="ruby-color">あそ</rt></ruby>び<ruby>方<rt class="ruby-color">かた</rt></ruby>を<ruby>選<rt class="ruby-color">えら</rt></ruby>んでゲームに<ruby>参加<rt class="ruby-color">さんか</rt></ruby>してください🌠
+                    <span class="pc-break-point">フレンド★つながり<ruby>希望<rt class="ruby-color">きぼう</rt></ruby>とっても<ruby>嬉<rt
+                                class="ruby-color">うれ</rt></ruby>しいです🐥</span>つながり、<ruby>遊<rt class="ruby-color">あそ</rt>
+                    </ruby>び<ruby>方<rt class="ruby-color">かた</rt></ruby>を<ruby>選<rt class="ruby-color">えら</rt>
+                    </ruby>んでゲームに<ruby>参加<rt class="ruby-color">さんか</rt></ruby>してください🌠
                 </p>
             </div>
 
+
             <!-- 1. ゲリラブロック -->
-            <div class="content-block guerilla-block">
-                <div class="content-blockbox">
-                    <div class="txt-area">
-                        <h1>コミュニティやストーリーで<br>ゲーム<ruby>参加者<rt class="ruby-color">さんかしゃ</rt></ruby>を<ruby>募集<rt class="ruby-color">ぼしゅう</rt></ruby>しています</h1>
-                        <p>『・ぼっちん』<br>ロブロID→<span class="font-c1">bottingaido</span>をフォローして【ゲーム<ruby>参加<rt class="ruby-color">さんか</rt></ruby>】を<ruby>押<rt class="ruby-color">お</rt></ruby>して<ruby>一緒<rt class="ruby-color">いっしょ</rt></ruby>にプレイ🎵</p>
+            <div class="content-guerrilla">
+                <img src="img/title_guerrilla.png" alt="ゲリラ募集に参加して一緒に遊びたい" class="title">
+                <div class="txt-area">
+                    <h1>コミュニティやストーリーで<br>ゲーム<ruby>参加者<rt class="ruby-color">さんかしゃ</rt></ruby>を<ruby>募集<rt
+                                class="ruby-color">ぼしゅう</rt></ruby>しています</h1>
+                    <p>
+                        <ruby>三点<rt class="ruby-color">さんてん</rt></ruby>リーダーを<ruby>押<rt class="ruby-color">お</rt>
+                        </ruby>してフォローをポチっ👆️<ruby>募集<rt>ぼしゅう</rt></ruby>の<ruby>合図<rt>あいず
+                        </ruby>がくるのを<ruby>待<rt>ま</rt></ruby>っててね♪<br><ruby>時間<rt class="ruby-color">じかん
+                            </rt>
+                        </ruby>がきたら【ゲーム<ruby>参加<rt class="ruby-color">さんか</rt></ruby>】を<ruby>押<rt class="ruby-color">お
+                            </rt></ruby>して<ruby>一緒<rt class="ruby-color">いっしょ</rt>
+                        </ruby>にプレイ🎵
+                    </p>
+
+                    <!-- プロフィールへ --><img class="follow-img" src="img/follow.png" alt="フォローの方法">
+                    <div class="follow_div">
+                        <a href="https://www.roblox.com/ja/users/9627543495/profile" target="_blank"
+                            rel="noopener noreferrer" class="follow-button">
+                            プロフィールページはこちら
+                            <!-- ★ ここに指アイコンを追加 ★ --><img src="img/finger.png" alt="指アイコン" class="finger-icon">
+                        </a>
                     </div>
+                    <p class="kome">つながりを<ruby>追加<rt class="ruby-color">ついか</rt></ruby>は<ruby>押<rt class="ruby-color">お
+                            </rt>
+                        </ruby>さないでね☆</p>
                 </div>
             </div>
 
-            <!-- 2. ライブ配信ブロック -->
-            <div class="content-block live-stream-block">
-                <div class="content-blockbox">
-                    <div class="txt-area">
-                        <h1>ライブ<ruby>配信<rt class="ruby-color">はいしん</rt></ruby>(<ruby>予定<rt class="ruby-color">よてい</rt></ruby>)で<br><ruby>一緒<rt class="ruby-color">いっしょ</rt></ruby>にプレイしましょう🎵</h1>
-                        <p>『ぼっちんガイド・つながり<ruby>専用<rt class="ruby-color">せんよう</rt></ruby>アカウント』<br>ロブロID→<span class="font-c1">bottin_gaido</span>までつながりリクエストを<ruby>送<rt class="ruby-color">おく</rt></ruby>ってください🐥
-                        </p>
-                    </div>
+            <!-- 2. ライブブロック -->
+            <div class="content-live">
+                <img src="img/title_live.png" alt="★" class="title">
+                <div class="txt-area">
+                    <h1>ライブ<ruby>配信<rt class="ruby-color">はいしん</rt></ruby>(<ruby>予定<rt class="ruby-color">よてい</rt>
+                        </ruby>)で<br><ruby>一緒<rt class="ruby-color">いっしょ</rt></ruby>にプレイしましょう🎵</h1>
+                    <p>『ぼっちんガイド・つながり<ruby>専用<rt class="ruby-color">せんよう</rt></ruby>アカウント』<br>ロブロID→<span
+                            class="font-c1">bottin_gaido</span>までつながりリクエストを<ruby>送<rt class="ruby-color">おく</rt>
+                        </ruby>ってください🐥
+                    </p>
                 </div>
             </div>
+
 
             <!-- 3. プライベート（メンバーシップ）ブロック -->
-            <div class="content-block private-block">
-                <div class="content-blockbox">
-                    <div class="txt-area">
-                        <!-- H1を改行して中央寄せに -->
-                        <h1>YouTubeメンバーシップ<br><ruby>限定<rt class="ruby-color">げんてい</rt></ruby>です🐥</h1>
-                        
-                        <!-- ボタンの中央寄せ -->
-                        <div class="member_button">
-                            <a href="https://www.youtube.com/channel/UCbIsTopKJQXLhg2V8gaKIVw/join" target="_blank" rel="noopener noreferrer" class="membership-button">
-                                メンバーシップはこちら
-                                <!-- ★ ここに指アイコンを追加 ★ -->
-                                <img src="img/finger.png" alt="指アイコン" class="finger-icon">
-                            </a>
-                        </div>
-                        
-                        <p>『ルミナスゲームズ』では<ruby>運営<rt class="ruby-color">うんえい</rt></ruby>を<ruby>手伝<rt class="ruby-color">てつだ</rt></ruby>ってくれる<ruby>仲間<rt class="ruby-color">なかま</rt></ruby>も<ruby>募集中<rt class="ruby-color">ぼしゅうちゅう</rt></ruby>です！</p>
+            <div class="content-private">
+                <img src="img/title_private.png" alt="★" class="title">
+                <div class="txt-area">
+                    <h1>YouTubeメンバーシップ<br><ruby>限定<rt class="ruby-color">げんてい</rt></ruby>です🐥</h1>
+
+                    <!-- ボタンの中央寄せ -->
+                    <div class="member_button">
+                        <a href="https://www.youtube.com/channel/UCbIsTopKJQXLhg2V8gaKIVw/join" target="_blank"
+                            rel="noopener noreferrer" class="membership-button">
+                            メンバーシップはこちら
+                            <!-- ★ ここに指アイコンを追加 ★ --><img src="img/finger.png" alt="指アイコン" class="finger-icon">
+                        </a>
                     </div>
 
+                    <p>『ルミナスゲームズ』では<ruby>運営<rt class="ruby-color">うんえい</rt></ruby>を<ruby>手伝<rt class="ruby-color">てつだ
+                            </rt></ruby>ってくれる<ruby>仲間<rt class="ruby-color">なかま</rt></ruby>も<ruby>募集中<rt
+                                class="ruby-color">ぼしゅうちゅう</rt></ruby>です！</p>
                 </div>
             </div>
+
 
 
             <div class="box-footer">
-                <p><ruby>一緒<rt class="ruby-color">いっしょ</rt></ruby>に<ruby>遊<rt class="ruby-color">あそ</rt></ruby>べるのを<ruby>楽<rt class="ruby-color">たの</rt></ruby>しみにしています🐥<br>ぼっちんガイド★ルミナスゲームズ</p>
+                <p><ruby>一緒<rt class="ruby-color">いっしょ</rt></ruby>に<ruby>遊<rt class="ruby-color">あそ</rt>
+                    </ruby>べるのを<ruby>楽<rt class="ruby-color">たの</rt></ruby>しみにしています🐥<br>ぼっちんガイド★ルミナスゲームズ</p>
             </div>
 
 
         </div>
 
-    <!-- 著作権フッターはブロック要素で、text-align: center;で中央寄せ -->
-    <footer class="copyright-text">
-        &copy; 2025 Luminous Games. All Rights Reserved.
-    </footer>
+        <!-- 著作権フッターはブロック要素で、text-align: center;で中央寄せ -->
+        <footer class="copyright-text">
+            &copy; 2025 Luminous Games. All Rights Reserved.
+        </footer>
 
     </div>
 
