@@ -60,11 +60,6 @@
             margin: 20px auto 10px;
             border: none;
             position: relative;
-            transition: transform 0.2s ease-out;
-        }
-
-        .search-img:hover {
-            transform: translateY(-3px);
         }
 
         /* ==================================== */
@@ -168,16 +163,33 @@
         /* メンバーシップボタンのスタイル */
         .membership-button {
             display: inline-block;
-            background-color: #2E7D32;
+            background-color: #44B92D;
             color: white;
             text-decoration: none;
             font-size: 20px;
             font-weight: bold;
             border-radius: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 3px rgba(0, 0, 0, 0.2);
             padding: 10px 20px;
             margin: 15px 0;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease;
+            position: relative;
+            overflow: visible;
+        }
+
+        /* つながりリクエストのスタイル */
+        .request-button {
+            display: inline-block;
+            background-color: #ffb618;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 20px;
+            box-shadow: 0 4px 3px rgba(0, 0, 0, 0.2);
+            padding: 10px 20px;
+            margin: 15px 0;
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease;
             position: relative;
             overflow: visible;
         }
@@ -191,18 +203,19 @@
             font-size: 20px;
             font-weight: bold;
             border-radius: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 3px rgba(0, 0, 0, 0.2);
             padding: 10px 20px;
             margin: 15px 0;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease;
             position: relative;
             overflow: visible;
         }
 
         .membership-button:hover,
+        .request-button:hover,
         .follow-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         /* 指アイコンのスタイルとアニメーション */
@@ -274,6 +287,7 @@
             }
 
             .membership-button,
+            .request-button,
             .follow-button {
                 font-size: 26px;
                 padding: 7px 20px;
@@ -325,6 +339,7 @@
 
             /* ボタンのフォントサイズを調整 */
             .membership-button,
+            .request-button,
             .follow-button {
                 font-size: 4.2vw;
                 /* 4.5vw から 4.2vw に変更 */
@@ -381,10 +396,7 @@
     <div class="container">
 
         <img class="header-img" src="img/header.jpg" alt="ぼっちんガイド★ルミナスゲームズ">
-
-        <!-- 画像リンク --><a href="https://youtube.com/channel/UCbIsTopKJQXLhg2V8gaKIVw" target="_blank">
-            <img class="search-img" src="img/search.png" alt="ぼっちんガイド★ルミナスゲームズ">
-        </a>
+        <img class="search-img" src="img/search.png" alt="ぼっちんガイド★ルミナスゲームズ">
 
         <div class="box">
 
@@ -429,6 +441,7 @@
                 </div>
             </div>
 
+
             <!-- 2. ライブブロック -->
             <div class="content-live">
                 <img src="img/title_live.png" alt="配信に参加して一緒に遊びたい" class="title">
@@ -439,6 +452,14 @@
                             class="font-c1">bottin_gaido</span>までつながりリクエストを<ruby>送<rt class="ruby-color">おく</rt>
                         </ruby>ってください🐥
                     </p>
+                    <!-- 配信用アカウントへ -->
+                    <div class="follow_div">
+                        <a href="https://www.roblox.com/ja/users/7290242345/profile" target="_blank"
+                            rel="noopener noreferrer" class="request-button">
+                            つながりリクエストはこちら
+                            <!-- ★ ここに指アイコンを追加 ★ --><img src="img/finger.png" alt="指アイコン" class="finger-icon">
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -465,12 +486,10 @@
             </div>
 
 
-
             <div class="box-footer">
                 <p><ruby>一緒<rt class="ruby-color">いっしょ</rt></ruby>に<ruby>遊<rt class="ruby-color">あそ</rt>
                     </ruby>べるのを<ruby>楽<rt class="ruby-color">たの</rt></ruby>しみにしています🐥<br>ぼっちんガイド★ルミナスゲームズ</p>
             </div>
-
 
         </div>
 
