@@ -232,9 +232,10 @@
     <script>
         // ★★★ 外部ホスト（GitHub Pagesなど）からGASへアクセスするためのURL ★★★
         // デプロイしたGASのウェブアプリURL (末尾が /exec) に置き換えてください。
-// !!! このダミーURLを実際のGASのURLに必ず置き換えてください !!!
-        const DUMMY_URL = "https://your-gas-web-app-url/exec";
-        const GAS_WEB_APP_URL = https://script.google.com/macros/s/AKfycbzsd69Uhj6VoItc_O_UTMD8S6JqKiOPhEv83K3ehH6L0Y43SdZqxfhssHeDLwXVzQBmUw/exec; // ★この行を置き換える
+        // --- 編集が必要なのは以下の行のみです！実際のURLを文字列としてここに貼り付けてください ---
+        const GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzsd69Uhj6VoItc_O_UTMD8S6JqKiOPhEv83K3ehH6L0Y43SdZqxfhssHeDLwXVzQBmUw/exec"; // ★★★ このダミーURLを、コピーした実際のGASのURLに置き換えてください ★★★
+        const PLACEHOLDER_URL = "https://your-gas-web-app-url/exec"; // エラーチェック用のダミー値
+        // ----------------------------------------------------------------------
 
         document.addEventListener('DOMContentLoaded', () => {
             loadInitialCounts();
@@ -257,7 +258,7 @@
          */
         function loadInitialCounts() {
             // URLがデフォルト値または有効でない場合は処理を停止し、エラーを表示
-            if (GAS_WEB_APP_URL === DUMMY_URL || !GAS_WEB_APP_URL.startsWith('http')) {
+            if (GAS_WEB_APP_URL === PLACEHOLDER_URL || !GAS_WEB_APP_URL.startsWith('http')) {
                 // URLが未設定であることを示すために、onLoadFailureにフラグを渡す
                 onLoadFailure('エラー: GASのURLが設定されていません。コード内の "GAS_WEB_APP_URL" を実際のデプロイURLに置き換えてください。', true);
                 return;
@@ -375,7 +376,7 @@
                     }
 
                     // URLが設定されているかチェック
-                    if (GAS_WEB_APP_URL === DUMMY_URL || !GAS_WEB_APP_URL.startsWith('http')) {
+                    if (GAS_WEB_APP_URL === PLACEHOLDER_URL || !GAS_WEB_APP_URL.startsWith('http')) {
                         onLoadFailure('エラー: GASのURLが設定されていません。コード内の "GAS_WEB_APP_URL" を実際のデプロイURLに置き換えてください。', true);
                         return;
                     }
