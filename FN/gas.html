@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>ルミナスゲームズ@Fortnite ルール説明</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: sans-serif;
+            text-align: left;
+            color: #333333;
+            font-size: 18px;
+            /* 背景画像はプロジェクトの構成に合わせてください */
+            background-image: url('img/star.jpg');
+            background-repeat: repeat;
+            background-attachment: fixed;
+        }
+
+        .header-img {
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        #wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            min-height: 100vh;
+            height: auto;
+            background-color: rgba(255, 255, 255, 0.0);
+        }
+
+        .hello {
+            background-color: #0f3e69;
+            color: #F4F4F9;
+            text-align: center;
+        }
+
+        /* 左上タイトル付きボックス */
+        .cstm-box-title-topleft {
+            --box-color: #16b5dd;
+            margin: 2em auto;
+            position: relative;
+            border: 1px solid var(--box-color);
+            border-radius: 6px;
+            max-width: 87%;
+        }
+
+        .cstm-box-title-topleft .box-title {
+            background: var(--box-color);
+            color: #fff;
+            padding: 0.2em 1em;
+            position: absolute;
+            top: -0.7em;
+            left: 0.7em;
+            display: inline-block;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 6px;
+            max-width: calc(100% - 2em);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cstm-box-title-topleft .box-title i {
+            margin-right: 5px;
+        }
+
+        .cstm-box-title-topleft .box-content {
+            background-color: rgba(238, 254, 255, 0.8);
+            padding: 1.7em 1em 1em 1em;
+            border-radius: 5px;
+        }
+
+        .cstm-box-title-topleft .box-content p {
+            margin-bottom: 0.5em;
+            /* 本文の段落間のスペース */
+        }
+
+        .cstm-box-title-topleft .box-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .footer {
+            color: #ffffff;
+            font-size: 14px;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+
+
+        /* ------------------------------------------- */
+        /* スマートフォン向け調整 (画面幅600px以下に適用) */
+        /* ------------------------------------------- */
+        @media screen and (max-width: 600px) {
+
+            .cstm-box-title-topleft .box-content {
+                font-size: 0.8em;
+                padding: 1.7em 1em 0.7em 1em;
+            }
+
+            .cstm-box-title-topleft .box-title {
+                font-size: 0.9em;
+                padding: 0.2em 0.5em;
+            }
+
+
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- ヘッダー画像はプロジェクトの構成に合わせてください -->
+    <img class="header-img" src="img/banner_pc.png" alt="luminous ルミナスゲームズ">
+    <div id="wrapper">
+
+        <!-- スプレッドシートから動的に生成されるコンテンツがここに入ります -->
+        <div id="spreadsheet-content">
+            <p style="text-align: center; color: #16b5dd; font-weight: bold; padding: 20px;">
+                スプレッドシートからデータを読み込み中...
+            </p>
+        </div>
+
+        <div class="footer">©2025 Luminous Games. All Rights Reserved.</div>
+    </div>
+
+    <script>
+        // --- 1. GAS API URLの設定 ---
+        // **重要**: ここにデプロイしたGoogle Apps ScriptウェブアプリのURLを設定してください。
+        // 例: const GAS_API_URL = 'https://script.google.com/macros/s/AKfyc.../exec';
+        const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbyMag-fL9OH5xCYNdkOMSk6bdg1jkUuhicYKzFzAsKd-PdZnG5_FRt-4Nnc3fsO93A7RA/exec';
+
+        // --- 2. データ取得とレンダリング ---
+        async function loadSpreadsheetContent() {
+            const container = document.getElementById('spreadsheet-content');
+
+            // GAS API URLが設定されていない場合のガイド表示
+            if (GAS_API_URL === 'GAS_API_URL_HERE') {
+                container.innerHTML = `<div style="margin: 2em auto; max-width: 87%; padding: 1em; border: 1px solid red; background-color: #ffe0e0; border-radius: 6px;">
+                    <p style="font-weight: bold; color: #cc0000;">🚨 重要: GASデプロイとURL設定が必要です</p>
+                    <p style="font-size: 0.9em; margin-top: 0.5em;">
+                        1. **Code.gs** をGASに貼り付け、公開範囲を「**全員**」にしてウェブアプリとしてデプロイしてください。<br>
+                        2. デプロイ後のURLをこのHTMLファイルの \`GAS_API_URL\` 定数に設定してください。
+                    </p>
+                </div>`;
+                return;
+            }
+
+            try {
+                // データの取得
+                const response = await fetch(GAS_API_URL);
+                const data = await response.json();
+
+                if (data.error) {
+                    container.innerHTML = `<p style="color: red; padding: 20px; text-align: center;">エラー: ${data.error}</p>`;
+                    console.error("GAS API Error:", data.error);
+                    return;
+                }
+
+                // --- データを構造化し、HTMLブロックを生成するロジック ---
+                let currentBlock = null;
+                let blocksHtml = '';
+
+                data.forEach(row => {
+                    const isTitle = row[0] === true; // A列がTRUE（チェックあり）か
+                    const bText = row[1] ? row[1].toString().trim() : ''; // B列のテキスト
+
+                    // B列のテキストを改行で区切り、<br>タグに変換
+                    const textWithBreaks = bText.split('\n').join('<br>');
+
+                    if (isTitle) {
+                        // 1. 前のブロックを閉じる
+                        if (currentBlock) {
+                            // 現在のブロックの内容をHTMLに変換（<br>は空行として、その他はPタグで囲む）
+                            const contentHtml = currentBlock.content.map(c => {
+                                return c === '<br>' ? '<br>' : `<p>${c}</p>`;
+                            }).join('');
+
+                            blocksHtml += `
+                                <div class="cstm-box-title-topleft">
+                                    <!-- タイトルには任意のアイコン bi-gear-fill を使用 -->
+                                    <div class="box-title"><i class="bi bi-gear-fill"></i> ${currentBlock.title}</div>
+                                    <div class="box-content">
+                                        ${contentHtml}
+                                    </div>
+                                </div>
+                            `;
+                        }
+
+                        // 2. 新しいブロックを開始
+                        currentBlock = {
+                            title: textWithBreaks, // B列がタイトル
+                            content: [] // 次の本文を格納する配列
+                        };
+
+                    } else if (bText !== '') {
+                        // 3. 現在のブロックにコンテンツを追加
+                        if (currentBlock) {
+                            currentBlock.content.push(textWithBreaks);
+                        } else {
+                            // タイトルがないのに本文が始まった場合、未分類として最初のブロックを作成
+                            currentBlock = { title: "【未分類コンテンツ】", content: [textWithBreaks] };
+                        }
+                    } else if (!isTitle && bText === '') {
+                        // 4. 空白行 (A, B両方空) の処理 -> 本文内に1行空ける
+                        if (currentBlock && currentBlock.content.length > 0) {
+                            currentBlock.content.push('<br>');
+                        }
+                    }
+                });
+
+                // 5. 最後のブロックを閉じる
+                if (currentBlock) {
+                    const contentHtml = currentBlock.content.map(c => {
+                        return c === '<br>' ? '<br>' : `<p>${c}</p>`;
+                    }).join('');
+
+                    blocksHtml += `
+                        <div class="cstm-box-title-topleft">
+                            <div class="box-title"><i class="bi bi-gear-fill"></i> ${currentBlock.title}</div>
+                            <div class="box-content">
+                                ${contentHtml}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                if (blocksHtml === '') {
+                    container.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">スプレッドシートに表示すべきデータがありません。</p>';
+                } else {
+                    container.innerHTML = blocksHtml;
+                }
+
+            } catch (e) {
+                console.error('データの取得または処理中にエラーが発生しました:', e);
+                container.innerHTML = `<p style="color: red; padding: 20px; text-align: center;">データの読み込み中にエラーが発生しました: ${e.message}</p>`;
+            }
+        }
+
+        // ページロード時にコンテンツを読み込む
+        window.onload = loadSpreadsheetContent;
+    </script>
+</body>
+
+</html>
