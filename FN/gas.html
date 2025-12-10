@@ -22,7 +22,6 @@
             text-align: left;
             color: #333333;
             font-size: 18px;
-            /* 背景画像はプロジェクトの構成に合わせてください */
             background-image: url('img/star.jpg');
             background-repeat: repeat;
             background-attachment: fixed;
@@ -87,15 +86,6 @@
             border-radius: 5px;
         }
 
-        .cstm-box-title-topleft .box-content p {
-            margin-bottom: 0.5em;
-            /* 本文の段落間のスペース */
-        }
-
-        .cstm-box-title-topleft .box-content p:last-child {
-            margin-bottom: 0;
-        }
-
         .footer {
             color: #ffffff;
             font-size: 14px;
@@ -127,136 +117,150 @@
 </head>
 
 <body>
-    <!-- ヘッダー画像はプロジェクトの構成に合わせてください -->
     <img class="header-img" src="img/banner_pc.png" alt="luminous ルミナスゲームズ">
     <div id="wrapper">
 
-        <!-- スプレッドシートから動的に生成されるコンテンツがここに入ります -->
-        <div id="spreadsheet-content">
-            <p style="text-align: center; color: #16b5dd; font-weight: bold; padding: 20px;">
-                スプレッドシートからデータを読み込み中...
+
+        <!-- コンテンツを動的に挿入するためのコンテナ -->
+        <div id="content-container">
+            <!-- スプレッドシートから読み込んだデータがここに表示されます -->
+            <p class="text-center p-4 text-gray-500" id="loading-message" style="text-align: center; padding: 20px;">
+                データを読み込み中...
             </p>
         </div>
+
+
+
 
         <div class="footer">©2025 Luminous Games. All Rights Reserved.</div>
     </div>
 
     <script>
-        // --- 1. GAS API URLの設定 ---
-        // **重要**: ここにデプロイしたGoogle Apps ScriptウェブアプリのURLを設定してください。
-        // 例: const GAS_API_URL = 'https://script.google.com/macros/s/AKfyc.../exec';
-        const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbyMag-fL9OH5xCYNdkOMSk6bdg1jkUuhicYKzFzAsKd-PdZnG5_FRt-4Nnc3fsO93A7RA/exec';
+        // ----------------------------------------------------------------------
+        // 【重要】Google Apps ScriptのウェブアプリURLをここに設定
+        // ユーザーが提供したデプロイ済みURLを設定
+        // ----------------------------------------------------------------------
+        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyV8BxhsvWHJG3rDRGkAgegr9JO-wi0GX46FdKva-6ZFoNp5VZSnXNpVKDCoCS_3C-ITA/exec';
 
-        // --- 2. データ取得とレンダリング ---
-        async function loadSpreadsheetContent() {
-            const container = document.getElementById('spreadsheet-content');
+        // エラーを回避するため、使用しないFirebase関連の環境変数の定義を削除しました。
 
-            // GAS API URLが設定されていない場合のガイド表示
-            if (GAS_API_URL === 'GAS_API_URL_HERE') {
-                container.innerHTML = `<div style="margin: 2em auto; max-width: 87%; padding: 1em; border: 1px solid red; background-color: #ffe0e0; border-radius: 6px;">
-                    <p style="font-weight: bold; color: #cc0000;">🚨 重要: GASデプロイとURL設定が必要です</p>
-                    <p style="font-size: 0.9em; margin-top: 0.5em;">
-                        1. **Code.gs** をGASに貼り付け、公開範囲を「**全員**」にしてウェブアプリとしてデプロイしてください。<br>
-                        2. デプロイ後のURLをこのHTMLファイルの \`GAS_API_URL\` 定数に設定してください。
-                    </p>
-                </div>`;
+        // Exponential backoff for API retries
+        const MAX_RETRIES = 5;
+        const INITIAL_DELAY = 1000;
+
+        /**
+         * fetch処理をリトライ付きで行う
+         * @param {string} url - フェッチするURL
+         * @returns {Promise<Response>}
+         */
+        async function fetchWithRetry(url) {
+            for (let i = 0; i < MAX_RETRIES; i++) {
+                try {
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        return response;
+                    }
+                    // 4xx, 5xxなどのエラーレスポンスの場合、リトライを試みる
+                    // ただし、今回はGASからの成功応答が期待されるため、ステータスコードエラーは後続のcatchで処理
+                    throw new Error(`HTTP Error status: ${response.status}`);
+                } catch (error) {
+                    if (i === MAX_RETRIES - 1) {
+                        throw error; // 最終リトライで失敗
+                    }
+                    // 指数バックオフによる待機
+                    const delay = INITIAL_DELAY * Math.pow(2, i) + Math.random() * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+
+
+        /**
+         * データを取得し、HTMLを生成してDOMに挿入する関数
+         */
+        async function loadDataAndRender() {
+            const container = document.getElementById('content-container');
+            const loadingMessage = document.getElementById('loading-message');
+
+            if (!GAS_WEB_APP_URL || !GAS_WEB_APP_URL.startsWith('https://script.google.com/macros/s/')) {
+                if (loadingMessage) {
+                    loadingMessage.textContent = 'エラー: GASウェブアプリのURLが正しくありません。';
+                    loadingMessage.style.color = 'red';
+                }
                 return;
             }
 
             try {
-                // データの取得
-                const response = await fetch(GAS_API_URL);
+                // GASのエンドポイントからデータを取得 (リトライ処理を含む)
+                const response = await fetchWithRetry(GAS_WEB_APP_URL);
                 const data = await response.json();
 
+                // エラーチェック
                 if (data.error) {
-                    container.innerHTML = `<p style="color: red; padding: 20px; text-align: center;">エラー: ${data.error}</p>`;
-                    console.error("GAS API Error:", data.error);
-                    return;
+                    throw new Error(`GASエラー: ${data.error}`);
                 }
 
-                // --- データを構造化し、HTMLブロックを生成するロジック ---
-                let currentBlock = null;
-                let blocksHtml = '';
+                // 読み込みメッセージを削除
+                if (loadingMessage) {
+                    loadingMessage.remove();
+                }
 
-                data.forEach(row => {
-                    const isTitle = row[0] === true; // A列がTRUE（チェックあり）か
-                    const bText = row[1] ? row[1].toString().trim() : ''; // B列のテキスト
+                let allHtml = '';
 
-                    // B列のテキストを改行で区切り、<br>タグに変換
-                    const textWithBreaks = bText.split('\n').join('<br>');
+                // 取得したデータ（シートごと）をループ処理
+                data.forEach(item => {
+                    // contentの改行文字 (\n) をHTMLの <br> タグに変換
+                    // GAS側で空行を \n\n (連続する改行) で表現しているため、<br><br> に変換することで段落間のスペースを表現する
+                    // NOTE: pタグ内で <br><br> が連続するとHTMLとして不適切だが、見た目の段落空けとして採用
+                    const formattedContent = item.content
+                        .replace(/\t/g, ' ') // タブをスペースに変換
+                        .replace(/\n\n/g, '<br><br>') // 連続する改行を空白行として扱う
+                        .replace(/\n/g, '<br>');      // その他の改行をBRタグに変換
 
-                    if (isTitle) {
-                        // 1. 前のブロックを閉じる
-                        if (currentBlock) {
-                            // 現在のブロックの内容をHTMLに変換（<br>は空行として、その他はPタグで囲む）
-                            const contentHtml = currentBlock.content.map(c => {
-                                return c === '<br>' ? '<br>' : `<p>${c}</p>`;
-                            }).join('');
-
-                            blocksHtml += `
-                                <div class="cstm-box-title-topleft">
-                                    <!-- タイトルには任意のアイコン bi-gear-fill を使用 -->
-                                    <div class="box-title"><i class="bi bi-gear-fill"></i> ${currentBlock.title}</div>
-                                    <div class="box-content">
-                                        ${contentHtml}
-                                    </div>
-                                </div>
-                            `;
-                        }
-
-                        // 2. 新しいブロックを開始
-                        currentBlock = {
-                            title: textWithBreaks, // B列がタイトル
-                            content: [] // 次の本文を格納する配列
-                        };
-
-                    } else if (bText !== '') {
-                        // 3. 現在のブロックにコンテンツを追加
-                        if (currentBlock) {
-                            currentBlock.content.push(textWithBreaks);
-                        } else {
-                            // タイトルがないのに本文が始まった場合、未分類として最初のブロックを作成
-                            currentBlock = { title: "【未分類コンテンツ】", content: [textWithBreaks] };
-                        }
-                    } else if (!isTitle && bText === '') {
-                        // 4. 空白行 (A, B両方空) の処理 -> 本文内に1行空ける
-                        if (currentBlock && currentBlock.content.length > 0) {
-                            currentBlock.content.push('<br>');
-                        }
-                    }
-                });
-
-                // 5. 最後のブロックを閉じる
-                if (currentBlock) {
-                    const contentHtml = currentBlock.content.map(c => {
-                        return c === '<br>' ? '<br>' : `<p>${c}</p>`;
-                    }).join('');
-
-                    blocksHtml += `
+                    // ユーザーが指定した構造を持つHTMLブロックを生成
+                    const blockHtml = `
                         <div class="cstm-box-title-topleft">
-                            <div class="box-title"><i class="bi bi-gear-fill"></i> ${currentBlock.title}</div>
+                            <div class="box-title">${item.title}</div>
                             <div class="box-content">
-                                ${contentHtml}
+                                <p>${formattedContent}</p>
                             </div>
                         </div>
                     `;
-                }
+                    allHtml += blockHtml;
+                });
 
-                if (blocksHtml === '') {
-                    container.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">スプレッドシートに表示すべきデータがありません。</p>';
-                } else {
-                    container.innerHTML = blocksHtml;
-                }
+                // 生成したすべてのHTMLをコンテナに挿入
+                container.innerHTML = allHtml;
 
-            } catch (e) {
-                console.error('データの取得または処理中にエラーが発生しました:', e);
-                container.innerHTML = `<p style="color: red; padding: 20px; text-align: center;">データの読み込み中にエラーが発生しました: ${e.message}</p>`;
+            } catch (error) {
+                console.error('データ取得またはレンダリング中にエラーが発生しました:', error);
+
+                // エラー表示用のHTMLを生成
+                const errorHtml = `
+                    <div class="cstm-box-title-topleft" style="--box-color: #ff4444;">
+                        <div class="box-title">エラー発生</div>
+                        <div class="box-content">
+                            <p>データを読み込めませんでした。<br>
+                            - GASウェブアプリが正しくデプロイされ、アクセス権限（公開設定）が「全員」になっているか確認してください。<br>
+                            - スプレッドシートID（${'1FDl-W8D9FReH9Ms6eSMBG7Sucup_FdZ0TcJwbGQwqGo'}）が正しいか確認してください。<br>
+                            </p>
+                            <p style="font-size: 0.8em; color: #ff4444; word-break: break-all;">詳細: ${error.message}</p>
+                        </div>
+                    </div>
+                `;
+
+                // エラーメッセージがあれば、それを置き換える
+                if (loadingMessage) {
+                    loadingMessage.remove();
+                }
+                container.innerHTML = errorHtml;
             }
         }
 
-        // ページロード時にコンテンツを読み込む
-        window.onload = loadSpreadsheetContent;
+        // ページ読み込み完了後にデータ取得・レンダリングを実行
+        window.onload = loadDataAndRender;
     </script>
+
 </body>
 
 </html>
