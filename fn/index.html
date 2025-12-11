@@ -233,7 +233,12 @@
 </head>
 
 <body>
-    <img class="header-img" src="img/header.png" alt="luminous ルミナスゲームズ">
+    <picture>
+        <source media="(max-width: 600px)" srcset="img/header_m.png">
+        <img class="header-img" src="img/header.png" alt="luminous ルミナスゲームズ">
+    </picture>
+
+
     <!-- 読み込み中はdisplay: none;で非表示にする -->
     <div id="wrapper" class="loading">
 
@@ -323,11 +328,12 @@
         <div class="cstm-box-title-topleft">
             <div class="box-title"><i class="bi bi-alarm"></i>キッズの<ruby>皆<rt>みな</rt></ruby>さんへ</div>
             <div class="box-content">
-                <p>13<ruby>歳未満<rt>さいみまん</rt></ruby>の<ruby>参加者<rt>さんかしゃ</rt></ruby>（※まだ13<ruby>歳
-                        <rt>さい</rt>
-                    </ruby>になっていない<ruby>人<rt>ひと</rt></ruby>）は<ruby>必<rt>かなら</rt></ruby>ず<ruby>保護者<rt>ほごしゃ
-                        </rt></ruby>の<ruby>方<rt>かた</rt></ruby>から<ruby>同意<rt>どうい</rt></ruby>をもらったうえで<ruby>参加<rt>
-                            さんか</ruby></ruby>してください。</p>
+                <p>
+                    13<ruby>歳未満<rt>さいみまん</rt></ruby>の<ruby>参加者<rt>さんかしゃ</rt></ruby>
+                    （※まだ13<ruby>歳<rt>さい</rt></ruby>になっていない<ruby>人<rt>ひと</rt></ruby>）は
+                    <ruby>必<rt>かなら</rt></ruby>ず<ruby>保護者<rt>ほごしゃ</rt></ruby>の<ruby>方<rt>かた</rt></ruby>から
+                    <ruby>同意<rt>どうい</rt></ruby>をもらったうえで<ruby>参加<rt>さんか</ruby></ruby>してください。
+                </p>
             </div>
         </div>
 
