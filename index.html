@@ -25,7 +25,6 @@
 
         body {
             font-family: sans-serif;
-            background-color: #efe0ff;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -35,30 +34,38 @@
             box-sizing: border-box;
         }
 
+        body {
+            background-color: #2a3458;
+            background-image: url(img/star.jpg);
+            background-repeat: repeat;
+            background-attachment: fixed;
+        }
+
+        footer {
+            font-size: 14px;
+            color: azure;
+            text-align: center;
+        }
+
         h1 {
-            color: #333;
-            margin-bottom: 15px;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 1.3em;
+            color: #4c78af;
+            margin-bottom: 5px;
+            text-align: center;
+            font-size: 1.1em;
             margin-top: 0px;
         }
 
-        h1 img {
-            width: 70px;
+        .header_img {
+            max-width: 600px;
+            width: 100%;
             height: auto;
-        }
-
-        h1 div {
-            text-align: left;
-            line-height: 1.2;
+            margin-top: -20px;
+            margin-bottom: 5px;
         }
 
         /* 参加方法ボタンのスタイル 緑色ボタン*/
         #showRulesButton {
-            background-color: #4CAF50;
+            background-color: #4c78af;
             color: white;
             padding: 12px 20px;
             border: none;
@@ -78,18 +85,21 @@
         }
 
         #showRulesButton:hover {
-            background-color: #45a049;
+            background-color: #104d98;
             /* ホバー時の色 */
         }
 
+        #form-area {
+            display: block;
+            padding: 30px;
+            width: 95%;
+            max-width: 530px;
+        }
 
         .form-container {
-            background-color: #fff;
-            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.85);
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 500px;
             box-sizing: border-box;
             margin-bottom: 20px;
             /* フォーム下の余白を追加 */
@@ -232,15 +242,6 @@
             color: green;
         }
 
-        #form-area {
-            display: block;
-            /* フォーム表示エリア */
-            width: 90%;
-            /* フォーム領域の幅を固定 */
-            max-width: 500px;
-            /* フォーム領域の最大幅を固定 */
-        }
-
         #message-area {
             display: none;
             /* 送信完了メッセージエリア 初期非表示 */
@@ -249,7 +250,7 @@
             font-size: 20px;
             background-color: #fff;
             /* メッセージエリアの背景を白に */
-            padding: 20px;
+            padding: 30px;
             /* メッセージエリアにもpaddingを追加して見やすく */
             border-radius: 8px;
             /* メッセージエリアにも角丸を追加 */
@@ -531,7 +532,7 @@
         @keyframes pointAndClick {
             0% {
                 /* スタート: ボタンの右端と揃え、30px下 */
-                top: 90px;
+                top: 100px;
                 /* ボタンの底部(約70px)から30px下あたり */
                 right: 30px;
                 /* 【修正済】コンテナ右端から30pxの位置 (ボタンの右端と揃う) */
@@ -541,7 +542,7 @@
 
             20% {
                 /* 少し上がって、表示 */
-                top: 70px;
+                top: 80px;
                 right: 40px;
                 /* 【修正済】中間点も10px左に寄せた */
                 opacity: 1;
@@ -550,7 +551,7 @@
 
             60% {
                 /* ターゲット位置: ボタンの右半分を指し示す位置 */
-                top: 50px;
+                top: 60px;
                 /* ボタンの中央(Y軸)付近 */
                 right: 60px;
                 /* ボタンの右端から内側へ少し入った位置 */
@@ -560,7 +561,7 @@
 
             80% {
                 /* クリックの表現 */
-                top: 55px;
+                top: 65px;
                 right: 65px;
                 transform: scale(0.9);
                 opacity: 1;
@@ -569,23 +570,30 @@
             100% {
                 /* 透明になりながら、終了 */
                 opacity: 0;
-                top: 50px;
+                top: 60px;
                 right: 60px;
                 transform: scale(0.9);
             }
         }
 
-        /* --- 指アニメーション追加したスタイルここまで --- */
+        /* ------------------------------------------- */
+        /* スマートフォン向け調整 (画面幅600px以下に適用) */
+        /* ------------------------------------------- */
+        @media screen and (max-width: 600px) {
+
+            #form-area {
+                padding: 20px;
+            }
+
+        }
     </style>
 </head>
 
 <body>
-    <h1>
-        <img src="https://i-navit.github.io/request/img/LG.jpg?raw=true" alt="ルミナスゲームズ">
-        <div>ルミナスゲームズ@Fortnite<br>フレンド申請フォーム</div>
-    </h1>
+    <img src="img/forms.png" alt="ルミナスゲームズ" class="header_img">
 
     <div id="form-area" class="form-container">
+        <h1>フレンド申請フォーム</h1>
         <button id="showRulesButton">参加方法とルール</button>
         <img id="fingerPointer" src="img/finger.png" alt="クリックを促す指">
 
@@ -733,6 +741,9 @@
             <button class="close-button">とじる</button>
         </div>
     </div>
+
+    <footer>© 2025-2026 Luminous Games. All Rights Reserved.</footer>
+
 
     <script>
         // 【！重要！】Google Apps Script 最新のフォトナ用フレンド申請デプロイURLを貼り付ける        
