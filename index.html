@@ -10,7 +10,7 @@
     <script>/* 【！重要！】reCAPTCHAの認証(サイトキーを記入)  */</script>
     <script src="https://www.google.com/recaptcha/api.js?render=6Lf6STQrAAAAAOrsIXuWUujmwytnGlS8DGd_KsBe"></script>
     <style>
-        /* ブラウザデフォルトの padding と margin を 0 に設定 */
+        /* 2025年12月14日更新 */
         body,
         h1,
         p,
@@ -270,14 +270,14 @@
 
         /* ルビの表示位置を調整 */
         ruby {
-            display: inline-block;
+            display: ruby;
             text-align: center;
             line-height: 1;
             /* 行の高さを詰める */
         }
 
         rt {
-            display: block;
+            display: ruby-text;
             font-size: 0.5em;
             color: gray;
             text-align: center;
@@ -587,83 +587,56 @@
 
     <div id="form-area" class="form-container">
         <button id="showRulesButton">参加方法とルール</button>
-        <!-- 【追加】指の画像をボタンの直後、form-containerの子要素として配置 -->
         <img id="fingerPointer" src="img/finger.png" alt="クリックを促す指">
+
         <div class="checkbox-group">
-            <div class="checkbox-text"><span class="required-mark">※</span><ruby>
-                    <rt style="color: gray;">うえ</rt>上
-                </ruby>の<ruby>
-                    <rt style="color: gray;">さんかほうほう</rt>参加方法
-                </ruby>とルールは<ruby>
-                    <rt style="color: gray;">よ</rt>読
-                </ruby>んだ？</div>
+            <div class="checkbox-text">
+                <span class="required-mark">※</span>
+                <ruby>上<rt>うえ</rt></ruby>の<ruby>参加方法<rt>さんかほうほう</rt></ruby>とルールは<ruby>読<rt>よ</rt></ruby>んだ？
+            </div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check1" name="check1" required>
-                <label for="check1"><ruby>
-                        <rt style="color: gray;">よ</rt>読
-                    </ruby>んだよ！</label>
-            </div>
-            <div class="checkbox-text"><span class="required-mark">※</span><ruby>
-                    <rt style="color: gray;">はいしんがい</rt>配信外
-                </ruby>で<ruby>
-                    <rt style="color: gray;">くり</rt>繰
-                </ruby>り<ruby>
-                    <rt style="color: gray;">かえ</rt>返
-                </ruby>し<ruby>
-                    <rt style="color: gray;">しょうたい</rt>招待
-                </ruby>・<ruby>
-                    <rt style="color: gray;">さんか</rt>参加
-                </ruby>リクエストを<ruby>
-                    <rt style="color: gray;">おく</rt>送
-                </ruby>らないでね。</div>
-            <div class="checkbox-item">
-                <input type="checkbox" id="check2" name="check2" required>
-                <label for="check2"><ruby>
-                        <rt style="color: gray;">わ</rt>分
-                    </ruby>かったよ</label>
+                <label for="check1"><ruby>読<rt>よ</rt></ruby>んだよ！</label>
             </div>
             <div class="checkbox-text">
                 <span class="required-mark">※</span>
-                <ruby>
-                    <rt style="color: gray;">だれ</rt>誰
-                </ruby>が<ruby>
-                    <rt style="color: gray;">おく</rt>送
-                </ruby>ったかわかるように<ruby>
-                    <rt style="color: gray;">はいしん</rt>配信
-                </ruby>のコメントで「●●が<ruby>
-                    <rt style="color: gray;">とうろく</rt>登録
-                </ruby>したよ」と<ruby>
-                    <rt style="color: gray;">おし</rt>教
-                </ruby>えてね🙋
+                <ruby>配信外<rt>はいしんがい</rt></ruby>で<ruby>繰<rt>く</rt></ruby>り<ruby>返<rt>かえ</rt></ruby>し<ruby>招待<rt>しょうたい
+                    </rt></ruby>・
+                <ruby>参加<rt>さんか</rt></ruby>リクエストを<ruby>送<rt>おく</rt></ruby>らないでね。
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check2" name="check2" required>
+                <label for="check2"><ruby>分<rt>わ</rt></ruby>かったよ</label>
+            </div>
+            <div class="checkbox-text">
+                <span class="required-mark">※</span>
+                <ruby>誰<rt>だれ</rt></ruby>が<ruby>送<rt>おく</rt></ruby>ったかわかるように<ruby>配信<rt>はいしん</rt></ruby>のコメントで
+                「◯◯が<ruby>登録<rt>とうろく</rt></ruby>したよ」と<ruby>教<rt>おし</rt></ruby>えてね🙋
             </div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check3" name="check3" required>
-                <label for="check3">コメント<ruby>
-                        <rt style="color: gray;">か</rt>書
-                    </ruby>くよ</label>
+                <label for="check3">コメント<ruby>書<rt>か</rt></ruby>くよ</label>
             </div>
         </div>
         <div class="form-group">
-            <label for="id"><span class="required-mark">※</span>ロビーで<ruby>
-                    <rt style="color: gray;">ひょうじ</rt>表示
-                </ruby>されているあなたのディスプレイネーム(ID)を<ruby>
-                    <rt style="color: gray;">か</rt>書
-                </ruby>いてね</label>
+            <label for="id">
+                <span class="required-mark">※</span>
+                ロビーで<ruby>表示<rt>ひょうじ</rt></ruby>されているあなたのディスプレイネーム(ID)を<ruby>書<rt>か</rt></ruby>いてね
+            </label>
             <input type="text" id="id" name="id" placeholder="例：PeelyBot1234" required>
         </div>
         <div class="form-group">
-            <label for="nickname"><span class="required-mark">※</span>なんて<ruby>
-                    <rt style="color: gray;">よ</rt>呼
-                </ruby>んでほしい？</label>
+            <label for="nickname">
+                <span class="required-mark">※</span>
+                なんて<ruby>呼<rt>よ</rt></ruby>んでほしい？
+            </label>
             <input type="text" id="nickname" name="nickname" placeholder="例：ピーリーボット" required>
         </div>
         <div id="error-area">
             <p id="error-message" class="error"></p>
         </div>
         <div class="button-container">
-            <!-- 変更: onclickで直接submitFormを呼び出すように変更 -->
             <button id="submitButton" onclick="submitForm()">送信</button>
-            <!-- 追加: 送信中のインジケーター -->
             <div id="loadingIndicator" style="display:none;" class="loading-message">
                 送信中⋯ちょっと待ってね
             </div>
@@ -753,7 +726,8 @@
 
             <p>
                 🎞️<ruby>配信<rt>はいしん</rt></ruby>の<ruby>様子<rt>ようす</rt></ruby>を<ruby>動画<rt>どうが</rt></ruby>コンテンツとして<ruby>使用
-                    <rt>しよう</rt></ruby>する<ruby>場合<rt>ばあい</rt></ruby>があります。<ruby>予<rt>あらかじ</rt></ruby>めご<ruby>了承<rt>
+                    <rt>しよう</rt>
+                </ruby>する<ruby>場合<rt>ばあい</rt></ruby>があります。<ruby>予<rt>あらかじ</rt></ruby>めご<ruby>了承<rt>
                         りょうしょう</rt></ruby>ください。
             </p>
             <button class="close-button">とじる</button>
@@ -844,7 +818,7 @@
 
                     // --- 成功時 ---
                     formArea.style.display = 'none';
-                    completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br><ruby><rt style="color: gray;">はいしん</rt>配信</ruby>に<ruby><rt style="color: gray;">もど</rt>戻</ruby>って<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ</span>」<br>ってコメントしてから、<br>【bottin-gaido】までフレンド<ruby><rt style="color: gray;">しんせい</rt>申請</ruby>してね。`;
+                    completionMessage.innerHTML = `<ruby>登録完了<rt>とうろくかんりょう</rt></ruby>！<br><ruby>配信<rt>はいしん</rt></ruby>に<ruby>戻<rt>もど</rt></ruby>って<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby>登録<rt>とうろく</rt></ruby>したよ</span>」<br>ってコメントしてから、<br>【LG-BOTTIN】までフレンド<ruby>申請<rt>しんせい</rt></ruby>してね。`;
                     messageArea.style.display = 'block';
                     hideLoading(true); // 成功時はローディングを隠す（ボタンは再表示しない）
 
