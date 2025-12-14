@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex,nofollow">
-    <title>ぼっちんガイド「テスト」フレンド申請フォーム</title>
+    <title>ルミナスゲームズ「Fortnite」フレンド申請フォーム</title>
     <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
     <script>/* 【！重要！】reCAPTCHAの認証(サイトキーを記入)  */</script>
     <script src="https://www.google.com/recaptcha/api.js?render=6Lf6STQrAAAAAOrsIXuWUujmwytnGlS8DGd_KsBe"></script>
     <style>
-        /* ブラウザデフォルトの padding と margin を 0 に設定 */
+        /* 2025年12月14日更新 */
         body,
         h1,
         p,
@@ -25,7 +25,7 @@
 
         body {
             font-family: sans-serif;
-            background-color: #D7EED9;
+            background-color: #efe0ff;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -56,9 +56,9 @@
             line-height: 1.2;
         }
 
-        /* 参加方法ボタンのスタイル 淡いパープルボタン*/
+        /* 参加方法ボタンのスタイル 緑色ボタン*/
         #showRulesButton {
-            background-color: #ad80cb;
+            background-color: #4CAF50;
             color: white;
             padding: 12px 20px;
             border: none;
@@ -71,12 +71,14 @@
             /* 親要素 (form-container) いっぱいに広げる */
             box-sizing: border-box;
             transition: background-color 0.3s ease;
-            position: relative; /* z-indexを有効にするため */
-            z-index: 10; /* 指画像より奥に配置 */
+            position: relative;
+            /* z-indexを有効にするため */
+            z-index: 10;
+            /* 指画像より奥に配置 */
         }
 
         #showRulesButton:hover {
-            background-color: #7c479f;
+            background-color: #45a049;
             /* ホバー時の色 */
         }
 
@@ -95,7 +97,8 @@
             flex-direction: column;
             align-items: center;
             /* 子要素を中央揃え */
-            position: relative; /* 【重要】指画像の位置指定の基準にする */
+            position: relative;
+            /* 【重要】指画像の位置指定の基準にする */
         }
 
         /* エラーメッセージ領域 */
@@ -207,8 +210,8 @@
         }
 
         .button-container button:first-child {
-            background-color: #45a049;
-            /* 枝豆グリーン */
+            background-color: #800080;
+            /* 濃いパープル */
         }
 
         .button-container button:first-child:hover {
@@ -267,14 +270,14 @@
 
         /* ルビの表示位置を調整 */
         ruby {
-            display: inline-block;
+            display: ruby;
             text-align: center;
             line-height: 1;
             /* 行の高さを詰める */
         }
 
         rt {
-            display: block;
+            display: ruby-text;
             font-size: 0.5em;
             color: gray;
             text-align: center;
@@ -287,7 +290,6 @@
             /* 左右の余白を調整 */
             text-decoration: none !important;
             /* デフォルトの下線を打ち消す */
-            display: inline;
         }
 
         .highlight-nickname {
@@ -404,18 +406,22 @@
 
         /* ルールテキスト内のrubyタグのスタイル調整（オーバーレイ内でも適用） */
         .overlay-content ruby {
-            display: inline-block;
-            /* pタグ内でインライン要素として扱われるように */
+            display: ruby;
             text-align: center;
             line-height: 1;
-            /* 行の高さを詰める */
         }
 
         .overlay-content rt {
-            display: block;
+            display: ruby-text;
             font-size: 0.5em;
             color: gray;
             text-align: center;
+        }
+
+        .overlay-content span {
+            color: rgb(56, 182, 255);
+            font-weight: bold;
+            font-size: 1.1em;
         }
 
         /* ボタン風スタイル */
@@ -489,8 +495,8 @@
         .loading-message {
             font-size: 1.0em;
             font-weight: bold;
-            color: #45a049;
-            /* 枝豆グリーン */
+            color: #800080;
+            /* 濃いパープル (ボタンの色と合わせる) */
             animation: blink 1s infinite step-end;
             margin-top: 0px;
             /* 見栄えを調整 */
@@ -501,133 +507,136 @@
             text-align: center;
             box-sizing: border-box;
         }
-        
+
         /* === 指アニメーション用に追加したCSS === */
         #fingerPointer {
             position: absolute;
-            width: 60px; /* 画像のサイズ。適宜調整してね */
+            width: 60px;
+            /* 画像のサイズ。適宜調整してね */
             height: auto;
             /* 初期位置はアニメーションで指定 */
-            top: 0; 
-            right: 0; 
+            top: 0;
+            right: 0;
             left: auto;
-            opacity: 0; 
-            
-            z-index: 20; /* ボタンより手前に表示 */
-            
+            opacity: 0;
+
+            z-index: 20;
+            /* ボタンより手前に表示 */
+
             /* アニメーションの適用 */
-            animation: pointAndClick 3.0s ease-out forwards infinite; 
+            animation: pointAndClick 2.5s ease-out forwards infinite;
         }
 
         /* アニメーションの定義 (ボタンの30px下から右よりへ) */
         @keyframes pointAndClick {
             0% {
                 /* スタート: ボタンの右端と揃え、30px下 */
-                top: 90px; /* ボタンの底部(約70px)から30px下あたり */
-                right: 30px; /* 【修正済】コンテナ右端から30pxの位置 (ボタンの右端と揃う) */
-                opacity: 0; 
+                top: 90px;
+                /* ボタンの底部(約70px)から30px下あたり */
+                right: 30px;
+                /* 【修正済】コンテナ右端から30pxの位置 (ボタンの右端と揃う) */
+                opacity: 0;
                 transform: rotate(10deg) scale(0.8);
             }
+
             20% {
                 /* 少し上がって、表示 */
                 top: 70px;
-                right: 40px; /* 【修正済】中間点も10px左に寄せた */
-                opacity: 1; 
-                transform: rotate(0deg) scale(1);
-            }
-            60% {
-                /* ターゲット位置: ボタンの右半分を指し示す位置 */
-                top: 50px; /* ボタンの中央(Y軸)付近 */
-                right: 60px; /* ボタンの右端から内側へ少し入った位置 */
+                right: 40px;
+                /* 【修正済】中間点も10px左に寄せた */
                 opacity: 1;
                 transform: rotate(0deg) scale(1);
             }
+
+            60% {
+                /* ターゲット位置: ボタンの右半分を指し示す位置 */
+                top: 50px;
+                /* ボタンの中央(Y軸)付近 */
+                right: 60px;
+                /* ボタンの右端から内側へ少し入った位置 */
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+
             80% {
                 /* クリックの表現 */
                 top: 55px;
                 right: 65px;
-                transform: scale(0.9); 
+                transform: scale(0.9);
                 opacity: 1;
             }
+
             100% {
                 /* 透明になりながら、終了 */
-                opacity: 0; 
-                top: 50px; 
-                right: 60px; 
+                opacity: 0;
+                top: 50px;
+                right: 60px;
                 transform: scale(0.9);
             }
         }
-        /* --- 指アニメーション追加したスタイルここまで --- */
 
+        /* --- 指アニメーション追加したスタイルここまで --- */
     </style>
 </head>
 
 <body>
     <h1>
-        <img src="https://i-navit.github.io/request/img/roblox.png?raw=true" alt="ぼっちんガイド">
-        <div>ぼっちんガイド@Roblox<br>フレンド申請フォーム</div>
+        <img src="https://i-navit.github.io/request/img/LG.jpg?raw=true" alt="ルミナスゲームズ">
+        <div>ルミナスゲームズ@Fortnite<br>フレンド申請フォーム</div>
     </h1>
 
     <div id="form-area" class="form-container">
         <button id="showRulesButton">参加方法とルール</button>
-        <!-- 【追加】指の画像をボタンの直後、form-containerの子要素として配置 -->
         <img id="fingerPointer" src="img/finger.png" alt="クリックを促す指">
-        
+
         <div class="checkbox-group">
-            <div class="checkbox-text"><span class="required-mark">※</span><ruby>
-                    <rt style="color: gray;">うえ</rt>上
-                </ruby>の<ruby>
-                    <rt style="color: gray;">さんかほうほう</rt>参加方法
-                </ruby>とルールは<ruby>
-                    <rt style="color: gray;">よ</rt>読
-                </ruby>んだ？</div>
+            <div class="checkbox-text">
+                <span class="required-mark">※</span>
+                <ruby>上<rt>うえ</rt></ruby>の<ruby>参加方法<rt>さんかほうほう</rt></ruby>とルールは<ruby>読<rt>よ</rt></ruby>んだ？
+            </div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check1" name="check1" required>
-                <label for="check1"><ruby>
-                        <rt style="color: gray;">よ</rt>読
-                    </ruby>んだよ！</label>
+                <label for="check1"><ruby>読<rt>よ</rt></ruby>んだよ！</label>
             </div>
-            <!-- 2番目のチェックボックスのテキストを更新 -->
-            <div class="checkbox-text"><span class="required-mark">※</span>ゲームに<ruby>
-                    <rt style="color: gray;">さんか</rt>参加
-                </ruby>する<ruby>
-                    <rt style="color: gray;">まえ</rt>前
-                </ruby>に<ruby>
-                    <rt style="color: gray;">かなら</rt>必
-                </ruby>ずDiscordのぼっちんオンラインステータスを<ruby>
-                    <rt style="color: gray;">かくにん</rt>確認
-                </ruby>してね(オンライン<ruby>
-                    <rt style="color: gray;">いがい</rt>以外
-                </ruby>は<ruby>
-                    <rt style="color: gray;">あそ</rt>遊
-                </ruby>べないよ！)</div>
+            <div class="checkbox-text">
+                <span class="required-mark">※</span>
+                <ruby>配信外<rt>はいしんがい</rt></ruby>で<ruby>繰<rt>く</rt></ruby>り<ruby>返<rt>かえ</rt></ruby>し<ruby>招待<rt>しょうたい
+                    </rt></ruby>・
+                <ruby>参加<rt>さんか</rt></ruby>リクエストを<ruby>送<rt>おく</rt></ruby>らないでね。
+            </div>
             <div class="checkbox-item">
                 <input type="checkbox" id="check2" name="check2" required>
-                <label for="check2"><ruby>
-                        <rt style="color: gray;">わ</rt>分
-                    </ruby>かったよ</label>
+                <label for="check2"><ruby>分<rt>わ</rt></ruby>かったよ</label>
             </div>
-            <!-- チェックボックス3番目はユーザーの要求により削除されました -->
+            <div class="checkbox-text">
+                <span class="required-mark">※</span>
+                <ruby>誰<rt>だれ</rt></ruby>が<ruby>送<rt>おく</rt></ruby>ったかわかるように<ruby>配信<rt>はいしん</rt></ruby>のコメントで
+                「◯◯が<ruby>登録<rt>とうろく</rt></ruby>したよ」と<ruby>教<rt>おし</rt></ruby>えてね🙋
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" id="check3" name="check3" required>
+                <label for="check3">コメント<ruby>書<rt>か</rt></ruby>くよ</label>
+            </div>
         </div>
         <div class="form-group">
-            <label for="id"><span class="required-mark">※</span>あなたのユーザーネーム(@ロブロックスID)を<ruby>
-                    <rt style="color: gray;">か</rt>書
-                </ruby>いてね</label>
-            <input type="text" id="id" name="id" placeholder="例：@TungTungTung_Sahur" required>
+            <label for="id">
+                <span class="required-mark">※</span>
+                ロビーで<ruby>表示<rt>ひょうじ</rt></ruby>されているあなたのディスプレイネーム(ID)を<ruby>書<rt>か</rt></ruby>いてね
+            </label>
+            <input type="text" id="id" name="id" placeholder="例：PeelyBot1234" required>
         </div>
         <div class="form-group">
-            <label for="nickname"><span class="required-mark">※</span>なんて<ruby>
-                    <rt style="color: gray;">よ</rt>呼
-                </ruby>んでほしい？</label>
-            <input type="text" id="nickname" name="nickname" placeholder="例：トゥントゥントゥンサフール" required>
+            <label for="nickname">
+                <span class="required-mark">※</span>
+                なんて<ruby>呼<rt>よ</rt></ruby>んでほしい？
+            </label>
+            <input type="text" id="nickname" name="nickname" placeholder="例：ピーリーボット" required>
         </div>
         <div id="error-area">
             <p id="error-message" class="error"></p>
         </div>
         <div class="button-container">
-            <!-- 変更: onclickで直接submitFormを呼び出すようにし、古いdisableSubmitButtonを削除 -->
             <button id="submitButton" onclick="submitForm()">送信</button>
-            <!-- 追加: 送信中のインジケーター -->
             <div id="loadingIndicator" style="display:none;" class="loading-message">
                 送信中⋯ちょっと待ってね
             </div>
@@ -643,35 +652,93 @@
             <h2>参加方法とルール</h2>
 
             <p>
-                【フレンドのお約束】<br>
-                プライベートアカウントの為、必ずルールを守ってください。🚫ルール違反はフレンド整理、サーバーBANの対象となります。
-            </p>
-            <p>
-                <span class="required-mark">【重要】ぼっちんがプレイ中のサーバー(ゲーム)に入る場合は必ず確認してください。</span>
-            </p>
-            <p>
-                📍Discordのオンラインステータスがオンラインの場合のみ一緒にプレイ出来ます。※オンライン表示以外の場合はプライベートおよび動画撮影中のためゲームに参加しないようにしてください。
-            </p>
-            <p>
-                📍トラブル防止の為フレンド交換、ゲームへの勧誘等は一切禁止です。
-            </p>
-            <p>
-                📍プレイ中、ボイスチャット&テキストのやりとりはDiscordチャンネルを使用しましょう。※ゲーム内のチャット欄は使用しません。
-            </p>
-            <p>
-                🎞️プレイ中の一部を動画として使用させてもらう場合があります。
+                <span>【<ruby>禁止事項<rt>きんしじこう</rt></ruby>／ルールとマナー】</span><br>
+                🚫<ruby>他<rt>ほか</rt></ruby>の<ruby>人<rt>ひと</rt></ruby>が<ruby>不快<rt>ふかい</rt></ruby>になるコメント、
+                <ruby>過度<rt>かど</rt></ruby>な<ruby>連投<rt>れんとう</rt></ruby><br>
+                🚫リスナー<ruby>同士<rt>どうし</rt></ruby>での<ruby>配信<rt>はいしん</rt></ruby><ruby>以外<rt>いがい</rt></ruby>の
+                <ruby>個人的<rt>こじんてき</rt></ruby>な<ruby>会話<rt>かいわ</rt></ruby>やチャット<br>
+                🚫<ruby>配信中<rt>はいしんちゅう</rt></ruby>の<ruby>参加者同士<rt>さんかしゃどうし</rt></ruby>のフレンド
+                <ruby>交換<rt>こうかん</rt></ruby>、トラブルについて<ruby>一切責任<rt>いっさいせきにん</rt></ruby>
+                を<ruby>負<rt>お</rt></ruby>いません<br>
+                🚫<ruby>死体撃<rt>したいう</rt></ruby>ち、<ruby>煽<rt>あお</rt></ruby>り<ruby>行為<rt>こうい</rt></ruby>、
+                チーミング、ゴースティング、チート、<ruby>利敵行為<rt>りてきこうい</rt></ruby>は<ruby>原則禁止<rt>げんそくきんし</rt></ruby>です<br>
+                🚫ボイスチャットは<ruby>声以外<rt>こえいがい</rt></ruby>の<ruby>音声<rt>おんせい</rt></ruby>
+                （ゲーム<ruby>音<rt>おん</rt></ruby>、<ruby>生活音<rt>せいかつおん</rt></ruby>、
+                <ruby>配信音<rt>はいしんおん</rt></ruby>など）が<ruby>入<rt>はい</rt></ruby>らないように<ruby>設定<rt>せってい</rt>
+                </ruby>してください<br>
+                ⛔<ruby>他<rt>ほか</rt></ruby>の<ruby>参加者<rt>さんかしゃ</rt></ruby>へ<ruby>不快<rt>ふかい</rt></ruby>、
+                <ruby>迷惑行為<rt>めいわくこうい</rt></ruby>とみなされた<ruby>場合<rt>ばあい</rt></ruby>は<ruby>出禁<rt>できん</rt>
+                </ruby>、ブロックさせていただきます
             </p>
 
+            <p>
+                <span>【カスタムマッチの<ruby>遊<rt>あそ</rt></ruby>び<ruby>方<rt>かた</rt></ruby>】</span><br>
+                ✅ロビーでカスタムキー🔑をコメントします<br>
+                ✅フレンド<ruby>申請<rt>しんせい</rt></ruby>、<ruby>参加希望<rt>さんかきぼう</rt></ruby>コメント<ruby>不要<rt>ふよう</rt>
+                </ruby>！カスタムキーを<ruby>入力<rt>にゅうりょく</rt></ruby>して<ruby>参加<rt>さんか</rt></ruby>してね🎵<br>
+                ⛔フレンド<ruby>同士<rt>どうし</rt></ruby>パーティーを<ruby>組<rt>く</rt></ruby>んでの<ruby>参加<rt>さんか</rt>
+                </ruby>は<ruby>禁止<rt>きんし</rt></ruby>🆖❌です。<br>
+                <ruby>参加者<rt>さんかしゃ</rt></ruby>の<ruby>方<rt>かた</rt></ruby>は<ruby>必<rt>かなら</rt></ruby>ず「<ruby>埋<rt>う
+                    </rt></ruby>める」でマッチングしてね。<br>
+                ※<ruby>配信主<rt>はいしんぬし</rt></ruby>チームのみ<ruby>事前<rt>じぜん</rt></ruby>にパーティーを<ruby>組<rt>く</rt>
+                </ruby>んでマッチングさせてもらう<ruby>場合<rt>ばあい</rt></ruby>があります！
+            </p>
+
+            <p>
+                <span>【<ruby>参加型<rt>さんかがた</rt></ruby>の<ruby>遊<rt>あそ</rt></ruby>び<ruby>方<rt>かた</rt></ruby>
+                    とフレンド<ruby>申請<rt>しんせい</rt></ruby>】</span><br>
+                ①『<ruby>参加希望<rt>さんかきぼう</rt></ruby>』とコメントしてね<br>
+                ②『LG-BOTTIN』までフレンド<ruby>申請<rt>しんせい</rt></ruby>してね<br>
+                ③<ruby>送<rt>おく</rt></ruby>った<ruby>方<rt>かた</rt></ruby>のディスプレイネーム(ID)をコメントしてね<br><br>
+
+                <ruby>重要<rt>じゅうよう</rt></ruby>‼️<ruby>配信中<rt>はいしんちゅう</rt></ruby>のみのフレンドになります。<br><br>
+
+                <ruby>繰<rt>くり</rt></ruby><ruby>返<rt>かえ</rt></ruby>し<ruby>参加<rt>さんか</rt></ruby>してくれる<ruby>方<rt>かた
+                    </rt></ruby>には、フレンド<ruby>登録<rt>とうろく</rt></ruby>フォーム（<ruby>管理用名簿<rt>かんりようめいぼ</rt>
+                </ruby>）を<ruby>案内<rt>あんない</rt></ruby>しています！<br>
+                『たくさん<ruby>遊<rt>あそ</rt></ruby>びにきてね🎵』
+            </p>
+
+            <p>
+                <span>【キッズの<ruby>皆<rt>みな</rt></ruby>さんへ】</span><br>
+                13<ruby>歳未満<rt>さいみまん</rt></ruby>の<ruby>参加者<rt>さんかしゃ</rt></ruby>
+                （※まだ13<ruby>歳<rt>さい</rt></ruby>になっていない<ruby>人<rt>ひと</rt></ruby>）は
+                <ruby>必<rt>かなら</rt></ruby>ず<ruby>保護者<rt>ほごしゃ</rt></ruby>の<ruby>方<rt>かた</rt></ruby>から
+                <ruby>同意<rt>どうい</rt></ruby>をもらったうえで<ruby>参加<rt>さんか</ruby></ruby>してください。
+            </p>
+
+            <p>
+                <span>【<ruby>保護者<rt>ほごしゃ</rt></ruby>の<ruby>皆様<rt>みなさま</rt></ruby>へ】</span><br>
+                <ruby>当<rt>とう</rt></ruby>チャンネル『ルミナスゲームズ』はYouTube<ruby>規約<rt>きやく</rt></ruby>・ガイドラインを<ruby>遵守<rt>じゅんしゅ
+                    </rt></ruby>し、フォートナイトを<ruby>安心<rt>あんしん</rt></ruby>してプレイ・<ruby>参加<rt>さんか</rt>
+                </ruby>できるプラットホームを<ruby>運営<rt>うんえい</rt></ruby>しております。
+                <ruby>親子参加<rt>おやこさんか</rt></ruby>も<ruby>大歓迎<rt>だいかんげい</rt></ruby>です✨
+            </p>
+
+
+            <p>
+                <span>【LGルミナス<ruby>運営協力募集<rt>うんえいきょうりょくぼしゅう</rt></ruby>】</span><br>
+                <ruby>応募資格<rt>おうぼしかく</rt></ruby>なし！<ruby>簡単<rt>かんたん</rt></ruby>なお<ruby>手伝<rt>てつだ</rt></ruby>いで🆗<br>
+                <ruby>興味<rt>きょうみ</rt></ruby>がある<ruby>方<rt>かた</rt></ruby>！<ruby>気軽<rt>きがる</rt></ruby>に<ruby>教<rt>おし
+                    </rt></ruby>えてください！<br>
+                ※メインチャンネルの<ruby>会員制<rt>かいいんせい</rt></ruby>サーバー<ruby>管理<rt>かんり</rt></ruby>など
+            </p>
+
+            <p>
+                🎞️<ruby>配信<rt>はいしん</rt></ruby>の<ruby>様子<rt>ようす</rt></ruby>を<ruby>動画<rt>どうが</rt></ruby>コンテンツとして<ruby>使用
+                    <rt>しよう</rt>
+                </ruby>する<ruby>場合<rt>ばあい</rt></ruby>があります。<ruby>予<rt>あらかじ</rt></ruby>めご<ruby>了承<rt>
+                        りょうしょう</rt></ruby>ください。
+            </p>
             <button class="close-button">とじる</button>
         </div>
     </div>
 
     <script>
-        // 【！重要！】Google Apps Script 最新のRobloxフレンド申請デプロイURLを貼り付ける        
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyGMfZO58NalchFrzRRKCssbpkqkQ7nNX5iW9GpdPXqN9D5NAkDj-enPpKQ-8OFrvO1rg/exec';
-
+        // 【！重要！】Google Apps Script 最新のフォトナ用フレンド申請デプロイURLを貼り付ける        
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzlVzpXwSpy1VkwrZtMe9at56LWfFPxa8_i54QXTpd8wBvNUx_zjUBYcNr4cDSeeMBkmw/exec';
         const submitButton = document.getElementById('submitButton');
-        const loadingIndicator = document.getElementById('loadingIndicator'); // 追加
+        const loadingIndicator = document.getElementById('loadingIndicator'); // 追加: ローディングインジケーター要素
         let isSubmitting = false; // 送信中フラグ
 
         // 💡 変更点: 古い disableDuration と disableSubmitButton 関数は削除されました。
@@ -699,15 +766,12 @@
         }
 
 
-        /**
-         * フォームのバリデーションと送信処理を実行します
-         */
         async function submitForm() {
             if (isSubmitting) return; // 二重送信防止
 
             const check1 = document.getElementById('check1');
             const check2 = document.getElementById('check2');
-            // 💡 変更点: check3の取得は既に削除されています
+            const check3 = document.getElementById('check3');
             const idInput = document.getElementById('id');
             const nicknameInput = document.getElementById('nickname');
             const errorMessage = document.getElementById('error-message');
@@ -716,10 +780,8 @@
             const messageArea = document.getElementById('message-area');
             const completionMessage = document.getElementById('completion-message');
 
-            // --- バリデーションチェック ---
-            // 💡 変更点: check3のチェックは既に削除されています
-            if (!check1.checked || !check2.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
-                errorMessage.textContent = '✅️と入力を全部してから送信してね'; // メッセージは「2つのチェック」で正しいです
+            if (!check1.checked || !check2.checked || !check3.checked || idInput.value.trim() === '' || nicknameInput.value.trim() === '') {
+                errorMessage.textContent = '✅️と入力を全部してから送信してね';
                 errorMessage.style.display = 'block';
                 return; // バリデーション失敗時はここで処理を終了
             }
@@ -756,7 +818,7 @@
 
                     // --- 成功時 ---
                     formArea.style.display = 'none';
-                    completionMessage.innerHTML = `<ruby><rt style="color: gray;">とうろくかんりょう</rt>登録完了</ruby>！<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby><rt style="color: gray;">とうろく</rt>登録</ruby>したよ</span>」<br>ってDiscordのチャットで<ruby><rt style="color: gray;">おし</rt>教</ruby>えてね<br><br>【<span class="highlight-nickname">@bottingaido</span>】まで「つながりリクエスト」を送ってね。`;
+                    completionMessage.innerHTML = `<ruby>登録完了<rt>とうろくかんりょう</rt></ruby>！<br><ruby>配信<rt>はいしん</rt></ruby>に<ruby>戻<rt>もど</rt></ruby>って<br>「<span class="highlight-underline"><span class="highlight-nickname">${nicknameInput.value.trim()}</span>が<ruby>登録<rt>とうろく</rt></ruby>したよ</span>」<br>ってコメントしてから、<br>【LG-BOTTIN】までフレンド<ruby>申請<rt>しんせい</rt></ruby>してね。`;
                     messageArea.style.display = 'block';
                     hideLoading(true); // 成功時はローディングを隠す（ボタンは再表示しない）
 
@@ -775,14 +837,14 @@
         const showRulesButton = document.getElementById('showRulesButton');
         const rulesOverlay = document.getElementById('rulesOverlay');
         const closeButton = rulesOverlay.querySelector('button.close-button');
-        
+
         // 【追加】指アニメーション関連の要素を取得
         const fingerPointer = document.getElementById('fingerPointer');
 
         // オーバーレイ表示/非表示のJavaScript
         showRulesButton.addEventListener('click', () => {
             rulesOverlay.style.display = 'flex'; // CSSでdisplay: flexに設定しているのでflexで表示
-            fingerPointer.style.display = 'none'; // 【追加】クリックしたら指を非表示
+            if (fingerPointer) fingerPointer.style.display = 'none'; // 【追加】クリックしたら指を非表示
         });
 
         // 閉じるボタンがクリックされたらオーバーレイを非表示
