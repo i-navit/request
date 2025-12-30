@@ -22,6 +22,7 @@
             <li><a href="rule.html">ルール</a></li>
             <li><a href="tunagari.html">つながりマニュアル</a></li>
             <li><a href="enquete.html">アンケート</a></li>
+            <li><a href="album.html">フォトアルバム</a></li>
             <li><a href="parent.html">保護者の方へ</a></li>
         </ul>
     </nav>
@@ -42,6 +43,7 @@
                 <li><a href="#" class="current">ホーム</a></li>
                 <li><a href="rule.html">ルール</a></li>
                 <li><a href="enquete.html">アンケート</a></li>
+                <li><a href="album.html">フォトアルバム</a></li>
                 <li><a href="parent.html">保護者様へ</a></li>
             </ul>
         </div>
@@ -111,8 +113,6 @@
                     <div class="text-xs sm:text-lg mt-1 text-gray-600">つながり方法や参加方法はこちら</div>
                 </a>
 
-
-
                 <!-- アンケート (icon-green) -->
                 <a href="enquete.html"
                     class="icon-green p-4 rounded-xl shadow-lg transition duration-200 hover:scale-[0.98] active:shadow-inner flex flex-col items-center justify-center text-center">
@@ -121,38 +121,23 @@
                     <div class="text-xs sm:text-lg mt-1 text-gray-600">みんなで人気のマップを見つけよう</div>
                 </a>
 
-                <!-- 保護者様へ (icon-purple) -->
-                <a href="parent.html"
+                <!-- アルバム (icon-purple) -->
+                <a href="album.html"
                     class="icon-purple p-4 rounded-xl shadow-lg transition duration-200 hover:scale-[0.98] active:shadow-inner flex flex-col items-center justify-center text-center">
+                    <div class="text-5xl mb-2">📸</div>
+                    <div class="font-bold text-xl sm:text-2xl text-primary-blue">アルバム</div>
+                    <div class="text-xs sm:text-lg mt-1 text-gray-600">みんなの思い出写真館</div>
+                </a>
+
+                <!-- 保護者様へ (icon-orange) -->
+                <a href="parent.html"
+                    class="icon-orange p-4 rounded-xl shadow-lg transition duration-200 hover:scale-[0.98] active:shadow-inner flex flex-col items-center justify-center text-center">
                     <div class="text-5xl mb-2">🏠</div>
                     <div class="font-bold text-xl sm:text-2xl text-primary-blue">保護者様へ</div>
                     <div class="text-xs sm:text-lg mt-1 text-gray-600">安全への取り組みと活動方針のご案内</div>
                 </a>
 
-                <!-- ★★★★★★★★★★★★★★ ありがとう動画ココから -->
-                <!-- ？？？ (icon-orange) -->
-                <a href="javascript:void(0);" id="popupTrigger"
-                    class="banner_item icon-orange p-4 rounded-xl shadow-lg transition duration-200 hover:scale-[0.98] active:shadow-inner flex flex-col items-center justify-center text-center">
-                    <div class="text-5xl mb-2">💖</div>
-                    <div class="font-bold text-xl sm:text-2xl text-primary-blue">みんなへ</div>
-                    <div class="text-xs sm:text-lg mt-1 text-gray-600">ぼっちんとるみなから</div>
-                </a>
-                <!-- オーバーレイ構造 -->
-                <div class="overlay" id="overlay">
-                    <div class="popup">
-                        <div class="video-container">
-                            <video autoplay loop muted playsinline disablePictureInPicture>
-                                <source src="img/dance.webm" type="video/webm">
-                            </video>
-                        </div>
-                        <p>遊びに来てくれて<br>ありがとう🐥✟💙</p>
-                    </div>
-                </div>
-                <!-- ★★★★★★★★★★★★★★ ありがとう動画ココまで -->
-
-
                 <!-- ★★★★★★ (icon-yellow) 
-                <!--
                 <a href="#page-8"
                     class="icon-yellow p-4 rounded-xl shadow-lg transition duration-200 hover:scale-[0.98] active:shadow-inner flex flex-col items-center justify-center text-center">
                     <div class="text-5xl mb-2">🤩</div>
@@ -160,36 +145,28 @@
                     <div class="text-xs sm:text-lg mt-1 text-gray-600">★★★★★★★★</div>
                 </a>
                 -->
-
-
             </div>
         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <!-- ★★★★★★★★★★★★★★ ありがとう動画ココから (1列で表示) -->
+        <div>
+            <!-- ？？？ (icon-rainbow) -->
+            <a href="javascript:void(0);" id="popupTrigger">
+                <div class="text-4xl text-center">💖</div>
+            </a>
+            <!-- オーバーレイ構造 -->
+            <div class="overlay" id="overlay">
+                <div class="popup">
+                    <div class="video-container">
+                        <video autoplay loop muted playsinline disablePictureInPicture>
+                            <source src="img/dance.webm" type="video/webm">
+                        </video>
+                    </div>
+                    <p>遊びに来てくれて<br>ありがとう🐥✟💙</p>
+                </div>
+            </div>
+            <!-- ★★★★★★★★★★★★★★ ありがとう動画ココまで -->
+        </div>
 
 
 
