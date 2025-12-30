@@ -94,15 +94,17 @@
         }
 
         /* ==================================== */
-        /* 4. コンテンツブロック（背景とテキストエリア） */
-        /* ローカルの背景画像を削除し、代わりに背景色を設定します */
+        /* コンテンツブロック（背景とテキストエリア） */
         /* ==================================== */
 
         /* 共通の背景スタイル（背景画像と影） */
         .step1,
         .step2,
         .step3,
-        .content-private {
+        .content-private,
+        .content-rule,
+        .content-kids,
+        .content-parent {
             background-size: 100% auto;
             /* 背景画像をBOXの幅いっぱいに広げます */
             background-repeat: no-repeat;
@@ -119,25 +121,36 @@
         .step1 {
             background-image: url('img/bg_purple.jpg');
             background-color: #e0b0ff;
-            /* 薄い紫の代替色 */
         }
 
         .step2 {
             background-image: url('img/bg_pink.jpg');
             background-color: #ffb6c1;
-            /* 薄いピンクの代替色 */
         }
 
         .step3 {
             background-image: url('img/bg_orange.jpg');
             background-color: #ffdead;
-            /* 薄いオレンジの代替色 */
         }
 
         .content-private {
             background-image: url('img/bg_green.jpg');
             background-color: #98fb98;
-            /* 薄い緑の代替色 */
+        }
+
+        .content-rule {
+            background-image: url('img/bg_blue.jpg');
+            background-color: #bdedff;
+        }
+
+        .content-kids {
+            background-image: url('img/bg_mint.jpg');
+            background-color: #adffe0;
+        }
+
+        .content-parent {
+            background-image: url('img/bg_brown.jpg');
+            background-color: #d7ccb5;
         }
 
         /* 白背景のテキストエリア */
@@ -326,21 +339,22 @@
             .step1,
             .step2,
             .step3,
-            .content-private {
+            .content-private,
+            .content-rule,
+            .content-kids,
+            .content-parent {
                 margin-top: 4vw;
                 padding-bottom: 8vw;
             }
 
-            /* 下の余白 (1/3削減を維持) */
+            /* 各コンテンツの下の余白 (1/3削減を維持) */
             .step1,
             .step2,
-            .step3 {
+            .step3,
+            .content-private,
+            .content-rule,
+            .content-kids {
                 margin-bottom: 6vw;
-            }
-
-            /* プライベートブロックの下の余白をフッターに合わせて詰める (1/3削減を維持) */
-            .content-private {
-                margin-bottom: 2vw;
             }
 
             /* 本文のフォントサイズをvwで調整 */
@@ -400,10 +414,11 @@
                 margin-top: 0;
             }
 
-            /* プライベートブロックの最後の段落の下の余白を削除 */
-            .content-private .txt-area p:last-child {
-                margin-bottom: 0;
+            /* 最後のブロックの下の余白をフッターに合わせて詰める (1/3削減を維持) */
+            .content-parent {
+                margin-bottom: 4vw;
             }
+
         }
     </style>
 </head>
@@ -430,7 +445,7 @@
 
             <!--ステップ1 -->
             <div class="step1">
-                <img src="img/step1.png" alt="るみな つながり専用アカウント" class="title">
+                <img src="img/step1.png" alt="ステップ1" class="title">
                 <div class="txt-area">
                     <p>
                         つながり<ruby>専用<rt class="ruby-color">せんよう</rt></ruby>アカウント<br>
@@ -451,11 +466,11 @@
 
             <!-- ステップ2 -->
             <div class="step2">
-                <img src="img/step2.png" alt="ぼっちん フォロー専用アカウント" class="title">
+                <img src="img/step2.png" alt="ステップ2" class="title">
                 <div class="txt-area">
                     <p>
                         <ruby>三点<rt class="ruby-color">さんてん</rt></ruby>リーダーを<ruby>押<rt class="ruby-color">お</rt>
-                        </ruby>して<span class="font-c1">フォロー</span>をポチっ👆️<ruby>募集<rt>ぼしゅう</rt></ruby>の<ruby>合図<rt>あいず
+                        </ruby>して<span class="font-c1">フォロー</span>をポチっ👆️<ruby>参加<rt>さんか</rt></ruby>の<ruby>合図<rt>あいず
                         </ruby>がくるのを<ruby>待<rt>ま</rt></ruby>っててね♪
                     </p>
 
@@ -480,7 +495,7 @@
             </div>
             <!-- ステップ3 -->
             <div class="step3">
-                <img src="img/step3.png" alt="★★★" class="title">
+                <img src="img/step3.png" alt="ステップ3" class="title">
                 <div class="txt-area">
                     <p>
                         <ruby>募集<rt class="ruby-color">ぼしゅう</rt></ruby>がきたら
@@ -496,12 +511,15 @@
             </div>
 
 
-            <!-- 3. プライベート（メンバーシップ）ブロック -->
+            <!-- プライベート（メンバーシップ）ブロック -->
             <div class="content-private">
                 <img src="img/title_private.png" alt="プライベートでも一緒に遊びたい" class="title">
                 <div class="txt-area">
-                    <h1>メインアカウントのつながりは<br>YouTubeメンバーシップ<br><ruby>限定<rt class="ruby-color">げんてい</rt></ruby>です🐥</h1>
-
+                    <h1>
+                        メインアカウントのつながりは<br>YouTubeメンバーシップ<br><ruby>限定<rt class="ruby-color">げんてい</rt></ruby>です🐥<br>
+                        Discord<ruby>内<rt class="ruby-color">ない</rt></ruby>でチャットしながら<br>
+                        プレイ<ruby>出来<rt class="ruby-color">でき</rt></ruby>るよ♪
+                    </h1>
                     <!-- ボタンの中央寄せ -->
                     <div class="member_button">
                         <a href="https://www.youtube.com/channel/UCbIsTopKJQXLhg2V8gaKIVw/join" target="_blank"
@@ -517,6 +535,87 @@
                 </div>
             </div>
 
+            <!-- ルールとマナー -->
+            <div class="content-rule">
+                <img src="img/title_rule.png" alt="みんなで守るお約束" class="title">
+                <div class="txt-area">
+                    <p>
+                        🚫<ruby>他<rt>た</rt></ruby>の<ruby>人<rt>ひと</rt></ruby>が<ruby>不快<rt>ふかい</rt></ruby>になるコメント、
+                        <ruby>過度<rt>かど</rt></ruby>な<ruby>連投<rt>れんとう</rt></ruby><br>
+
+                        🚫リスナー<ruby>同士<rt>どうし</rt></ruby>での<ruby>配信<rt>はいしん</rt></ruby>
+                        <ruby>以外<rt>いがい</rt></ruby>での<ruby>個人<rt>こじん</rt></ruby><ruby>的<rt>てき</rt></ruby>な
+                        <ruby>会話<rt>かいわ</rt></ruby>やチャット<br>
+
+                        ⛔ライブを<ruby>配信<rt>はいしん</rt></ruby><ruby>視聴<rt>しちょう</rt></ruby>
+                        できない<ruby>環境<rt>かんきょう</rt></ruby>での<ruby>参加<rt>さんか</rt></ruby><br>
+
+                        ※チャットは<ruby>原則<rt>げんそく</rt></ruby>ゲーム<ruby>内<rt>ない</rt></ruby>
+                        では<ruby>使用<rt>しよう</rt></ruby>しません<br>
+
+                        <span class="kome">
+                            【<ruby>重要<rt>じゅうよう</rt></ruby>】<br>
+                            ライブ<ruby>配信<rt>はいしん</rt></ruby><ruby>視聴外<rt>しちょうがい</rt></ruby>
+                            での<ruby>参加者<rt>さんかしゃ</rt></ruby>
+                            （<ruby>配信中<rt>はいしんちゅう</rt></ruby>と
+                            <ruby>知<rt>し</rt></ruby>らないでサーバーに<ruby>入<rt>はい</rt></ruby>る）が
+                            <ruby>多<rt>おお</rt></ruby>い<ruby>場合<rt>ばあい</rt></ruby>は、
+                            メインアカウントで<ruby>一時的<rt>いちじてき</rt></ruby>につながり/フレンドとなりサーバー
+                            <ruby>入場<rt>にゅうじょう</rt></ruby>を「つながりのみ」に
+                            <ruby>制限<rt>せいげん</rt></ruby>します。
+                            この<ruby>場合<rt>ばあい</rt></ruby>、
+                            <ruby>配信後<rt>はいしんご</rt></ruby>はつながりを
+                            <ruby>解除<rt>かいじょ</rt></ruby>させてもらいます。
+                        </span><br>
+
+                        ⛔<ruby>他<rt>た</rt></ruby>の<ruby>参加者<rt>さんかしゃ</rt></ruby>へ
+                        <ruby>不快<rt>ふかい</rt></ruby>、<ruby>迷惑行為<rt>めいわくこうい</rt></ruby>とみなされた
+                        <ruby>場合<rt>ばあい</rt></ruby>は<ruby>出禁<rt>できん</rt></ruby>、ブロックさせていただきます<br>
+
+                        ⛔<ruby>配信中<rt>はいしんちゅう</rt></ruby>の
+                        <ruby>参加者同士<rt>さんかしゃどうし</rt></ruby>の
+                        フレンド<ruby>交換<rt>こうかん</rt></ruby>/トラブルについて<ruby>一切責任<rt>いっさいせきにん</rt></ruby>を
+                        <ruby>負<rt>お</rt></ruby>いません
+                    </p>
+                </div>
+            </div>
+
+            <!-- キッズたちへ -->
+            <div class="content-kids">
+                <img src="img/title_kids.png" alt="キッズのみなさんへ" class="title">
+                <div class="txt-area">
+                    <p>
+                        まだ、13<ruby>歳<rt>さい</rt></ruby>になっていない<ruby>人<rt>ひと</rt></ruby>は、<ruby>必<rt>かなら</rt>
+                        </ruby>ずおうちの<ruby>人<rt>ひと</rt></ruby>にこのページを<ruby>見<rt>み</rt></ruby>せてね。<ruby>配信<rt>はいしん
+                            </rt></ruby>やイベントに<ruby>参加<rt>さんか</rt></ruby>してもいいか<ruby>聞<rt>き</rt></ruby>いて「いいよ」と<ruby>言
+                            <rt>い</rt>
+                        </ruby>ってもらってから<ruby>遊<rt>あそ</rt></ruby>んでね！<br>
+                        <br>
+                        <span class="font-c1">【<ruby>配信<rt>はいしん</rt></ruby>チャット<ruby>欄<rt>らん</rt></ruby>の
+                            お<ruby>約束<rt>やくそく</rt></ruby>】</span><br>
+                        🚫マシンガンみたいにいっぱい<ruby>連続<rt>れんぞく</rt></ruby>でコメントをおくるのはやめてね。<br>
+                        🚫ほかの<ruby>人<rt>ひと</rt></ruby>がイヤな<ruby>気持<rt>きも</rt></ruby>ちになるような
+                        <ruby>言葉<rt>ことば</rt></ruby>は<ruby>書<rt>か</rt></ruby>かないでね。<br>
+                        🚫<ruby>配信<rt>はいしん</rt></ruby>やゲームの<ruby>話題<rt>わだい</rt></ruby>じゃない
+                        「お<ruby>友<rt>とも</rt></ruby>だちどうしでしかワカラナイ<ruby>話<rt>はなし</rt></ruby>」はしないでね。<br>
+                        🚫<ruby>住<rt>す</rt></ruby>んでる<ruby>場所<rt>ばしょ</rt></ruby>や<ruby>自分<rt>じぶん</rt></ruby>の
+                        <ruby>本当<rt>ほんとう</rt></ruby>の<ruby>名前<rt>なまえ</rt></ruby>を
+                        チャットに<ruby>書<rt>か</rt></ruby>いちゃダメだよ。<br>
+                        🚫ライブ<ruby>配信<rt>はいしん</rt></ruby>を<ruby>見<rt>み</rt></ruby>ないで
+                        ゲームに<ruby>参加<rt>さんか</rt></ruby>するのはダメだよ。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 保護者の方へ -->
+            <div class="content-parent">
+                <img src="img/title_parent.png" alt="保護者の方へ" class="title">
+                <div class="txt-area">
+                    <p>
+                        当チャンネル『ぼっちんガイド（ルミナスゲームズ）』はYouTube規約・ガイドラインを遵守し、Robloxを安心してプレイ・参加できるプラットホームを運営しております。
+                    </p>
+                </div>
+            </div>
 
             <div class="box-footer">
                 <p><ruby>一緒<rt class="ruby-color">いっしょ</rt></ruby>に<ruby>遊<rt class="ruby-color">あそ</rt>
@@ -535,6 +634,3 @@
 </body>
 
 </html>
-
-
-
