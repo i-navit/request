@@ -142,16 +142,21 @@
             background-color: #ffd8b8;
         }
 
-        .icon-rainbow {
-            background: linear-gradient(to bottom right, #ffb7c5 0%, #fff9b1 50%, #99d9f2 100%);
+        .icon-red {
+            background-color: #dc0000;
+        }
+
+        .icon-grd {
+            /* 左上(to bottom right)から ピンク, 黄色, ブルー の順 */
+            background: linear-gradient(to bottom right, #ff849c, #fff9b1, #56cfff);
             background-size: 100% 100%;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
         }
 
         /* 文字色などで使用する濃い青をUtilityとして定義 */
         .text-primary-blue {
             color: #4c78a9;
         }
+
 
 
 
