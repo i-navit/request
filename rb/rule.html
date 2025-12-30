@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+    <title>ルール説明｜ぼっちんガイド</title>
+    <link rel="stylesheet" href="css/common.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+    <!-- 1. PC用メニュー（スマホでは隠す） -->
+    <nav class="nav-pc">
+        <ul>
+            <li><a href="index.html">ホーム</a></li>
+            <li><a href="osirase.html">お知らせ</a></li>
+            <li><a href="#" class="current">ルール</a></li>
+            <li><a href="tunagari.html">つながりマニュアル</a></li>
+            <li><a href="enquete.html">アンケート</a></li>
+            <li><a href="parent.html">保護者の方へ</a></li>
+        </ul>
+    </nav>
+
+    <!-- 2. スマホ用メニュー帯（PCでは隠す） -->
+    <nav class="nav-sp">
+        <div class="nav-sp-bar">
+            <!-- 左端：メニューボタン -->
+            <button class="menu-trigger" id="js-menu-toggle">≡ メニュー</button>
+            <!-- 常に表示する項目 -->
+            <a href="osirase.html">お知らせ</a>
+            <a href="tunagari.html">つながりマニュアル</a>
+        </div>
+
+        <!-- 展開されるメモ帳（初期は非表示） -->
+        <div class="menu-memo" id="js-menu-memo">
+            <ul>
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="#" class="current">ルール</a></li>
+                <li><a href="enquete.html">アンケート</a></li>
+                <li><a href="parent.html">保護者様へ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ヘッダー画像 -->
+    <header class="main-header">
+        <img src="img/header_rule.jpg" alt="ぼっちんガイド★ルミナスゲームズ">
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="content">
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ルールとマナー</h1>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-4 lg:gap-6 text-gray-700 text-sm sm:text-lg">
+                    <div class="md:flex-grow">
+                        🚫<ruby>他<rt>ほか</rt></ruby>の<ruby>人<rt>ひと</rt></ruby>が<ruby>不快<rt>ふかい</rt></ruby>になるコメント、
+                        <ruby>過度<rt>かど</rt></ruby>な<ruby>連投<rt>れんとう</rt></ruby><br>
+
+                        🚫リスナー<ruby>同士<rt>どうし</rt></ruby>での<ruby>配信<rt>はいしん</rt></ruby>
+                        <ruby>以外<rt>いがい</rt></ruby>での<ruby>個人<rt>こじん</rt></ruby><ruby>的<rt>てき</rt></ruby>な
+                        <ruby>会話<rt>かいわ</rt></ruby>やチャット<br>
+
+                        ⛔ライブを<ruby>配信<rt>はいしん</rt></ruby><ruby>視聴<rt>しちょう</rt></ruby>
+                        できない<ruby>環境<rt>かんきょう</rt></ruby>での<ruby>参加<rt>さんか</rt></ruby><br><br>
+
+                        ※チャットは<ruby>原則<rt>げんそく</rt></ruby>ゲーム<ruby>内<rt>ない</rt></ruby>
+                        では<ruby>使用<rt>しよう</rt></ruby>しません
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">とってもだいじなこと</h1>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-4 lg:gap-6 text-gray-700 text-sm sm:text-lg">
+                    <div class="md:flex-grow">
+                        ライブ<ruby>配信<rt>はいしん</rt></ruby><ruby>視聴外<rt>しちょうがい</rt></ruby>
+                        での<ruby>参加者<rt>さんかしゃ</rt></ruby>
+                        （<ruby>配信中<rt>はいしんちゅう</rt></ruby>と
+                        <ruby>知<rt>し</rt></ruby>らないでサーバーに<ruby>入<rt>はい</rt></ruby>る）が
+                        <ruby>多<rt>おお</rt></ruby>い<ruby>場合<rt>ばあい</rt></ruby>は、
+                        メインアカウントで<ruby>一時的<rt>いちじてき</rt></ruby>につながり/フレンドとなりサーバー
+                        <ruby>入場<rt>にゅうじょう</rt></ruby>を「つながりのみ」に
+                        <ruby>制限<rt>せいげん</rt></ruby>します。
+                        この<ruby>場合<rt>ばあい</rt></ruby>、
+                        <span class="kome-mark"><ruby>配信後<rt>はいしんご</rt></ruby>はつながりを
+                            <ruby>解除<rt>かいじょ</rt></ruby></span>させてもらいます。
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">やっちゃいけないこと</h1>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-4 lg:gap-6 text-gray-700 text-sm sm:text-lg">
+                    <div class="md:flex-grow">
+                        ⛔<ruby>他<rt>ほか</rt></ruby>の<ruby>参加者<rt>さんかしゃ</rt></ruby>へ
+                        <ruby>不快<rt>ふかい</rt></ruby>、<ruby>迷惑行為<rt>めいわくこうい</rt></ruby>とみなされた
+                        <ruby>場合<rt>ばあい</rt></ruby>は<ruby>出禁<rt>できん</rt></ruby>、ブロックさせていただきます<br>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">知っててほしいこと</h1>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row gap-4 lg:gap-6 text-gray-700 text-sm sm:text-lg">
+                    <div class="md:flex-grow">
+                        ⛔<ruby>配信中<rt>はいしんちゅう</rt></ruby>の
+                        <ruby>参加者同士<rt>さんかしゃどうし</rt></ruby>の
+                        フレンド<ruby>交換<rt>こうかん</rt></ruby>/トラブルについて<ruby>一切責任<rt>いっさいせきにん</rt></ruby>を
+                        <ruby>負<rt>お</rt></ruby>いません
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+
+    </main>
+
+
+    <div class="pagetop" id="js-pagetop">
+        <a href="#">▲<br>TOP</a>
+    </div>
+
+    <footer class="copyright-text">
+        &copy; 2025 Luminous Games. All Rights Reserved.
+    </footer>
+
+    <script src="js/common.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+body {
+    background-image: url('../img/bg_star.jpg');
+    background-repeat: repeat;
+    background-attachment: fixed;
+}
+
+/* luminousヘッダー画像エリア */
+.luminous-header {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.luminous-header img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: none;
+}

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Robloxつながりマニュアル｜ぼっちんガイド</title>
+    <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+    <!-- 共通設定 -->
+    <link rel="stylesheet" href="css/common.css">
+    <!-- つながりマニュアル専用設定 -->
+    <link rel="stylesheet" href="css/tunagari.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+    <!-- 1. PC用メニュー（スマホでは隠す） -->
+    <nav class="nav-pc">
+        <ul>
+            <li><a href="index.html">ホーム</a></li>
+            <li><a href="osirase.html">お知らせ</a></li>
+            <li><a href="rule.html">ルール</a></li>
+            <li><a href="#" class="current">つながりマニュアル</a></li>
+            <li><a href="enquete.html">アンケート</a></li>
+            <li><a href="parent.html">保護者の方へ</a></li>
+        </ul>
+    </nav>
+
+    <!-- 2. スマホ用メニュー帯（PCでは隠す） -->
+    <nav class="nav-sp">
+        <div class="nav-sp-bar">
+            <!-- 左端：メニューボタン -->
+            <button class="menu-trigger" id="js-menu-toggle">≡ メニュー</button>
+            <!-- 常に表示する項目 -->
+            <a href="osirase.html">お知らせ</a>
+            <a href="#" class="current">つながりマニュアル</a>
+        </div>
+
+        <!-- 展開されるメモ帳（初期は非表示） -->
+        <div class="menu-memo" id="js-menu-memo">
+            <ul>
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="rule.html">ルール</a></li>
+                <li><a href="enquete.html">アンケート</a></li>
+                <li><a href="parent.html">保護者様へ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ヘッダー画像 -->
+    <header class="main-header">
+        <img src="img/header_tunagari.jpg" alt="ぼっちんガイド★ルミナスゲームズ">
+    </header>
+
+    <!-- 検索画像 -->
+    <div class="search-area">
+        <img class="search-img" src="img/search.png" alt="ぼっちんガイド">
+    </div>
+
+    <!-- メインコンテンツ -->
+    <main class="content">
+
+        <!-- 挨拶エリア -->
+        <div class="box-aisatsu">
+            <p>
+                ゲリラ<ruby>募集<rt>ぼしゅう</rt></ruby>！YouTube<ruby>配信<rt>はいしん</rt>
+                </ruby>に<ruby>参加<rt>さんか</rt></ruby>するには<br>
+                <ruby>以下<rt>かんりょう</rt></ruby>のステップを<ruby>完了<rt>かんりょう</rt>
+                </ruby>させてね🌠
+            </p>
+        </div>
+
+        <!-- ステップ1 -->
+        <div class="step-box step1">
+            <img src="img/step1.png" alt="るみな つながり専用アカウント" class="step-title">
+            <div class="txt-area">
+                <p>
+                    つながり<ruby>専用<rt>せんよう</rt></ruby>アカウント<br>
+                    『ぼっちんガイドサブ・るみなだよ』<br>
+                    ロブロID→<span class="font-c1">bottin_gaido</span>までつながりリクエストを<ruby>送<rt>おく</rt>
+                    </ruby>ってください🐥
+                </p>
+                <div class="button-container">
+                    <a href="https://www.roblox.com/ja/users/7290242345/profile" target="_blank"
+                        rel="noopener noreferrer" class="request-button">
+                        つながりリクエストはこちら
+                        <img src="img/finger.png" alt="指アイコン" class="finger-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ステップ2 -->
+        <div class="step-box step2">
+            <img src="img/step2.png" alt="ぼっちん フォロー専用アカウント" class="step-title">
+            <div class="txt-area">
+                <p>
+                    <ruby>三点<rt>さんてん</rt></ruby>リーダーを<ruby>押<rt>お</rt>
+                    </ruby>して<span class="font-c1">フォロー</span>をポチっ👆️<ruby>参加<rt>さんか</rt></ruby>の<ruby>合図<rt>あいず
+                        </rt></ruby>がくるのを<ruby>待<rt>待</rt></ruby>っててね♪
+                </p>
+                <img class="follow-method-img" src="img/follow.png" alt="フォローの方法">
+                <div class="button-container">
+                    <a href="https://www.roblox.com/ja/users/9627543495/profile" target="_blank"
+                        rel="noopener noreferrer" class="follow-button">
+                        プロフィールページはこちら
+                        <img src="img/finger.png" alt="指アイコン" class="finger-icon">
+                    </a>
+                </div>
+                <p class="kome">
+                    🚫つながりを<ruby>追加<rt>ついか</rt></ruby>は<ruby>押<rt>お</rt>
+                    </ruby>さないでね
+                </p>
+            </div>
+        </div>
+
+        <!-- 重要喚起 -->
+        <div class="juuyou-box">
+            <span class="kome-mark">【重要】</span>ステップ1とステップ2の<br>
+            つながりとフォロー<br>
+            どちらも<ruby>必<rt>かなら</rt></ruby>ず<ruby>完了<rt>かんりょう</rt></ruby>させてください！
+        </div>
+
+        <!-- ステップ3 -->
+        <div class="step-box step3">
+            <img src="img/step3.png" alt="参加方法" class="step-title">
+            <div class="txt-area">
+                <p>
+                    <ruby>募集<rt>ぼしゅう</rt></ruby>がきたら【<ruby>参加<rt>さんか</rt>
+                    </ruby>】ボタンを<ruby>押<rt>お</rt></ruby>して<ruby>一緒<rt>いっしょ
+                        </rt></ruby>にプレイ🎵<br>
+                    <span class="font-c1-small">※サブアカウントはプライベートサーバー立ち上げ<ruby>後<rt>ご</rt>
+                        </ruby>は<ruby>退室<rt>たいしつ</rt>
+                        </ruby>します。参加できない場合はメインアカウントから参加してください。</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- プライベートブロック -->
+        <div class="step-box content-private">
+            <img src="img/title_private.png" alt="プライベートでも一緒に遊びたい" class="step-title">
+            <div class="txt-area">
+                <h1>
+                    メインアカウントのつながりは<br>YouTubeメンバーシップ<br><ruby>限定<rt class="ruby-color">げんてい</rt></ruby>です🐥<br>
+                    Discord<ruby>内<rt class="ruby-color">ない</rt></ruby>でチャットしながら<br>
+                    プレイ<ruby>出来<rt class="ruby-color">でき</rt></ruby>るよ♪
+                </h1>
+                <div class="button-container">
+                    <a href="https://www.youtube.com/channel/UCbIsTopKJQXLhg2V8gaKIVw/join" target="_blank"
+                        rel="noopener noreferrer" class="membership-button">
+                        メンバーシップはこちら
+                        <img src="img/finger.png" alt="指アイコン" class="finger-icon">
+                    </a>
+                </div>
+                <p>『ルミナスゲームズ』では<ruby>運営<rt>うんえい</rt></ruby>を<ruby>手伝<rt>てつだ</rt>
+                    </ruby>ってくれる<ruby>仲間<rt>なかま</rt></ruby>も<ruby>募集中<rt>
+                            ぼしゅうちゅう</rt></ruby>です！</p>
+            </div>
+        </div>
+
+        <!-- ルールとマナー -->
+        <div class="step-box content-rule">
+            <img src="img/title_rule.png" alt="みんなで守るお約束" class="title">
+            <div class="txt-area">
+                <p>
+                    🚫<ruby>他<rt>ほか</rt></ruby>の<ruby>人<rt>ひと</rt></ruby>が<ruby>不快<rt>ふかい</rt></ruby>になるコメント、
+                    <ruby>過度<rt>かど</rt></ruby>な<ruby>連投<rt>れんとう</rt></ruby><br>
+
+                    🚫リスナー<ruby>同士<rt>どうし</rt></ruby>での<ruby>配信<rt>はいしん</rt></ruby>
+                    <ruby>以外<rt>いがい</rt></ruby>での<ruby>個人<rt>こじん</rt></ruby><ruby>的<rt>てき</rt></ruby>な
+                    <ruby>会話<rt>かいわ</rt></ruby>やチャット<br>
+
+                    ⛔ライブを<ruby>配信<rt>はいしん</rt></ruby><ruby>視聴<rt>しちょう</rt></ruby>
+                    できない<ruby>環境<rt>かんきょう</rt></ruby>での<ruby>参加<rt>さんか</rt></ruby><br>
+
+                    ※チャットは<ruby>原則<rt>げんそく</rt></ruby>ゲーム<ruby>内<rt>ない</rt></ruby>
+                    では<ruby>使用<rt>しよう</rt></ruby>しません<br>
+
+                    <span class="kome">
+                        【<ruby>重要<rt>じゅうよう</rt></ruby>】<br>
+                        ライブ<ruby>配信<rt>はいしん</rt></ruby><ruby>視聴外<rt>しちょうがい</rt></ruby>
+                        での<ruby>参加者<rt>さんかしゃ</rt></ruby>
+                        （<ruby>配信中<rt>はいしんちゅう</rt></ruby>と
+                        <ruby>知<rt>し</rt></ruby>らないでサーバーに<ruby>入<rt>はい</rt></ruby>る）が
+                        <ruby>多<rt>おお</rt></ruby>い<ruby>場合<rt>ばあい</rt></ruby>は、
+                        メインアカウントで<ruby>一時的<rt>いちじてき</rt></ruby>につながり/フレンドとなりサーバー
+                        <ruby>入場<rt>にゅうじょう</rt></ruby>を「つながりのみ」に
+                        <ruby>制限<rt>せいげん</rt></ruby>します。
+                        この<ruby>場合<rt>ばあい</rt></ruby>、
+                        <ruby>配信後<rt>はいしんご</rt></ruby>はつながりを
+                        <ruby>解除<rt>かいじょ</rt></ruby>させてもらいます。
+                    </span><br>
+
+                    ⛔<ruby>他<rt>ほか</rt></ruby>の<ruby>参加者<rt>さんかしゃ</rt></ruby>へ
+                    <ruby>不快<rt>ふかい</rt></ruby>、<ruby>迷惑行為<rt>めいわくこうい</rt></ruby>とみなされた
+                    <ruby>場合<rt>ばあい</rt></ruby>は<ruby>出禁<rt>できん</rt></ruby>、ブロックさせていただきます<br>
+
+                    ⛔<ruby>配信中<rt>はいしんちゅう</rt></ruby>の
+                    <ruby>参加者同士<rt>さんかしゃどうし</rt></ruby>の
+                    フレンド<ruby>交換<rt>こうかん</rt></ruby>/トラブルについて<ruby>一切責任<rt>いっさいせきにん</rt></ruby>を
+                    <ruby>負<rt>お</rt></ruby>いません
+                </p>
+            </div>
+        </div>
+
+        <!-- キッズたちへ -->
+        <div class="step-box content-kids">
+            <img src="img/title_kids.png" alt="キッズのみなさんへ" class="title">
+            <div class="txt-area">
+                <p>
+                    まだ、13<ruby>歳<rt>さい</rt></ruby>になっていない<ruby>人<rt>ひと</rt></ruby>は、<ruby>必<rt>かなら</rt>
+                    </ruby>ずおうちの<ruby>人<rt>ひと</rt></ruby>にこのページを<ruby>見<rt>み</rt></ruby>せてね。<ruby>配信<rt>はいしん
+                        </rt></ruby>やイベントに<ruby>参加<rt>さんか</rt></ruby>してもいいか<ruby>聞<rt>き</rt></ruby>いて「いいよ」と<ruby>言
+                        <rt>い</rt>
+                    </ruby>ってもらってから<ruby>遊<rt>あそ</rt></ruby>んでね！<br>
+                    <br>
+                    <span class="font-c1">【<ruby>配信<rt>はいしん</rt></ruby>チャット<ruby>欄<rt>らん</rt></ruby>の
+                        お<ruby>約束<rt>やくそく</rt></ruby>】</span><br>
+                    🚫マシンガンみたいにいっぱい<ruby>連続<rt>れんぞく</rt></ruby>でコメントをおくるのはやめてね。<br>
+                    🚫ほかの<ruby>人<rt>ひと</rt></ruby>がイヤな<ruby>気持<rt>きも</rt></ruby>ちになるような
+                    <ruby>言葉<rt>ことば</rt></ruby>は<ruby>書<rt>か</rt></ruby>かないでね。<br>
+                    🚫<ruby>配信<rt>はいしん</rt></ruby>やゲームの<ruby>話題<rt>わだい</rt></ruby>じゃない
+                    「お<ruby>友<rt>とも</rt></ruby>だちどうしでしかワカラナイ<ruby>話<rt>はなし</rt></ruby>」はしないでね。<br>
+                    🚫<ruby>住<rt>す</rt></ruby>んでる<ruby>場所<rt>ばしょ</rt></ruby>や<ruby>自分<rt>じぶん</rt></ruby>の
+                    <ruby>本当<rt>ほんとう</rt></ruby>の<ruby>名前<rt>なまえ</rt></ruby>を
+                    チャットに<ruby>書<rt>か</rt></ruby>いちゃダメだよ。<br>
+                    🚫ライブ<ruby>配信<rt>はいしん</rt></ruby>を<ruby>見<rt>み</rt></ruby>ないで
+                    ゲームに<ruby>参加<rt>さんか</rt></ruby>するのはダメだよ。
+                </p>
+            </div>
+        </div>
+
+        <!-- 保護者の方へ -->
+        <div class="step-box content-parent">
+            <img src="img/title_parent.png" alt="保護者の方へ" class="title">
+            <div class="txt-area">
+                <p>
+                    当チャンネル『ぼっちんガイド（ルミナスゲームズ）』はYouTube規約・ガイドラインを遵守し、Robloxを安心してプレイ・参加できるプラットホームを運営しております。
+                </p>
+                <div class="button-container">
+                    <a href="parent.html" rel="noopener noreferrer" class="luminous-button">
+                        活動方針の詳細はこちら
+                        <img src="img/finger.png" alt="指アイコン" class="finger-icon">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- フッター挨拶 -->
+        <div class="box-footer">
+            <p>
+                <ruby>一緒<rt>いっしょ</rt></ruby>に
+                <ruby>遊<rt>あそ</rt></ruby>べるのを
+                <ruby>楽<rt>たの</rt></ruby>しみにしています🐥<br>
+                ぼっちんガイド★ルミナスゲームズ
+            </p>
+        </div>
+
+    </main>
+
+
+    <div class="pagetop" id="js-pagetop">
+        <a href="#">▲<br>TOP</a>
+    </div>
+
+    <footer class="copyright-text">
+        &copy; 2025 Luminous Games. All Rights Reserved.
+    </footer>
+
+    <script src="js/common.js"></script>
+
+</body>
+
+</html>

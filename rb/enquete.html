@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Robloxマップアンケート｜ぼっちんガイド</title>
+    <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+    <style>
+        /* ページ全体をリセットし、iframeを最大化するためのCSS */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            /* 親ページのスクロールバーを非表示にする */
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            /* iframeを中央に配置する場合などに使用 */
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            background-color: #def5fc;
+        }
+
+        #gas-app-frame {
+            /* iframeのサイズを設定。ここでは画面いっぱいに表示する設定 */
+            width: 100%;
+            height: 100%;
+            border: none;
+            /* iframeの枠線を消す */
+        }
+
+        /* ========================================================= */
+        /* ★ローディング表示用スタイル */
+        /* ========================================================= */
+        #loading-overlay {
+            /* 画面全体を覆い、ローダーを中央に固定表示する */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            /* ローダーとテキストを縦に並べる */
+            justify-content: center;
+            align-items: center;
+            /* ここを修正：背景色を完全に透明にする */
+            background-color: transparent;
+            z-index: 1000;
+        }
+
+        /* 新しいローダーアニメーション */
+        .loader {
+            --s: 40px;
+            height: calc(var(--s)*0.9);
+            width: calc(var(--s)*5);
+            --v1: transparent, #000 0.5deg 108deg, #0000 109deg;
+            --v2: transparent, #000 0.5deg 36deg, #0000 37deg;
+            -webkit-mask:
+                conic-gradient(from 54deg at calc(var(--s)*0.68) calc(var(--s)*0.57), var(--v1)),
+                conic-gradient(from 90deg at calc(var(--s)*0.02) calc(var(--s)*0.35), var(--v2)),
+                conic-gradient(from 126deg at calc(var(--s)*0.5) calc(var(--s)*0.7), var(--v1)),
+                conic-gradient(from 162deg at calc(var(--s)*0.5) 0, var(--v2));
+            -webkit-mask-size: var(--s) var(--s);
+            -webkit-mask-composite: xor, destination-over;
+            mask-composite: exclude, add;
+            -webkit-mask-repeat: repeat-x;
+            background: linear-gradient(#ffb940 0 0) left/0% 100% #ddd no-repeat;
+            animation: l20 2s infinite linear;
+        }
+
+        @keyframes l20 {
+
+            90%,
+            100% {
+                background-size: 100% 100%
+            }
+        }
+
+        /* 読み込み中テキストのスタイル */
+        .loading-text {
+            margin-top: 15px;
+            font-family: sans-serif;
+            color: #ffb940;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ローディングオーバーレイ -->
+    <div id="loading-overlay">
+        <div class="loader"></div>
+        <div class="loading-text">読み込み中…</div>
+    </div>
+
+    <iframe id="gas-app-frame"
+        src="https://script.google.com/macros/s/AKfycbzJbjfboyDKlsSS_NIBg1LpLzJ5jc_It_HqtigdqjrvYo803nghHwnSxVvWTck0PZA9/exec"
+        frameborder="0" allowfullscreen>
+    </iframe>
+
+    <script>
+        const iframe = document.getElementById('gas-app-frame');
+        const loadingOverlay = document.getElementById('loading-overlay');
+
+        // iframeの読み込みが完了したらローディングを消す
+        iframe.onload = function () {
+            loadingOverlay.style.display = 'none';
+        };
+    </script>
+
+</body>
+
+</html>

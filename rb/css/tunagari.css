@@ -1,0 +1,295 @@
+/* 強調色（ピンク） */
+.font-c1 {
+    color: #FF0FA7;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.font-c1-small {
+    color: #FF0FA7;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+/* 検索画像エリア */
+.search-area {
+    text-align: center;
+}
+
+.search-img {
+    width: 90%;
+    max-width: 800px;
+    height: auto;
+    margin: 20px auto;
+}
+
+/* ==================================== */
+/* コンテンツブロック（背景とテキストエリア） */
+/* ==================================== */
+
+/* ステップ共通ボックス */
+.step-box {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 26px;
+    margin: 40px auto 60px;
+    padding: 10px 0 40px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+/* 各ステップの背景色と背景画像 */
+.step1 {
+    background-image: url('../img/bg_purple.jpg');
+    background-color: #e0b0ff;
+}
+
+.step2 {
+    background-image: url('../img/bg_pink.jpg');
+    background-color: #ffb6c1;
+}
+
+.step3 {
+    background-image: url('../img/bg_orange.jpg');
+    background-color: #ffdead;
+}
+
+.content-private {
+    background-image: url('../img/bg_green.jpg');
+    background-color: #98fb98;
+}
+
+.content-rule {
+    background-image: url('../img/bg_blue.jpg');
+    background-color: #bdedff;
+}
+
+.content-kids {
+    background-image: url('../img/bg_mint.jpg');
+    background-color: #adffe0;
+}
+
+.content-parent {
+    background-image: url('../img/bg_brown.jpg');
+    background-color: #d7ccb5;
+}
+
+
+/* ステップ内のタイトル画像 */
+.step-title {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* 白背景のテキストエリア */
+.txt-area {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 30px;
+    margin: 0 5%;
+    color: #333;
+}
+
+.txt-area p {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+/* フォロー方法画像 */
+.follow-method-img {
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    margin: 20px auto;
+}
+
+/* ボタンコンテナ */
+.button-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* 共通ボタンベース */
+.request-button,
+.follow-button,
+.membership-button,
+.luminous-button {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 25px;
+    padding: 12px 30px;
+    position: relative;
+    box-shadow: 0 4px 3px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.request-button:hover,
+.follow-button:hover,
+.membership-button,
+.luminous-button:hover {
+    transform: translateY(-3px);
+}
+
+/* 個別ボタン色 */
+.request-button {
+    background-color: #b465ca;
+}
+
+.follow-button {
+    background-color: #ff708a;
+}
+
+.membership-button {
+    background-color: #44B92D;
+}
+
+.luminous-button {
+    background-color: #955c23;
+}
+
+/* 指アイコン */
+.finger-icon {
+    position: absolute;
+    width: 60px;
+    right: -45px;
+    top: -10px;
+    animation: clicking 1.0s infinite alternate;
+    pointer-events: none;
+    width: 100px;
+    right: -90px;
+    top: -20px;
+}
+
+
+@keyframes clicking {
+
+    0%,
+    100% {
+        transform: rotate(-70deg) translate(0, 0);
+    }
+
+    50% {
+        transform: rotate(-70deg) translate(3px, 3px) scale(0.95);
+    }
+}
+
+/* 重要喚起ボックス */
+.juuyou-box {
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 40px 0;
+    line-height: 1.4;
+}
+
+.kome {
+    color: #ff0000;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* H1（タイトル） */
+.txt-area h1 {
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 5px;
+    color: #1a73e8;
+}
+
+
+
+
+
+/* ==================================== */
+/* メディアクエリ (レスポンシブ設定) */
+/* ==================================== */
+
+/* スマホ(480px以下) の設定 */
+@media (max-width: 480px) {
+
+    .juuyou-box {
+        font-size: 19px;
+        margin: 30px 0;
+    }
+
+    /* コンテンツブロックの上下余白をvwで調整 (1/3削減を維持) */
+    .step1,
+    .step2,
+    .step3,
+    .content-private,
+    .content-rule,
+    .content-kids,
+    .content-parent {
+        margin-top: 4vw;
+        padding-bottom: 8vw;
+    }
+
+    /* 下の余白 (1/3削減を維持) */
+    .step1,
+    .step2,
+    .step3,
+    .content-private,
+    .content-rule,
+    .content-kids {
+        margin-bottom: 7vw;
+    }
+
+    /* プライベートブロックの下の余白をフッターに合わせて詰める (1/3削減を維持) */
+    .content-parent {
+        margin-bottom: 4vw;
+    }
+
+    /* ボタンのフォントサイズを調整 */
+    .membership-button,
+    .luminous-button,
+    .request-button,
+    .follow-button {
+        font-size: 4.2vw;
+        padding: 2.5vw 4.5vw;
+        margin: 0;
+        border-radius: 5vw;
+    }
+
+    /* .txt-area の左右マージンとパディング */
+    .txt-area {
+        padding: 4vw;
+        margin-left: 6vw;
+        margin-right: 6vw;
+    }
+
+    /* 本文のフォントサイズをvwで調整 */
+    .txt-area p {
+        font-size: 3.8vw;
+        margin: 0;
+    }
+
+    /* 指アイコン スマホ設定 (40px相当) */
+    .finger-icon {
+        width: 10vw;
+        right: -8vw;
+        top: 0;
+    }
+
+    /* ボタン・注意書き周りの余白を調整 */
+    .follow_div,
+    .member_button {
+        margin-bottom: 0;
+    }
+
+    .kome {
+        margin-top: 0;
+    }
+
+    /* H1のサイズ */
+    .txt-area h1 {
+        font-size: 14px;
+    }
+
+
+}

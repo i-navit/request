@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+    <title>ぼっちんガイド｜ルミナスゲームズ</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+    <!-- 1. PC用メニュー（スマホでは隠す） -->
+    <nav class="nav-pc">
+        <ul>
+            <li><a href="#" class="current">ホーム</a></li>
+            <li><a href="osirase.html">お知らせ</a></li>
+            <li><a href="rule.html">ルール</a></li>
+            <li><a href="tunagari.html">つながりマニュアル</a></li>
+            <li><a href="enquete.html">アンケート</a></li>
+            <li><a href="parent.html">保護者の方へ</a></li>
+        </ul>
+    </nav>
+
+    <!-- 2. スマホ用メニュー帯（PCでは隠す） -->
+    <nav class="nav-sp">
+        <div class="nav-sp-bar">
+            <!-- 左端：メニューボタン -->
+            <button class="menu-trigger" id="js-menu-toggle">≡ メニュー</button>
+            <!-- 常に表示する項目 -->
+            <a href="osirase.html">お知らせ</a>
+            <a href="tunagari.html">つながりマニュアル</a>
+        </div>
+
+        <!-- 展開されるメモ帳（初期は非表示） -->
+        <div class="menu-memo" id="js-menu-memo">
+            <ul>
+                <li><a href="#" class="current">ホーム</a></li>
+                <li><a href="rule.html">ルール</a></li>
+                <li><a href="enquete.html">アンケート</a></li>
+                <li><a href="parent.html">保護者様へ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ヘッダー画像 -->
+    <header class="main-header">
+        <img src="img/header_top.jpg" alt="ぼっちんガイド★ルミナスゲームズ">
+    </header>
+
+    <!-- デザインリボン部分 -->
+    <div class="ribbon-container">
+        <span class="welcome-badge">WELCOME</span>
+        <div class="peach-ribbon">
+            <h2 class="ribbon-title">
+                ようこそ！ぼっちんガイド公式ホームページへ！
+            </h2>
+        </div>
+    </div>
+
+    <!-- メインコンテンツ -->
+    <main class="content">
+
+        <!-- 挨拶エリア -->
+        <div class="box-aisatsu">
+            <p>
+                ぼっちん、るみなと<ruby>一緒<rt>いっしょ</rt></ruby>に<br>
+                Robloxのいろんな<ruby>世界<rt>せかい</rt></ruby>を<ruby>冒険<rt>ぼうけん</rt></ruby>しよう！<br>
+                ライブ<ruby>配信<rt>はいしん</rt></ruby>のスケジュールや、<br>
+                イベントの<ruby>告知<rt>こくち</rt></ruby>もここでチェックしてね☆<br>
+                <ruby>想像力<rt>そうぞうりょく</rt></ruby>は<ruby>無限大<rt>むげんだい</rt></ruby>。
+                <ruby>次<rt>つぎ</rt></ruby>はどの<ruby>世界<rt>せかい</rt></ruby>へ<ruby>遊<rt>あそ</rt></ruby>びに
+                <ruby>行<rt>い</rt></ruby>く？
+            </p>
+        </div>
+
+
+        <!-- サイト幅を制限し、中央に寄せるためのコンテナ -->
+        <div class="max-w-4xl mx-auto">
+
+            <!-- メニューグリッド: grid grid-cols-2 で常に2列に設定 -->
+            <!-- メニュー項目を増やすときは、このdivの中に<a href="..." ...>のブロックをコピペして追加してください -->
+            <div id="menuGrid" class="grid grid-cols-2 gap-4 sm:gap-6 pb-10">
+
+
+                <!-- コミュニティからのお知らせ (icon-pink) -->
+                <a href="osirase.html"
+                    class="icon-pink p-4 rounded-xl shadow-lg transition duration-200 hover:scale-[0.98] active:shadow-inner flex flex-col items-center justify-center text-center">
+                    <div class="text-5xl mb-2">🔔</div>
+                    <div class="font-bold text-xl sm:text-2xl text-primary-blue">お知らせ</div>
+                    <div class="text-xs sm:text-lg mt-1 text-gray-600">配信日のお知らせやイベント情報</div>
+                </a>
+
+                <!-- みんなのルール (icon-yellow) -->
+                <a href="rule.html"
+                    class="icon-yellow p-4 rounded-xl shadow-lg transition duration-200 hover:scale-[0.98] active:shadow-inner flex flex-col items-center justify-center text-center">
+                    <div class="text-5xl mb-2">🐣</div>
+                    <div class="font-bold text-xl sm:text-2xl text-primary-blue">ルール説明</div>
+                    <div class="text-xs sm:text-lg mt-1 text-gray-600">みんなで楽しく遊ぶためのお約束</div>
+                </a>
+
+                <!-- つながりマニュアル (icon-blue) -->
+                <a href="tunagari.html"
+                    class="icon-blue p-4 rounded-xl shadow-lg transition duration-200 hover:scale-[0.98] active:shadow-inner flex flex-col items-center justify-center text-center">
+                    <div class="text-5xl mb-2">📝</div>
+                    <div class="font-bold text-xl sm:text-2xl text-primary-blue">マニュアル</div>
+                    <div class="text-xs sm:text-lg mt-1 text-gray-600">つながり方法や参加方法はこちら</div>
+                </a>
+
+
+
+                <!-- アンケート (icon-green) -->
+                <a href="enquete.html"
+                    class="icon-green p-4 rounded-xl shadow-lg transition duration-200 hover:scale-[0.98] active:shadow-inner flex flex-col items-center justify-center text-center">
+                    <div class="text-5xl mb-2">💬</div>
+                    <div class="font-bold text-xl sm:text-2xl text-primary-blue">アンケート</div>
+                    <div class="text-xs sm:text-lg mt-1 text-gray-600">みんなで人気のマップを見つけよう</div>
+                </a>
+
+                <!-- 保護者様へ (icon-purple) -->
+                <a href="parent.html"
+                    class="icon-purple p-4 rounded-xl shadow-lg transition duration-200 hover:scale-[0.98] active:shadow-inner flex flex-col items-center justify-center text-center">
+                    <div class="text-5xl mb-2">🏠</div>
+                    <div class="font-bold text-xl sm:text-2xl text-primary-blue">保護者様へ</div>
+                    <div class="text-xs sm:text-lg mt-1 text-gray-600">安全への取り組みと活動方針のご案内</div>
+                </a>
+
+                <!-- ★★★★★★★★★★★★★★ ありがとう動画ココから -->
+                <!-- ？？？ (icon-orange) -->
+                <a href="javascript:void(0);" id="popupTrigger"
+                    class="banner_item icon-orange p-4 rounded-xl shadow-lg transition duration-200 hover:scale-[0.98] active:shadow-inner flex flex-col items-center justify-center text-center">
+                    <div class="text-5xl mb-2">💖</div>
+                    <div class="font-bold text-xl sm:text-2xl text-primary-blue">みんなへ</div>
+                    <div class="text-xs sm:text-lg mt-1 text-gray-600">ぼっちんとるみなから</div>
+                </a>
+                <!-- オーバーレイ構造 -->
+                <div class="overlay" id="overlay">
+                    <div class="popup">
+                        <div class="video-container">
+                            <video autoplay loop muted playsinline disablePictureInPicture>
+                                <source src="img/dance.webm" type="video/webm">
+                            </video>
+                        </div>
+                        <p>遊びに来てくれて<br>ありがとう🐥✟💙</p>
+                    </div>
+                </div>
+                <!-- ★★★★★★★★★★★★★★ ありがとう動画ココまで -->
+
+
+                <!-- ★★★★★★ (icon-yellow) 
+                <!--
+                <a href="#page-8"
+                    class="icon-yellow p-4 rounded-xl shadow-lg transition duration-200 hover:scale-[0.98] active:shadow-inner flex flex-col items-center justify-center text-center">
+                    <div class="text-5xl mb-2">🤩</div>
+                    <div class="font-bold text-xl sm:text-2xl text-primary-blue">★★★★</div>
+                    <div class="text-xs sm:text-lg mt-1 text-gray-600">★★★★★★★★</div>
+                </a>
+                -->
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+
+
+    <div class="pagetop" id="js-pagetop">
+        <a href="#">▲<br>TOP</a>
+    </div>
+
+    <footer class="copyright-text">
+        &copy; 2025 Luminous Games. All Rights Reserved.
+    </footer>
+
+    <script src="js/common.js"></script>
+
+    <script>
+        const trigger = document.getElementById('popupTrigger');
+        const overlay = document.getElementById('overlay');
+        // 動画要素を取得
+        const video = overlay.querySelector('video');
+        let timer = null;
+
+        // 閉じる処理を共通化
+        const closePopup = () => {
+            overlay.classList.remove('active');
+            if (timer) {
+                clearTimeout(timer);
+                timer = null;
+            }
+            // 動画を一時停止して最初に戻す
+            if (video) {
+                video.pause();
+                video.currentTime = 0;
+            }
+        };
+
+        // ポップアップを表示して3秒後に閉じる関数
+        trigger.addEventListener('click', () => {
+            if (timer) clearTimeout(timer);
+
+            // 表示する瞬間に動画を最初から再生
+            if (video) {
+                video.currentTime = 0;
+                video.play();
+            }
+
+            overlay.classList.add('active');
+
+            timer = setTimeout(() => {
+                closePopup();
+            }, 3000);
+        });
+
+        // 背景クリックでも即座に閉じられるようにしておく
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                closePopup();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

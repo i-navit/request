@@ -1,0 +1,346 @@
+/* ------------------------------------ */
+/*  リセット & 基本設定 */
+/* ------------------------------------ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scrollbar-gutter: stable;
+}
+
+body {
+    background-color: #def5fc;
+    color: #333333;
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    line-height: 1.6;
+}
+
+/* ------------------------------------ */
+/*  メニューPC用 (スマホで非表示) */
+/* ------------------------------------ */
+.nav-pc {
+    background-color: #edf9fb;
+    width: 100%;
+    padding: 15px 0;
+    border-bottom: 3px solid #c2d9e8;
+}
+
+.nav-pc ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.nav-pc a {
+    display: inline-block;
+    background-color: #7DBFE3;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 17px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+/* マウスオーバー時に少し濃い青にする */
+.nav-pc a:hover {
+    background-color: #5da9d4;
+}
+
+.nav-pc a.current {
+    background-color: #E4819F;
+}
+
+/* 現在地ボタンのマウスオーバー時に少し濃いピンクにする */
+.nav-pc a.current:hover {
+    background-color: #d16a8a;
+}
+
+/* ------------------------------------ */
+/*  メニュースマホ用 (PCで非表示) */
+/* ------------------------------------ */
+.nav-sp {
+    display: none;
+}
+
+
+/* ------------------------------------ */
+/*  共通パーツ */
+/* ------------------------------------ */
+/* TOP挨拶・フッター挨拶 */
+.box-aisatsu,
+.box-footer {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.box-aisatsu p,
+.box-footer p {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* ヘッダー画像エリア */
+.main-header {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.main-header img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 0 0 10px 10px;
+}
+
+.content {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.content_max {
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.copyright-text {
+    color: #ABABAB;
+    text-align: center;
+    padding: 30px 0;
+    font-size: 14px;
+}
+
+.kome-mark {
+    color: #ff0000;
+}
+
+/* ルビの表示位置を調整 */
+ruby {
+    display: ruby;
+    text-align: center;
+    line-height: 1;
+}
+
+rt {
+    display: ruby-text;
+    font-size: 0.5em;
+    color: #878787;
+    text-align: center;
+}
+
+/* トップに戻るボタンの基本スタイル */
+.pagetop {
+    display: none;
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    z-index: 9999;
+}
+
+/* JSでクラスがついた時（!importantで強制表示） */
+.pagetop.is-show {
+    display: block !important;
+}
+
+/* 見た目のデザイン */
+.pagetop a {
+    display: block;
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 10px;
+    line-height: 1.2;
+    transition: background-color 0.5s;
+}
+
+/* マウスホバーの設定を追加！90%の濃さになる */
+.pagetop a:hover {
+    background: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* タイトル付きテキストボックスの定義 */
+.text-custom-blue {
+    color: #4c78a9;
+}
+
+.bg-title-blue {
+    background-color: #16b5dd;
+}
+
+/* 読み込み制御用スタイル */
+.post-item.is-hidden {
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ==================================== */
+/* メディアクエリ (レスポンシブ設定) */
+/* ==================================== */
+
+@media (max-width: 770px) {
+    .nav-pc {
+        display: none;
+    }
+
+    .nav-sp {
+        display: block;
+        position: relative;
+        z-index: 2000;
+    }
+
+    /* メニュー帯 */
+    .nav-sp-bar {
+        background-color: #edf9fb;
+        padding: 10px;
+        border-bottom: 3px solid #c2d9e8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* 帯内のボタン共通 */
+    .nav-sp-bar a,
+    .menu-trigger {
+        background-color: #7DBFE3;
+        color: white;
+        text-decoration: none;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    /* 帯内の通常ボタンのマウスオーバー */
+    .nav-sp-bar a:hover {
+        background-color: #5da9d4;
+    }
+
+    .nav-sp-bar a.current {
+        background-color: #E4819F;
+    }
+
+    /* 帯内の現在地ボタンのマウスオーバー */
+    .nav-sp-bar a.current:hover {
+        background-color: #d16a8a;
+    }
+
+    /* ≡メニューボタン専用色 */
+    .menu-trigger {
+        background-color: #ffb60c;
+    }
+
+    /* ≡メニューボタンのマウスオーバー */
+    .menu-trigger:hover {
+        background-color: #e5a30a;
+    }
+
+    /* --- メモ帳デザイン --- */
+    .menu-memo {
+        display: none;
+        position: absolute;
+        top: 100%;
+        /* 帯に密着 */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 85%;
+        max-width: 280px;
+        background-color: #fffde7;
+        /* メモの薄黄色 */
+        border: 1px solid #dcdcdc;
+        border-top: none;
+        border-radius: 10px 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        padding: 10px 0;
+    }
+
+    /* JSでクラスがついた時に表示 */
+    .menu-memo.is-open {
+        display: block;
+    }
+
+    .menu-memo ul {
+        list-style: none;
+    }
+
+    /* メモ内のテキストリンク */
+    .menu-memo a {
+        display: block;
+        width: 90%;
+        margin: 0 auto;
+        padding: 12px 0;
+        color: #444444;
+        text-decoration: none;
+        text-align: center;
+        border-bottom: 1px dashed #cccccc;
+        /* メモの罫線 */
+        font-size: 15px;
+        font-weight: normal;
+        background: transparent;
+        transition: background-color 0.2s;
+        /* ホバー時の変化を滑らかにする */
+    }
+
+    /* マウスオーバー時の背景色変更 */
+    .menu-memo a:hover {
+        background-color: #FDFF7A;
+    }
+
+    .menu-memo a.current {
+        color: #E4819F;
+        font-weight: bold;
+    }
+
+    .menu-memo li:last-child a {
+        border-bottom: none;
+    }
+
+    .main-header {
+        margin-bottom: -5px;
+    }
+
+    /* 著作権フッターのサイズ */
+    .copyright-text {
+        margin-top: 5vw;
+        font-size: 3.5vw;
+    }
+
+    /* 検索画像の縦の余白も調整 */
+    .search-img {
+        margin-bottom: -15px;
+    }
+
+    /* 本文のフォントサイズをvwで調整 */
+    .box-aisatsu p,
+    .box-footer p {
+        font-size: 3.8vw;
+        margin: 0;
+    }
+
+
+}

@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox 無料プライベートサーバーリスト</title>
+    <style>
+        /* ========================================================= */
+        /* PC/モバイル共通のカードスタイル */
+        /* ========================================================= */
+
+        /* リセットスタイル：余白をゼロにして計算を正確にする */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* スクロールバーの有無による画面の横揺れ（ガタつき）を防止 */
+        html {
+            scrollbar-gutter: stable;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #def5fc;
+            color: #333;
+            font-size: 17px;
+            /* ベースフォントサイズを調整 */
+        }
+
+        /* ------------------------------------ */
+        /*  メニューPC用 (スマホで非表示) */
+        /* ------------------------------------ */
+        .nav-pc {
+            background-color: #edf9fb;
+            width: 100%;
+            padding: 15px 0;
+            border-bottom: 3px solid #c2d9e8;
+        }
+
+        .nav-pc ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .nav-pc a {
+            display: inline-block;
+            background-color: #7DBFE3;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 17px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        /* マウスオーバー時に少し濃い青にする */
+        .nav-pc a:hover {
+            background-color: #5da9d4;
+        }
+
+        .nav-pc a.current {
+            background-color: #E4819F;
+        }
+
+        /* 現在地ボタンのマウスオーバー時に少し濃いピンクにする */
+        .nav-pc a.current:hover {
+            background-color: #d16a8a;
+        }
+
+        /* ------------------------------------ */
+        /*  メニュースマホ用 (PCで非表示) */
+        /* ------------------------------------ */
+        .nav-sp {
+            display: none;
+        }
+
+        /* ========================================================= */
+        /* ★Base64文字列として取得して画像として表示 */
+        /* ========================================================= */
+        .header-img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Robloxへのリンク */
+        .r_link {
+            text-decoration: none !important;
+            color: #ffa500 !important;
+        }
+
+        .greeting {
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            /* 初期状態では非表示（ローディングが完了してから表示する） */
+            display: none;
+        }
+
+        /* カードリスト全体を中央に配置 (PC対応) */
+        #map-list {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0;
+            /* 初期状態では非表示（ローディングが完了してから表示する） */
+            display: none;
+        }
+
+        /* 各ゲームをカード形式で表示 */
+        .map-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 15px 30px 15px 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            font-size: 1em;
+            /* ベースフォントサイズからの相対サイズ */
+        }
+
+        /* 1行目: 情報エリア */
+        .info-row {
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* マップタイトル */
+        .card-title {
+            font-size: 1.1em;
+            /* ベースより少し大きく */
+            font-weight: bold;
+            color: #3395ff;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #3395ff;
+        }
+
+        /* 統合された詳細情報の単一行コンテナ */
+        .map-details {
+            font-size: 0.9em;
+            /* 少し小さくして情報を見やすく */
+            color: #444;
+            white-space: normal;
+            margin-top: 5px;
+            line-height: 1.5;
+        }
+
+        /* リンクのスタイル調整 */
+        .map-details a {
+            font-weight: normal;
+            text-decoration: underline;
+            color: #1a73e8;
+            /* リンク色を明確に */
+        }
+
+        /* ========================================================= */
+        /* ★評価エリア */
+        /* ========================================================= */
+        .reaction-row {
+            display: flex;
+            /* 評価ラベルを左端に、ボタン群を右端に配置する */
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* 評価ラベル (左側) */
+        .reaction-label {
+            font-size: 1.0em;
+            font-weight: 500;
+            color: #555;
+            margin-right: 0;
+            flex-shrink: 0;
+        }
+
+        /* 評価ボタンのスタイル */
+        .reaction-btn {
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+            margin-left: 15px;
+        }
+
+        /* ◯ ボタンの色設定 (ピンク) */
+        .reaction-btn[data-reaction="circle"] {
+            background-color: #ff69b4;
+        }
+
+        /* △ ボタンの色設定 (オレンジ) */
+        .reaction-btn[data-reaction="triangle"] {
+            background-color: #ffa500;
+        }
+
+        /* ✕ ボタンの色設定 (青) */
+        .reaction-btn[data-reaction="cross"] {
+            background-color: #007bff;
+        }
+
+        /* ホバー時の基本スタイル */
+        .reaction-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* 更新中のボタンを視覚的に区別するスタイル */
+        .reaction-btn[data-status="updating"] {
+            opacity: 0.5;
+            cursor: wait;
+        }
+
+        /* ========================================================= */
+        /* ★排他制御で押せないボタンの見た目（ボタンの背景を濃いめのグレーに変える） */
+        /* ========================================================= */
+
+        .inactive-reaction {
+            opacity: 1 !important;
+            background-color: #e0e0e0 !important;
+            /* 濃いめのグレーの背景色 (ボタン全体) */
+            color: #333 !important;
+            /* 文字色はそのまま維持 */
+            cursor: not-allowed !important;
+            border: none !important;
+            /* 元のボタンには枠線がないため、枠線設定も上書きを避けます */
+        }
+
+        /* ========================================================= */
+        /* ★評価数分離のための修正CSS */
+        /* ========================================================= */
+
+        /* 評価セット全体を横並びにするためのコンテナ設定 */
+        .reaction-buttons-container {
+            display: flex !important;
+            /* ボタンセット全体を横に並べる */
+            gap: 5px;
+            /* 各評価セット（〇、△、✕）間の間隔 */
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        /* 各ボタンと評価数をまとめるコンテナ */
+        .reaction-item {
+            display: flex;
+            /* ボタンと数値を横並びにする */
+            align-items: center;
+            /* 垂直方向の中央揃え */
+            /* margin-right を削除し、親の gap で間隔を制御 */
+        }
+
+        /* 評価数（数字）のスタイル */
+        .count-span {
+            color: #e30613;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-left: 5px;
+            /* 該当ボタンと数字の間の間隔 */
+            min-width: 15px;
+            text-align: left;
+            /* 数字がボタンの下に回り込まないように、white-space: nowrap; を追加 */
+            white-space: nowrap;
+        }
+
+        /* 押せないボタンの文字色を数字に影響させないために修正 */
+        .inactive-reaction+.count-span {
+            color: #333 !important;
+            /* グレー化はボタンの背景のみとし、数字は常に黒字 */
+        }
+
+        /* フッター（著作権） */
+        .copyright-text {
+            color: #ABABAB;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        /* ========================================================= */
+        /* ★ローディング表示用スタイル */
+        /* ========================================================= */
+        #loading-overlay {
+            display: block;
+            /* 初期状態は表示 */
+            text-align: center;
+            padding: 50px 0;
+            font-size: 1.1em;
+            color: #666;
+            width: 90%;
+            max-width: 800px;
+            /* カードリストと同じ幅に設定 */
+            margin: 0 auto;
+        }
+
+        /* ローダーアニメーション */
+        .loader {
+            width: 80px;
+            aspect-ratio: 1;
+            position: relative;
+            margin: 10px auto;
+            /* 中央寄せを維持するために追加 */
+        }
+
+        .loader:before,
+        .loader:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: #ffb940;
+            box-shadow: 0 0 0 50px;
+            /* clip-pathで星型を生成 */
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+
+        .loader:after {
+            animation: l5 1s infinite;
+            transform: perspective(300px) translateZ(0px)
+        }
+
+        @keyframes l5 {
+            to {
+                transform: perspective(300px) translateZ(150px);
+                opacity: 0
+            }
+        }
+
+
+        /* ==================================== */
+        /* メディアクエリ (レスポンシブ設定) */
+        /* ==================================== */
+
+        @media (max-width: 770px) {
+            .nav-pc {
+                display: none;
+            }
+
+            .nav-sp {
+                display: block;
+                position: relative;
+                z-index: 2000;
+            }
+
+            /* メニュー帯 */
+            .nav-sp-bar {
+                background-color: #edf9fb;
+                padding: 10px;
+                border-bottom: 3px solid #c2d9e8;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+            }
+
+            /* 帯内のボタン共通 */
+            .nav-sp-bar a,
+            .menu-trigger {
+                background-color: #7DBFE3;
+                color: white;
+                text-decoration: none;
+                padding: 6px 14px;
+                border-radius: 20px;
+                font-size: 13px;
+                font-weight: bold;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            /* 帯内の通常ボタンのマウスオーバー */
+            .nav-sp-bar a:hover {
+                background-color: #5da9d4;
+            }
+
+            .nav-sp-bar a.current {
+                background-color: #E4819F;
+            }
+
+            /* 帯内の現在地ボタンのマウスオーバー */
+            .nav-sp-bar a.current:hover {
+                background-color: #d16a8a;
+            }
+
+            /* ≡メニューボタン専用色 */
+            .menu-trigger {
+                background-color: #ffb60c;
+            }
+
+            /* ≡メニューボタンのマウスオーバー */
+            .menu-trigger:hover {
+                background-color: #e5a30a;
+            }
+
+            /* --- メモ帳デザイン --- */
+            .menu-memo {
+                display: none;
+                position: absolute;
+                top: 100%;
+                /* 帯に密着 */
+                left: 50%;
+                transform: translateX(-50%);
+                width: 85%;
+                max-width: 280px;
+                background-color: #fffde7;
+                /* メモの薄黄色 */
+                border: 1px solid #dcdcdc;
+                border-top: none;
+                border-radius: 10px 10px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+                padding: 10px 0;
+            }
+
+            /* JSでクラスがついた時に表示 */
+            .menu-memo.is-open {
+                display: block;
+            }
+
+            .menu-memo ul {
+                list-style: none;
+            }
+
+            /* メモ内のテキストリンク */
+            .menu-memo a {
+                display: block;
+                width: 90%;
+                margin: 0 auto;
+                padding: 12px 0;
+                color: #444444;
+                text-decoration: none;
+                text-align: center;
+                border-bottom: 1px dashed #cccccc;
+                /* メモの罫線 */
+                font-size: 15px;
+                font-weight: normal;
+                background: transparent;
+                transition: background-color 0.2s;
+                /* ホバー時の変化を滑らかにする */
+            }
+
+            /* マウスオーバー時の背景色変更 */
+            .menu-memo a:hover {
+                background-color: #FDFF7A;
+            }
+
+            .menu-memo a.current {
+                color: #E4819F;
+                font-weight: bold;
+            }
+
+            .menu-memo li:last-child a {
+                border-bottom: none;
+            }
+
+            .main-header {
+                margin-bottom: -5px;
+            }
+        }
+
+        /* ========================================================= */
+        /* スマートフォン用調整 (画面幅が600px以下の場合に適用) */
+        /* ========================================================= */
+        @media (max-width: 600px) {
+
+            #map-list {
+                max-width: none;
+            }
+
+            .map-card {
+                font-size: 0.9em;
+                padding: 10px 20px 10px 20px;
+            }
+
+            .reaction-label {
+                flex-basis: 90px;
+            }
+
+            .reaction-btn {
+                padding: 4px 8px;
+                margin-left: 0px;
+            }
+
+            .count-span {
+                margin-left: 3px;
+            }
+
+            /* ★モバイルでのみリンクをブロック要素にして強制的に改行させる */
+            .map-details a {
+                display: block;
+                /* 上のテキストからの隙間を作る */
+                margin-top: 5px;
+            }
+
+            .greeting {
+                font-size: 3.0vw;
+                line-height: 1.3em;
+            }
+
+            /* 著作権フッターのサイズは変更しない */
+            .copyright-text {
+                margin-top: 6vw;
+                margin-bottom: 4vw;
+                font-size: 3.5vw;
+            }
+
+            /* トップに戻るボタンの基本スタイル */
+            .pagetop {
+                display: none;
+                position: fixed;
+                right: 15px;
+                bottom: 15px;
+                z-index: 9999;
+            }
+
+            /* JSでクラスがついた時（!importantで強制表示） */
+            .pagetop.is-show {
+                display: block !important;
+            }
+
+            /* 見た目のデザイン */
+            .pagetop a {
+                display: block;
+                background: rgba(0, 0, 0, 0.3);
+                color: #fff;
+                text-align: center;
+                padding: 5px;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 10px;
+                line-height: 1.2;
+                transition: background-color 0.5s;
+            }
+
+            /* マウスホバーの設定を追加！90%の濃さになる */
+            .pagetop a:hover {
+                background: rgba(0, 0, 0, 0.7) !important;
+            }
+
+            /* ==================================== */
+            /* 7. メディアクエリ (レスポンシブ設定) */
+            /* ==================================== */
+
+            /* スマホ(480px以下) の設定 */
+            @media (max-width: 480px) {
+
+                .top-nav ul {
+                    /* ボタン同士の隙間 */
+                    gap: 8px;
+                }
+
+                /* メニューボタンの基本デザイン */
+                .top-nav a {
+                    text-decoration: none;
+                    padding: 5px 10px;
+                    font-size: 12px;
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. PC用メニュー（スマホでは隠す） -->
+    <nav class="nav-pc">
+        <ul>
+            <li><a href="https://i-navit.github.io/request/rb/index.html">ホーム</a></li>
+            <li><a href="https://i-navit.github.io/request/rb/osirase.html">お知らせ</a></li>
+            <li><a href="https://i-navit.github.io/request/rb/rule.html">ルール</a></li>
+            <li><a href="https://i-navit.github.io/request/rb/tunagari.html">つながりマニュアル</a></li>
+            <li><a href="#">アンケート</a></li>
+            <li><a href="https://i-navit.github.io/request/rb/parent.html" class="current">保護者の方へ</a></li>
+        </ul>
+    </nav>
+
+    <!-- 2. スマホ用メニュー帯（PCでは隠す） -->
+    <nav class="nav-sp">
+        <div class="nav-sp-bar">
+            <!-- 左端：メニューボタン -->
+            <button class="menu-trigger" id="js-menu-toggle">≡ メニュー</button>
+            <!-- 常に表示する項目 -->
+            <a href="https://i-navit.github.io/request/rb/osirase.html">お知らせ</a>
+            <a href="https://i-navit.github.io/request/rb/tunagari.html">つながりマニュアル</a>
+        </div>
+
+        <!-- 展開されるメモ帳（初期は非表示） -->
+        <div class="menu-memo" id="js-menu-memo">
+            <ul>
+                <li><a href="https://i-navit.github.io/request/rb/index.html">ホーム</a></li>
+                <li><a href="https://i-navit.github.io/request/rb/rule.html">ルール</a></li>
+                <li><a href="#">アンケート</a></li>
+                <li><a href="https://i-navit.github.io/request/rb/parent.html" class="current">保護者様へ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <img class="header-img" src="<?!= getHeaderImageBase64() ?>" alt="ぼっちんガイド★ルミナスゲームズ">
+    <div class="greeting">
+        みんなで人気のマップを見つけよう！<br>
+        リストにあるゲーム、ぜんぶに投票できるよ♪<br>
+        ◯おすすめ△まぁまぁ✕未プレイ(やったことない)から選んでね✨️
+    </div>
+
+    <!-- ★ローディング表示エリア -->
+    <div id="loading-overlay">
+        <div class="loader"></div>
+        <p>ちょっと待ってね🐥</p>
+    </div>
+
+    <div id="map-list">
+        <!-- データがここに挿入されます -->
+    </div>
+
+
+    <!-- 著作権フッターはブロック要素で、text-align: center;で中央寄せ -->
+    <footer class="copyright-text">&copy; 2025 Luminous Games. All Rights Reserved.</footer>
+
+
+    <script>
+        // ローディングアニメーションの表示/非表示
+        function showLoading() {
+            // #loading-overlay を表示
+            document.getElementById('loading-overlay').style.display = 'block';
+
+            // #map-list (コンテンツ) を非表示
+            document.getElementById('map-list').style.display = 'none';
+
+            // .greeting (メッセージ) を非表示
+            // document.querySelector('.greeting') は、最初の該当要素を取得
+            const greetingElement = document.querySelector('.greeting');
+            if (greetingElement) {
+                greetingElement.style.display = 'none';
+            }
+        }
+
+        function hideLoading() {
+            // #loading-overlay を非表示
+            document.getElementById('loading-overlay').style.display = 'none';
+
+            // #map-list (コンテンツ) を表示
+            document.getElementById('map-list').style.display = 'block';
+
+            // .greeting (メッセージ) を表示
+            const greetingElement = document.querySelector('.greeting');
+            if (greetingElement) {
+                greetingElement.style.display = 'block';
+            }
+        }
+
+        // LocalStorageに保存するキー名のプレフィックスを定義
+        const LS_KEY_PREFIX = 'roblox_reaction_';
+
+        /**
+         * LocalStorageから指定URLの評価情報を取得する
+         * @param {string} url - マップのユニークURL
+         * @returns {string | null} 最後に押した評価タイプ ('circle', 'triangle', 'cross') または null
+         */
+        function getLocalStorageReaction(url) {
+            return localStorage.getItem(LS_KEY_PREFIX + url);
+        }
+
+        /**
+         * LocalStorageに評価情報を保存または削除する
+         * @param {string} url - マップのユニークURL
+         * @param {string | null} reactionType - 保存する評価タイプ。nullの場合は削除
+         */
+        function setLocalStorageReaction(url, reactionType) {
+            if (reactionType) {
+                localStorage.setItem(LS_KEY_PREFIX + url, reactionType);
+            } else {
+                localStorage.removeItem(LS_KEY_PREFIX + url);
+            }
+        }
+
+        /**
+         * LocalStorageの状態に基づいて、ボタンの見た目を更新する
+         * @param {string} url - マップのユニークURL
+         */
+        function updateButtonStates(url) {
+            const currentReaction = getLocalStorageReaction(url);
+            const cards = document.querySelectorAll(`.map-card[data-url="${url}"]`);
+
+            cards.forEach(card => {
+                const buttons = card.querySelectorAll('.reaction-btn');
+                buttons.forEach(button => {
+                    const reactionType = button.getAttribute('data-reaction');
+                    const isActive = reactionType === currentReaction;
+
+                    // アクティブ/非アクティブの状態を切り替え
+                    if (isActive) {
+                        button.classList.add('active-reaction');
+                        button.classList.remove('inactive-reaction');
+                        button.disabled = false; // アクティブなボタンはトグル（解除）できる
+                    } else {
+                        button.classList.remove('active-reaction');
+
+                        // 他のボタンは、currentReactionが存在する場合、無効化する
+                        if (currentReaction) {
+                            button.classList.add('inactive-reaction');
+                            button.disabled = true; // 他のボタンは押せない（排他制御）
+                        } else {
+                            button.classList.remove('inactive-reaction');
+                            button.disabled = false; // まだ何も押されていない場合は全て押せる
+                        }
+                    }
+                });
+            });
+        }
+
+        /**
+         * サーバー通信中に、特定のカード内の全ての評価ボタンを一時的に無効化し、updating状態にする (連打防止)
+         * @param {string} url - マップのユニークURL
+         */
+        function disableAllButtonsForCard(url) {
+            const cards = document.querySelectorAll(`.map-card[data-url="${url}"]`);
+
+            cards.forEach(card => {
+                const buttons = card.querySelectorAll('.reaction-btn');
+                buttons.forEach(button => {
+                    // 見た目は「非アクティブ」ではなく「更新中」の不透明度を適用
+                    button.classList.remove('inactive-reaction');
+
+                    // 全てのボタンを一時的に無効化 (二重クリック・連打防止)
+                    button.setAttribute('data-status', 'updating');
+
+                    // disabled属性をtrueに設定 (最も確実なクリック防止策)
+                    button.disabled = true;
+                });
+            });
+        }
+
+        /**
+         * 特定のカード内の全ての評価ボタンの状態を「準備完了」に戻す (排他制御の再適用の準備)
+         * @param {string} url - マップのユニークURL
+         */
+        function enableAllButtonsForCard(url) {
+            const cards = document.querySelectorAll(`.map-card[data-url="${url}"]`);
+            cards.forEach(card => {
+                const buttons = card.querySelectorAll('.reaction-btn');
+                buttons.forEach(button => {
+                    button.setAttribute('data-status', 'ready');
+                    button.disabled = false;
+                });
+            });
+        }
+
+
+        // 初期データの読み込みと表示
+        function loadInitialCounts() {
+            showLoading(); // 読み込み開始時に表示
+            google.script.run
+                .withSuccessHandler(displayCounts)
+                .withFailureHandler(onLoadFailure)
+                .getCounts();
+        }
+
+        // データ取得成功時の表示処理
+        function displayCounts(mapList) {
+            hideLoading(); // 読み込み完了時に非表示
+            const container = document.getElementById('map-list');
+            let htmlContent = '';
+
+            mapList.forEach(data => {
+                const mapUrl = data.url;
+                const maxPlayers = data.maxPlayers || '-';
+                const genre = data.genre || '-';
+                const subGenre = data.subGenre || '-';
+                const linkText = `<a href="${mapUrl}" target="_blank" class="r_link">🔗Robloxで開く</a>`;
+
+                // 情報項目を統合して単一行のHTMLを生成
+                const detailsHtml = `
+                <div class="map-details">
+                    最大プレイ人数：${maxPlayers}人　
+                    ジャンル：${genre}　
+                    サブジャンル：${subGenre}　
+                    ${linkText}
+                </div>
+            `;
+
+                // カードHTMLを生成
+                htmlContent += `
+                <div class="map-card" data-url="${mapUrl}" data-map-id="${data.mapId || ''}">
+                    <div class="info-row">
+                        <div class="card-title">${data.title}</div>
+                        ${detailsHtml}
+                    </div>
+                    
+                    <div class="reaction-row">
+                        <span class="reaction-label">おすすめ度</span>
+                        <div class="reaction-buttons-container">
+                            
+                            <div class="reaction-item">
+                                <button class="reaction-btn" data-reaction="circle" data-url="${mapUrl}" data-status="ready">
+                                    <span>〇</span>
+                                </button>
+                                <span class="count-span" data-reaction="circle">${data.circle}</span>
+                            </div>
+
+                            <div class="reaction-item">
+                                <button class="reaction-btn" data-reaction="triangle" data-url="${mapUrl}" data-status="ready">
+                                    <span>△</span>
+                                </button>
+                                <span class="count-span" data-reaction="triangle">${data.triangle}</span>
+                            </div>
+
+                            <div class="reaction-item">
+                                <button class="reaction-btn" data-reaction="cross" data-url="${mapUrl}" data-status="ready">
+                                    <span>✕</span>
+                                </button>
+                                <span class="count-span" data-reaction="cross">${data.cross}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            `;
+            });
+
+            container.innerHTML = htmlContent;
+
+            // 【Local Storage リセットロジックは変更なし】
+            mapList.forEach(data => {
+                const mapUrl = data.url;
+                const totalCount = data.circle + data.triangle + data.cross;
+                const currentLsReaction = getLocalStorageReaction(mapUrl);
+
+                if (currentLsReaction && totalCount === 0) {
+                    setLocalStorageReaction(mapUrl, null);
+                }
+
+                updateButtonStates(mapUrl);
+            });
+
+            attachEventListeners(); // イベントリスナーを付与
+        }
+
+        // ボタンのクリックイベントを処理し、GAS関数を呼び出す
+        function attachEventListeners() {
+            const reactionButtons = document.querySelectorAll('.reaction-btn');
+            reactionButtons.forEach(button => {
+                const gameUrl = button.getAttribute('data-url');
+
+                if (!gameUrl) return;
+
+                button.addEventListener('click', function () {
+                    const reactionType = this.getAttribute('data-reaction');
+
+                    // すでに処理中の場合は何もしない
+                    if (this.getAttribute('data-status') === 'updating') return;
+
+                    const currentReaction = getLocalStorageReaction(gameUrl);
+                    let action;
+
+                    // 排他制御とトグルロジック
+                    if (currentReaction === reactionType) {
+                        // 既に押されているボタンを再度押した -> 解除 (Subtract)
+                        action = 'subtract';
+                    } else if (!currentReaction) {
+                        // まだ何も押されていない -> 新規評価 (Add)
+                        action = 'add';
+                    } else {
+                        // 他の評価が押されている -> 何もしない 
+                        return;
+                    }
+
+                    // 連打による二重カウントを防ぐため、即座に全てのボタンを無効にする
+                    disableAllButtonsForCard(gameUrl);
+
+                    // GAS関数呼び出し
+                    google.script.run
+                        .withSuccessHandler(onUpdateSuccess.bind(null, this, gameUrl, reactionType, action))
+                        .withFailureHandler(onUpdateFailure.bind(null, this, gameUrl))
+                        .toggleReaction(gameUrl, reactionType, action);
+                });
+            });
+        }
+
+        // カウント更新成功時の処理 (サーバーからの正確な値で更新)
+        function onUpdateSuccess(button, gameUrl, reactionType, action, result) {
+            // ボタンの状態を元に戻す
+            button.setAttribute('data-status', 'ready');
+
+            if (result && result.success) {
+                const url = result.mapUrl;
+
+                // LocalStorageを更新
+                if (action === 'add') {
+                    setLocalStorageReaction(url, reactionType);
+                } else if (action === 'subtract') {
+                    setLocalStorageReaction(url, null);
+                }
+
+                // 評価解除後に、スプレッドシート上のカウントが0になったか確認するロジック（一応保持）
+                const updatedCount = result[reactionType];
+
+                if (action === 'subtract' && updatedCount === 0) {
+                    setLocalStorageReaction(url, null);
+                }
+
+                // 全ボタンの data-status/disabled を確実にリセット
+                enableAllButtonsForCard(url);
+
+                // 該当するカードを全て更新 (サーバーからの正確な値で上書き)
+                const cards = document.querySelectorAll(`.map-card[data-url="${url}"]`);
+                cards.forEach(card => {
+                    card.querySelector(`.count-span[data-reaction="circle"]`).textContent = result.circle;
+                    card.querySelector(`.count-span[data-reaction="triangle"]`).textContent = result.triangle;
+                    card.querySelector(`.count-span[data-reaction="cross"]`).textContent = result.cross;
+                });
+
+                // 全てのボタンの状態を再更新 (inactive-reactionの除去と排他制御の再適用)
+                updateButtonStates(url);
+
+            } else {
+                // GASからエラーが返された場合
+                console.error('評価の更新に失敗しました:', result ? result.error : 'GASからの応答なし');
+
+                // 失敗時はボタンの data-status/disabled をリセット
+                enableAllButtonsForCard(gameUrl);
+
+                // 失敗時はボタンの状態を元に戻す
+                updateButtonStates(gameUrl);
+            }
+        }
+
+        // カウント更新失敗時の処理 (ボタンの状態を戻すのみ)
+        function onUpdateFailure(button, gameUrl, error) {
+            // ボタンの状態を元に戻し、見た目を再更新
+            button.setAttribute('data-status', 'ready');
+
+            // 失敗時はボタンの data-status/disabled をリセット
+            enableAllButtonsForCard(gameUrl);
+
+            updateButtonStates(gameUrl);
+
+            console.error('サーバーとの通信中にエラーが発生しました。時間を置いて再度お試しください。', error);
+        }
+
+        function onLoadFailure(error) {
+            hideLoading(); // 読み込み失敗時も非表示
+            console.error('初期データの読み込みに失敗しました:', error);
+        }
+
+        document.addEventListener('DOMContentLoaded', loadInitialCounts);
+    </script>
+
+
+    <script>
+        window.addEventListener('load', function () {
+            // --- 1. メニューの制御 ---
+            const btn = document.getElementById('js-menu-toggle');
+            const memo = document.getElementById('js-menu-memo');
+
+            if (btn && memo) {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    memo.classList.toggle('is-open');
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!memo.contains(e.target)) {
+                        memo.classList.remove('is-open');
+                    }
+                });
+            }
+
+            // --- 2. トップへ戻るボタンの出現・消滅 ---
+            const pageTopBtn = document.getElementById('js-pagetop');
+
+            if (pageTopBtn) {
+                window.addEventListener('scroll', function () {
+                    // 現在のスクロール量を取得
+                    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+                    if (currentScroll > 200) { // 200px以上スクロールしたら
+                        pageTopBtn.classList.add('is-show');
+                    } else {
+                        pageTopBtn.classList.remove('is-show');
+                    }
+                });
+
+                // --- 3. クリックでスムーズスクロール ---
+                const topLink = pageTopBtn.querySelector('a');
+                if (topLink) {
+                    topLink.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                }
+            }
+        });
+    </script>
+
+    <div class="pagetop" id="js-pagetop">
+        <a href="#">▲<br>TOP</a>
+    </div>
+
+</body>
+
+</html>
