@@ -326,7 +326,7 @@ rt {
 
     /* 著作権フッターのサイズ */
     .copyright-text {
-        margin-top: 5vw;
+        padding: 1vw 0 10vw 0;
         font-size: 3.5vw;
     }
 
