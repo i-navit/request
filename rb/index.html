@@ -84,7 +84,7 @@
         <div class="max-w-4xl mx-auto">
 
             <!-- メニューグリッド: grid grid-cols-2 で常に2列に設定 -->
-            <!-- メニュー項目を増やすときは、このdivの中に<a href="..." ...>のブロックをコピペして追加してください -->
+            <!-- メニュー項目を増やす時は、このdivの中に<a>タグのブロックをコピペして追加 -->
             <div id="menuGrid" class="grid grid-cols-2 gap-4 sm:gap-6 pb-10">
 
 
@@ -133,7 +133,7 @@
                     class="icon-orange p-4 rounded-xl shadow-lg transition duration-200 hover:scale-[0.98] active:shadow-inner flex flex-col items-center justify-center text-center">
                     <div class="text-5xl mb-2">🏠</div>
                     <div class="font-bold text-xl sm:text-2xl text-primary-blue">保護者様へ</div>
-                    <div class="text-xs sm:text-lg mt-1 text-gray-600">安全への取り組みと活動方針のご案内</div>
+                    <div class="text-xs sm:text-lg mt-1 text-gray-600">活動方針のご案内とプライバシーポリシー</div>
                 </a>
 
                 <!-- YouTubeリンク (icon-red) -->
@@ -144,25 +144,61 @@
                     <div class="text-xs sm:text-lg mt-1 text-white">ぼっちんガイドの動画やライブ配信をチェック</div>
                 </a>
 
-                <!-- ★★★★★★★★★★★★★★ ありがとう動画ココから -->
-                <a href="javascript:void(0);" id="popupTrigger"
+
+                <!-- ★★★★★★★★★★★★★★ ファンアートココから -->
+                <!-- ★★★★★★★★★★★★★★ ポップアップセクション ここから -->
+                <a href="javascript:void(0);" id="popup_boxBtn"
                     class="icon-grd p-4 rounded-xl shadow-lg transition duration-200 hover:scale-[0.98] active:shadow-inner flex flex-col items-center justify-center text-center">
-                    <div class="text-5xl mb-2">💖</div>
-                    <div class="font-bold text-xl sm:text-2xl text-primary-blue">みんなへ</div>
-                    <div class="text-xs sm:text-lg mt-1 text-gray-600">ぼっちん&るみなより</div>
+                    <div class="text-5xl mb-2">🎨</div>
+                    <div class="font-bold text-xl sm:text-2xl text-primary-blue">ファンアート大募集</div>
+                    <div class="text-xs sm:text-lg mt-1 text-gray-600">イラスト送信＆お問い合わせはコチラまで</div>
                 </a>
+
                 <!-- オーバーレイ構造 -->
-                <div class=" overlay" id="overlay">
-                    <div class="popup">
-                        <div class="video-container">
-                            <video autoplay loop muted playsinline disablePictureInPicture>
-                                <source src="img/dance.webm" type="video/webm">
-                            </video>
+                <div class="overlay fixed inset-0 z-50 flex items-center justify-center bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 [&.active]:opacity-100 [&.active]:pointer-events-auto"
+                    id="popup_boxModal">
+                    <div
+                        class="popup relative bg-white rounded-2xl p-6 shadow-2xl max-w-sm md:max-w-2xl w-[90%] transform scale-90 transition-transform duration-300 [.active_&]:scale-100">
+
+                        <!-- ❌ 閉じるボタン -->
+                        <button id="close_popup_box"
+                            class="absolute -top-3 -right-3 w-10 h-10 bg-white text-gray-500 hover:text-gray-800 rounded-full shadow-lg flex items-center justify-center border border-gray-200 transition-colors z-10">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+
+                        <!-- 画像エリア -->
+                        <div
+                            class="image-container overflow-hidden rounded-xl mb-4 bg-gray-100 flex items-center justify-center h-auto">
+                            <img src="img/art.jpg" alt="ぼっちんガイド ファンアート" loading="lazy" class="w-full object-cover">
                         </div>
-                        <p>遊びに来てくれて<br>ありがとう🐥✟💙</p>
+
+                        <p class="text-gray-700 text-sm mb-4 text-center font-medium">下のメールアドレスに、キミの書いたイラストを送ってね♪</p>
+
+                        <!-- ★★メアド表示 ここから★★ -->
+                        <div class="inline-flex flex-wrap items-center gap-x-2 gap-y-1 mx-1 ml-6">
+                            <span
+                                class="text-blue-600 font-bold antispam select-all text-base sm:text-lg tracking-wide">moc.liamg@odiag.nittob</span>
+                            <!-- コピーボタン -->
+                            <button onclick="copyEmail()" id="copy-btn"
+                                class="bg-white hover:bg-slate-50 text-slate-900 font-bold text-xs w-20 py-1 sm:py-2.5 rounded-md shadow-sm transition-all active:scale-95 flex items-center justify-center border border-slate-300">
+                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2">
+                                    </path>
+                                </svg>
+                                <span id="btn-text">コピー</span>
+                            </button>
+                        </div>
+                        <!-- ★★メアド表示 ここまで★★ -->
                     </div>
                 </div>
-                <!-- ★★★★★★★★★★★★★★ ありがとう動画ココまで -->
+                <!-- ★★★★★★★★★★★★★★ ポップアップセクション ここまで -->
+                <!-- ★★★★★★★★★★★★★★ ファンアートココまで -->
+
+
 
             </div>
         </div>
@@ -180,52 +216,7 @@
     </footer>
 
     <script src="js/common.js"></script>
-
-    <script>
-        const trigger = document.getElementById('popupTrigger');
-        const overlay = document.getElementById('overlay');
-        // 動画要素を取得
-        const video = overlay.querySelector('video');
-        let timer = null;
-
-        // 閉じる処理を共通化
-        const closePopup = () => {
-            overlay.classList.remove('active');
-            if (timer) {
-                clearTimeout(timer);
-                timer = null;
-            }
-            // 動画を一時停止して最初に戻す
-            if (video) {
-                video.pause();
-                video.currentTime = 0;
-            }
-        };
-
-        // ポップアップを表示して3秒後に閉じる関数
-        trigger.addEventListener('click', () => {
-            if (timer) clearTimeout(timer);
-
-            // 表示する瞬間に動画を最初から再生
-            if (video) {
-                video.currentTime = 0;
-                video.play();
-            }
-
-            overlay.classList.add('active');
-
-            timer = setTimeout(() => {
-                closePopup();
-            }, 3000);
-        });
-
-        // 背景クリックでも即座に閉じられるようにしておく
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                closePopup();
-            }
-        });
-    </script>
+    <script src="js/index.js"></script>
 
 </body>
 
