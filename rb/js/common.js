@@ -43,3 +43,89 @@ window.addEventListener('load', function () {
         }
     }
 });
+
+
+function copyEmail() {
+    // アドレスをその場で組み立てる（ボット対策）
+    const u = "bottin.gaido";
+    const d = "gmail.com";
+    const fullEmail = u + "@" + d;
+
+    // クリップボードへコピー
+    const tempInput = document.createElement("input");
+    tempInput.value = fullEmail;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+
+    // UIのフィードバック
+    const btnText = document.getElementById('btn-text');
+    const copyMsg = document.getElementById('copy-msg');
+
+    const originalText = btnText.innerText;
+    btnText.innerText = "完了!";
+    copyMsg.classList.remove('hidden');
+
+    setTimeout(() => {
+        btnText.innerText = originalText;
+        copyMsg.classList.add('hidden');
+    }, 2000);
+}
+
+
+
+
+let copyTimeout;
+
+function copyEmail() {
+    const u = "bottin.gaido";
+    const d = "gmail.com";
+    const fullEmail = u + "@" + d;
+
+    // navigator.clipboard が使える場合はそれを使用し、失敗した場合は execCommand にフォールバックする
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(fullEmail).then(() => {
+            updateButtonUI();
+        }).catch(() => {
+            fallbackCopy(fullEmail);
+        });
+    } else {
+        fallbackCopy(fullEmail);
+    }
+}
+
+function fallbackCopy(text) {
+    const tempInput = document.createElement("input");
+    tempInput.value = text;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    try {
+        document.execCommand("copy");
+        updateButtonUI();
+    } catch (err) {
+        console.error("Copy failed", err);
+    }
+    document.body.removeChild(tempInput);
+}
+
+function updateButtonUI() {
+    const btnText = document.getElementById('btn-text');
+    const btn = document.getElementById('copy-btn');
+
+    if (copyTimeout) clearTimeout(copyTimeout);
+
+    const originalText = "コピー";
+    btnText.innerText = "完了";
+
+    btn.classList.replace('bg-white', 'bg-yellow-400');
+    btn.classList.replace('hover:bg-slate-50', 'hover:bg-yellow-500');
+    btn.classList.replace('border-slate-300', 'border-yellow-500');
+
+    copyTimeout = setTimeout(() => {
+        btnText.innerText = originalText;
+        btn.classList.replace('bg-yellow-400', 'bg-white');
+        btn.classList.replace('hover:bg-yellow-500', 'hover:bg-slate-50');
+        btn.classList.replace('border-yellow-500', 'border-slate-300');
+    }, 5000);
+}
