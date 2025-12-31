@@ -180,12 +180,21 @@ rt {
     background-color: #16b5dd;
 }
 
+.bg-title-pink {
+    background-color: #e663a7;
+}
+
 /* 読み込み制御用スタイル */
 .post-item.is-hidden {
     display: none;
 }
 
-
+/* スパム対策：ソースコード上の逆さまの文字を正しく表示させる */
+.antispam {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    display: inline-block;
+}
 
 
 
