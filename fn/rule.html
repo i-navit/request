@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>ルミナスゲームズ@Fortnite ルール説明</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: sans-serif;
+            text-align: left;
+            color: #333333;
+            font-size: 18px;
+            background-image: url('img/star.jpg');
+            background-repeat: repeat;
+            background-attachment: fixed;
+        }
+
+        .header-img {
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        #wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            min-height: 100vh;
+            height: auto;
+            background-color: rgba(255, 255, 255, 0.0);
+        }
+
+        .hello {
+            background-color: #0f3e69;
+            color: #F4F4F9;
+            text-align: center;
+        }
+
+        /* 更新用ボックス (スプレッドシートデータ用) */
+        .info-box {
+            --box-color: #9b5fcd;
+            margin: 2em auto;
+            position: relative;
+            border: 1px solid var(--box-color);
+            border-radius: 6px;
+            max-width: 87%;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-box .box-title {
+            background: var(--box-color);
+            color: #fff;
+            padding: 0.1em 1em 0.2em 1em;
+            position: absolute;
+            top: -0.7em;
+            left: 0.7em;
+            display: inline-block;
+            font-size: 1.2em;
+            font-weight: normal;
+            border-radius: 6px;
+            max-width: calc(100% - 2em);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .info-box .box-title i {
+            margin-right: 5px;
+        }
+
+        .info-box .box-content {
+            background-color: rgba(255, 249, 255, 0.8);
+            padding: 1.7em 1em 1em 1em;
+            border-radius: 5px;
+            line-height: 1.8;
+        }
+
+        /* 左上タイトル付きボックス (静的コンテンツ用) */
+        .cstm-box-title-topleft {
+            --box-color: #16b5dd;
+            margin: 2em auto;
+            position: relative;
+            border: 1px solid var(--box-color);
+            border-radius: 6px;
+            max-width: 87%;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .cstm-box-title-topleft .box-title {
+            background: var(--box-color);
+            color: #fff;
+            padding: 0.1em 1em 0.2em 1em;
+            position: absolute;
+            top: -0.7em;
+            left: 0.7em;
+            display: inline-block;
+            font-size: 1.2em;
+            /* 修正: 標準の太さにする */
+            font-weight: normal;
+            border-radius: 6px;
+            max-width: calc(100% - 2em);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cstm-box-title-topleft .box-title i {
+            margin-right: 5px;
+        }
+
+        .cstm-box-title-topleft .box-content {
+            background-color: rgba(238, 254, 255, 0.8);
+            padding: 1.7em 1em 1em 1em;
+            border-radius: 5px;
+            line-height: 1.8;
+        }
+
+        .footer {
+            color: #ffffff;
+            font-size: 14px;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+
+        /* ロード完了後に要素を非表示からブロック表示に切り替えるためのクラス */
+        .loading {
+            display: none;
+        }
+
+        /* ========================================================= */
+        /* ★ローディング表示用スタイル */
+        /* ========================================================= */
+        #loading-overlay {
+            /* 画面全体を覆い、ローダーを中央に固定表示する */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* ここを修正：背景色を完全に透明にする */
+            background-color: transparent;
+            z-index: 1000;
+        }
+
+        /* ローダーアニメーション */
+        .loader {
+            width: 80px;
+            aspect-ratio: 1;
+            position: relative;
+            margin: 10px auto;
+            /* 中央寄せを維持するために追加 */
+        }
+
+        .loader:before,
+        .loader:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: #ffb940;
+            box-shadow: 0 0 0 50px;
+            /* clip-pathで星型を生成 */
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+
+        .loader:after {
+            animation: l5 1s infinite;
+            transform: perspective(300px) translateZ(0px)
+        }
+
+        @keyframes l5 {
+            to {
+                transform: perspective(300px) translateZ(150px);
+                opacity: 0
+            }
+        }
+
+        /* ========================================================= */
+        /* ★ルビ表示用スタイル */
+        /* ========================================================= */
+
+        /* 本文（.box-content）内のルビスタイル */
+        .cstm-box-title-topleft .box-content rt,
+        .info-box .box-content rt {
+            color: #717171;
+            font-size: 0.5em;
+            padding-top: 0.2em;
+        }
+
+        .cstm-box-title-topleft .box-title rt,
+        .info-box .box-title rt {
+            color: #ffffff;
+            font-size: 0.5em;
+            padding-top: 0.1em;
+        }
+
+
+        /* ------------------------------------------- */
+        /* スマートフォン向け調整 (画面幅600px以下に適用) */
+        /* ------------------------------------------- */
+        @media screen and (max-width: 600px) {
+
+            .cstm-box-title-topleft .box-content,
+            .info-box .box-content {
+                font-size: 0.9em;
+                padding: 2em 1em 0.7em 1em;
+                line-height: 1.3em;
+            }
+
+            .cstm-box-title-topleft .box-title,
+            .info-box .box-title {
+                font-size: 1em;
+                padding: 0.4em 0.5em 0.4em 0.5em;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <picture>
+        <source media="(max-width: 600px)" srcset="img/header_m.png">
+        <img class="header-img" src="img/header.png" alt="luminous ルミナスゲームズ">
+    </picture>
+
+
+    <!-- 読み込み中はdisplay: none;で非表示にする -->
+    <div id="wrapper" class="loading">
+
+        <div class="cstm-box-title-topleft">
+            <div class="box-title"><i class="bi bi-star"></i>ルミナスゲームズへようこそ</div>
+            <div class="box-content">
+                <p>
+                    誰でも気軽に<ruby>遊<rt>あそ</rt></ruby>べる<ruby>自由参加<rt>じゆうさんか</rt></ruby>
+                    カスタムマッチ<ruby>開催中<rt>かいさいちゅう</rt></ruby>です！ルールをよく<ruby>読<rt>よ</rt></ruby>んで、
+                    <ruby>楽<rt>たの</rt></ruby>しくみんなで<ruby>遊<rt>あそ</rt></ruby>びましょう♪
+                </p>
+            </div>
+        </div>
+
+        <!-- コンテンツを動的に挿入するためのコンテナ -->
+        <div id="content-container">
+            <!-- スプレッドシートから読み込んだデータがここに表示されます -->
+        </div>
+
+        <div class="cstm-box-title-topleft">
+            <div class="box-title"><i class="bi bi-rocket-takeoff"></i><ruby>禁止事項<rt>きんしじこう</rt></ruby>／ルールとマナー</div>
+            <div class="box-content">
+                <p>
+                    🚫<ruby>他<rt>ほか</rt></ruby>の<ruby>人<rt>ひと</rt></ruby>が<ruby>不快<rt>ふかい</rt></ruby>になるコメント、
+                    <ruby>過度<rt>かど</rt></ruby>な<ruby>連投<rt>れんとう</rt></ruby><br>
+                    🚫リスナー<ruby>同士<rt>どうし</rt></ruby>での<ruby>配信<rt>はいしん</rt></ruby><ruby>以外<rt>いがい</rt></ruby>の
+                    <ruby>個人的<rt>こじんてき</rt></ruby>な<ruby>会話<rt>かいわ</rt></ruby>やチャット<br>
+                    🚫<ruby>配信中<rt>はいしんちゅう</rt></ruby>の<ruby>参加者同士<rt>さんかしゃどうし</rt></ruby>のフレンド
+                    <ruby>交換<rt>こうかん</rt></ruby>、トラブルについて<ruby>一切責任<rt>いっさいせきにん</rt></ruby>
+                    を<ruby>負<rt>お</rt></ruby>いません<br>
+                    🚫<ruby>死体撃<rt>したいう</rt></ruby>ち、<ruby>煽<rt>あお</rt></ruby>り<ruby>行為<rt>こうい</rt></ruby>、
+                    チーミング、ゴースティング、チート、<ruby>利敵行為<rt>りてきこうい</rt></ruby>は<ruby>原則禁止<rt>げんそくきんし</rt></ruby>です<br>
+                    🚫ボイスチャットは<ruby>声以外<rt>こえいがい</rt></ruby>の<ruby>音声<rt>おんせい</rt></ruby>
+                    （ゲーム<ruby>音<rt>おん</rt></ruby>、<ruby>生活音<rt>せいかつおん</rt></ruby>、
+                    <ruby>配信音<rt>はいしんおん</rt></ruby>など）が<ruby>入<rt>はい</rt></ruby>らないように<ruby>設定<rt>せってい</rt>
+                    </ruby>してください<br>
+                    ⛔<ruby>他<rt>ほか</rt></ruby>の<ruby>参加者<rt>さんかしゃ</rt></ruby>へ<ruby>不快<rt>ふかい</rt></ruby>、
+                    <ruby>迷惑行為<rt>めいわくこうい</rt></ruby>とみなされた<ruby>場合<rt>ばあい</rt></ruby>は<ruby>出禁<rt>できん</rt>
+                    </ruby>、ブロックさせていただきます
+                </p>
+            </div>
+        </div>
+
+        <div class="cstm-box-title-topleft">
+            <div class="box-title"><i class="bi bi-dpad-fill"></i>カスタムマッチの<ruby>遊<rt>あそ</rt></ruby>び<ruby>方<rt>かた</rt>
+                </ruby></div>
+            <div class="box-content">
+                <p>
+                    ✅ロビーでカスタムキー🔑をコメントします<br>
+                    ✅フレンド<ruby>申請<rt>しんせい</rt></ruby>、<ruby>参加希望<rt>さんかきぼう</rt></ruby>コメント<ruby>不要<rt>ふよう</rt>
+                    </ruby>！カスタムキーを<ruby>入力<rt>にゅうりょく</rt></ruby>して<ruby>参加<rt>さんか</rt></ruby>してね🎵<br><br>
+
+                    ⛔フレンド<ruby>同士<rt>どうし</rt></ruby>パーティーを<ruby>組<rt>く</rt></ruby>んでの<ruby>参加<rt>さんか</rt>
+                    </ruby>は<ruby>禁止<rt>きんし</rt></ruby>🆖❌です。<br>
+                    <ruby>参加者<rt>さんかしゃ</rt></ruby>の<ruby>方<rt>かた</rt></ruby>は<ruby>必<rt>かなら</rt></ruby>ず「<ruby>埋<rt>う
+                        </rt></ruby>める」でマッチングしてね。<br>
+                    ※<ruby>配信主<rt>はいしんぬし</rt></ruby>チームのみ<ruby>事前<rt>じぜん</rt></ruby>にパーティーを<ruby>組<rt>く</rt>
+                    </ruby>んでマッチングさせてもらう<ruby>場合<rt>ばあい</rt></ruby>があります！
+                </p>
+            </div>
+        </div>
+
+        <div class="cstm-box-title-topleft">
+            <div class="box-title">
+                <i class="bi bi-chat-dots-fill"></i>
+                <ruby>参加型<rt>さんかがた</rt></ruby>の<ruby>遊<rt>あそ</rt></ruby>び<ruby>方<rt>かた</rt></ruby>
+                &フレンド<ruby>申請<rt>しんせい</rt></ruby>
+            </div>
+            <div class="box-content">
+                <p>
+                    ①『<ruby>参加希望<rt>さんかきぼう</rt></ruby>』とコメントしてね<br>
+                    ②『LG-BOTTIN』までフレンド<ruby>申請<rt>しんせい</rt></ruby>してね<br>
+                    ③<ruby>送<rt>おく</rt></ruby>った<ruby>方<rt>かた</rt></ruby>のディスプレイネーム(ID)をコメントしてね<br><br>
+
+                    <ruby>重要<rt>じゅうよう</rt></ruby>‼️<ruby>配信中<rt>はいしんちゅう</rt></ruby>のみのフレンドになります。<br><br>
+
+                    <ruby>繰<rt>くり</rt></ruby><ruby>返<rt>かえ</rt></ruby>し<ruby>参加<rt>さんか</rt></ruby>してくれる<ruby>方<rt>かた
+                        </rt></ruby>には、フレンド<ruby>登録<rt>とうろく</rt></ruby>フォーム（<ruby>管理用名簿<rt>かんりようめいぼ</rt>
+                    </ruby>）を<ruby>案内<rt>あんない</rt></ruby>しています！<br>
+                    『たくさん<ruby>遊<rt>あそ</rt></ruby>びにきてね🎵』
+                </p>
+            </div>
+        </div>
+
+        <div class="cstm-box-title-topleft">
+            <div class="box-title"><i class="bi bi-boxes"></i>キッズの<ruby>皆<rt>みな</rt></ruby>さんへ</div>
+            <div class="box-content">
+                <p>
+                    13<ruby>歳未満<rt>さいみまん</rt></ruby>の<ruby>参加者<rt>さんかしゃ</rt></ruby>
+                    （※まだ13<ruby>歳<rt>さい</rt></ruby>になっていない<ruby>人<rt>ひと</rt></ruby>）は
+                    <ruby>必<rt>かなら</rt></ruby>ず<ruby>保護者<rt>ほごしゃ</rt></ruby>の<ruby>方<rt>かた</rt></ruby>から
+                    <ruby>同意<rt>どうい</rt></ruby>をもらったうえで<ruby>参加<rt>さんか</ruby></ruby>してください。
+                </p>
+            </div>
+        </div>
+
+        <div class="cstm-box-title-topleft">
+            <div class="box-title">
+                <i class="bi bi-people-fill"></i>
+                <ruby>保護者<rt>ほごしゃ</rt></ruby>の<ruby>皆様<rt>みなさま</rt></ruby>へ
+            </div>
+            <div class="box-content">
+                <p>
+                    <ruby>当<rt>とう</rt></ruby>チャンネル『ルミナスゲームズ』はYouTube<ruby>規約<rt>きやく</rt></ruby>・ガイドラインを<ruby>遵守<rt>じゅんしゅ
+                        </rt></ruby>し、フォートナイトを<ruby>安心<rt>あんしん</rt></ruby>してプレイ・<ruby>参加<rt>さんか</rt>
+                    </ruby>できるプラットホームを<ruby>運営<rt>うんえい</rt></ruby>しております。
+                    <ruby>親子参加<rt>おやこさんか</rt></ruby>も<ruby>大歓迎<rt>だいかんげい</rt></ruby>です✨
+                </p>
+            </div>
+        </div>
+
+        <div class="cstm-box-title-topleft">
+            <div class="box-title"><i class="bi bi-stack"></i>LGルミナス<ruby>運営協力募集<rt>うんえいきょうりょくぼしゅう</rt></ruby></div>
+            <div class="box-content">
+                <p>
+                    <ruby>応募資格<rt>おうぼしかく</rt></ruby>なし！<ruby>簡単<rt>かんたん</rt></ruby>なお<ruby>手伝<rt>てつだ</rt></ruby>いで🆗<br>
+                    <ruby>興味<rt>きょうみ</rt></ruby>がある<ruby>方<rt>かた</rt></ruby>！<ruby>気軽<rt>きがる</rt></ruby>に<ruby>教<rt>おし
+                        </rt></ruby>えてください！<br>
+                    ※メインチャンネルの<ruby>会員制<rt>かいいんせい</rt></ruby>サーバー<ruby>管理<rt>かんり</rt></ruby>など
+                </p>
+            </div>
+        </div>
+
+
+        <div class="footer">©2025 Luminous Games. All Rights Reserved.</div>
+    </div>
+
+    <!-- 読み込み中はwrapper全体が非表示になるため、このローディング要素はwrapperの外に配置する -->
+    <div id="loading-overlay">
+        <!-- ユーザーの要望により、スターローダーのみを表示し、テキストは削除 -->
+        <div class="loader"></div>
+    </div>
+
+    <script>
+        // ----------------------------------------------------------------------
+        // 【重要】Google Apps ScriptのウェブアプリURLをここに設定
+        // ユーザーが提供したデプロイ済みURLを設定
+        // ----------------------------------------------------------------------
+        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyV8BxhsvWHJG3rDRGkAgegr9JO-wi0GX46FdKva-6ZFoNp5VZSnXNpVKDCoCS_3C-ITA/exec';
+
+        // Exponential backoff for API retries
+        const MAX_RETRIES = 5;
+        const INITIAL_DELAY = 1000;
+
+        /**
+         * fetch処理をリトライ付きで行う
+         * @param {string} url - フェッチするURL
+         * @returns {Promise<Response>}
+         */
+        async function fetchWithRetry(url) {
+            for (let i = 0; i < MAX_RETRIES; i++) {
+                try {
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        return response;
+                    }
+                    // 4xx, 5xxなどのエラーレスポンスの場合、リトライを試みる
+                    // ただし、今回はGASからの成功応答が期待されるため、ステータスコードエラーは後続のcatchで処理
+                    throw new Error(`HTTP Error status: ${response.status}`);
+                } catch (error) {
+                    if (i === MAX_RETRIES - 1) {
+                        throw error; // 最終リトライで失敗
+                    }
+                    // 指数バックオフによる待機
+                    const delay = INITIAL_DELAY * Math.pow(2, i) + Math.random() * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+
+
+        /**
+         * データを取得し、HTMLを生成してDOMに挿入する関数
+         */
+        async function loadDataAndRender() {
+            const wrapper = document.getElementById('wrapper');
+            const container = document.getElementById('content-container');
+            // IDを #loading-overlay に変更
+            const loadingOverlay = document.getElementById('loading-overlay');
+
+            // 読み込み開始。wrapperは初期状態で非表示 (CSS/HTML側で設定済み)
+
+            if (!GAS_WEB_APP_URL || !GAS_WEB_APP_URL.startsWith('https://script.google.com/macros/s/')) {
+                if (loadingOverlay) {
+                    loadingOverlay.textContent = 'エラー: GASウェブアプリのURLが正しくありません。';
+                    loadingOverlay.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
+                    loadingOverlay.style.color = 'yellow';
+                }
+                // エラー時は非表示にしない
+                wrapper.style.display = 'block';
+                return;
+            }
+
+            try {
+                // GASのエンドポイントからデータを取得 (リトライ処理を含む)
+                const response = await fetchWithRetry(GAS_WEB_APP_URL);
+                const data = await response.json();
+
+                // エラーチェック
+                if (data.error) {
+                    throw new Error(`GASエラー: ${data.error}`);
+                }
+
+                let allHtml = '';
+
+                // 取得したデータ（シートごと）をループ処理
+                data.forEach(item => {
+                    // contentの改行文字 (\n) をHTMLの <br> タグに変換
+                    const formattedContent = item.content
+                        .replace(/\t/g, ' ') // タブをスペースに変換
+                        .replace(/\n\n/g, '<br><br>') // 連続する改行を空白行として扱う
+                        .replace(/\n/g, '<br>'); // その他の改行をBRタグに変換
+
+                    // 動的コンテンツには、新しく指定された info-box クラスを使用
+                    const blockHtml = `
+                        <div class="info-box">
+                            <div class="box-title">${item.title}</div>
+                            <div class="box-content">
+                                <p>${formattedContent}</p>
+                            </div>
+                        </div>
+                    `;
+                    allHtml += blockHtml;
+                });
+
+                // 生成したすべてのHTMLをコンテナに挿入
+                container.innerHTML = allHtml;
+
+                // データの挿入が完了したら、全体を可視化し、ローディングインジケータを非表示にする
+                wrapper.style.display = 'block';
+                if (loadingOverlay) {
+                    loadingOverlay.style.display = 'none';
+                }
+
+
+            } catch (error) {
+                console.error('データ取得またはレンダリング中にエラーが発生しました:', error);
+
+                // エラー表示用のHTMLを生成 (wrapper内に挿入)
+                const errorHtml = `
+                    <div class="cstm-box-title-topleft" style="--box-color: #ff4444;">
+                        <div class="box-title">エラー発生</div>
+                        <div class="box-content">
+                            <p>データを読み込めませんでした。<br>
+                            - GASウェブアプリが正しくデプロイされ、アクセス権限（公開設定）が「全員」になっているか確認してください。<br>
+                            - スプレッドシートID（${'1FDl-W8D9FReH9Ms6eSMBG7Sucup_FdZ0TcWbGQwqGo'}）が正しいか確認してください。<br>
+                            </p>
+                            <p style="font-size: 0.8em; color: #ff4444; word-break: break-all;">詳細: ${error.message}</p>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML = errorHtml;
+
+                // エラーが発生した場合も、wrapperは表示し、ローディング表示をエラーメッセージに切り替える
+                wrapper.style.display = 'block';
+                if (loadingOverlay) {
+                    loadingOverlay.textContent = 'データ読み込みに失敗しました。詳細はコンソールを確認してください。';
+                    loadingOverlay.style.backgroundColor = 'rgba(255, 0, 0, 0.8)';
+                    loadingOverlay.style.color = 'white';
+                    loadingOverlay.style.display = 'flex'; // エラー表示時も中央に表示させるため flex を使う
+                    // loader要素は削除
+                    const loaderElement = loadingOverlay.querySelector('.loader');
+                    if (loaderElement) {
+                        loaderElement.remove();
+                    }
+                }
+            }
+        }
+
+        // ページ読み込み完了後にデータ取得・レンダリングを実行
+        window.onload = loadDataAndRender;
+    </script>
+
+</body>
+
+</html>
