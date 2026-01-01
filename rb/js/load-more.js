@@ -1,31 +1,50 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const displayCount = 5;
-    const posts = Array.from(document.querySelectorAll('.post-item'));
-    const loadMoreBtn = document.getElementById('js-load-more-btn');
-    const loadMoreContainer = document.getElementById('js-load-more-container');
+    const containers = document.querySelectorAll('.js-load-more-wrapper');
 
-    let currentVisibleCount = displayCount;
+    containers.forEach(wrapper => {
+        // 件数設定を取得
+        const displayCount = parseInt(wrapper.getAttribute('data-display-count')) || 5;
+        const posts = Array.from(wrapper.querySelectorAll('.post-item'));
+        const loadMoreBtn = wrapper.querySelector('.js-load-more-btn');
+        const loadMoreContainer = wrapper.querySelector('.js-load-more-container');
+        // 数字を書き換えるターゲットを追加
+        const countDisplay = wrapper.querySelector('.js-next-count');
 
-    function updatePosts() {
-        posts.forEach((post, index) => {
-            if (index < currentVisibleCount) {
-                post.classList.remove('is-hidden');
-            } else {
-                post.classList.add('is-hidden');
+        let currentVisibleCount = displayCount;
+
+        function updatePosts() {
+            posts.forEach((post, index) => {
+                if (index < currentVisibleCount) {
+                    post.classList.remove('is-hidden');
+                } else {
+                    post.classList.add('is-hidden');
+                }
+            });
+
+            // 残りの件数を計算
+            const remaining = posts.length - currentVisibleCount;
+
+            if (loadMoreContainer) {
+                if (remaining > 0) {
+                    loadMoreContainer.style.display = 'block';
+                    // ★ここでボタンの中の数字を書き換えています
+                    if (countDisplay) {
+                        countDisplay.textContent = Math.min(displayCount, remaining);
+                    }
+                } else {
+                    loadMoreContainer.style.display = 'none';
+                }
             }
-        });
-
-        if (currentVisibleCount < posts.length) {
-            loadMoreContainer.style.display = 'block';
-        } else {
-            loadMoreContainer.style.display = 'none';
         }
-    }
 
-    loadMoreBtn.addEventListener('click', function () {
-        currentVisibleCount += displayCount;
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                currentVisibleCount += displayCount;
+                updatePosts();
+            });
+        }
+
         updatePosts();
     });
-
-    updatePosts();
 });
