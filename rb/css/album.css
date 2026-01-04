@@ -1,0 +1,36 @@
+/* ファンアートリンクバナー本体 */
+.fan_art {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* リンク部分：ここでサイズ変更（縮小）を制御します */
+.fan_art a {
+    display: block;
+    text-decoration: none;
+    border-radius: 10px;
+    /* 0.2秒かけて滑らかに変化させる */
+    transition: transform 0.2s ease;
+}
+
+/* ホバーした時に0.98倍に縮小 */
+.fan_art a:hover {
+    transform: scale(0.98);
+}
+
+/* クリックした瞬間、さらに少しだけ小さくするとよりボタンらしくなります（お好みで） */
+.fan_art a:active {
+    transform: scale(0.96);
+}
+
+.fan_art img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: none;
+    border-radius: 10px;
+    /* 元々ついていた外側の影 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
