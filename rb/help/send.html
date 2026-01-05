@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+    <title>コミュニティ投稿の方法｜ぼっちんガイド</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+    <!-- 1. PC用メニュー（スマホでは隠す） -->
+    <nav class="nav-pc">
+        <ul>
+            <li><a href="../index.html">ホーム</a></li>
+            <li><a href="../osirase.html">お知らせ</a></li>
+            <li><a href="rule.html">ルール</a></li>
+            <li><a href="../tunagari.html">つながりマニュアル</a></li>
+            <li><a href="../enquete.html">アンケート</a></li>
+            <li><a href="../album.html">フォトアルバム</a></li>
+            <li><a href="../parent.html">保護者の方へ</a></li>
+        </ul>
+    </nav>
+
+    <!-- 2. スマホ用メニュー帯（PCでは隠す） -->
+    <nav class="nav-sp">
+        <div class="nav-sp-bar">
+            <!-- 左端：メニューボタン -->
+            <button class="menu-trigger" id="js-menu-toggle">≡ メニュー</button>
+            <!-- 常に表示する項目 -->
+            <a href="../osirase.html">お知らせ</a>
+            <a href="../tunagari.html">つながりマニュアル</a>
+        </div>
+
+        <!-- 展開されるメモ帳（初期は非表示） -->
+        <div class="menu-memo" id="js-menu-memo">
+            <ul>
+                <li><a href="../index.html">ホーム</a></li>
+                <li><a href="../rule.html">ルール</a></li>
+                <li><a href="../enquete.html">アンケート</a></li>
+                <li><a href="../album.html">フォトアルバム</a></li>
+                <li><a href="../parent.html">保護者様へ</a></li>
+                <li><a href="../parent.html#policy">プライバシーポリシー</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <main class="content">
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">コミュニティ投稿のやり方</h1>
+                    </div>
+                </div>
+                <div class="flex flex-col w-full text-gray-700 text-base sm:text-lg">
+                    <div class="md:flex-grow">
+                        <span class="bold-pink">YouTube「ぼっちんガイド」のコミュニティに、みんなのイラストをかざっちゃおう！</span><br>
+                        「コミュニティ」は、みんながメッセージを<ruby>送<rt>おく</rt></ruby>ったり、
+                        <ruby>自分<rt>じぶん</rt></ruby>でかいた<ruby>絵<rt>え</rt></ruby>を
+                        <ruby>見<rt>み</rt></ruby>せ<ruby>合<rt>あ</rt></ruby>ったりできる、
+                        <ruby>楽<rt>たの</rt></ruby>しい<ruby>広場<rt>ひろば</rt></ruby>のような<ruby>場所<rt>ばしょ</rt></ruby>だよ。
+                        キミが<ruby>一生懸命<rt>いっしょうけんめい</rt></ruby>かいたステキなイラストを、みんなに<ruby>届<rt>とど</rt></ruby>ける
+                        やり<ruby>方<rt>かた</rt></ruby>はこちら♪<br>
+                        （※パソコンやタブレットを<ruby>使<rt>つか</rt></ruby>っているお<ruby>友<rt>とも</rt></ruby>だちは、
+                        <ruby>一番下<rt>いちばんした</rt></ruby>にあるやり<ruby>方<rt>かた</rt></ruby>を<ruby>見<rt>み</rt></ruby>てね👀）
+
+                        <p class="kome-mark mt-3">
+                            ⚠️<ruby>下<rt>した</rt></ruby>の3つが<ruby>分<rt>わ</rt></ruby>かる<ruby>画像<rt>がぞう</rt>
+                            </ruby>は<ruby>送<rt>おく</rt></ruby>らないでね
+                        </p>
+                        <p>
+                            ①キミの<ruby>顔<rt>かお</rt></ruby>がうつっている<ruby>写真<rt>しゃしん</rt></ruby><br>
+                            ②おうちや、<ruby>学校<rt>がっこう</rt></ruby>の<ruby>場所<rt>ばしょ</rt></ruby>がわかる
+                            <ruby>写真<rt>しゃしん</rt></ruby><br>
+                            ③<ruby>名札<rt>なふだ</rt></ruby>や<ruby>学校<rt>がっこう</rt></ruby>の
+                            <ruby>名前<rt>なまえ</rt></ruby>が<ruby>書<rt>か</rt></ruby>いてある<ruby>写真<rt>しゃしん</rt></ruby>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ1</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        YouTube『ぼっちんガイド』の『コミュニティ』タブをタップ
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/co_post_1.png" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ2</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        「<ruby>何<rt>なに</rt></ruby>か<ruby>思<rt>おも</rt></ruby>いついたことはありますか？」をタップ
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/co_post_2.png" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ3</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        <ruby>下<rt>した</rt></ruby>の<ruby>方<rt>ほう</rt></ruby>にスマホの<ruby>中<rt>なか</rt></ruby>にある
+                        <ruby>写真<rt>しゃしん</rt></ruby>が<ruby>出<rt>で</rt></ruby>てくるよ。
+                        <ruby>送<rt>おく</rt></ruby>りたい<ruby>画像<rt>がぞう</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでタップ
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/co_post_3.png" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ4</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        「ここにメッセージを入力します…」をタップ
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/co_post_4.png" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ5</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        メッセージをかいて、【<ruby>投稿<rt>とうこう</rt></ruby>】ボタンをおせばバッチリ！
+                        これで<ruby>完了<rt>かんりょう</rt></ruby>だよ！
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/co_post_5.png" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">パソコンとタブレット</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        パソコンやタブレットを<ruby>使<rt>つか</rt></ruby>っているお<ruby>友<rt>とも</rt></ruby>だちは、
+                        「コミュニティ」の<ruby>一番上<rt>いちばんうえ</rt></ruby>にあるこの<ruby>場所<rt>ばしょ</rt></ruby>から
+                        <ruby>投稿<rt>とうこう</rt></ruby>してね💻📱
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/co_post_pc.png" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+
+
+    <div class="pagetop" id="js-pagetop">
+        <a href="#">▲<br>TOP</a>
+    </div>
+
+    <footer class="copyright-text">
+        &copy; 2025 Luminous Games. All Rights Reserved.
+    </footer>
+
+    <script src="../js/common.js"></script>
+
+</body>
+
+</html>
