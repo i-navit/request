@@ -110,7 +110,7 @@ body {
 
 .content {
     max-width: 1000px;
-    margin: 20px auto;
+    margin: 20px auto 0 auto;
     padding: 0 20px;
 }
 
@@ -203,7 +203,10 @@ rt {
 }
 
 
-
+.bold-pink {
+    color: #FF0FA7;
+    font-weight: bold;
+}
 
 
 
