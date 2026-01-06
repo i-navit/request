@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+    <title>メールで送る方法｜ぼっちんガイド</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <!-- 1. PC用メニュー（スマホでは隠す） -->
+    <nav class="nav-pc">
+        <ul>
+            <li><a href="../index.html">ホーム</a></li>
+            <li><a href="../osirase.html">お知らせ</a></li>
+            <li><a href="rule.html">ルール</a></li>
+            <li><a href="../tunagari.html">つながりマニュアル</a></li>
+            <li><a href="../enquete.html">アンケート</a></li>
+            <li><a href="../album.html">フォトアルバム</a></li>
+            <li><a href="../parent.html">保護者の方へ</a></li>
+        </ul>
+    </nav>
+
+    <!-- 2. スマホ用メニュー帯（PCでは隠す） -->
+    <nav class="nav-sp">
+        <div class="nav-sp-bar">
+            <!-- 左端：メニューボタン -->
+            <button class="menu-trigger" id="js-menu-toggle">≡ メニュー</button>
+            <!-- 常に表示する項目 -->
+            <a href="../osirase.html">お知らせ</a>
+            <a href="../tunagari.html">つながりマニュアル</a>
+        </div>
+
+        <!-- 展開されるメモ帳（初期は非表示） -->
+        <div class="menu-memo" id="js-menu-memo">
+            <ul>
+                <li><a href="../index.html">ホーム</a></li>
+                <li><a href="../rule.html">ルール</a></li>
+                <li><a href="../enquete.html">アンケート</a></li>
+                <li><a href="../album.html">フォトアルバム</a></li>
+                <li><a href="../parent.html">保護者様へ</a></li>
+                <li><a href="../parent.html#policy">プライバシーポリシー</a></li>
+                <li><a href="../help.html">ヘルプ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <main class="content">
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">メールで送るやり方</h1>
+                    </div>
+                </div>
+                <div class="flex flex-col w-full text-gray-700 text-base sm:text-lg">
+                    <div class="md:flex-grow">
+                        <p class="bold-pink">「ぼっちんガイド<ruby>公式<rt>こうしき</rt></ruby>ホームページ」に、キミのイラストをかざっちゃおう！</p>
+                        キミが<ruby>一生懸命<rt>いっしょうけんめい</rt></ruby>かいたステキなイラストを、ぼっちんに<ruby>送<rt>おく</rt></ruby>ってね♪<br>
+                        「どうやってメールで<ruby>送<rt>おく</rt></ruby>ればいいの？」というキミのために、
+                        イラストを<ruby>送<rt>おく</rt></ruby>る<ruby>方法<rt>ほうほう</rt></ruby>を<ruby>教<rt>おし</rt></ruby>えるね！<br>
+                        <ruby>少<rt>すこ</rt></ruby>し<ruby>難<rt>むずか</rt></ruby>しいところも あるから、
+                        おうちの<ruby>人<rt>ひと</rt></ruby>と<ruby>一緒<rt>いっしょ</rt></ruby>にやってみてね。<br>
+                        <p class="kome-mark mt-3">
+                            ⚠️<ruby>下<rt>した</rt></ruby>の3つが<ruby>分<rt>わ</rt></ruby>かる<ruby>画像<rt>がぞう</rt>
+                            </ruby>は<ruby>送<rt>おく</rt></ruby>らないでね
+                        </p>
+                        <p>
+                            ①キミの<ruby>顔<rt>かお</rt></ruby>がうつっている<ruby>写真<rt>しゃしん</rt></ruby><br>
+                            ②おうちや、<ruby>学校<rt>がっこう</rt></ruby>の<ruby>場所<rt>ばしょ</rt></ruby>がわかる
+                            <ruby>写真<rt>しゃしん</rt></ruby><br>
+                            ③<ruby>名札<rt>なふだ</rt></ruby>や<ruby>学校<rt>がっこう</rt></ruby>の
+                            <ruby>名前<rt>なまえ</rt></ruby>が<ruby>書<rt>か</rt></ruby>いてある<ruby>写真<rt>しゃしん</rt></ruby>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">メールアドレスの準備</h1>
+                    </div>
+                </div>
+                <div class="flex flex-col w-full text-gray-700 text-base sm:text-lg">
+                    <div class="md:flex-grow">
+                        「コピー」ボタンをポチッと<ruby>押<rt>お</rt></ruby>してね。
+                        ぼっちんのメールアドレスを<ruby>覚<rt>おぼ</rt></ruby>えるよ
+                        <!-- ★★メアド表示 ここから★★ -->
+                        <div class="inline-flex flex-wrap items-center gap-x-2 gap-y-1 mx-1 ml-6">
+                            <span
+                                class="text-blue-600 font-bold antispam select-all text-base sm:text-lg tracking-wide">moc.liamg@odiag.nittob</span>
+                            <button onclick="copyEmail()" id="copy-btn"
+                                class="bg-white hover:bg-slate-50 text-slate-900 font-bold text-xs w-20 py-1 sm:py-2.5 rounded-md shadow-sm transition-all active:scale-95 flex items-center justify-center border border-slate-300">
+                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2">
+                                    </path>
+                                </svg>
+                                <span id="btn-text">コピー</span>
+                            </button>
+                        </div>
+                        <!-- ★★メアド表示 ここまで★★ -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ1</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        メールのアプリを <ruby>開<rt>ひら</rt></ruby>こう<br>
+                        「<ruby>Gmail<rt>じーめーる</rt></ruby>」や「<ruby>Yahoo!<rt>やふー</rt></ruby>メール」など、
+                        いつも<ruby>使<rt>つか</rt></ruby>ってるメールアプリをひらいてね
+                        （わからない<ruby>時<rt>とき</rt></ruby>は、
+                        おうちの<ruby>人<rt>ひと</rt></ruby>と<ruby>一緒<rt>いっしょ</rt></ruby>にやってね）
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/mail_01.png" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ2</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        「<ruby>宛先<rt>あてさき</rt></ruby>」を <ruby>選<rt>えら</rt></ruby>んで、
+                        さっき<ruby>覚<rt>おぼ</rt></ruby>えたアドレスを
+                        「ペースト（<ruby>貼<rt>は</rt></ruby>り<ruby>付<rt>つ</rt></ruby>け）」 してね。
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/mail_02.png" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ3</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        メールの<ruby>件名<rt>けんめい</rt></ruby>には、こう<ruby>書<rt>か</rt></ruby>いてね。<br>
+                        <p class="bold-pink">イラスト　キミのお<ruby>名前<rt>なまえ</rt></ruby></p>
+                        ※これが入っていると、ぼっちんがすぐに<ruby>見<rt>み</rt></ruby>つけてくれるよ♪
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/mail_03.png" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ4</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        「クリップのマーク（<i class="bi bi-paperclip"></i>）」 をおして、キミが<ruby>描<rt>か</rt></ruby>いたイラストを えらんでね。
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/mail_04.png" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ5</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        「<ruby>送信<rt>そうしん</rt></ruby>」ボタンを おしてね。 <br>
+                        キミのすてきなイラストが<ruby>届<rt>とど</rt></ruby>くのを、
+                        <ruby>楽<rt>たの</rt></ruby>しみに<ruby>待<rt>ま</rt></ruby>ってるよ♪
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/mail_05.png" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+
+
+    <div class="pagetop" id="js-pagetop">
+        <a href="#">▲<br>TOP</a>
+    </div>
+
+    <footer class="copyright-text">
+        &copy; 2025 Luminous Games. All Rights Reserved.
+    </footer>
+
+    <script src="../js/common.js"></script>
+
+</body>
+
+</html>
