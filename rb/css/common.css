@@ -203,11 +203,15 @@ rt {
 }
 
 
+.bold-blue {
+    color: #16b5dd;
+    font-weight: bold;
+}
+
 .bold-pink {
     color: #FF0FA7;
     font-weight: bold;
 }
-
 
 
 
