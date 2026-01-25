@@ -35,6 +35,10 @@
       list-style: none;
       position: relative;
       transition: opacity 0.2s;
+      /* ダブルクリックによるテキスト選択を防止 */
+      user-select: none;
+      -webkit-user-select: none;
+      /* Safari用 */
     }
 
     summary:hover {
@@ -51,16 +55,6 @@
 
     details[open] summary::after {
       transform: rotate(180deg);
-    }
-
-    /* Safari用 */
-    summary::-webkit-details-marker {
-      display: none;
-    }
-
-    /* 標準のマーカーを消す */
-    summary {
-      display: block;
     }
 
     /* カテゴリ別の色設定 */
@@ -89,7 +83,7 @@
       border-radius: 8px;
       padding: 12px;
       margin-bottom: 20px;
-      background-color: #F7F7F7;
+      background-color: #f7f7f7;
     }
 
     /* グループ内見出し */
@@ -99,8 +93,11 @@
       color: #444;
       margin: -12px -12px 5px -12px;
       padding: 12px;
-      background-color: #F7F7F7;
+      background-color: #f7f7f7;
       border-radius: 8px 8px 0 0;
+      /* 見出しもダブルクリックされることが多いので選択不可に */
+      user-select: none;
+      -webkit-user-select: none;
     }
 
     .container {
