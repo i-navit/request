@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 
 <head>
   <meta charset="UTF-8">
@@ -12,7 +12,6 @@
     body {
       font-family: sans-serif;
       padding: 10px 20px;
-      text-align: left;
       background-color: #f4f4f9;
       color: #333333;
       font-size: 14px;
@@ -34,35 +33,14 @@
       font-weight: bold;
       cursor: pointer;
       list-style: none;
-      /* デフォルトの矢印を消す */
       position: relative;
       transition: opacity 0.2s;
-    }
-
-    /* 各カテゴリの色設定 */
-    .summary-luminous {
-      background-color: #add8e6;
-      /* ライトブルー */
-      color: #005a7d;
-    }
-
-    .summary-bottin {
-      background-color: #ffcc80;
-      /* オレンジ（ライト） */
-      color: #7a4a00;
-    }
-
-    .summary-other {
-      background-color: #ffc0cb;
-      /* ライトピンク */
-      color: #8a2e3c;
     }
 
     summary:hover {
       opacity: 0.8;
     }
 
-    /* カスタムの矢印（擬似要素） */
     summary::after {
       content: '▼';
       position: absolute;
@@ -75,31 +53,79 @@
       transform: rotate(180deg);
     }
 
+    /* Safari用 */
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    /* 標準のマーカーを消す */
+    summary {
+      display: block;
+    }
+
+    /* カテゴリ別の色設定 */
+    .summary-luminous {
+      background-color: #add8e6;
+      color: #005a7d;
+    }
+
+    .summary-bottin {
+      background-color: #ffcc80;
+      color: #7a4a00;
+    }
+
+    .summary-other {
+      background-color: #ffc0cb;
+      color: #8a2e3c;
+    }
+
     .details-content {
       padding: 15px;
     }
 
-    .container {
-      width: 100%;
-      margin-bottom: 12px;
+    /* グループ外枠 */
+    .category-group {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 20px;
+      background-color: #F7F7F7;
     }
 
-    /* ★共通リンクボックススタイル（ベース） */
+    /* グループ内見出し */
+    .category-group h2 {
+      font-size: 1.15em;
+      font-weight: bold;
+      color: #444;
+      margin: -12px -12px 5px -12px;
+      padding: 12px;
+      background-color: #F7F7F7;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .container {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .container:last-child {
+      margin-bottom: 0;
+    }
+
+    /* リンクボックス共通 */
     .link-base {
       display: block;
       text-decoration: none;
       color: #333333;
       padding: 10px 12px;
-      border: 1px solid #e3e3e3;
+      border: 1px solid #ddd;
       border-radius: 6px;
-      background-color: #fdfdfd;
-      width: 100%;
+      background-color: #fff;
       box-sizing: border-box;
-      text-align: left;
-      cursor: pointer;
       transition: all 0.2s ease-in-out;
     }
 
+    /* ホバー色設定 */
     .link-hover-1:hover {
       background-color: #EADCFE;
       border-color: #A85CCC;
@@ -120,53 +146,32 @@
       border-color: #FF4DCF;
     }
 
-    .link-hover-5:hover {
-      background-color: #D9F5E3;
-      border-color: #00A339;
+    /* タイトル色設定 */
+    [class^="link-title"] {
+      font-weight: bold;
+      font-size: 1.05em;
+      margin-bottom: 2px;
+      display: block;
     }
 
     .link-title1 {
-      font-weight: bold;
-      font-size: 1.1em;
-      margin-bottom: 4px;
-      display: block;
       color: #A85CCC;
     }
 
     .link-title2 {
-      font-weight: bold;
-      font-size: 1.1em;
-      margin-bottom: 4px;
-      display: block;
       color: #5199DB;
     }
 
     .link-title3 {
-      font-weight: bold;
-      font-size: 1.1em;
-      margin-bottom: 4px;
-      display: block;
       color: #F28E1C;
     }
 
     .link-title4 {
-      font-weight: bold;
-      font-size: 1.1em;
-      margin-bottom: 4px;
-      display: block;
       color: #FF4DCF;
     }
 
-    .link-title5 {
-      font-weight: bold;
-      font-size: 1.1em;
-      margin-bottom: 4px;
-      display: block;
-      color: #00A339;
-    }
-
     .link-url {
-      font-size: 0.85em;
+      font-size: 0.8em;
       color: #888;
       word-wrap: break-word;
       display: block;
@@ -190,153 +195,208 @@
     <details>
       <summary class="summary-luminous">【ルミナスゲームズ】</summary>
       <div class="details-content">
-        <div class="container">
-          <a href="https://docs.google.com/spreadsheets/d/1jqs3sfEk4LQRW7yLJcv4nabBJwrYY2-zavQVZYTz-O0/"
-            class="link-base link-hover-2" target="_blank" rel="noopener noreferrer">
-            <span class="link-title2">Fortniteライブチャット取得スプレッドシート</span>
-            <span class="link-url">Google スプレッドシート</span>
-          </a>
+
+
+        <div class="category-group">
+          <h2>チャットログ</h2>
+          <div class="container">
+            <a href="https://docs.google.com/spreadsheets/d/1jqs3sfEk4LQRW7yLJcv4nabBJwrYY2-zavQVZYTz-O0/"
+              class="link-base link-hover-2" target="_blank" rel="noopener noreferrer">
+              <span class="link-title2">Fortniteライブチャット取得スプレッドシート</span>
+              <span class="link-url">Google スプレッドシート</span>
+            </a>
+          </div>
+          <div class="container">
+            <a href="https://docs.google.com/spreadsheets/d/1nlH78nhKXw9s_fKNVyfTlUjm3QJaoxcuJtnoVIAD9FA/"
+              class="link-base link-hover-2" target="_blank" rel="noopener noreferrer">
+              <span class="link-title2">2025年 チャットバックアップ</span>
+              <span class="link-url">Google スプレッドシート</span>
+            </a>
+          </div>
+          <div class="container">
+            <a href="https://docs.google.com/spreadsheets/d/1ZPW3VMDi9_IlCZzFRftDiCRHyBMgIuFEiVpALeICm1A/"
+              class="link-base link-hover-2" target="_blank" rel="noopener noreferrer">
+              <span class="link-title2">2026年 チャットバックアップ</span>
+              <span class="link-url">Google スプレッドシート</span>
+            </a>
+          </div>
         </div>
-        <div class="container">
-          <a href="https://docs.google.com/spreadsheets/d/1nlH78nhKXw9s_fKNVyfTlUjm3QJaoxcuJtnoVIAD9FA/"
-            class="link-base link-hover-2" target="_blank" rel="noopener noreferrer">
-            <span class="link-title2">2025年 チャットバックアップ</span>
-            <span class="link-url">Google スプレッドシート</span>
-          </a>
+
+
+        <div class="category-group">
+          <h2>クイックコピー</h2>
+          <div class="container">
+            <a href="https://i-navit.github.io/request/copy/copy_bottin.html" class="link-base link-hover-2"
+              target="_blank" rel="noopener noreferrer">
+              <span class="link-title2">クイックコピー（ルミナスゲームズ Fortnite）</span>
+              <span class="link-url">https://i-navit.github.io/request/copy/copy_bottin.html</span>
+            </a>
+          </div>
+          <div class="container">
+            <a href="https://docs.google.com/spreadsheets/d/12JmMRa0_EXg_BPI_xUOdAIdk7nYeBBFv6GkwfzLWknE/"
+              class="link-base link-hover-2" target="_blank" rel="noopener noreferrer">
+              <span class="link-title2">クイックコピー登録用スプレッドシート（ルミナスゲームズ Fortnite）</span>
+              <span class="link-url">Google スプレッドシート</span>
+            </a>
+          </div>
         </div>
-        <div class="container">
-          <a href="https://docs.google.com/spreadsheets/d/1ZPW3VMDi9_IlCZzFRftDiCRHyBMgIuFEiVpALeICm1A/"
-            class="link-base link-hover-2" target="_blank" rel="noopener noreferrer">
-            <span class="link-title2">2026年 チャットバックアップ</span>
-            <span class="link-url">Google スプレッドシート</span>
-          </a>
+
+
+        <div class="category-group">
+          <h2>ルール説明・お知らせ</h2>
+          <div class="container">
+            <a href="https://i-navit.github.io/request/fn/rule.html" class="link-base link-hover-2" target="_blank"
+              rel="noopener noreferrer">
+              <span class="link-title2">ルール説明WEBページ（ルミナスゲームズ Fortnite）</span>
+              <span class="link-url">https://i-navit.github.io/request/fn/rule.html</span>
+            </a>
+          </div>
+          <div class="container">
+            <a href="https://docs.google.com/spreadsheets/d/1FDl-W8D9FReH9Ms6eSMBG7Sucup_FdZ0TcJwbGQwqGo/"
+              class="link-base link-hover-2" target="_blank" rel="noopener noreferrer">
+              <span class="link-title2">お知らせ登録用スプレッドシート（ルミナスゲームズ Fortnite）</span>
+              <span class="link-url">Google スプレッドシート</span>
+            </a>
+          </div>
         </div>
-        <div class="container">
-          <a href="https://i-navit.github.io/request/" class="link-base link-hover-2" target="_blank"
-            rel="noopener noreferrer">
-            <span class="link-title2">フレンド申請フォーム（ルミナスゲームズ Fortnite）</span>
-            <span class="link-url">https://i-navit.github.io/request/</span>
-          </a>
+
+
+        <div class="category-group">
+          <h2>フレンド申請</h2>
+          <div class="container">
+            <a href="https://i-navit.github.io/request/" class="link-base link-hover-2" target="_blank"
+              rel="noopener noreferrer">
+              <span class="link-title2">フレンド申請フォーム（ルミナスゲームズ Fortnite）</span>
+              <span class="link-url">https://i-navit.github.io/request/</span>
+            </a>
+          </div>
+          <div class="container">
+            <a href="https://docs.google.com/spreadsheets/d/1FY9cwVWNFMhwkzUsEB8BK1fCcexsfx2gN3YcXCxJ71I/"
+              class="link-base link-hover-2" target="_blank" rel="noopener noreferrer">
+              <span class="link-title2">フレンド申請一覧スプレッドシート（ルミナスゲームズ Fortnite）</span>
+              <span class="link-url">Google スプレッドシート</span>
+            </a>
+          </div>
         </div>
-        <div class="container">
-          <a href="https://docs.google.com/spreadsheets/d/1FY9cwVWNFMhwkzUsEB8BK1fCcexsfx2gN3YcXCxJ71I/"
-            class="link-base link-hover-2" target="_blank" rel="noopener noreferrer">
-            <span class="link-title2">フレンド申請一覧スプレッドシート（ルミナスゲームズ Fortnite）</span>
-            <span class="link-url">Google スプレッドシート</span>
-          </a>
-        </div>
-        <div class="container">
-          <a href="https://i-navit.github.io/request/copy/copy_bottin.html" class="link-base link-hover-2"
-            target="_blank" rel="noopener noreferrer">
-            <span class="link-title2">クイックコピー（ルミナスゲームズ Fortnite）</span>
-            <span class="link-url">https://i-navit.github.io/request/copy/copy_bottin.html</span>
-          </a>
-        </div>
-        <div class="container">
-          <a href="https://docs.google.com/spreadsheets/d/12JmMRa0_EXg_BPI_xUOdAIdk7nYeBBFv6GkwfzLWknE/"
-            class="link-base link-hover-2" target="_blank" rel="noopener noreferrer">
-            <span class="link-title2">クイックコピー登録用スプレッドシート（ルミナスゲームズ Fortnite）</span>
-            <span class="link-url">Google スプレッドシート</span>
-          </a>
-        </div>
-        <div class="container">
-          <a href="https://i-navit.github.io/request/fn/rule.html" class="link-base link-hover-2" target="_blank"
-            rel="noopener noreferrer">
-            <span class="link-title2">ルール説明WEBページ（ルミナスゲームズ Fortnite）</span>
-            <span class="link-url">https://i-navit.github.io/request/fn/rule.html</span>
-          </a>
-        </div>
-        <div class="container">
-          <a href="https://docs.google.com/spreadsheets/d/1FDl-W8D9FReH9Ms6eSMBG7Sucup_FdZ0TcJwbGQwqGo/"
-            class="link-base link-hover-2" target="_blank" rel="noopener noreferrer">
-            <span class="link-title2">お知らせ登録用スプレッドシート（ルミナスゲームズ Fortnite）</span>
-            <span class="link-url">Google スプレッドシート</span>
-          </a>
-        </div>
-        <div class="container">
-          <a href="https://script.google.com/macros/s/AKfycbxCjeBS7ZGcdIXqnLxAGyp4Ux1_RITSaS7REsEGLCUImBbc-aMmpNpxVQAdpM_gDLRYiw/exec"
-            class="link-base link-hover-1" target="_blank" rel="noopener noreferrer">
-            <span class="link-title1">フォトナ フレンド検索(スマホの場合は、長押し→シークレットタブで開く)</span>
-            <span class="link-url">Google Apps Script ウェブアプリ</span>
-          </a>
+
+
+        <div class="category-group">
+          <h2>リスナー検索</h2>
+          <div class="container">
+            <a href="https://script.google.com/macros/s/AKfycbxCjeBS7ZGcdIXqnLxAGyp4Ux1_RITSaS7REsEGLCUImBbc-aMmpNpxVQAdpM_gDLRYiw/exec"
+              class="link-base link-hover-1" target="_blank" rel="noopener noreferrer">
+              <span class="link-title1">フォトナ フレンド検索</span>
+              <span class="link-url">Google Apps Script ウェブアプリ</span>
+            </a>
+          </div>
         </div>
       </div>
     </details>
+
+
+
+
+
 
     <!-- ぼっちんガイド関連 -->
     <details>
       <summary class="summary-bottin">【ぼっちんガイド】</summary>
       <div class="details-content">
-        <div class="container">
-          <a href="https://i-navit.github.io/request/rb/" class="link-base link-hover-3" target="_blank"
-            rel="noopener noreferrer">
-            <span class="link-title3">ぼっちんガイド Roblox 公式ホームページ）</span>
-            <span class="link-url">https://i-navit.github.io/request/rb/</span>
-          </a>
+
+        <div class="category-group">
+          <h2>WEBページ</h2>
+          <div class="container">
+            <a href="https://i-navit.github.io/request/rb/" class="link-base link-hover-3" target="_blank"
+              rel="noopener noreferrer">
+              <span class="link-title3">ぼっちんガイド Roblox 公式ホームページ）</span>
+              <span class="link-url">https://i-navit.github.io/request/rb/</span>
+            </a>
+          </div>
+          <div class="container">
+            <a href="https://i-navit.github.io/request/roblox/" class="link-base link-hover-3" target="_blank"
+              rel="noopener noreferrer">
+              <span class="link-title3">つながりマニュアル（ぼっちんガイド Roblox）</span>
+              <span class="link-url">https://i-navit.github.io/request/roblox/</span>
+            </a>
+          </div>
         </div>
-        <div class="container">
-          <a href="https://i-navit.github.io/request/roblox.html" class="link-base link-hover-3" target="_blank"
-            rel="noopener noreferrer">
-            <span class="link-title3">フレンド申請フォーム（ぼっちんガイド Roblox）</span>
-            <span class="link-url">https://i-navit.github.io/request/roblox.html</span>
-          </a>
+
+
+        <div class="category-group">
+          <h2>チャットログ</h2>
+          <div class="container">
+            <a href="https://docs.google.com/spreadsheets/d/1y6u1bzpwtNqm14K_vo_88DwSK47PAJIxg4y3aw144KA/"
+              class="link-base link-hover-3" target="_blank" rel="noopener noreferrer">
+              <span class="link-title3">Robloxライブチャット取得スプレッドシート</span>
+              <span class="link-url">Google スプレッドシート</span>
+            </a>
+          </div>
+          <div class="container">
+            <a href="https://docs.google.com/spreadsheets/d/1EA8EZu6kPikCzGY_m3YzOqQB4drXePrwZNwX2FwQt0w/"
+              class="link-base link-hover-3" target="_blank" rel="noopener noreferrer">
+              <span class="link-title3">Robloxライブチャット（バックアップ）</span>
+              <span class="link-url">Google スプレッドシート</span>
+            </a>
+          </div>
         </div>
-        <div class="container">
-          <a href="https://docs.google.com/spreadsheets/d/1sBgkdYFopve9cGHFDCAFzId2r0t29PVUrg8hOzo4MX0/"
-            class="link-base link-hover-3" target="_blank" rel="noopener noreferrer">
-            <span class="link-title3">フレンド申請一覧スプレッドシート（ぼっちんガイド Roblox）</span>
-            <span class="link-url">Google スプレッドシート</span>
-          </a>
+
+
+        <div class="category-group">
+          <h2>クイックコピー</h2>
+          <div class="container">
+            <a href="https://i-navit.github.io/request/roblox/rcopy_bottin.html" class="link-base link-hover-3"
+              target="_blank" rel="noopener noreferrer">
+              <span class="link-title3">クイックコピー（ぼっちんガイド Roblox）</span>
+              <span class="link-url">https://i-navit.github.io/request/roblox/rcopy_bottin.html</span>
+            </a>
+          </div>
+          <div class="container">
+            <a href="https://docs.google.com/spreadsheets/d/1IgX9P2ob5E9OPw45-ZZiWlZr51OedsEJ1Z7lHrDLJrM/"
+              class="link-base link-hover-3" target="_blank" rel="noopener noreferrer">
+              <span class="link-title3">クイックコピー登録用スプレッドシート（ぼっちんガイド Roblox）</span>
+              <span class="link-url">Google スプレッドシート</span>
+            </a>
+          </div>
         </div>
-        <div class="container">
-          <a href="https://docs.google.com/spreadsheets/d/1y6u1bzpwtNqm14K_vo_88DwSK47PAJIxg4y3aw144KA/"
-            class="link-base link-hover-3" target="_blank" rel="noopener noreferrer">
-            <span class="link-title3">Robloxライブチャット取得スプレッドシート</span>
-            <span class="link-url">Google スプレッドシート</span>
-          </a>
+
+
+        <div class="category-group">
+          <h2>フレンド申請フォーム</h2>
+          <div class="container">
+            <a href="https://i-navit.github.io/request/roblox.html" class="link-base link-hover-3" target="_blank"
+              rel="noopener noreferrer">
+              <span class="link-title3">フレンド申請フォーム（ぼっちんガイド Roblox）</span>
+              <span class="link-url">https://i-navit.github.io/request/roblox.html</span>
+            </a>
+          </div>
+          <div class="container">
+            <a href="https://docs.google.com/spreadsheets/d/1sBgkdYFopve9cGHFDCAFzId2r0t29PVUrg8hOzo4MX0/"
+              class="link-base link-hover-3" target="_blank" rel="noopener noreferrer">
+              <span class="link-title3">フレンド申請一覧スプレッドシート（ぼっちんガイド Roblox）</span>
+              <span class="link-url">Google スプレッドシート</span>
+            </a>
+          </div>
         </div>
-        <div class="container">
-          <a href="https://docs.google.com/spreadsheets/d/1EA8EZu6kPikCzGY_m3YzOqQB4drXePrwZNwX2FwQt0w/"
-            class="link-base link-hover-3" target="_blank" rel="noopener noreferrer">
-            <span class="link-title3">Robloxライブチャット（バックアップ）</span>
-            <span class="link-url">Google スプレッドシート</span>
-          </a>
+
+
+        <div class="category-group">
+          <h2>無料プライベートサーバー</h2>
+          <div class="container">
+            <a href="https://i-navit.github.io/request/roblox/free_server.html" class="link-base link-hover-3"
+              target="_blank" rel="noopener noreferrer">
+              <span class="link-title3">無料プラベ鯖 WEBサイト（ぼっちんガイド Roblox）</span>
+              <span class="link-url">https://i-navit.github.io/request/roblox/free_server.html</span>
+            </a>
+          </div>
+          <div class="container">
+            <a href="https://docs.google.com/spreadsheets/d/1-C-9QkpHE9RXxGZFA7XktnHw7PBcwR2RusZKKq_m8Og/"
+              class="link-base link-hover-3" target="_blank" rel="noopener noreferrer">
+              <span class="link-title3">無料プラベ鯖 スプレッドシート（ぼっちんガイド Roblox）</span>
+              <span class="link-url">Google スプレッドシート</span>
+            </a>
+          </div>
         </div>
-        <div class="container">
-          <a href="https://i-navit.github.io/request/roblox/" class="link-base link-hover-3" target="_blank"
-            rel="noopener noreferrer">
-            <span class="link-title3">つながりマニュアル（ぼっちんガイド Roblox）</span>
-            <span class="link-url">https://i-navit.github.io/request/roblox/</span>
-          </a>
-        </div>
-        <div class="container">
-          <a href="https://i-navit.github.io/request/roblox/rcopy_bottin.html" class="link-base link-hover-3"
-            target="_blank" rel="noopener noreferrer">
-            <span class="link-title3">クイックコピー（ぼっちんガイド Roblox）</span>
-            <span class="link-url">https://i-navit.github.io/request/roblox/rcopy_bottin.html</span>
-          </a>
-        </div>
-        <div class="container">
-          <a href="https://docs.google.com/spreadsheets/d/1IgX9P2ob5E9OPw45-ZZiWlZr51OedsEJ1Z7lHrDLJrM/"
-            class="link-base link-hover-3" target="_blank" rel="noopener noreferrer">
-            <span class="link-title3">クイックコピー登録用スプレッドシート（ぼっちんガイド Roblox）</span>
-            <span class="link-url">Google スプレッドシート</span>
-          </a>
-        </div>
-        <div class="container">
-          <a href="https://i-navit.github.io/request/roblox/free_server.html" class="link-base link-hover-3"
-            target="_blank" rel="noopener noreferrer">
-            <span class="link-title3">無料プラベ鯖 WEBサイト（ぼっちんガイド Roblox）</span>
-            <span class="link-url">https://i-navit.github.io/request/roblox/free_server.html</span>
-          </a>
-        </div>
-        <div class="container">
-          <a href="https://docs.google.com/spreadsheets/d/1-C-9QkpHE9RXxGZFA7XktnHw7PBcwR2RusZKKq_m8Og/"
-            class="link-base link-hover-3" target="_blank" rel="noopener noreferrer">
-            <span class="link-title3">無料プラベ鯖 スプレッドシート（ぼっちんガイド Roblox）</span>
-            <span class="link-url">Google スプレッドシート</span>
-          </a>
-        </div>
+
       </div>
     </details>
 
@@ -344,12 +404,15 @@
     <details>
       <summary class="summary-other">【その他】</summary>
       <div class="details-content">
-        <div class="container">
-          <a href="https://i-navit.github.io/request/download/emoji/" class="link-base link-hover-4" target="_blank"
-            rel="noopener noreferrer">
-            <span class="link-title4">カスタム絵文字</span>
-            <span class="link-url">https://i-navit.github.io/request/download/emoji/</span>
-          </a>
+        <div class="category-group">
+          <h2>ダウンロード素材</h2>
+          <div class="container">
+            <a href="https://i-navit.github.io/request/download/emoji/" class="link-base link-hover-4" target="_blank"
+              rel="noopener noreferrer">
+              <span class="link-title4">カスタム絵文字</span>
+              <span class="link-url">https://i-navit.github.io/request/download/emoji/</span>
+            </a>
+          </div>
         </div>
       </div>
     </details>
