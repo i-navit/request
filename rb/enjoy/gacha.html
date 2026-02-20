@@ -252,7 +252,12 @@
         function setHeight() { document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`); }
         window.addEventListener('resize', setHeight); setHeight();
 
-        const state = { currentRarity: 'N', currentId: '01' };
+        const state = { 
+            currentRarity: 'N', 
+            currentId: '01',
+            isVideoEnded: false,
+            isImageLoaded: false
+        };
         const gachaVideo = document.getElementById('gacha-video');
         const effectVideo = document.getElementById('effect-video');
         const resultScreen = document.getElementById('result-screen');
@@ -309,6 +314,11 @@
 
         function startGacha() {
             document.getElementById('loading').classList.add('hidden');
+            
+            // 状態リセット
+            state.isVideoEnded = false;
+            state.isImageLoaded = false;
+
             const rand = Math.random() * 100;
             let cumulative = 0;
             for (const [rarity, prob] of Object.entries(config.probabilities)) {
@@ -317,27 +327,46 @@
             }
             const ids = config.imageIds[state.currentRarity];
             state.currentId = ids[Math.floor(Math.random() * ids.length)];
+
+            // 画像のプリロード開始
+            resultDisplay.onload = () => {
+                state.isImageLoaded = true;
+                checkTransitionReady();
+            };
+            resultDisplay.src = `./fashion/${state.currentRarity}_fs_${state.currentId}.jpg`;
+
             if (config.isLimitEnabled) {
                 localStorage.setItem('gacha_last_date', new Date().toLocaleDateString());
             }
+
             gachaVideo.classList.remove('hidden');
             gachaVideo.src = './parts/gacha.mp4';
             gachaVideo.play();
             
-            // 修正箇所：動画が実際に再生開始されたら1.5秒後に音を鳴らす
+            // 動画が実際に再生開始されたら1.5秒後に音を鳴らす
             gachaVideo.onplay = () => {
                 setTimeout(() => { sounds.shake.play().catch(() => { }); }, 1500);
                 gachaVideo.onplay = null; // 重複防止
             };
         }
 
+        // 動画が終了した時
         gachaVideo.onended = () => {
-            gachaVideo.classList.add('hidden');
-            showResult();
+            state.isVideoEnded = true;
+            checkTransitionReady();
         };
 
+        // 「動画終了」と「画像読み込み」の両方が揃ったかチェックする関数
+        function checkTransitionReady() {
+            if (state.isVideoEnded && state.isImageLoaded) {
+                // 次に画像が切り替わった時に onload が再発火しないようにイベントを消しておく
+                resultDisplay.onload = null;
+                gachaVideo.classList.add('hidden');
+                showResult();
+            }
+        }
+
         function showResult() {
-            resultDisplay.src = `./fashion/${state.currentRarity}_fs_${state.currentId}.jpg`;
             resultScreen.classList.remove('hidden');
             const rarityLower = state.currentRarity.toLowerCase();
             setTimeout(() => {
@@ -365,6 +394,7 @@
 
         // スペシャル画像への切り替え
         document.getElementById('special-btn').addEventListener('click', function () {
+            // ここで画像を切り替えても onload が再発火しないようにしてあるよ
             const specialUrl = `./special/fs_${state.currentId}.jpg`;
             resultDisplay.src = specialUrl;
             this.classList.add('hidden');
