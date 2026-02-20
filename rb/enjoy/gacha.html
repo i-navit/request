@@ -10,15 +10,8 @@
     <title>ファッション占いガチャ｜ぼっちんガイド</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- キャッシュ対策 -->
-    <script>
-        (function () {
-            const script = document.createElement('script');
-            script.src = 'gacha_config.js?v=' + Date.now();
-            script.async = false;
-            document.head.appendChild(script);
-        })();
-    </script>
+    <!-- 設定ファイルを確実に読み込む（動的生成から標準タグに変更） -->
+    <script src="./gacha_config.js"></script>
 
     <style>
         :root {
@@ -58,15 +51,15 @@
             object-fit: cover;
         }
 
-        /* ガチャ動画 */
         #gacha-video {
             z-index: 20;
         }
 
-        /* 結果表示：画像の上に動画を重ねるための階層設定 */
         #result-screen {
             z-index: 40;
             background: #000;
+            position: absolute;
+            inset: 0;
         }
 
         .result-image {
@@ -75,18 +68,19 @@
             object-fit: contain;
             position: relative;
             z-index: 50;
-            /* 画像は50 */
             animation: zoomOutFade 1.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
-        /* エフェクト動画を最前面にする */
         #effect-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 100;
-            /* エフェクトは100 */
             pointer-events: none;
             mix-blend-mode: screen;
             object-fit: cover;
-            /* 動画が表示されない問題への対策：背景を透明に明示 */
             background-color: transparent;
         }
 
@@ -115,7 +109,7 @@
             flex-direction: column;
             align-items: center;
             z-index: 150;
-            padding: 6px 24px 12px 24px;
+            padding: 12px 24px 24px 24px;
         }
 
         .action-button {
@@ -127,12 +121,6 @@
 
         .action-button:active {
             transform: scale(0.95);
-        }
-
-        .credit-text {
-            font-size: 10px;
-            color: #ADADAD;
-            margin-top: 8px;
         }
 
         .fade-in-up {
@@ -188,6 +176,7 @@
 
 <body>
     <div class="app-container" id="app">
+        <!-- ローディング/スタート画面 -->
         <div id="loading" onclick="unlockAudioAndStart()">
             <div class="flex flex-col items-center gap-4">
                 <div class="text-[#a2c2ff] font-bold">今日のラッキーファッションは？</div>
@@ -196,62 +185,105 @@
             </div>
         </div>
 
+        <!-- ガチャ動画 -->
         <video id="gacha-video" class="hidden full-screen-content" playsinline muted></video>
 
-        <!-- 画像表示とエフェクト動画を分離せず、一つのスクリーン内で管理 -->
-        <div id="result-screen" class="hidden absolute inset-0">
-            <!-- 1. 下層に画像 -->
+        <!-- 結果表示スクリーン -->
+        <div id="result-screen" class="hidden">
             <img id="result-display" src="" alt="Result" class="result-image">
-            <!-- 2. 上層にエフェクト動画 -->
-            <video id="effect-video" class="hidden full-screen-content" playsinline muted></video>
+            <video id="effect-video" class="hidden" playsinline muted></video>
 
             <div id="button-container" class="hidden">
-                <div class="flex w-full gap-3 justify-center">
+                <div class="flex w-full gap-3 justify-center max-w-[400px]">
                     <button id="special-btn"
-                        class="action-button flex-[2.5] h-10 bg-[#ff81c2]/80 text-white font-black rounded-full border border-white/40">スペシャル画像ゲット</button>
+                        class="action-button flex-[2.5] h-12 bg-[#ff81c2]/90 text-white font-black rounded-full border border-white/40">スペシャル画像ゲット</button>
                     <button id="save-btn"
-                        class="action-button hidden flex-[2.5] h-10 bg-[#ff81c2]/80 text-white font-black rounded-full border border-white/40">保存する</button>
+                        class="action-button hidden flex-[2.5] h-12 bg-[#ff81c2]/90 text-white font-black rounded-full border border-white/40">保存する</button>
                     <a href="index.html" class="flex-1"><button
-                            class="action-button w-full h-10 bg-[#5a9eec]/80 text-white font-bold rounded-full border border-white/30">とじる</button></a>
+                            class="action-button w-full h-12 bg-[#5a9eec]/90 text-white font-bold rounded-full border border-white/30">とじる</button></a>
                 </div>
-                <div class="credit-text">画像生成：Gemini / デザイン加工：Luminous Games</div>
+                <div class="text-[10px] text-gray-400 mt-4">画像生成：Gemini / デザイン加工：Luminous Games</div>
             </div>
         </div>
     </div>
 
     <script>
+        // ビューポート高さ補正
         function setHeight() { document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`); }
         window.addEventListener('resize', setHeight); setHeight();
 
-        const state = { currentRarity: null, currentId: null, audioUnlocked: false };
+        // 状態管理
+        const state = {
+            currentRarity: 'N',
+            currentId: 'normal',
+            audioUnlocked: false,
+            configLoaded: false
+        };
+
         const gachaVideo = document.getElementById('gacha-video');
         const effectVideo = document.getElementById('effect-video');
         const resultScreen = document.getElementById('result-screen');
         const resultDisplay = document.getElementById('result-display');
         const buttonContainer = document.getElementById('button-container');
 
-        // 音声は一旦無視（読み込みだけ）
-        const sounds = { shake: new Audio('parts/shake.mp3'), star: new Audio('parts/star.mp3') };
+        // 音声定義
+        const sounds = {
+            shake: new Audio('./parts/shake.mp3'),
+            star: new Audio('./parts/star.mp3')
+        };
 
+        // 設定の確認
+        function checkConfig() {
+            if (typeof GACHA_CONFIG !== 'undefined') {
+                state.configLoaded = true;
+            } else {
+                console.error("GACHA_CONFIG is not defined. Please check gacha_config.js path.");
+                // フォールバック（エラーで止まらないように最低限の設定を入れる）
+                window.GACHA_CONFIG = { probabilities: { "N": 100 }, imageIds: { "N": ["normal"] } };
+            }
+        }
+
+        // 初期化
+        window.onload = () => {
+            checkConfig();
+            // 音声と動画のプリロード
+            Object.values(sounds).forEach(s => s.load());
+            gachaVideo.load();
+        };
+
+        // スタート（アンロック）
         function unlockAudioAndStart() {
-            Object.values(sounds).forEach(s => { s.play().then(() => { s.pause(); s.currentTime = 0; }).catch(() => { }); });
+            // 音声アンロック
+            Object.values(sounds).forEach(s => {
+                s.play().then(() => { s.pause(); s.currentTime = 0; }).catch(() => { });
+            });
             state.audioUnlocked = true;
             startGacha();
         }
 
-        async function startGacha() {
+        function startGacha() {
             document.getElementById('loading').classList.add('hidden');
+
+            // 抽選
             const rand = Math.random() * 100;
             let cumulative = 0;
             for (const [rarity, prob] of Object.entries(GACHA_CONFIG.probabilities)) {
                 cumulative += prob;
                 if (rand <= cumulative) { state.currentRarity = rarity; break; }
             }
-            state.currentId = GACHA_CONFIG.imageIds[state.currentRarity][0];
+            const ids = GACHA_CONFIG.imageIds[state.currentRarity];
+            state.currentId = ids[Math.floor(Math.random() * ids.length)];
 
+            // ガチャ動画再生
             gachaVideo.classList.remove('hidden');
-            gachaVideo.src = 'parts/gacha.mp4';
+            gachaVideo.src = './parts/gacha.mp4';
             gachaVideo.play();
+
+            // shake音のタイミング
+            setTimeout(() => {
+                sounds.shake.currentTime = 0;
+                sounds.shake.play().catch(() => { });
+            }, 1500);
         }
 
         gachaVideo.onended = () => {
@@ -260,21 +292,29 @@
         };
 
         function showResult() {
-            resultDisplay.src = `fashion/${state.currentRarity}_fs_${state.currentId}.jpg`;
+            // 画像セット
+            resultDisplay.src = `./fashion/${state.currentRarity}_fs_${state.currentId}.jpg`;
             resultScreen.classList.remove('hidden');
 
-            // 画像が表示された0.5秒後に、エフェクト動画を「準備」してから再生
+            // エフェクト動画
             setTimeout(() => {
-                effectVideo.src = `effects/star_${state.currentRarity}.mp4`;
-                effectVideo.load(); // 明示的にロード
+                effectVideo.src = `./effects/star_${state.currentRarity}.mp4`;
+                effectVideo.classList.remove('hidden');
+                effectVideo.load();
 
-                // ロード完了を待つイベントリスナー
-                effectVideo.oncanplaythrough = () => {
-                    effectVideo.classList.remove('hidden');
-                    effectVideo.play();
-                    // 一度再生したらこのリスナーは消す
-                    effectVideo.oncanplaythrough = null;
-                };
+                // playPromiseを使って確実に再生
+                const playPromise = effectVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        sounds.star.currentTime = 0;
+                        sounds.star.play().catch(() => { });
+                    }).catch(error => {
+                        console.log("Effect video play failed:", error);
+                        // 失敗してもボタンは出す
+                        buttonContainer.classList.remove('hidden');
+                        buttonContainer.classList.add('fade-in-up');
+                    });
+                }
             }, 500);
         }
 
@@ -285,7 +325,7 @@
         };
 
         document.getElementById('special-btn').onclick = () => {
-            resultDisplay.src = `special/fs_${state.currentId}.jpg`;
+            resultDisplay.src = `./special/fs_${state.currentId}.jpg`;
             document.getElementById('special-btn').classList.add('hidden');
             document.getElementById('save-btn').classList.remove('hidden');
         };
