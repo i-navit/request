@@ -58,7 +58,7 @@
             z-index: 10;
         }
 
-        /* 結果画面のレイアウト */
+        /* 結果画面 */
         #result-screen {
             background: #000;
             display: flex;
@@ -66,22 +66,8 @@
             justify-content: center;
         }
 
-        /* 背景に画像をボカして敷く（黒い隙間対策） */
-        .result-bg-blur {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: blur(20px) brightness(0.6);
-            transform: scale(1.1);
-            /* 端の白い漏れを防ぐ */
-            z-index: 30;
-        }
-
-        /* メイン画像：文字が切れないようにcontainに設定 */
+        /* メイン画像：文字が切れないようにcontainを維持 */
         .result-image {
-            position: relative;
             width: 100%;
             height: 100%;
             object-fit: contain;
@@ -92,7 +78,7 @@
         @keyframes zoomOutFade {
             from {
                 opacity: 0;
-                transform: scale(1.05);
+                transform: scale(1.1);
             }
 
             to {
@@ -112,31 +98,31 @@
             object-fit: cover;
         }
 
-        /* ボタンコンテナ：画像とかぶらない絶妙な位置 */
+        /* ボタンコンテナ：元のデザイン・位置を復元 */
         #button-container {
             position: absolute;
-            bottom: 30px;
+            bottom: 0;
             left: 0;
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             z-index: 150;
-            padding: 0 24px;
+            padding: 6px 24px 12px 24px;
         }
 
-        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+        @media (max-width: 768px) {
             #button-container {
-                bottom: calc(20px + env(safe-area-inset-bottom));
+                padding-bottom: 6px !important;
             }
         }
 
+        /* 元のボタンデザイン（透明度80%、高さ10） */
         .action-button {
-            font-size: 16px !important;
+            font-size: 18px !important;
             letter-spacing: 0.05em;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
             transition: transform 0.1s;
-            backdrop-filter: blur(8px);
         }
 
         .action-button:active {
@@ -144,10 +130,16 @@
         }
 
         .credit-text {
-            font-size: 9px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 10px;
+            font-size: 10px;
+            color: #ADADAD;
+            margin-top: 8px;
             letter-spacing: 0.02em;
+            text-shadow: none;
+        }
+
+        /* スペシャル時のクレジット */
+        .credit-text.special-mode {
+            color: rgba(255, 255, 255, 0.7);
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
 
@@ -199,35 +191,33 @@
         </div>
 
         <div id="loading">
-            <div class="text-pink-500 font-bold animate-pulse tracking-widest text-xs uppercase">Connecting...</div>
+            <div class="text-pink-500 font-bold animate-pulse tracking-widest text-xs uppercase">Connecting to
+                Luminous...</div>
         </div>
 
         <video id="gacha-video" class="hidden full-screen-content z-20" playsinline muted></video>
         <video id="effect-video" class="hidden full-screen-content z-[100]" playsinline muted></video>
 
         <!-- 結果表示画面 -->
-        <div id="result-screen" class="hidden absolute inset-0 z-40">
-            <!-- 背景用（ボカし画像） -->
-            <img id="result-bg" src="" class="result-bg-blur">
-
+        <div id="result-screen" class="hidden absolute inset-0 z-40 bg-black flex flex-col items-center">
             <div class="relative w-full h-full flex flex-col items-center justify-center">
-                <!-- メイン画像（全体表示） -->
+                <!-- メイン画像（全体表示、文字が切れない） -->
                 <img id="result-display" src="" alt="Result" class="result-image">
 
-                <!-- 操作ボタン -->
+                <!-- 操作ボタン（元のデザイン・文言を復元） -->
                 <div id="button-container" class="hidden">
-                    <div class="flex w-full gap-2 items-center justify-center max-w-[420px]">
+                    <div class="flex w-full gap-3 items-center justify-center max-w-[380px]">
                         <button id="special-btn"
-                            class="action-button flex-[2.2] h-11 bg-[#ff81c2]/85 text-white font-black rounded-full uppercase tracking-wider border border-white/30">
-                            SPECIAL画像
+                            class="action-button flex-[2.5] h-10 bg-[#ff81c2]/80 text-white font-black rounded-full uppercase tracking-wider border border-white/40">
+                            スペシャル画像ゲット
                         </button>
                         <button id="save-btn"
-                            class="action-button hidden flex-[2.2] h-11 bg-[#ff81c2]/85 text-white font-black rounded-full uppercase tracking-wider border border-white/30">
+                            class="action-button hidden flex-[2.5] h-10 bg-[#ff81c2]/80 text-white font-black rounded-full uppercase tracking-wider border border-white/40">
                             保存する
                         </button>
                         <a href="index.html" class="flex-1">
                             <button
-                                class="action-button w-full h-11 bg-[#5a9eec]/80 text-white font-bold rounded-full border border-white/20">
+                                class="action-button w-full h-10 bg-[#5a9eec]/80 text-white font-bold rounded-full border border-white/30">
                                 とじる
                             </button>
                         </a>
@@ -258,7 +248,6 @@
         const effectVideo = document.getElementById('effect-video');
         const resultScreen = document.getElementById('result-screen');
         const resultDisplay = document.getElementById('result-display');
-        const resultBg = document.getElementById('result-bg');
         const buttonContainer = document.getElementById('button-container');
         const specialBtn = document.getElementById('special-btn');
         const saveBtn = document.getElementById('save-btn');
@@ -311,6 +300,7 @@
             const ids = GACHA_CONFIG.imageIds[state.currentRarity];
             state.currentId = ids[Math.floor(Math.random() * ids.length)];
 
+            creditLabel.classList.remove('special-mode');
             gachaVideo.classList.remove('hidden');
             gachaVideo.src = 'parts/gacha.mp4';
             gachaVideo.load();
@@ -348,7 +338,6 @@
             const fileName = `${state.currentRarity}_fs_${state.currentId}.jpg`;
             const fullPath = `fashion/${fileName}`;
             resultDisplay.src = fullPath;
-            resultBg.src = fullPath; // 背景にも同じ画像をセット
 
             setTimeout(() => {
                 if (!resultScreen.classList.contains('hidden')) {
@@ -376,9 +365,9 @@
             state.isSpecial = true;
             const specialPath = `special/fs_${state.currentId}.jpg`;
             resultDisplay.src = specialPath;
-            resultBg.src = specialPath; // 背景も切り替え
             specialBtn.classList.add('hidden');
             saveBtn.classList.remove('hidden');
+            creditLabel.classList.add('special-mode');
         }
 
         async function downloadImage() {
