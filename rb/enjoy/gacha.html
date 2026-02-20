@@ -10,8 +10,8 @@
     <title>ファッション占いガチャ｜ぼっちんガイド</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- 設定ファイルを読み込む（キャッシュ対策としてクエリパラメータを付与） -->
-    <script src="./gacha_config.js?v=2024"></script>
+    <!-- 設定ファイルを確実に読み込む -->
+    <script src="./gacha_config.js?v=202402"></script>
 
     <style>
         :root {
@@ -51,6 +51,7 @@
             object-fit: cover;
         }
 
+        /* レイヤー順序 */
         #gacha-video {
             z-index: 20;
         }
@@ -62,7 +63,7 @@
             inset: 0;
         }
 
-        .result-image {
+        #result-display {
             width: 100%;
             height: 100%;
             object-fit: contain;
@@ -71,6 +72,7 @@
             animation: zoomOutFade 1.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
+        /* エフェクト動画を画像の上に確実に重ねる */
         #effect-video {
             position: absolute;
             top: 0;
@@ -187,7 +189,7 @@
         <video id="gacha-video" class="hidden full-screen-content" playsinline muted></video>
 
         <div id="result-screen" class="hidden">
-            <img id="result-display" src="" alt="Result" class="result-image">
+            <img id="result-display" src="" alt="Result">
             <video id="effect-video" class="hidden" playsinline muted></video>
 
             <div id="button-container" class="hidden">
@@ -205,24 +207,15 @@
     </div>
 
     <script>
-        // --- 設定ファイルのセーフティネット ---
+        // 設定ファイルの安全チェック
         if (typeof GACHA_CONFIG === 'undefined') {
-            console.warn("GACHA_CONFIG is missing. Using emergency default settings.");
-            window.GACHA_CONFIG = {
-                probabilities: { "UR": 1, "SSR": 5, "SR": 14, "R": 30, "N": 50 },
-                imageIds: { "UR": ["01"], "SSR": ["01"], "SR": ["01"], "R": ["01"], "N": ["01"] }
-            };
+            window.GACHA_CONFIG = { probabilities: { "N": 100 }, imageIds: { "N": ["normal"] } };
         }
 
         function setHeight() { document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`); }
         window.addEventListener('resize', setHeight); setHeight();
 
-        const state = {
-            currentRarity: 'N',
-            currentId: '01',
-            audioUnlocked: false
-        };
-
+        const state = { currentRarity: 'N', currentId: '01', audioUnlocked: false };
         const gachaVideo = document.getElementById('gacha-video');
         const effectVideo = document.getElementById('effect-video');
         const resultScreen = document.getElementById('result-screen');
@@ -251,17 +244,13 @@
         function startGacha() {
             document.getElementById('loading').classList.add('hidden');
 
-            // 抽選ロジック（設定が空の場合の予備動作込み）
             const rand = Math.random() * 100;
             let cumulative = 0;
-            const probs = GACHA_CONFIG.probabilities || { "N": 100 };
-
-            for (const [rarity, prob] of Object.entries(probs)) {
+            for (const [rarity, prob] of Object.entries(GACHA_CONFIG.probabilities)) {
                 cumulative += prob;
                 if (rand <= cumulative) { state.currentRarity = rarity; break; }
             }
-
-            const ids = GACHA_CONFIG.imageIds[state.currentRarity] || ["01"];
+            const ids = GACHA_CONFIG.imageIds[state.currentRarity];
             state.currentId = ids[Math.floor(Math.random() * ids.length)];
 
             gachaVideo.classList.remove('hidden');
@@ -276,6 +265,7 @@
 
         gachaVideo.onended = () => {
             gachaVideo.classList.add('hidden');
+            gachaVideo.src = "";
             showResult();
         };
 
@@ -284,28 +274,39 @@
             resultScreen.classList.remove('hidden');
 
             setTimeout(() => {
-                effectVideo.src = `./effects/star_${state.currentRarity}.mp4`;
-                effectVideo.classList.remove('hidden');
+                effectVideo.pause();
+                effectVideo.src = "";
                 effectVideo.load();
 
-                const playPromise = effectVideo.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        sounds.star.currentTime = 0;
-                        sounds.star.play().catch(() => { });
-                    }).catch(error => {
-                        console.log("Effect video play failed:", error);
-                        buttonContainer.classList.remove('hidden');
-                        buttonContainer.classList.add('fade-in-up');
-                    });
-                }
+                // 修正ポイント：レアリティ文字を小文字に変換してパスを作成
+                const rarityLower = state.currentRarity.toLowerCase();
+                effectVideo.src = `./effects/star_${rarityLower}.mp4`;
+
+                effectVideo.onloadedmetadata = () => {
+                    effectVideo.classList.remove('hidden');
+                    const playPromise = effectVideo.play();
+
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            sounds.star.currentTime = 0;
+                            sounds.star.play().catch(() => { });
+                        }).catch(e => {
+                            console.error("Effect Play Error:", e);
+                            showButtons();
+                        });
+                    }
+                };
             }, 500);
+        }
+
+        function showButtons() {
+            buttonContainer.classList.remove('hidden');
+            buttonContainer.classList.add('fade-in-up');
         }
 
         effectVideo.onended = () => {
             effectVideo.classList.add('hidden');
-            buttonContainer.classList.remove('hidden');
-            buttonContainer.classList.add('fade-in-up');
+            showButtons();
         };
 
         document.getElementById('special-btn').onclick = () => {
