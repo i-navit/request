@@ -102,14 +102,14 @@
 
         #button-container {
             position: absolute;
-            bottom: 0;
+            bottom: 10px;
             left: 0;
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             z-index: 150;
-            padding: 12px 24px 24px 24px;
+            padding: 0 24px;
         }
 
         .action-button {
@@ -171,11 +171,56 @@
                 transform: scale(1.15);
             }
         }
+
+        #limit-message {
+            position: absolute;
+            inset: 0;
+            background: #000;
+            z-index: 300;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        #debug-reset-btn {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 11px;
+            padding: 8px 20px;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+
+        /* 保存のヒント */
+        #save-hint {
+            color: white;
+            font-size: 12px;
+            margin-top: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 4px 12px;
+            border-radius: 999px;
+            pointer-events: none;
+        }
     </style>
 </head>
 
 <body>
     <div class="app-container" id="app">
+        <div id="limit-message" class="hidden">
+            <h2 class="text-xl font-bold mb-4">占いチャンスは1日1回！</h2>
+            <p class="text-sm text-gray-400 mb-8">今日のラッキーファッションは<br>もうチェック済みだよ。<br>また明日回してみてね！</p>
+            <a href="index.html" class="w-full max-w-[200px] mb-4">
+                <button class="action-button w-full h-12 bg-[#5a9eec] text-white font-bold rounded-full">戻る</button>
+            </a>
+            <button id="debug-reset-btn" class="hidden" onclick="resetGachaLimit()">RESET (DEBUG)</button>
+        </div>
+
         <div id="loading" onclick="unlockAudioAndStart()">
             <div class="flex flex-col items-center gap-4">
                 <div class="text-[#a2c2ff] font-bold">今日のラッキーファッションは？</div>
@@ -191,6 +236,7 @@
             <video id="effect-video" class="hidden" playsinline muted></video>
 
             <div id="button-container" class="hidden">
+                <div id="save-hint" class="hidden mb-2">画像を長押しで保存できるよ！</div>
                 <div class="flex w-full gap-3 justify-center max-w-[400px]">
                     <button id="special-btn"
                         class="action-button flex-[2.5] h-12 bg-[#ff81c2]/90 text-white font-black rounded-full border border-white/40">スペシャル画像ゲット</button>
@@ -199,15 +245,14 @@
                     <a href="index.html" class="flex-1"><button
                             class="action-button w-full h-12 bg-[#5a9eec]/90 text-white font-bold rounded-full border border-white/30">とじる</button></a>
                 </div>
-                <div class="text-[10px] text-gray-400 mt-4">画像生成：Gemini / デザイン加工：Luminous Games</div>
+                <div id="credit-text" class="text-[10px] text-gray-400 mt-2 transition-colors duration-300">画像生成：Gemini
+                    / デザイン加工：Luminous Games</div>
             </div>
         </div>
     </div>
 
     <script>
-        if (typeof GACHA_CONFIG === 'undefined') {
-            window.GACHA_CONFIG = { probabilities: { "N": 100 }, imageIds: { "N": ["normal"] } };
-        }
+        const config = typeof GACHA_CONFIG !== 'undefined' ? GACHA_CONFIG : { isLimitEnabled: false, isDebugMode: true, probabilities: { "N": 100 }, imageIds: { "N": ["normal"] } };
 
         function setHeight() { document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`); }
         window.addEventListener('resize', setHeight); setHeight();
@@ -218,8 +263,10 @@
         const resultScreen = document.getElementById('result-screen');
         const resultDisplay = document.getElementById('result-display');
         const buttonContainer = document.getElementById('button-container');
+        const creditText = document.getElementById('credit-text');
+        const saveBtn = document.getElementById('save-btn');
+        const saveHint = document.getElementById('save-hint');
 
-        // 音声定義（あとで動的に作成するボイス用以外の共通音）
         const sounds = {
             shake: new Audio('./parts/shake.mp3'),
             star: new Audio('./parts/star.mp3')
@@ -228,31 +275,51 @@
         window.onload = () => {
             Object.values(sounds).forEach(s => s.load());
             gachaVideo.load();
+            if (config.isDebugMode) {
+                document.getElementById('debug-reset-btn').classList.remove('hidden');
+            }
+            checkLimit();
         };
+
+        function resetGachaLimit() {
+            localStorage.removeItem('gacha_last_date');
+            location.reload();
+        }
+
+        function checkLimit() {
+            if (!config.isLimitEnabled) return;
+            const lastDate = localStorage.getItem('gacha_last_date');
+            const today = new Date().toLocaleDateString();
+            if (lastDate === today) {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('limit-message').classList.remove('hidden');
+            }
+        }
 
         function unlockAudioAndStart() {
             Object.values(sounds).forEach(s => {
-                s.play().then(() => { s.pause(); s.currentTime = 0; }).catch(() => { });
+                const v = s.volume; s.volume = 0;
+                s.play().then(() => { s.pause(); s.currentTime = 0; s.volume = v; }).catch(() => { });
             });
             startGacha();
         }
 
         function startGacha() {
             document.getElementById('loading').classList.add('hidden');
-
             const rand = Math.random() * 100;
             let cumulative = 0;
-            for (const [rarity, prob] of Object.entries(GACHA_CONFIG.probabilities)) {
+            for (const [rarity, prob] of Object.entries(config.probabilities)) {
                 cumulative += prob;
                 if (rand <= cumulative) { state.currentRarity = rarity; break; }
             }
-            const ids = GACHA_CONFIG.imageIds[state.currentRarity];
+            const ids = config.imageIds[state.currentRarity];
             state.currentId = ids[Math.floor(Math.random() * ids.length)];
-
+            if (config.isLimitEnabled) {
+                localStorage.setItem('gacha_last_date', new Date().toLocaleDateString());
+            }
             gachaVideo.classList.remove('hidden');
             gachaVideo.src = './parts/gacha.mp4';
             gachaVideo.play();
-
             setTimeout(() => {
                 sounds.shake.currentTime = 0;
                 sounds.shake.play().catch(() => { });
@@ -268,31 +335,20 @@
         function showResult() {
             resultDisplay.src = `./fashion/${state.currentRarity}_fs_${state.currentId}.jpg`;
             resultScreen.classList.remove('hidden');
-
             const rarityLower = state.currentRarity.toLowerCase();
-
             setTimeout(() => {
-                // エフェクト動画の設定
                 effectVideo.pause();
                 effectVideo.src = `./effects/star_${rarityLower}.mp4`;
                 effectVideo.load();
-
                 effectVideo.onloadedmetadata = () => {
                     effectVideo.classList.remove('hidden');
                     effectVideo.play().then(() => {
-                        // 1. キラキラ音再生
                         sounds.star.currentTime = 0;
                         sounds.star.play().catch(() => { });
-
-                        // 2. ボイス再生（ファイル名：voice_n.mp3 等に完全準拠）
                         const voice = new Audio(`./voice/voice_${rarityLower}.mp3`);
-                        // 少しだけ遅らせて声を出す
-                        setTimeout(() => {
-                            voice.play().catch(e => console.error("Voice play failed:", e));
-                        }, 300);
-
+                        setTimeout(() => { voice.play().catch(e => console.error(e)); }, 300);
                     }).catch(e => {
-                        console.error("Effect Play Error:", e);
+                        console.error(e);
                         showButtons();
                     });
                 };
@@ -312,7 +368,17 @@
         document.getElementById('special-btn').onclick = () => {
             resultDisplay.src = `./special/fs_${state.currentId}.jpg`;
             document.getElementById('special-btn').classList.add('hidden');
-            document.getElementById('save-btn').classList.remove('hidden');
+            saveBtn.classList.remove('hidden');
+            saveHint.classList.remove('hidden'); // ヒント表示
+            creditText.classList.remove('text-gray-400');
+            creditText.classList.add('text-white');
+        };
+
+        // 保存ボタンの処理
+        saveBtn.onclick = () => {
+            // 画像を別タブで開く（これが一番確実）
+            const imgPath = resultDisplay.src;
+            window.open(imgPath, '_blank');
         };
     </script>
 </body>
