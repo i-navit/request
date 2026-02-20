@@ -10,7 +10,7 @@
     <title>ファッション占いガチャ｜ぼっちんガイド</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- 20260220_2000 ファション占いゲーム -->
+    <!-- 20260220_2020 ファション占いゲーム -->
     <script src="./gacha_config.js?v=20240220"></script>
 
     <style>
@@ -201,7 +201,7 @@
 
 <body>
     <div class="app-container" id="app">
-        <!-- 制限メッセージ (最初からhiddenを外しておく) -->
+        <!-- 制限メッセージ -->
         <div id="limit-message" class="hidden">
             <h2 class="text-xl font-bold mb-4">占いチャンスは1日1回！</h2>
             <p class="text-sm text-gray-400 mb-8">今日のラッキーファッションは<br>もうチェック済みだよ。<br>また明日回してみてね☆</p>
@@ -211,7 +211,7 @@
             <button id="debug-reset-btn" class="hidden" onclick="resetGachaLimit()">RESET (DEBUG)</button>
         </div>
 
-        <!-- ロード画面 (ここも最初はhiddenにしておく！) -->
+        <!-- ロード画面 -->
         <div id="loading" class="hidden" onclick="unlockAudioAndStart()">
             <div class="flex flex-col items-center gap-4">
                 <div class="text-[#FF70CB] font-bold text-xl">今日のラッキーファッションは？</div>
@@ -276,7 +276,7 @@
             if (config.isDebugMode) {
                 document.getElementById('debug-reset-btn').classList.remove('hidden');
             }
-            checkLimit(); // ここでどっちを表示するか決める
+            checkLimit();
         };
 
         function resetGachaLimit() {
@@ -287,13 +287,10 @@
         function checkLimit() {
             const lastDate = localStorage.getItem('gacha_last_date');
             const today = new Date().toLocaleDateString();
-
             if (config.isLimitEnabled && lastDate === today) {
-                // 制限中なら制限画面だけを出す
                 document.getElementById('limit-message').classList.remove('hidden');
                 document.getElementById('loading').classList.add('hidden');
             } else {
-                // 回せるならロード画面を出す
                 document.getElementById('loading').classList.remove('hidden');
                 document.getElementById('limit-message').classList.add('hidden');
             }
@@ -301,12 +298,11 @@
 
         function unlockAudioAndStart() {
             Object.values(sounds).forEach(s => {
-                // タップ時の一瞬の再生で音漏れしないようにミュートにする
                 s.muted = true;
                 s.play().then(() => { 
                     s.pause(); 
                     s.currentTime = 0; 
-                    s.muted = false; // 準備ができたらミュート解除
+                    s.muted = false;
                 }).catch(() => { });
             });
             startGacha();
@@ -314,8 +310,6 @@
 
         function startGacha() {
             document.getElementById('loading').classList.add('hidden');
-            
-            // 状態リセット
             state.isVideoEnded = false;
             state.isImageLoaded = false;
 
@@ -328,7 +322,6 @@
             const ids = config.imageIds[state.currentRarity];
             state.currentId = ids[Math.floor(Math.random() * ids.length)];
 
-            // 画像のプリロード開始
             resultDisplay.onload = () => {
                 state.isImageLoaded = true;
                 checkTransitionReady();
@@ -343,23 +336,19 @@
             gachaVideo.src = './parts/gacha.mp4';
             gachaVideo.play();
             
-            // 動画が実際に再生開始されたら1.5秒後に音を鳴らす
             gachaVideo.onplay = () => {
                 setTimeout(() => { sounds.shake.play().catch(() => { }); }, 1500);
-                gachaVideo.onplay = null; // 重複防止
+                gachaVideo.onplay = null;
             };
         }
 
-        // 動画が終了した時
         gachaVideo.onended = () => {
             state.isVideoEnded = true;
             checkTransitionReady();
         };
 
-        // 「動画終了」と「画像読み込み」の両方が揃ったかチェックする関数
         function checkTransitionReady() {
             if (state.isVideoEnded && state.isImageLoaded) {
-                // 次に画像が切り替わった時に onload が再発火しないようにイベントを消しておく
                 resultDisplay.onload = null;
                 gachaVideo.classList.add('hidden');
                 showResult();
@@ -369,14 +358,23 @@
         function showResult() {
             resultScreen.classList.remove('hidden');
             const rarityLower = state.currentRarity.toLowerCase();
+            
+            // 演出開始までの待機時間（0.5秒）
             setTimeout(() => {
                 effectVideo.src = `./effects/star_${rarityLower}.mp4`;
                 effectVideo.load();
+                
                 effectVideo.onloadedmetadata = () => {
                     effectVideo.classList.remove('hidden');
                     effectVideo.play().then(() => {
+                        // 【修正】キラキラ動画開始と同時に効果音を再生
                         sounds.star.play().catch(() => { });
-                        new Audio(`./voice/voice_${rarityLower}.mp3`).play().catch(() => { });
+
+                        // キャラボイスは少し遅らせて 0.7秒後 に再生
+                        setTimeout(() => {
+                            new Audio(`./voice/voice_${rarityLower}.mp3`).play().catch(() => { });
+                        }, 700);
+
                     }).catch(() => { showButtons(); });
                 };
             }, 500);
@@ -392,9 +390,7 @@
             showButtons();
         };
 
-        // スペシャル画像への切り替え
         document.getElementById('special-btn').addEventListener('click', function () {
-            // ここで画像を切り替えても onload が再発火しないようにしてあるよ
             const specialUrl = `./special/fs_${state.currentId}.jpg`;
             resultDisplay.src = specialUrl;
             this.classList.add('hidden');
@@ -402,7 +398,6 @@
             creditText.classList.replace('text-gray-400', 'text-white');
         });
 
-        // 保存ボタン
         document.getElementById('save-btn').addEventListener('click', function () {
             const imageUrl = resultDisplay.src;
             const link = document.createElement("a");
