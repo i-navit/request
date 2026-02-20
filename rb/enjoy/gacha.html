@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
     <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
     <title>ファッション占いガチャ｜ぼっちんガイド</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -230,7 +231,6 @@
                     <button
                         class="px-8 py-3 bg-white/10 border border-white/20 text-white rounded-full font-bold w-48">戻る</button>
                 </a>
-                <!-- 開発用リセットボタン（復活！） -->
                 <button id="debug-reset" class="hidden mt-5 text-sm text-pink-400 underline font-bold"
                     onclick="localStorage.removeItem('last_play_date'); location.reload();">
                     開発用リセット
@@ -286,10 +286,12 @@
             audioUnlocked: false
         };
 
-        // --- 全音声プリロード ---
+        // --- 指定されたフォルダのアセットを定義 ---
         const sounds = {
+            // parts
             shake: new Audio('parts/shake.mp3'),
             star: new Audio('parts/star.mp3'),
+            // voice
             voice_n: new Audio('voice/voice_n.mp3'),
             voice_r: new Audio('voice/voice_r.mp3'),
             voice_sr: new Audio('voice/voice_sr.mp3'),
@@ -297,7 +299,28 @@
             voice_ur: new Audio('voice/voice_ur.mp3'),
             voice_lr: new Audio('voice/voice_lr.mp3')
         };
-        Object.values(sounds).forEach(s => s.load());
+
+        // 動画アセット（effects / parts）
+        const videosToPreload = [
+            'parts/gacha.mp4',
+            'effects/star_N.mp4',
+            'effects/star_R.mp4',
+            'effects/star_SR.mp4',
+            'effects/star_SSR.mp4',
+            'effects/star_UR.mp4',
+            'effects/star_LR.mp4'
+        ];
+
+        // 初期読み込み（load命令のみ。余計なfetchなどはしない）
+        function initialLoad() {
+            Object.values(sounds).forEach(s => s.load());
+            videosToPreload.forEach(src => {
+                const v = document.createElement('video');
+                v.src = src;
+                v.preload = 'auto';
+            });
+        }
+        initialLoad();
 
         const loading = document.getElementById('loading');
         const limitOverlay = document.getElementById('limit-overlay');
@@ -313,6 +336,7 @@
 
         function unlockAudioAndStart() {
             if (state.audioUnlocked) return;
+            // ハートタップ時に全音声を空再生してアンロック
             Object.values(sounds).forEach(s => {
                 s.play().then(() => { s.pause(); s.currentTime = 0; }).catch(() => { });
             });
@@ -325,7 +349,6 @@
                 setTimeout(checkConfigAndInit, 50);
                 return;
             }
-            // デバッグモードならボタン表示
             if (GACHA_CONFIG.isDebugMode) debugResetBtn.classList.remove('hidden');
 
             if (GACHA_CONFIG.isLimitEnabled && localStorage.getItem('last_play_date') === new Date().toLocaleDateString()) {
