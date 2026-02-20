@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
     <title>ファッション占いガチャ｜ぼっちんガイド</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,32 +20,32 @@
     </script>
 
     <style>
+        :root {
+            --vh: 1vh;
+        }
+
         body {
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background-color: #111;
+            background-color: #000;
             font-family: 'Helvetica Neue', Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
+            height: calc(var(--vh, 1vh) * 100);
+            width: 100vw;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            width: 100vw;
         }
 
-        /* 縦長コンテナ */
         .app-container {
             position: relative;
             background: #000;
             overflow: hidden;
-            aspect-ratio: 9 / 16;
-            height: 100vh;
-            max-width: 100vw;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 100%;
+            height: 100%;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
         .full-screen-content {
@@ -58,17 +58,41 @@
             z-index: 10;
         }
 
+        /* 結果画面のレイアウト */
+        #result-screen {
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 背景に画像をボカして敷く（黒い隙間対策） */
+        .result-bg-blur {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(20px) brightness(0.6);
+            transform: scale(1.1);
+            /* 端の白い漏れを防ぐ */
+            z-index: 30;
+        }
+
+        /* メイン画像：文字が切れないようにcontainに設定 */
         .result-image {
+            position: relative;
             width: 100%;
             height: 100%;
             object-fit: contain;
+            z-index: 40;
             animation: zoomOutFade 1.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         @keyframes zoomOutFade {
             from {
                 opacity: 0;
-                transform: scale(1.2);
+                transform: scale(1.05);
             }
 
             to {
@@ -88,6 +112,45 @@
             object-fit: cover;
         }
 
+        /* ボタンコンテナ：画像とかぶらない絶妙な位置 */
+        #button-container {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 150;
+            padding: 0 24px;
+        }
+
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            #button-container {
+                bottom: calc(20px + env(safe-area-inset-bottom));
+            }
+        }
+
+        .action-button {
+            font-size: 16px !important;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.1s;
+            backdrop-filter: blur(8px);
+        }
+
+        .action-button:active {
+            transform: scale(0.95);
+        }
+
+        .credit-text {
+            font-size: 9px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 10px;
+            letter-spacing: 0.02em;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
         .fade-in-up {
             animation: fadeInUp 0.5s ease forwards;
         }
@@ -104,74 +167,14 @@
             }
         }
 
-        #limit-overlay {
+        #loading {
+            background: #000;
             position: absolute;
             inset: 0;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.95);
+            z-index: 200;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            text-align: center;
-        }
-
-        #debug-reset {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #ff81c2;
-            text-decoration: underline;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        /* ボタンコンテナ：位置を最下部に調整 */
-        #button-container {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 50;
-            padding: 6px 24px 12px 24px;
-        }
-
-        /* スマホの調整 */
-        @media (max-width: 768px) {
-            #button-container {
-                padding-bottom: 6px !important;
-            }
-        }
-
-        .action-button {
-            font-size: 18px !important;
-            letter-spacing: 0.05em;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-            transition: transform 0.1s;
-        }
-
-        .action-button:active {
-            transform: scale(0.95);
-        }
-
-        /* 通常時のクレジット：影なし・指定のグレー(#E3E3E3) */
-        .credit-text {
-            font-size: 10px;
-            color: #ADADAD;
-            margin-top: 8px;
-            letter-spacing: 0.02em;
-            text-shadow: none;
-        }
-
-        /* スペシャル時のクレジット：影あり・少し明るく */
-        .credit-text.special-mode {
-            color: rgba(255, 255, 255, 0.7);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
     </style>
 </head>
@@ -179,49 +182,56 @@
 <body>
 
     <div class="app-container" id="app">
-        <div id="limit-overlay" class="hidden">
+        <!-- 制限オーバーレイ -->
+        <div id="limit-overlay"
+            class="hidden absolute inset-0 z-[1000] bg-black/95 flex flex-col items-center justify-center p-5 text-center">
             <p class="text-pink-500 font-bold mb-6 text-lg">今日の占いはもう終わったよ🐥<br>また明日遊びに来てね💙</p>
             <div class="flex flex-col gap-4 items-center">
                 <a href="index.html">
                     <button
                         class="px-8 py-3 bg-white/10 border border-white/20 text-white rounded-full font-bold w-48">戻る</button>
                 </a>
-                <button id="debug-reset" class="hidden"
+                <button id="debug-reset" class="hidden mt-5 text-sm text-pink-400 underline font-bold"
                     onclick="localStorage.removeItem('last_play_date'); location.reload();">
-                    開発用リセットボタン
+                    開発用リセット
                 </button>
             </div>
         </div>
 
-        <div id="loading" class="absolute inset-0 z-[60] bg-black flex items-center justify-center">
-            <div class="text-pink-500 font-bold animate-pulse tracking-widest text-xs uppercase">Connecting to
-                Luminous...</div>
+        <div id="loading">
+            <div class="text-pink-500 font-bold animate-pulse tracking-widest text-xs uppercase">Connecting...</div>
         </div>
 
         <video id="gacha-video" class="hidden full-screen-content z-20" playsinline muted></video>
         <video id="effect-video" class="hidden full-screen-content z-[100]" playsinline muted></video>
 
-        <div id="result-screen" class="hidden absolute inset-0 z-40 bg-black flex flex-col items-center">
-            <div class="relative w-full h-full">
+        <!-- 結果表示画面 -->
+        <div id="result-screen" class="hidden absolute inset-0 z-40">
+            <!-- 背景用（ボカし画像） -->
+            <img id="result-bg" src="" class="result-bg-blur">
+
+            <div class="relative w-full h-full flex flex-col items-center justify-center">
+                <!-- メイン画像（全体表示） -->
                 <img id="result-display" src="" alt="Result" class="result-image">
-                <div id="button-container" class="hidden absolute flex flex-col items-center">
-                    <div class="flex w-full gap-3 items-center justify-center max-w-[380px]">
+
+                <!-- 操作ボタン -->
+                <div id="button-container" class="hidden">
+                    <div class="flex w-full gap-2 items-center justify-center max-w-[420px]">
                         <button id="special-btn"
-                            class="action-button flex-[2.5] h-10 bg-[#ff81c2]/80 text-white font-black rounded-full uppercase tracking-wider border border-white/40">
-                            スペシャル画像ゲット
+                            class="action-button flex-[2.2] h-11 bg-[#ff81c2]/85 text-white font-black rounded-full uppercase tracking-wider border border-white/30">
+                            SPECIAL画像
                         </button>
                         <button id="save-btn"
-                            class="action-button hidden flex-[2.5] h-10 bg-[#ff81c2]/80 text-white font-black rounded-full uppercase tracking-wider border border-white/40">
+                            class="action-button hidden flex-[2.2] h-11 bg-[#ff81c2]/85 text-white font-black rounded-full uppercase tracking-wider border border-white/30">
                             保存する
                         </button>
                         <a href="index.html" class="flex-1">
                             <button
-                                class="action-button w-full h-10 bg-[#5a9eec]/80 text-white font-bold rounded-full border border-white/30">
+                                class="action-button w-full h-11 bg-[#5a9eec]/80 text-white font-bold rounded-full border border-white/20">
                                 とじる
                             </button>
                         </a>
                     </div>
-                    <!-- クレジット表記：idを追加 -->
                     <div id="credit-label" class="credit-text">画像生成：Gemini / デザイン加工：Luminous Games</div>
                 </div>
             </div>
@@ -229,6 +239,13 @@
     </div>
 
     <script>
+        function setHeight() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        window.addEventListener('resize', setHeight);
+        setHeight();
+
         const state = {
             currentRarity: null,
             currentId: null,
@@ -241,16 +258,15 @@
         const effectVideo = document.getElementById('effect-video');
         const resultScreen = document.getElementById('result-screen');
         const resultDisplay = document.getElementById('result-display');
+        const resultBg = document.getElementById('result-bg');
         const buttonContainer = document.getElementById('button-container');
         const specialBtn = document.getElementById('special-btn');
         const saveBtn = document.getElementById('save-btn');
         const debugResetBtn = document.getElementById('debug-reset');
         const creditLabel = document.getElementById('credit-label');
 
-        // 音声ファイルの準備
         const shakeSound = new Audio('parts/shake.mp3');
         const starSound = new Audio('parts/star.mp3');
-        // ボイス用のAudioオブジェクトを動的に作成
         const voiceSound = new Audio();
 
         function checkConfigAndInit() {
@@ -263,13 +279,9 @@
 
         function startApp() {
             const config = GACHA_CONFIG;
-            if (config.isDebugMode === true) {
-                debugResetBtn.classList.remove('hidden');
-            }
-            if (config.isLimitEnabled === true) {
-                const lastPlay = localStorage.getItem('last_play_date');
-                const today = new Date().toLocaleDateString();
-                if (lastPlay === today) {
+            if (config.isDebugMode) debugResetBtn.classList.remove('hidden');
+            if (config.isLimitEnabled) {
+                if (localStorage.getItem('last_play_date') === new Date().toLocaleDateString()) {
                     loading.classList.add('hidden');
                     limitOverlay.classList.remove('hidden');
                     return;
@@ -299,19 +311,14 @@
             const ids = GACHA_CONFIG.imageIds[state.currentRarity];
             state.currentId = ids[Math.floor(Math.random() * ids.length)];
 
-            // クレジット表示のリセット
-            creditLabel.classList.remove('special-mode');
-
             gachaVideo.classList.remove('hidden');
             gachaVideo.src = 'parts/gacha.mp4';
             gachaVideo.load();
 
-            // ガチャ動画再生
             gachaVideo.play().then(() => {
-                // 1.5秒後にシェイク音を再生（タイミング調整済み）
                 setTimeout(() => {
                     shakeSound.currentTime = 0;
-                    shakeSound.play().catch(e => console.log("Audio play blocked by browser"));
+                    shakeSound.play().catch(e => { });
                 }, 1500);
             }).catch(() => showResultWithEffect());
         }
@@ -327,18 +334,21 @@
         }
 
         function showResultWithEffect() {
-            if (GACHA_CONFIG.isLimitEnabled === true) {
+            if (GACHA_CONFIG.isLimitEnabled) {
                 localStorage.setItem('last_play_date', new Date().toLocaleDateString());
             }
 
             resultDisplay.style.animation = 'none';
             resultDisplay.offsetHeight;
             resultDisplay.style.animation = '';
+
             resultScreen.classList.remove('hidden');
             buttonContainer.classList.add('hidden');
 
             const fileName = `${state.currentRarity}_fs_${state.currentId}.jpg`;
-            resultDisplay.src = `fashion/${fileName}`;
+            const fullPath = `fashion/${fileName}`;
+            resultDisplay.src = fullPath;
+            resultBg.src = fullPath; // 背景にも同じ画像をセット
 
             setTimeout(() => {
                 if (!resultScreen.classList.contains('hidden')) {
@@ -346,20 +356,14 @@
                     effectVideo.src = `effects/star_${state.currentRarity}.mp4`;
                     effectVideo.load();
 
-                    // エフェクト動画再生と同時にスター音を再生
                     effectVideo.play().then(() => {
                         starSound.currentTime = 0;
-                        starSound.play().catch(e => console.log("Audio play blocked by browser"));
-
-                        // スター音の0.5秒後にレア度に応じたボイスを再生（キラキラ音に食い気味に被せる調整）
+                        starSound.play().catch(e => { });
                         setTimeout(() => {
-                            // レア度を小文字に変換してファイル名を特定 (UR -> voice_ur.mp3)
-                            const voiceFile = `voice/voice_${state.currentRarity.toLowerCase()}.mp3`;
-                            voiceSound.src = voiceFile;
+                            voiceSound.src = `voice/voice_${state.currentRarity.toLowerCase()}.mp3`;
                             voiceSound.currentTime = 0;
-                            voiceSound.play().catch(e => console.log("Voice play blocked by browser"));
+                            voiceSound.play().catch(e => { });
                         }, 500);
-
                     }).catch(() => {
                         buttonContainer.classList.remove('hidden');
                         effectVideo.classList.add('hidden');
@@ -370,11 +374,11 @@
 
         function switchToSpecial() {
             state.isSpecial = true;
-            resultDisplay.src = `special/fs_${state.currentId}.jpg`;
+            const specialPath = `special/fs_${state.currentId}.jpg`;
+            resultDisplay.src = specialPath;
+            resultBg.src = specialPath; // 背景も切り替え
             specialBtn.classList.add('hidden');
             saveBtn.classList.remove('hidden');
-            // スペシャル時は影ありモードに切り替え
-            creditLabel.classList.add('special-mode');
         }
 
         async function downloadImage() {
