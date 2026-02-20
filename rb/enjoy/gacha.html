@@ -10,7 +10,7 @@
     <title>ファッション占いガチャ｜ぼっちんガイド</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- 20260220_1700 ファション占いゲーム -->
+    <!-- 20260220_2000 ファション占いゲーム -->
     <script src="./gacha_config.js?v=20240220"></script>
 
     <style>
@@ -296,7 +296,13 @@
 
         function unlockAudioAndStart() {
             Object.values(sounds).forEach(s => {
-                s.play().then(() => { s.pause(); s.currentTime = 0; }).catch(() => { });
+                // タップ時の一瞬の再生で音漏れしないようにミュートにする
+                s.muted = true;
+                s.play().then(() => { 
+                    s.pause(); 
+                    s.currentTime = 0; 
+                    s.muted = false; // 準備ができたらミュート解除
+                }).catch(() => { });
             });
             startGacha();
         }
@@ -317,7 +323,12 @@
             gachaVideo.classList.remove('hidden');
             gachaVideo.src = './parts/gacha.mp4';
             gachaVideo.play();
-            setTimeout(() => { sounds.shake.play().catch(() => { }); }, 1500);
+            
+            // 修正箇所：動画が実際に再生開始されたら1.5秒後に音を鳴らす
+            gachaVideo.onplay = () => {
+                setTimeout(() => { sounds.shake.play().catch(() => { }); }, 1500);
+                gachaVideo.onplay = null; // 重複防止
+            };
         }
 
         gachaVideo.onended = () => {
