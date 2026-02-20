@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+    <title>おたのしみコーナー｜ぼっちんガイド</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* サイトの雰囲気に合わせた追加スタイル */
+        .profile-container {
+            background: #fff;
+            border-radius: 24px;
+            border: 2px solid #f0f0f0;
+            overflow: hidden;
+            box-shadow: 0 4px px rgba(0, 0, 0, 0.05);
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #ff9cd1 0%, #a2c2ff 100%);
+            height: 80px;
+        }
+
+        .btn-gacha-start {
+            background: linear-gradient(45deg, #ff00cc, #3333ff);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 0, 204, 0.3);
+        }
+
+        .btn-gacha-start:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(255, 0, 204, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. PC用メニュー（スマホでは隠す） -->
+    <nav class="nav-pc">
+        <ul>
+            <li><a href="../index.html">ホーム</a></li>
+            <li><a href="../osirase.html">お知らせ</a></li>
+            <li><a href="../rule.html">ルール</a></li>
+            <li><a href="../tunagari.html">つながりマニュアル</a></li>
+            <li><a href="enjoy/index.html" class="current">おたのしみ</a></li>
+            <li><a href="../album.html">フォトアルバム</a></li>
+            <li><a href="../parent.html">保護者の方へ</a></li>
+        </ul>
+    </nav>
+
+    <!-- 2. スマホ用メニュー帯（PCでは隠す） -->
+    <nav class="nav-sp">
+        <div class="nav-sp-bar">
+            <!-- 左端：メニューボタン -->
+            <button class="menu-trigger" id="js-menu-toggle">≡ メニュー</button>
+            <!-- 常に表示する項目 -->
+            <a href="../osirase.html">お知らせ</a>
+            <a href="../tunagari.html">つながりマニュアル</a>
+        </div>
+
+        <!-- 展開されるメモ帳（初期は非表示） -->
+        <div class="menu-memo" id="js-menu-memo">
+            <ul>
+                <li><a href="../index.html">ホーム</a></li>
+                <li><a href="../rule.html">ルール</a></li>
+                <li><a href="enjoy/index.html" class="current">おたのしみ</a></li>
+                <li><a href="../album.html">フォトアルバム</a></li>
+                <li><a href="../parent.html">保護者様へ</a></li>
+                <li><a href="../parent.html#policy">プライバシーポリシー</a></li>
+                <li><a href="../help.html">ヘルプ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ヘッダー画像 -->
+    <header class="main-header">
+        <img src="../img/header_art.jpg" alt="ぼっちんガイド★ルミナスゲームズ">
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="content max-w-2xl mx-auto py-10 px-4">
+
+        <!-- プロフィールセクション -->
+        <section class="profile-container mb-12">
+            <div class="profile-header"></div>
+            <div class="px-6 pb-8 -mt-10 text-center">
+                <div class="inline-block p-1 bg-white rounded-full shadow-lg">
+                    <img src="special/fs_christmas.jpg" alt="Profile" class="w-24 h-24 rounded-full object-cover">
+                </div>
+                <h2 class="text-2xl font-bold mt-4 text-gray-800">ぼっちん</h2>
+                <p class="text-pink-500 font-bold text-xs uppercase tracking-widest mt-1">Fashion Creator</p>
+
+                <div class="mt-6 text-gray-600 text-sm leading-relaxed max-w-sm mx-auto">
+                    ここにあなたの自己紹介を自由に書いてね！<br>
+                    「ぼっちんガイド」を楽しんでくれるみんなへ、<br>
+                    ひとことメッセージを載せると親しみやすさがアップするよ。
+                </div>
+
+                <div class="flex justify-center gap-2 mt-6">
+                    <span class="px-3 py-1 bg-gray-100 text-gray-500 text-[10px] rounded-full">#Fashion</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-500 text-[10px] rounded-full">#GameDev</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-500 text-[10px] rounded-full">#Luminous</span>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-gray-200 mb-12">
+
+        <!-- 占いガチャ案内セクション -->
+        <section class="text-center">
+            <h3 class="text-xl font-bold text-gray-800 mb-2 italic tracking-tight">FASHION FORTUNE</h3>
+            <p class="text-gray-400 text-xs mb-8">
+                今日のあなたにぴったりのスタイルは？<br>
+                運試しにガチャを回してみよう！
+            </p>
+
+            <div class="bg-white p-6 rounded-3xl border-2 border-dashed border-pink-200 mb-8">
+                <p class="text-sm text-gray-600 leading-loose">
+                    ボタンを押すと、全画面で占い体験が始まります。<br>
+                    レアな「スペシャル画像」が出たら保存してね！
+                </p>
+            </div>
+
+            <a href="gacha.html" class="block">
+                <button
+                    class="btn-gacha-start w-full max-w-sm py-5 rounded-[24px] text-white font-black text-xl tracking-[0.2em] uppercase">
+                    占いスタート
+                </button>
+            </a>
+
+            <p class="mt-6 text-[10px] text-gray-400">※音が鳴る演出が含まれます。ご注意ください。</p>
+        </section>
+
+    </main>
+
+    <div class="pagetop" id="js-pagetop">
+        <a href="#">▲<br>TOP</a>
+    </div>
+
+    <footer class="copyright-text py-10 text-center text-gray-400 text-xs">
+        &copy; 2025 Luminous Games. All Rights Reserved.
+    </footer>
+
+    <script src="../js/common.js"></script>
+    <script src="../js/load-more.js"></script>
+
+</body>
+
+</html>
