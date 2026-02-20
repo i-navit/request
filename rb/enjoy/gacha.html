@@ -10,7 +10,7 @@
     <title>ファッション占いガチャ｜ぼっちんガイド</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- 2026-02-20 最終調整版 -->
+    <!-- 2026-02-20 チラ見え防止改修 -->
     <script src="./gacha_config.js?v=20240220"></script>
 
     <style>
@@ -201,7 +201,7 @@
 
 <body>
     <div class="app-container" id="app">
-        <!-- 制限メッセージ -->
+        <!-- 制限メッセージ (最初からhiddenを外しておく) -->
         <div id="limit-message" class="hidden">
             <h2 class="text-xl font-bold mb-4">占いチャンスは1日1回！</h2>
             <p class="text-sm text-gray-400 mb-8">今日のラッキーファッションは<br>もうチェック済みだよ。<br>また明日回してみてね！</p>
@@ -211,8 +211,8 @@
             <button id="debug-reset-btn" class="hidden" onclick="resetGachaLimit()">RESET (DEBUG)</button>
         </div>
 
-        <!-- ロード画面 -->
-        <div id="loading" onclick="unlockAudioAndStart()">
+        <!-- ロード画面 (ここも最初はhiddenにしておく！) -->
+        <div id="loading" class="hidden" onclick="unlockAudioAndStart()">
             <div class="flex flex-col items-center gap-4">
                 <div class="text-[#a2c2ff] font-bold">今日のラッキーファッションは？</div>
                 <div class="heart-icon">🩵</div>
@@ -229,7 +229,6 @@
 
             <div id="button-container" class="hidden">
                 <div class="flex w-full gap-3 justify-center max-w-[400px]">
-                    <!-- onclick属性を使わず、JS側でEventListenerを張る -->
                     <button id="special-btn"
                         class="action-button flex-[2.5] h-12 bg-[#ff81c2]/90 text-white font-black rounded-full border border-white/40">スペシャル画像ゲット</button>
 
@@ -272,7 +271,7 @@
             if (config.isDebugMode) {
                 document.getElementById('debug-reset-btn').classList.remove('hidden');
             }
-            checkLimit();
+            checkLimit(); // ここでどっちを表示するか決める
         };
 
         function resetGachaLimit() {
@@ -281,12 +280,17 @@
         }
 
         function checkLimit() {
-            if (!config.isLimitEnabled) return;
             const lastDate = localStorage.getItem('gacha_last_date');
             const today = new Date().toLocaleDateString();
-            if (lastDate === today) {
-                document.getElementById('loading').classList.add('hidden');
+
+            if (config.isLimitEnabled && lastDate === today) {
+                // 制限中なら制限画面だけを出す
                 document.getElementById('limit-message').classList.remove('hidden');
+                document.getElementById('loading').classList.add('hidden');
+            } else {
+                // 回せるならロード画面を出す
+                document.getElementById('loading').classList.remove('hidden');
+                document.getElementById('limit-message').classList.add('hidden');
             }
         }
 
@@ -357,24 +361,14 @@
             creditText.classList.replace('text-gray-400', 'text-white');
         });
 
-        // 保存ボタン：ユーザーのクリック操作に直結させ、download属性付きaタグでDLさせる
+        // 保存ボタン
         document.getElementById('save-btn').addEventListener('click', function () {
-            const imageUrl = resultDisplay.src; // 現在表示されているスペシャルのURL
-
-            // 1. aタグを生成
+            const imageUrl = resultDisplay.src;
             const link = document.createElement("a");
             link.href = imageUrl;
-
-            // 2. ファイル名を取得してセット
             link.download = imageUrl.split("/").pop();
-
-            // 3. ブラウザのDOMに追加（これがないと一部のブラウザで無効化される）
             document.body.appendChild(link);
-
-            // 4. クリック実行
             link.click();
-
-            // 5. 即座に削除
             document.body.removeChild(link);
         });
     </script>
