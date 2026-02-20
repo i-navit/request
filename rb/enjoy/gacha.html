@@ -10,8 +10,8 @@
     <title>ファッション占いガチャ｜ぼっちんガイド</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- 設定ファイルを確実に読み込む -->
-    <script src="./gacha_config.js?v=202402"></script>
+    <!-- 設定ファイル -->
+    <script src="./gacha_config.js?v=20240220"></script>
 
     <style>
         :root {
@@ -51,7 +51,6 @@
             object-fit: cover;
         }
 
-        /* レイヤー順序 */
         #gacha-video {
             z-index: 20;
         }
@@ -72,7 +71,6 @@
             animation: zoomOutFade 1.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
-        /* エフェクト動画を画像の上に確実に重ねる */
         #effect-video {
             position: absolute;
             top: 0;
@@ -207,7 +205,6 @@
     </div>
 
     <script>
-        // 設定ファイルの安全チェック
         if (typeof GACHA_CONFIG === 'undefined') {
             window.GACHA_CONFIG = { probabilities: { "N": 100 }, imageIds: { "N": ["normal"] } };
         }
@@ -215,14 +212,14 @@
         function setHeight() { document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`); }
         window.addEventListener('resize', setHeight); setHeight();
 
-        const state = { currentRarity: 'N', currentId: '01', audioUnlocked: false };
+        const state = { currentRarity: 'N', currentId: '01' };
         const gachaVideo = document.getElementById('gacha-video');
         const effectVideo = document.getElementById('effect-video');
         const resultScreen = document.getElementById('result-screen');
         const resultDisplay = document.getElementById('result-display');
         const buttonContainer = document.getElementById('button-container');
 
-        // 音声定義
+        // 音声定義（あとで動的に作成するボイス用以外の共通音）
         const sounds = {
             shake: new Audio('./parts/shake.mp3'),
             star: new Audio('./parts/star.mp3')
@@ -237,7 +234,6 @@
             Object.values(sounds).forEach(s => {
                 s.play().then(() => { s.pause(); s.currentTime = 0; }).catch(() => { });
             });
-            state.audioUnlocked = true;
             startGacha();
         }
 
@@ -273,28 +269,32 @@
             resultDisplay.src = `./fashion/${state.currentRarity}_fs_${state.currentId}.jpg`;
             resultScreen.classList.remove('hidden');
 
-            setTimeout(() => {
-                effectVideo.pause();
-                effectVideo.src = "";
-                effectVideo.load();
+            const rarityLower = state.currentRarity.toLowerCase();
 
-                // 修正ポイント：レアリティ文字を小文字に変換してパスを作成
-                const rarityLower = state.currentRarity.toLowerCase();
+            setTimeout(() => {
+                // エフェクト動画の設定
+                effectVideo.pause();
                 effectVideo.src = `./effects/star_${rarityLower}.mp4`;
+                effectVideo.load();
 
                 effectVideo.onloadedmetadata = () => {
                     effectVideo.classList.remove('hidden');
-                    const playPromise = effectVideo.play();
+                    effectVideo.play().then(() => {
+                        // 1. キラキラ音再生
+                        sounds.star.currentTime = 0;
+                        sounds.star.play().catch(() => { });
 
-                    if (playPromise !== undefined) {
-                        playPromise.then(() => {
-                            sounds.star.currentTime = 0;
-                            sounds.star.play().catch(() => { });
-                        }).catch(e => {
-                            console.error("Effect Play Error:", e);
-                            showButtons();
-                        });
-                    }
+                        // 2. ボイス再生（ファイル名：voice_n.mp3 等に完全準拠）
+                        const voice = new Audio(`./voice/voice_${rarityLower}.mp3`);
+                        // 少しだけ遅らせて声を出す
+                        setTimeout(() => {
+                            voice.play().catch(e => console.error("Voice play failed:", e));
+                        }, 300);
+
+                    }).catch(e => {
+                        console.error("Effect Play Error:", e);
+                        showButtons();
+                    });
                 };
             }, 500);
         }
