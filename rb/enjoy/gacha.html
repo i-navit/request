@@ -10,7 +10,7 @@
     <title>ファッション占いガチャ｜ぼっちんガイド</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- 20260220_2020 ファション占いゲーム -->
+    <!-- 20260220_2030 ファション占いゲーム -->
     <script src="./gacha_config.js?v=20240220"></script>
 
     <style>
@@ -252,8 +252,8 @@
         function setHeight() { document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`); }
         window.addEventListener('resize', setHeight); setHeight();
 
-        const state = { 
-            currentRarity: 'N', 
+        const state = {
+            currentRarity: 'N',
             currentId: '01',
             isVideoEnded: false,
             isImageLoaded: false
@@ -299,9 +299,9 @@
         function unlockAudioAndStart() {
             Object.values(sounds).forEach(s => {
                 s.muted = true;
-                s.play().then(() => { 
-                    s.pause(); 
-                    s.currentTime = 0; 
+                s.play().then(() => {
+                    s.pause();
+                    s.currentTime = 0;
                     s.muted = false;
                 }).catch(() => { });
             });
@@ -335,7 +335,7 @@
             gachaVideo.classList.remove('hidden');
             gachaVideo.src = './parts/gacha.mp4';
             gachaVideo.play();
-            
+
             gachaVideo.onplay = () => {
                 setTimeout(() => { sounds.shake.play().catch(() => { }); }, 1500);
                 gachaVideo.onplay = null;
@@ -358,26 +358,26 @@
         function showResult() {
             resultScreen.classList.remove('hidden');
             const rarityLower = state.currentRarity.toLowerCase();
-            
-            // 演出開始までの待機時間（0.5秒）
+
+            // 演出開始までの待機時間（0.1秒）
             setTimeout(() => {
                 effectVideo.src = `./effects/star_${rarityLower}.mp4`;
                 effectVideo.load();
-                
+
                 effectVideo.onloadedmetadata = () => {
                     effectVideo.classList.remove('hidden');
                     effectVideo.play().then(() => {
                         // 【修正】キラキラ動画開始と同時に効果音を再生
                         sounds.star.play().catch(() => { });
 
-                        // キャラボイスは少し遅らせて 0.7秒後 に再生
+                        // キャラボイスは少し遅らせて 0.5秒後 に再生
                         setTimeout(() => {
                             new Audio(`./voice/voice_${rarityLower}.mp3`).play().catch(() => { });
-                        }, 700);
+                        }, 500);
 
                     }).catch(() => { showButtons(); });
                 };
-            }, 500);
+            }, 100);
         }
 
         function showButtons() {
