@@ -10,8 +10,8 @@
     <title>ファッション占いガチャ｜ぼっちんガイド</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- 設定ファイルを確実に読み込む（動的生成から標準タグに変更） -->
-    <script src="./gacha_config.js"></script>
+    <!-- 設定ファイルを読み込む（キャッシュ対策としてクエリパラメータを付与） -->
+    <script src="./gacha_config.js?v=2024"></script>
 
     <style>
         :root {
@@ -176,7 +176,6 @@
 
 <body>
     <div class="app-container" id="app">
-        <!-- ローディング/スタート画面 -->
         <div id="loading" onclick="unlockAudioAndStart()">
             <div class="flex flex-col items-center gap-4">
                 <div class="text-[#a2c2ff] font-bold">今日のラッキーファッションは？</div>
@@ -185,10 +184,8 @@
             </div>
         </div>
 
-        <!-- ガチャ動画 -->
         <video id="gacha-video" class="hidden full-screen-content" playsinline muted></video>
 
-        <!-- 結果表示スクリーン -->
         <div id="result-screen" class="hidden">
             <img id="result-display" src="" alt="Result" class="result-image">
             <video id="effect-video" class="hidden" playsinline muted></video>
@@ -208,16 +205,22 @@
     </div>
 
     <script>
-        // ビューポート高さ補正
+        // --- 設定ファイルのセーフティネット ---
+        if (typeof GACHA_CONFIG === 'undefined') {
+            console.warn("GACHA_CONFIG is missing. Using emergency default settings.");
+            window.GACHA_CONFIG = {
+                probabilities: { "UR": 1, "SSR": 5, "SR": 14, "R": 30, "N": 50 },
+                imageIds: { "UR": ["01"], "SSR": ["01"], "SR": ["01"], "R": ["01"], "N": ["01"] }
+            };
+        }
+
         function setHeight() { document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`); }
         window.addEventListener('resize', setHeight); setHeight();
 
-        // 状態管理
         const state = {
             currentRarity: 'N',
-            currentId: 'normal',
-            audioUnlocked: false,
-            configLoaded: false
+            currentId: '01',
+            audioUnlocked: false
         };
 
         const gachaVideo = document.getElementById('gacha-video');
@@ -232,28 +235,12 @@
             star: new Audio('./parts/star.mp3')
         };
 
-        // 設定の確認
-        function checkConfig() {
-            if (typeof GACHA_CONFIG !== 'undefined') {
-                state.configLoaded = true;
-            } else {
-                console.error("GACHA_CONFIG is not defined. Please check gacha_config.js path.");
-                // フォールバック（エラーで止まらないように最低限の設定を入れる）
-                window.GACHA_CONFIG = { probabilities: { "N": 100 }, imageIds: { "N": ["normal"] } };
-            }
-        }
-
-        // 初期化
         window.onload = () => {
-            checkConfig();
-            // 音声と動画のプリロード
             Object.values(sounds).forEach(s => s.load());
             gachaVideo.load();
         };
 
-        // スタート（アンロック）
         function unlockAudioAndStart() {
-            // 音声アンロック
             Object.values(sounds).forEach(s => {
                 s.play().then(() => { s.pause(); s.currentTime = 0; }).catch(() => { });
             });
@@ -264,22 +251,23 @@
         function startGacha() {
             document.getElementById('loading').classList.add('hidden');
 
-            // 抽選
+            // 抽選ロジック（設定が空の場合の予備動作込み）
             const rand = Math.random() * 100;
             let cumulative = 0;
-            for (const [rarity, prob] of Object.entries(GACHA_CONFIG.probabilities)) {
+            const probs = GACHA_CONFIG.probabilities || { "N": 100 };
+
+            for (const [rarity, prob] of Object.entries(probs)) {
                 cumulative += prob;
                 if (rand <= cumulative) { state.currentRarity = rarity; break; }
             }
-            const ids = GACHA_CONFIG.imageIds[state.currentRarity];
+
+            const ids = GACHA_CONFIG.imageIds[state.currentRarity] || ["01"];
             state.currentId = ids[Math.floor(Math.random() * ids.length)];
 
-            // ガチャ動画再生
             gachaVideo.classList.remove('hidden');
             gachaVideo.src = './parts/gacha.mp4';
             gachaVideo.play();
 
-            // shake音のタイミング
             setTimeout(() => {
                 sounds.shake.currentTime = 0;
                 sounds.shake.play().catch(() => { });
@@ -292,17 +280,14 @@
         };
 
         function showResult() {
-            // 画像セット
             resultDisplay.src = `./fashion/${state.currentRarity}_fs_${state.currentId}.jpg`;
             resultScreen.classList.remove('hidden');
 
-            // エフェクト動画
             setTimeout(() => {
                 effectVideo.src = `./effects/star_${state.currentRarity}.mp4`;
                 effectVideo.classList.remove('hidden');
                 effectVideo.load();
 
-                // playPromiseを使って確実に再生
                 const playPromise = effectVideo.play();
                 if (playPromise !== undefined) {
                     playPromise.then(() => {
@@ -310,7 +295,6 @@
                         sounds.star.play().catch(() => { });
                     }).catch(error => {
                         console.log("Effect video play failed:", error);
-                        // 失敗してもボタンは出す
                         buttonContainer.classList.remove('hidden');
                         buttonContainer.classList.add('fade-in-up');
                     });
