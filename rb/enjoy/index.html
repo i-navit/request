@@ -13,14 +13,19 @@
         .profile-container {
             background: #fff;
             border-radius: 24px;
-            border: 2px solid #f0f0f0;
+            border: 2px solid #e0f2f7;
             overflow: hidden;
-            box-shadow: 0 4px px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
-        .profile-header {
-            background: linear-gradient(135deg, #ff9cd1 0%, #a2c2ff 100%);
-            height: 80px;
+        .profile-header-bottin {
+            background: linear-gradient(135deg, #ff9cd1 0%, #ffcbd1 100%);
+            height: 100px;
+        }
+
+        .profile-header-lumina {
+            background: linear-gradient(135deg, #a2c2ff 0%, #c2e9fb 100%);
+            height: 100px;
         }
 
         .btn-gacha-start {
@@ -32,6 +37,44 @@
         .btn-gacha-start:hover {
             transform: scale(1.02);
             box-shadow: 0 6px 20px rgba(255, 0, 204, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .profile-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            border-bottom: 1px dashed #f0f0f0;
+        }
+
+        .profile-detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .profile-label {
+            font-weight: bold;
+            font-size: 0.75rem;
+            color: #666;
+            min-width: 110px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .profile-value {
+            font-size: 0.85rem;
+            color: #333;
+            flex: 1;
+        }
+
+        /* 説明文ボックス用の枠線スタイル */
+        .desc-box-bottin {
+            border: 1px solid #ffb7e0;
+        }
+
+        .desc-box-lumina {
+            border: 1px solid #b2d4ff;
         }
     </style>
 </head>
@@ -54,14 +97,10 @@
     <!-- 2. スマホ用メニュー帯（PCでは隠す） -->
     <nav class="nav-sp">
         <div class="nav-sp-bar">
-            <!-- 左端：メニューボタン -->
             <button class="menu-trigger" id="js-menu-toggle">≡ メニュー</button>
-            <!-- 常に表示する項目 -->
             <a href="../osirase.html">お知らせ</a>
             <a href="../tunagari.html">つながりマニュアル</a>
         </div>
-
-        <!-- 展開されるメモ帳（初期は非表示） -->
         <div class="menu-memo" id="js-menu-memo">
             <ul>
                 <li><a href="../index.html">ホーム</a></li>
@@ -81,57 +120,207 @@
     </header>
 
     <!-- メインコンテンツ -->
-    <main class="content max-w-2xl mx-auto py-10 px-4">
+    <main class="max-w-[1000px] mx-auto pt-12 pb-0 px-4">
 
-        <!-- プロフィールセクション -->
-        <section class="profile-container mb-12">
-            <div class="profile-header"></div>
-            <div class="px-6 pb-8 -mt-10 text-center">
-                <div class="inline-block p-1 bg-white rounded-full shadow-lg">
-                    <img src="special/fs_christmas.jpg" alt="Profile" class="w-24 h-24 rounded-full object-cover">
-                </div>
-                <h2 class="text-2xl font-bold mt-4 text-gray-800">ぼっちん</h2>
-                <p class="text-pink-500 font-bold text-xs uppercase tracking-widest mt-1">Fashion Creator</p>
-
-                <div class="mt-6 text-gray-600 text-sm leading-relaxed max-w-sm mx-auto">
-                    ここにあなたの自己紹介を自由に書いてね！<br>
-                    「ぼっちんガイド」を楽しんでくれるみんなへ、<br>
-                    ひとことメッセージを載せると親しみやすさがアップするよ。
+        <!-- 占いガチャ案内セクション -->
+        <section class="text-center mb-12">
+            <div
+                class="bg-white/90 p-8 rounded-[40px] border-4 border-double border-blue-100 shadow-sm relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-20 text-yellow-400">
+                    <svg width="100" height="100" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
                 </div>
 
-                <div class="flex justify-center gap-2 mt-6">
-                    <span class="px-3 py-1 bg-gray-100 text-gray-500 text-[10px] rounded-full">#Fashion</span>
-                    <span class="px-3 py-1 bg-gray-100 text-gray-500 text-[10px] rounded-full">#GameDev</span>
-                    <span class="px-3 py-1 bg-gray-100 text-gray-500 text-[10px] rounded-full">#Luminous</span>
+                <h3 class="text-2xl font-black text-gray-800 mb-2 italic tracking-widest">FASHION FORTUNE</h3>
+                <p class="text-gray-400 text-sm mb-6 font-medium">
+                    今日のあなたにぴったりのスタイルは？<br>
+                    運試しにガチャを回してみよう！
+                </p>
+
+                <div class="flex justify-center mb-7">
+                    <a href="gacha.html" class="w-full max-w-sm">
+                        <button
+                            class="btn-gacha-start w-full py-5 rounded-[30px] text-white font-black text-2xl tracking-[0.2em] uppercase">
+                            占いスタート
+                        </button>
+                    </a>
+                </div>
+
+                <div class="space-y-4">
+                    <p
+                        class="text-sm text-gray-600 leading-relaxed bg-blue-50/50 inline-block px-4 py-2 rounded-full border border-blue-100">
+                        ✨ レアな「スペシャル画像」が出たら保存してね！
+                    </p>
+                    <p class="text-xs text-gray-400">
+                        ※音が鳴る演出が含まれます。ご注意ください。
+                    </p>
+                </div>
+
+                <div class="mt-5 pt-4 border-t border-blue-70">
+                    <p class="text-[10px] font-bold text-gray-300 tracking-widest mb-2">CREDIT</p>
+                    <p class="text-[11px] text-gray-500 leading-loose">
+                        VOICEVOX：ナースロボ_タイプT / 四国メタン<br>
+                        画像生成：Gemini / デザイン加工：Luminous Games
+                    </p>
                 </div>
             </div>
         </section>
 
-        <hr class="border-gray-200 mb-12">
+        <!-- キャラクター紹介の見出し -->
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-black text-gray-700 inline-block relative">
+                CHARACTER
+                <span
+                    class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-pink-300 to-blue-300 rounded-full"></span>
+            </h2>
+        </div>
 
-        <!-- 占いガチャ案内セクション -->
-        <section class="text-center">
-            <h3 class="text-xl font-bold text-gray-800 mb-2 italic tracking-tight">FASHION FORTUNE</h3>
-            <p class="text-gray-400 text-xs mb-8">
-                今日のあなたにぴったりのスタイルは？<br>
-                運試しにガチャを回してみよう！
-            </p>
+        <!-- プロフィールセクション -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
 
-            <div class="bg-white p-6 rounded-3xl border-2 border-dashed border-pink-200 mb-8">
-                <p class="text-sm text-gray-600 leading-loose">
-                    ボタンを押すと、全画面で占い体験が始まります。<br>
-                    レアな「スペシャル画像」が出たら保存してね！
-                </p>
+            <!-- ぼっちんのプロフィール -->
+            <div class="profile-container">
+                <div class="profile-header-bottin"></div>
+                <div class="px-6 pb-10 -mt-20 text-center">
+                    <div class="inline-block p-1 bg-white rounded-full shadow-xl">
+                        <img src="parts/prf_bottin.png" class="w-32 h-32 rounded-full object-cover bg-pink-50">
+                    </div>
+                    <h2 class="text-2xl font-black mt-4 text-gray-800">ぼっちん</h2>
+                    <p class="text-pink-500 font-bold text-[10px] uppercase tracking-[0.3em] mt-1">YouTube Creator</p>
+
+                    <!-- 紹介文（枠線1px） -->
+                    <div
+                        class="mt-6 text-gray-600 text-sm leading-relaxed text-left bg-pink-50/50 p-4 rounded-2xl h-[100px] flex items-center mb-4 desc-box-bottin">
+                        <div>
+                            ぼっちんガイドの案内役！<br>
+                            最近はショート動画作りに夢中。ロブロックスの楽しさを世界中に発信するのが今の目標だよ！
+                        </div>
+                    </div>
+
+                    <!-- プロフ詳細リスト（ぼっちん） -->
+                    <div class="text-left bg-gray-50/50 p-5 rounded-2xl border border-pink-100">
+                        <div class="space-y-1">
+                            <div class="profile-detail-item">
+                                <span class="profile-label">🗓️ 年齢</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">🎂 誕生日</span>
+                                <span class="profile-value">10月5日</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">🎨 趣味</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+
+                            <div class="profile-detail-item">
+                                <span class="profile-label">🍰 好きな食べ物</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">💬 性格を一言で</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">🎮 好きなロブロマップ</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">🗺️ 行きたい場所</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">💧 苦手なもの</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">🚀 マイブーム</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-2 mt-6">
+                        <span
+                            class="px-3 py-1 bg-pink-50 text-pink-400 text-[10px] font-bold rounded-full border border-pink-100">#YouTuber</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-500 text-[10px] rounded-full">#Creative</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-500 text-[10px] rounded-full">#CutePink</span>
+                    </div>
+                </div>
             </div>
 
-            <a href="gacha.html" class="block">
-                <button
-                    class="btn-gacha-start w-full max-w-sm py-5 rounded-[24px] text-white font-black text-xl tracking-[0.2em] uppercase">
-                    占いスタート
-                </button>
-            </a>
+            <!-- るみなのプロフィール -->
+            <div class="profile-container">
+                <div class="profile-header-lumina"></div>
+                <div class="px-6 pb-10 -mt-20 text-center">
+                    <div class="inline-block p-1 bg-white rounded-full shadow-xl">
+                        <img src="parts/prf_lumina.png" class="w-32 h-32 rounded-full object-cover bg-blue-50">
+                    </div>
+                    <h2 class="text-2xl font-black mt-4 text-gray-800">るみな</h2>
+                    <p class="text-blue-500 font-bold text-[10px] uppercase tracking-[0.3em] mt-1">Channel Manager</p>
 
-            <p class="mt-6 text-[10px] text-gray-400">※音が鳴る演出が含まれます。ご注意ください。</p>
+                    <!-- 紹介文（枠線1px） -->
+                    <div
+                        class="mt-6 text-gray-600 text-sm leading-relaxed text-left bg-blue-50/50 p-4 rounded-2xl h-[100px] flex items-center mb-4 desc-box-lumina">
+                        <div>
+                            ぼっちんの「お目付け役」。<br>
+                            暴走しがちなぼっちんをクールにリードしながら、活動を裏側で支える凄腕マネージャーだよ。
+                        </div>
+                    </div>
+
+                    <!-- プロフ詳細リスト（るみな） -->
+                    <div class="text-left bg-gray-50/50 p-5 rounded-2xl border border-blue-100">
+                        <div class="space-y-1">
+                            <div class="profile-detail-item">
+                                <span class="profile-label">🗓️ 年齢</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">🎂 誕生日</span>
+                                <span class="profile-value">11月29日</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">🎨 趣味</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">🍰 好きな食べ物</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">💬 性格を一言で</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">🎮 好きなロブロマップ</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">🗺️ 行きたい場所</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">💧 苦手なもの</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                            <div class="profile-detail-item">
+                                <span class="profile-label">🚀 マイブーム</span>
+                                <span class="profile-value">◯</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-2 mt-6">
+                        <span
+                            class="px-3 py-1 bg-blue-50 text-blue-400 text-[10px] font-bold rounded-full border border-blue-100">#Manager</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-500 text-[10px] rounded-full">#Support</span>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-500 text-[10px] rounded-full">#CoolBlue</span>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
     </main>
@@ -140,7 +329,8 @@
         <a href="#">▲<br>TOP</a>
     </div>
 
-    <footer class="copyright-text py-10 text-center text-gray-400 text-xs">
+    <!-- フッター -->
+    <footer class="copyright-text py-6 text-center text-gray-400 text-xs">
         &copy; 2025 Luminous Games. All Rights Reserved.
     </footer>
 
