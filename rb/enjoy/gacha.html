@@ -10,7 +10,7 @@
     <title>ファッション占いガチャ｜ぼっちんガイド</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- 20260221_1200 ファション占いゲーム -->
+    <!-- 20260221_1330 ファション占いゲーム -->
     <script src="./gacha_config.js?v=20240220"></script>
 
     <style>
@@ -65,9 +65,7 @@
         #result-display {
             width: 100%;
             height: 100%;
-            /* 上下をぴったり合わせて隙間をなくす */
             object-fit: cover;
-            /* 上側を基準にして下側をカットする（顔を優先して表示） */
             object-position: top;
             position: relative;
             z-index: 50;
@@ -206,8 +204,8 @@
     <div class="app-container" id="app">
         <!-- 制限メッセージ -->
         <div id="limit-message" class="hidden">
-            <h2 class="text-[#FF70CB] text-2xl font-bold mb-4">占いチャンスは1日1回</h2>
-            <p class="text-lg text-white mb-8">今日のラッキーファッションは<br>チェック済みだよ。<br>また明日、回してみてね☆</p>
+            <h2 class="text-[#FF70CB] text-xl font-bold mb-4">占いチャンスは1日1回！</h2>
+            <p class="text-sm text-white mb-8">今日のラッキーファッションは<br>もうチェック済みだよ。<br>また明日回してみてね☆</p>
             <a href="index.html" class="w-full max-w-[200px] mb-4">
                 <button class="action-button w-full h-12 bg-[#5a9eec] text-white font-bold rounded-full">戻る</button>
             </a>
@@ -272,6 +270,9 @@
             shake: new Audio('./parts/shake.mp3'),
             star: new Audio('./parts/star.mp3')
         };
+
+        // ボイス管理用オブジェクト
+        let currentVoice = null;
 
         window.onload = () => {
             Object.values(sounds).forEach(s => s.load());
@@ -339,7 +340,6 @@
             gachaVideo.src = './parts/gacha.mp4';
             gachaVideo.play();
 
-            // 映像が実際に動き出してからタイマーを開始させる
             gachaVideo.onplaying = () => {
                 setTimeout(() => { sounds.shake.play().catch(() => { }); }, 1500);
                 gachaVideo.onplaying = null;
@@ -363,7 +363,6 @@
             resultScreen.classList.remove('hidden');
             const rarityLower = state.currentRarity.toLowerCase();
 
-            // 演出開始までの待機時間（0.1秒）
             setTimeout(() => {
                 effectVideo.src = `./effects/star_${rarityLower}.mp4`;
                 effectVideo.load();
@@ -371,14 +370,14 @@
                 effectVideo.onloadedmetadata = () => {
                     effectVideo.classList.remove('hidden');
 
-                    // キラキラ演出動画の再生準備
                     effectVideo.onplaying = () => {
-                        // 映像が動き出したら星の効果音を再生
                         sounds.star.play().catch(() => { });
 
-                        // さらに映像開始から 0.5秒後にボイスを再生（完璧な同期！）
                         setTimeout(() => {
-                            new Audio(`./voice/voice_${rarityLower}.mp3`).play().catch(() => { });
+                            // ボイス再生（変数を管理して上書きできるようにする）
+                            if (currentVoice) { currentVoice.pause(); }
+                            currentVoice = new Audio(`./voice/voice_${rarityLower}.mp3`);
+                            currentVoice.play().catch(() => { });
                         }, 500);
 
                         effectVideo.onplaying = null;
@@ -400,11 +399,23 @@
         };
 
         document.getElementById('special-btn').addEventListener('click', function () {
+            // 前のボイスが鳴っていたら止める
+            if (currentVoice) {
+                currentVoice.pause();
+                currentVoice.currentTime = 0;
+            }
+
             const specialUrl = `./special/fs_${state.currentId}.jpg`;
             resultDisplay.src = specialUrl;
             this.classList.add('hidden');
             document.getElementById('save-btn').classList.remove('hidden');
             creditText.classList.replace('text-gray-400', 'text-white');
+
+            // 1秒後にガイド音声を再生
+            setTimeout(() => {
+                currentVoice = new Audio('./voice/gaido.mp3');
+                currentVoice.play().catch(() => { });
+            }, 300);
         });
 
         document.getElementById('save-btn').addEventListener('click', async function () {
