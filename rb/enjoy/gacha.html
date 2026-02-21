@@ -10,38 +10,53 @@
     <title>ファッション占いガチャ｜ぼっちんガイド</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- 20260221_1330 ファション占いゲーム -->
+    <!-- 20260221_1430 ファション占いゲーム -->
     <script src="./gacha_config.js?v=20240220"></script>
 
     <style>
-        :root {
-            --vh: 1vh;
-        }
-
+        /* --- 画面全体の基本設定 --- */
+        html,
         body {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
             background-color: #000;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-            height: calc(var(--vh, 1vh) * 100);
-            width: 100vw;
+        }
+
+        body {
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
         }
 
+        /* --- アプリの外枠（コンテナ） --- */
         .app-container {
             position: relative;
             background: #000;
             overflow: hidden;
-            width: 100%;
-            height: 100%;
-            max-width: 500px;
+            width: 100vw;
+            /* iPhone Safariのツールバー対策（動的ビューポート） */
+            height: 100vh;
+            height: 100dvh;
             margin: 0 auto;
         }
 
+        /* PC（横長画面）の場合のみ、縦長9:16の枠を中央に表示 */
+        @media (min-aspect-ratio: 1/1) {
+            .app-container {
+                width: auto;
+                aspect-ratio: 9 / 16;
+            }
+        }
+
+        /* --- 全画面コンテンツ（ビデオ・画像）の共通設定 --- */
         .full-screen-content {
             position: absolute;
             top: 0;
@@ -49,8 +64,10 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: top center;
         }
 
+        /* 各要素の重なり順（z-index） */
         #gacha-video {
             z-index: 20;
         }
@@ -63,28 +80,54 @@
         }
 
         #result-display {
+            z-index: 50;
+            position: relative;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: top;
-            position: relative;
-            z-index: 50;
+            object-position: top center;
             animation: zoomOutFade 1.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
 
         #effect-video {
+            z-index: 100;
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 100;
             pointer-events: none;
             mix-blend-mode: screen;
             object-fit: cover;
-            background-color: transparent;
+            object-position: top center;
         }
 
+        #loading {
+            z-index: 200;
+            position: absolute;
+            inset: 0;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        #limit-message {
+            z-index: 300;
+            position: absolute;
+            inset: 0;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        /* --- アニメーション --- */
         @keyframes zoomOutFade {
             from {
                 opacity: 0;
@@ -95,65 +138,6 @@
                 opacity: 1;
                 transform: scale(1);
             }
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        #button-container {
-            position: absolute;
-            bottom: 10px;
-            left: 0;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 150;
-            padding: 0 24px;
-        }
-
-        .action-button {
-            font-size: 18px !important;
-            letter-spacing: 0.05em;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-            transition: transform 0.1s;
-        }
-
-        .action-button:active {
-            transform: scale(0.95);
-        }
-
-        .fade-in-up {
-            animation: fadeInUp 0.5s ease forwards;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        #loading {
-            background: #000;
-            position: absolute;
-            inset: 0;
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .heart-icon {
-            font-size: 80px;
-            animation: heartBeat 1.2s infinite;
         }
 
         @keyframes heartBeat {
@@ -173,27 +157,43 @@
             }
         }
 
-        #limit-message {
+        .hidden {
+            display: none !important;
+        }
+
+        /* --- ボタン関連 --- */
+        #button-container {
             position: absolute;
-            inset: 0;
-            background: #000;
-            z-index: 300;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            color: white;
-            padding: 40px;
-            text-align: center;
+            z-index: 150;
+            padding: 0 24px;
         }
 
+        .action-button {
+            font-size: 18px !important;
+            letter-spacing: 0.05em;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.1s;
+        }
+
+        .heart-icon {
+            font-size: 80px;
+            animation: heartBeat 1.2s infinite;
+        }
+
+        /* デバッグ用リセットボタン（控えめなデザインを維持） */
         #debug-reset-btn {
-            margin-top: 30px;
-            background: rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.2);
             color: rgba(255, 255, 255, 0.4);
-            font-size: 11px;
+            font-size: 12px;
             padding: 8px 20px;
-            border-radius: 9999px;
+            border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
         }
@@ -202,9 +202,10 @@
 
 <body>
     <div class="app-container" id="app">
-        <!-- 制限メッセージ -->
+
+        <!-- 【1】 1日1回制限メッセージ -->
         <div id="limit-message" class="hidden">
-            <h2 class="text-[#FF70CB] text-xl font-bold mb-4">占いチャンスは1日1回！</h2>
+            <h2 class="text-[#FF70CB] text-xl font-bold mb-4">占いチャンスは1日1回</h2>
             <p class="text-sm text-white mb-8">今日のラッキーファッションは<br>もうチェック済みだよ。<br>また明日回してみてね☆</p>
             <a href="index.html" class="w-full max-w-[200px] mb-4">
                 <button class="action-button w-full h-12 bg-[#5a9eec] text-white font-bold rounded-full">戻る</button>
@@ -212,7 +213,7 @@
             <button id="debug-reset-btn" class="hidden" onclick="resetGachaLimit()">RESET (DEBUG)</button>
         </div>
 
-        <!-- ロード画面 -->
+        <!-- 【2】 ロード画面（音声アンロック用タップ待機） -->
         <div id="loading" class="hidden" onclick="unlockAudioAndStart()">
             <div class="flex flex-col items-center gap-4">
                 <div class="text-[#FF70CB] font-bold text-xl">今日のラッキーファッションは？</div>
@@ -221,13 +222,17 @@
             </div>
         </div>
 
+        <!-- 【3】 ガチャ演出ビデオ -->
         <video id="gacha-video" class="hidden full-screen-content" playsinline muted></video>
 
-        <!-- 結果表示 -->
+        <!-- 【4】 結果表示画面 -->
         <div id="result-screen" class="hidden">
+            <!-- 占い結果画像 -->
             <img id="result-display" src="" alt="Result">
+            <!-- レア度に応じたエフェクトビデオ -->
             <video id="effect-video" class="hidden" playsinline muted></video>
 
+            <!-- 操作ボタン -->
             <div id="button-container" class="hidden">
                 <div class="flex w-full gap-3 justify-center max-w-[400px]">
                     <button id="special-btn"
@@ -248,17 +253,18 @@
     </div>
 
     <script>
+        // --- 設定の読み込み ---
         const config = typeof GACHA_CONFIG !== 'undefined' ? GACHA_CONFIG : { isLimitEnabled: false, isDebugMode: true, probabilities: { "N": 100 }, imageIds: { "N": ["normal"] } };
 
-        function setHeight() { document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`); }
-        window.addEventListener('resize', setHeight); setHeight();
-
+        // --- 状態管理 ---
         const state = {
             currentRarity: 'N',
             currentId: '01',
             isVideoEnded: false,
             isImageLoaded: false
         };
+
+        // --- DOM要素 ---
         const gachaVideo = document.getElementById('gacha-video');
         const effectVideo = document.getElementById('effect-video');
         const resultScreen = document.getElementById('result-screen');
@@ -266,28 +272,25 @@
         const buttonContainer = document.getElementById('button-container');
         const creditText = document.getElementById('credit-text');
 
+        // --- 音声リソース ---
         const sounds = {
             shake: new Audio('./parts/shake.mp3'),
             star: new Audio('./parts/star.mp3')
         };
-
-        // ボイス管理用オブジェクト
         let currentVoice = null;
 
+        // --- 初期化 ---
         window.onload = () => {
             Object.values(sounds).forEach(s => s.load());
             gachaVideo.load();
             if (config.isDebugMode) {
-                document.getElementById('debug-reset-btn').classList.remove('hidden');
+                const debugBtn = document.getElementById('debug-reset-btn');
+                if (debugBtn) debugBtn.classList.remove('hidden');
             }
             checkLimit();
         };
 
-        function resetGachaLimit() {
-            localStorage.removeItem('gacha_last_date');
-            location.reload();
-        }
-
+        // --- 制限チェック（1日1回） ---
         function checkLimit() {
             const lastDate = localStorage.getItem('gacha_last_date');
             const today = new Date().toLocaleDateString();
@@ -296,27 +299,30 @@
                 document.getElementById('loading').classList.add('hidden');
             } else {
                 document.getElementById('loading').classList.remove('hidden');
-                document.getElementById('limit-message').classList.add('hidden');
             }
         }
 
+        function resetGachaLimit() {
+            localStorage.removeItem('gacha_last_date');
+            location.reload();
+        }
+
+        // --- ゲーム開始前の音声有効化 ---
         function unlockAudioAndStart() {
             Object.values(sounds).forEach(s => {
                 s.muted = true;
-                s.play().then(() => {
-                    s.pause();
-                    s.currentTime = 0;
-                    s.muted = false;
-                }).catch(() => { });
+                s.play().then(() => { s.pause(); s.currentTime = 0; s.muted = false; }).catch(() => { });
             });
             startGacha();
         }
 
+        // --- ガチャ開始 ---
         function startGacha() {
             document.getElementById('loading').classList.add('hidden');
             state.isVideoEnded = false;
             state.isImageLoaded = false;
 
+            // 確率に基づいた抽選
             const rand = Math.random() * 100;
             let cumulative = 0;
             for (const [rarity, prob] of Object.entries(config.probabilities)) {
@@ -326,16 +332,13 @@
             const ids = config.imageIds[state.currentRarity];
             state.currentId = ids[Math.floor(Math.random() * ids.length)];
 
-            resultDisplay.onload = () => {
-                state.isImageLoaded = true;
-                checkTransitionReady();
-            };
+            // 背景画像の事前読み込み
+            resultDisplay.onload = () => { state.isImageLoaded = true; checkTransitionReady(); };
             resultDisplay.src = `./fashion/${state.currentRarity}_fs_${state.currentId}.jpg`;
 
-            if (config.isLimitEnabled) {
-                localStorage.setItem('gacha_last_date', new Date().toLocaleDateString());
-            }
+            if (config.isLimitEnabled) localStorage.setItem('gacha_last_date', new Date().toLocaleDateString());
 
+            // ビデオ再生開始
             gachaVideo.classList.remove('hidden');
             gachaVideo.src = './parts/gacha.mp4';
             gachaVideo.play();
@@ -346,10 +349,8 @@
             };
         }
 
-        gachaVideo.onended = () => {
-            state.isVideoEnded = true;
-            checkTransitionReady();
-        };
+        // --- 演出終了後の画面切り替え ---
+        gachaVideo.onended = () => { state.isVideoEnded = true; checkTransitionReady(); };
 
         function checkTransitionReady() {
             if (state.isVideoEnded && state.isImageLoaded) {
@@ -359,6 +360,7 @@
             }
         }
 
+        // --- 結果画面の表示 ---
         function showResult() {
             resultScreen.classList.remove('hidden');
             const rarityLower = state.currentRarity.toLowerCase();
@@ -366,75 +368,58 @@
             setTimeout(() => {
                 effectVideo.src = `./effects/star_${rarityLower}.mp4`;
                 effectVideo.load();
-
                 effectVideo.onloadedmetadata = () => {
                     effectVideo.classList.remove('hidden');
-
                     effectVideo.onplaying = () => {
                         sounds.star.play().catch(() => { });
-
                         setTimeout(() => {
-                            // ボイス再生（変数を管理して上書きできるようにする）
-                            if (currentVoice) { currentVoice.pause(); }
+                            if (currentVoice) currentVoice.pause();
                             currentVoice = new Audio(`./voice/voice_${rarityLower}.mp3`);
                             currentVoice.play().catch(() => { });
                         }, 500);
-
                         effectVideo.onplaying = null;
                     };
-
                     effectVideo.play().catch(() => { showButtons(); });
                 };
             }, 100);
         }
 
-        function showButtons() {
-            buttonContainer.classList.remove('hidden');
-            buttonContainer.classList.add('fade-in-up');
-        }
+        function showButtons() { buttonContainer.classList.remove('hidden'); }
+        effectVideo.onended = () => { effectVideo.classList.add('hidden'); showButtons(); };
 
-        effectVideo.onended = () => {
-            effectVideo.classList.add('hidden');
-            showButtons();
-        };
-
+        // --- スペシャル画像への切り替え ---
         document.getElementById('special-btn').addEventListener('click', function () {
-            // 前のボイスが鳴っていたら止める
-            if (currentVoice) {
-                currentVoice.pause();
-                currentVoice.currentTime = 0;
-            }
-
-            const specialUrl = `./special/fs_${state.currentId}.jpg`;
-            resultDisplay.src = specialUrl;
+            if (currentVoice) { currentVoice.pause(); currentVoice.currentTime = 0; }
+            resultDisplay.src = `./special/fs_${state.currentId}.jpg`;
             this.classList.add('hidden');
-            document.getElementById('save-btn').classList.remove('hidden');
-            creditText.classList.replace('text-gray-400', 'text-white');
-
-            // 1秒後にガイド音声を再生
+            const saveBtn = document.getElementById('save-btn');
+            if (saveBtn) saveBtn.classList.remove('hidden');
+            if (creditText) creditText.classList.replace('text-gray-400', 'text-white');
             setTimeout(() => {
                 currentVoice = new Audio('./voice/gaido.mp3');
                 currentVoice.play().catch(() => { });
             }, 300);
         });
 
-        document.getElementById('save-btn').addEventListener('click', async function () {
-            const imageUrl = resultDisplay.src;
-            try {
-                const response = await fetch(imageUrl);
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = imageUrl.split('/').pop();
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-            } catch (error) {
-                console.error('Download failed', error);
-            }
-        });
+        // --- 保存ボタンの処理（Blob方式で確実に保存） ---
+        const saveBtn = document.getElementById('save-btn');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', async function () {
+                const imageUrl = resultDisplay.src;
+                try {
+                    const response = await fetch(imageUrl);
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = imageUrl.split('/').pop();
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                } catch (error) { console.error('Download failed', error); }
+            });
+        }
     </script>
 </body>
 
