@@ -19,11 +19,11 @@ const GACHA_CONFIG = {
     // --- 各レア度に対応する画像IDリスト ---
     // 画像パス: fashion/レア度_fs_ID.jpg
     imageIds: {
-        "N": ["normal"],
-        "R": ["clear"],
-        "SR": ["y2k"],
-        "SSR": ["landmine"],
-        "UR": ["christmas"],
+        "N": ["normal", "sport"],
+        "R": ["clear", "kankoku"],
+        "SR": ["y2k", "casual"],
+        "SSR": ["landmine", "amakara"],
+        "UR": ["christmas", "feminine"],
         "LR": ["school", "maid"]
     },
 
