@@ -13,6 +13,25 @@
             background-color: #f0f0f0;
         }
 
+        /* 案内メッセージのスタイル：マーカー風 */
+        .info-banner {
+            max-width: 970px;
+            margin: 30px auto 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            /* PCサイズ */
+            letter-spacing: 0.05em;
+        }
+
+        .highlight {
+            background: linear-gradient(transparent 60%, #ffff00 60%);
+            /* 黄色のマーカー */
+            color: #ff69b4;
+            /* 明るいピンク */
+            padding: 0 8px;
+        }
+
         .container {
             max-width: 1000px;
             margin: 0 auto;
@@ -35,13 +54,10 @@
             padding: 8px;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s;
+            /* transitionとtransformを削除して、動きを完全に停止 */
         }
 
-        .item:hover {
-            transform: translateY(-5px);
-        }
-
+        /* PC・スマホ共にあらゆるホバー時の動きを削除 */
         .item img {
             width: 100%;
             height: auto;
@@ -59,7 +75,7 @@
             font-weight: bold;
         }
 
-        /* モーダル背景：透明度を薄く設定 */
+        /* モーダル背景 */
         #overlay {
             display: none;
             position: fixed;
@@ -67,7 +83,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
@@ -103,7 +119,6 @@
             background-color: #000;
         }
 
-        /* バツボタン：基本は画像の右上に配置 */
         .close-btn {
             position: absolute;
             top: -15px;
@@ -125,11 +140,14 @@
         }
 
         @media (max-width: 600px) {
+            .info-banner {
+                margin: 25px 15px 10px;
+                font-size: 16px;
+            }
+
             .modal-content {
                 justify-content: flex-start;
-                /* 上詰め */
                 padding: 30px 0;
-                /* 上の余白をさらに減らして上に移動 */
             }
 
             #overlay-img {
@@ -138,12 +156,9 @@
                 max-height: none;
             }
 
-            /* スマホでバツボタンが画像に半分被るように調整 */
             .close-btn {
                 position: absolute;
-                /* fixedから戻して画像基準に */
                 top: -10px;
-                /* 枠線の上に少し被る位置 */
                 right: -10px;
                 width: 40px;
                 height: 40px;
@@ -155,6 +170,11 @@
 </head>
 
 <body>
+    <!-- 案内用メッセージ -->
+    <div class="info-banner">
+        <span class="highlight">画像クリックでスペシャル画像が開くよ</span>
+    </div>
+
     <div class="container" id="gallery-root"></div>
 
     <div id="overlay" onclick="closeOverlay()">
@@ -189,6 +209,7 @@
 
                     overlayImg.style.visibility = 'hidden';
                     overlayImg.src = specialPath;
+                    overlayImg.alt = id; // alt属性も更新
                     overlay.style.display = 'block';
 
                     overlayImg.onload = () => {
