@@ -4,7 +4,7 @@
 const GACHA_CONFIG = {
     // --- システム設定 ---
     isLimitEnabled: true, // trueで1日1回制限を有効、falseで無制限
-    isDebugMode: true,    // trueで開発用のリセットボタンを表示、falseで非表示
+    isDebugMode: false,    // trueで開発用のリセットボタンを表示、falseで非表示
 
     // --- 確率設定 (合計100%) ---
     probabilities: {
