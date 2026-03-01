@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+    <title>Discordに参加する方法｜ぼっちんガイド</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <!-- 1. PC用メニュー（スマホでは隠す） -->
+    <nav class="nav-pc">
+        <ul>
+            <li><a href="../index.html">ホーム</a></li>
+            <li><a href="../osirase.html">お知らせ</a></li>
+            <li><a href="../rule.html">ルール</a></li>
+            <li><a href="../tunagari.html">つながりマニュアル</a></li>
+            <li><a href="../enjoy/index.html">ガチャ占い</a></li>
+            <li><a href="../album.html">フォトアルバム</a></li>
+            <li><a href="../parent.html">保護者の方へ</a></li>
+        </ul>
+    </nav>
+
+    <!-- 2. スマホ用メニュー帯（PCでは隠す） -->
+    <nav class="nav-sp">
+        <div class="nav-sp-bar">
+            <!-- 左端：メニューボタン -->
+            <button class="menu-trigger" id="js-menu-toggle">≡ メニュー</button>
+            <!-- 常に表示する項目 -->
+            <a href="../osirase.html">お知らせ</a>
+            <a href="../tunagari.html">つながりマニュアル</a>
+        </div>
+
+        <!-- 展開されるメモ帳（初期は非表示） -->
+        <div class="menu-memo" id="js-menu-memo">
+            <ul>
+                <li><a href="../index.html">ホーム</a></li>
+                <li><a href="../rule.html">ルール</a></li>
+                <li><a href="../enjoy/index.html">ガチャ占い</a></li>
+                <li><a href="../album.html">フォトアルバム</a></li>
+                <li><a href="../parent.html">保護者様へ</a></li>
+                <li><a href="../parent.html#policy">プライバシーポリシー</a></li>
+                <li><a href="../help.html">ヘルプ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- メインコンテンツ -->
+    <main class="content">
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">Discord（ディスコード）って？</h1>
+                    </div>
+                </div>
+                <div class="flex flex-col w-full text-gray-700 text-base sm:text-lg">
+                    <div class="md:flex-grow">
+                        <p class="bold-pink">世界中の人が使っているオンライン集会所みたいなアプリだよ</p>
+                        LINEみたいにチャット（文字のやり取り）をしたり、写真を見たりできるよ。
+                        「ぼっちん」の投稿が見れる専用の「ひみつ基地」みたいな場所だと思ってね。
+                        <!-- 注意書き ここから -->
+                        <div class="mt-3 p-3 bg-blue-50 border-2 border-dashed border-blue-300 rounded-xl">
+                            <p class="kome-mark mb-1">
+                                ⚠️12歳以下のみんなへお願い⚠️
+                            </p>
+                            Discord(ディスコード)には「13歳からしか使えない」という大事なルールがあります。13歳になるまで、参加はガマンして待っていてね🥺
+                        </div>
+                        <!-- 注意書き ここまで -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">参加するとできること</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        <p class="bold-pink">だれでも無料でOK！</p>
+                        ・毎日投稿『ぼっちんの独り言』の閲覧<br>
+                        ・リアクション（絵文字）での応援<br>
+                        ・最新情報の先行公開
+                        <p class="bold-pink mt-3">メンバーシップ限定！</p>
+                        ・チャットへの書き込み・みんなとお喋り<br>
+                        ・ぼっちんとプライベートで一緒に遊べる
+
+                        <p>
+                            <a href="https://www.youtube.com/channel/UCbIsTopKJQXLhg2V8gaKIVw/join" target="_blank"
+                                class="inline-block mt-2 px-3 py-0.5 rounded-full bg-yellow-50 text-yellow-800 border border-yellow-200 font-medium no-underline transition-all duration-300 hover:bg-yellow-100 hover:border-yellow-300 hover:shadow-sm">
+                                メンバーシップはコチラから
+                            </a>
+                        </p>
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/dsc_ac00.jpg" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+
+
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">招待リンクをクリックしよう</h1>
+                    </div>
+                </div>
+                <div class="flex flex-col w-full text-gray-700 text-base sm:text-lg">
+                    <div class="md:flex-grow">
+                        下の招待リンクをタップ🌟<br>Discordのアカウントを持ってる人は「招待を受ける」をタップして参加してね♪アカウントを持ってない人は、ステップ1に進んでDiscordに登録しよう。
+
+                        <!-- ★★★ Discord風ワイドバナー (col-span-2) ここから★★★ -->
+                        <a href="https://discord.gg/HdWvAA8acZ" target="_blank" rel="noopener noreferrer"
+                            class="col-span-2 btn-discord-blink bg-[#5865F2] text-white py-3 px-6 sm:px-10 rounded-xl shadow-lg flex flex-col items-start gap-1 no-underline mt-1">
+
+                            <!-- 1段目: ラベルエリア (オンライン状況など) -->
+                            <div class="flex items-center gap-3 mb-1">
+                                <span
+                                    class="bg-white/20 text-white text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-widest border border-white/10">Official
+                                    Community</span>
+                                <div class="flex items-center gap-1">
+                                    <span class="flex h-1.5 w-1.5 relative">
+                                        <span
+                                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-400"></span>
+                                    </span>
+                                    <span class="text-[9px] text-white/90 font-bold uppercase tracking-tight">Online
+                                        Now</span>
+                                </div>
+                            </div>
+
+                            <!-- メインコンテンツエリア：アイコンを左に固定して、文字の頭を揃える -->
+                            <div class="flex items-start gap-3 w-full">
+                                <!-- アイコン：文字の高さに合わせて配置 -->
+                                <div class="flex-shrink-0 pt-1">
+                                    <svg class="w-8 h-8 md:w-10 md:h-10" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037 19.736 19.736 0 0 0-4.885 1.515.069.069 0 0 0-.032.027C.533 9.048-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.23 10.23 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.196.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084+.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+                                    </svg>
+                                </div>
+
+                                <!-- テキストエリア：スマホで2行、PCで1行（ただし頭を揃える） -->
+                                <div
+                                    class="flex flex-col md:flex-row md:items-baseline md:gap-x-4 w-full text-left font-bold">
+                                    <!-- 1行目（スマホ時） -->
+                                    <span class="text-xl sm:text-2xl md:text-3xl tracking-tighter whitespace-nowrap">
+                                        Discord ルミナスゲームズ
+                                    </span>
+                                    <!-- 2行目（スマホ時）：Dと無の頭が揃うように配置 -->
+                                    <span
+                                        class="text-sm sm:text-base md:text-xl opacity-90 tracking-wider whitespace-nowrap leading-tight">
+                                        無料参加はこちら ➤
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- ★★★ Discord風ワイドバナー (col-span-2) ここまで★★★ -->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ1</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        <p class="bold-pink">①ディスコードで使う名前を決めよう！</p>
+                        サーバー内で表示されるあなたの名前です。表示名はいつでも変えられるので好きなニックネームを入力してね♪
+                        <p class="bold-pink mt-3">②生年月日を入力しよう！</p>
+                        生まれた日を入力したら「アカウント作成」をポチッ！
+                        まだ13歳になってない人はアカウントを作れません。13歳になるまで待っててね。
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/dsc_ac01.jpg" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ2</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        <p class="bold-pink">人間証明チェック！</p>
+                        Discordが人間かどうか聞いてくるから「私は人間です」のチェックボックスをタップしよう。
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/dsc_ac02.jpg" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ3</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        <p class="bold-pink">ゲームをクリアしよう！</p>
+                        ボット（自動プログラム）ではないことを証明するために、簡単なパズルや画像選択が出るよ。たまに難しいけど、落ち着いて解けば大丈夫！
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/dsc_ac03.jpg" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ4</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        <div class="bg-red-50 border border-red-200 p-4 rounded-lg">
+                            <p>
+                                仮登録でサーバーに入れたよ。メール認証（本登録）を忘れずに！
+                            </p>
+                            <p class="text-red-500 font-bold">
+                                ⚠️これを忘れると、明日にはこのサーバーに入れなくなります！
+                            </p>
+                        </div>
+                        <p class="bold-pink mt-3">①メールアドレスを入力しよう</p>
+                        フリーメールアドレスでOKだよ。
+                        <p class="bold-pink mt-2">②パスワードを決めよう</p>
+                        すぐにバレないようなパスワードを考えて入力してね。誰にも教えちゃダメだし、忘れないように気をつけてね。
+                        <p class="bold-pink mt-2">③アカウント作成を押そう</p>
+                        アカウント作成ボタンをクリックしてね。
+                        <p class="bold-pink mt-2">④メールを認証しよう</p>
+                        登録したメールに届いた「メールを認証する」ボタンを必ず押してね。
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/dsc_ac04.jpg" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+        <!-- ★★レスポンシブ Flexコンテナ ここから★★ -->
+        <div class="post-item max-w-[1000px] w-[100%] mx-auto pb-3 sm:pb-6">
+            <div
+                class="relative bg-white pt-8 pb-6 px-4 sm:pt-10 sm:px-6 rounded-xl shadow-lg border border-gray-100 mt-10 sm:mt-14">
+                <div class="absolute top-0 left-4 transform -translate-y-1/2 z-10">
+                    <div
+                        class="inline-flex items-center bg-title-blue rounded-xl px-4 py-1.5 sm:px-6 sm:py-2 shadow-md whitespace-nowrap">
+                        <h1 class="text-base sm:text-2xl font-bold text-white">ステップ5</h1>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row md:items-center gap-4 lg:gap-6 text-gray-700 text-base sm:text-xl">
+                    <div class="md:flex-grow">
+                        <p class="bold-pink mt-2">完了しよう</p>
+                        画面下の「完了してください」バーからサーバールールに同意して、設定完了！
+                    </div>
+                    <div class="w-full md:w-[300px] lg:w-[400px] md:flex-shrink-0">
+                        <img src="img_help/dsc_ac05.jpg" class="w-full h-auto rounded-lg shadow-md">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ★★レスポンシブ Flexコンテナ ここまで★★ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+
+
+    <div class="pagetop" id="js-pagetop">
+        <a href="#">▲<br>TOP</a>
+    </div>
+
+    <footer class="copyright-text">
+        &copy; 2025 Luminous Games. All Rights Reserved.
+    </footer>
+
+    <script src="../js/common.js"></script>
+
+</body>
+
+</html>
