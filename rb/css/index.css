@@ -157,7 +157,51 @@
             color: #4c78a9;
         }
 
+        /* ーーーーーーーーーーーーーーーDiscordバナー ここから */
+        .btn-discord-blink {
+            position: relative;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform;
+        }
 
+        .btn-discord-blink::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0.75rem;
+            /* rounded-xl と合わせる */
+            box-shadow: 0 0 0 0 rgba(88, 101, 242, 0.6);
+            animation: discord-ripple 1.7s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes discord-ripple {
+            0% {
+                box-shadow: 0 0 0 0 rgba(88, 101, 242, 0.6);
+            }
+
+            90% {
+                box-shadow: 0 0 0 15px rgba(88, 101, 242, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(88, 101, 242, 0);
+            }
+        }
+
+        .btn-discord-blink:hover {
+            transform: scale(0.99);
+        }
+
+        .btn-discord-blink:active {
+            transform: scale(0.97);
+            transition: transform 0.1s;
+        }
+
+        /* ーーーーーーーーーーーーーーーDiscordバナー ここまで */
 
 
 
