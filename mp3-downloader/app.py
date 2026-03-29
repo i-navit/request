@@ -3,12 +3,11 @@ import yt_dlp
 import os
 import re
 import time
-import requests
 
-# Page Configuration
+# ページの設定
 st.set_page_config(page_title="MP3 Downloader", page_icon="🎵")
 
-# Custom CSS
+# デザインの調整
 st.markdown("""
     <style>
     .main {
@@ -21,70 +20,58 @@ st.markdown("""
         height: 3em;
         font-weight: bold;
     }
+    .stAlert {
+        border-radius: 10px;
+    }
     </style>
     """, unsafe_allow_html=True)
 
 st.title("🎵 YouTube MP3 Downloader")
-st.write("7*URLを貼って「変換」を押してね。フレンドのみんなも使えるよ！")
+st.write("1*YouTubeのURLを貼り付けて変換ボタンを押してください。")
 
-# URL Input
-url_input = st.text_input("YouTubeのURLを貼り付けてね", placeholder="https://www.youtube.com/watch?v=...")
+# URL入力
+url_input = st.text_input("URL", placeholder="https://www.youtube.com/watch?v=...")
 
-def download_mp3_with_fallback(url):
+def download_process(url):
+    """メインのダウンロード処理"""
     timestamp = int(time.time())
     output_filename = f"music_{timestamp}"
     full_path = f"{output_filename}.mp3"
     
-    # 複数のクライアント設定を試す
-    clients = ['android', 'ios', 'mweb']
-    
-    last_error = None
-    
-    for client in clients:
-        ydl_opts = {
-            'format': 'bestaudio/best',
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-                'preferredquality': '192',
-            }],
-            'outtmpl': output_filename,
-            'quiet': True,
-            'no_warnings': True,
-            'nocheckcertificate': True,
-            'extractor_args': {
-                'youtube': {
-                    'player_client': [client],
-                    'player_skip': ['webpage', 'configs'],
-                }
-            },
-        }
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+        'outtmpl': output_filename,
+        'quiet': True,
+        'no_warnings': True,
+        'nocheckcertificate': True,
+        'extractor_args': {
+            'youtube': {
+                'player_client': ['android', 'ios', 'mweb'],
+            }
+        },
+    }
 
-        try:
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(url, download=True)
-                title = re.sub(r'[\\/*?:"<>|]', "", info.get('title', 'music'))
-                return full_path, f"{title}.mp3"
-        except Exception as e:
-            last_error = e
-            continue # 次のクライアントを試す
-            
-    raise last_error
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=True)
+        title = re.sub(r'[\\/*?:"<>|]', "", info.get('title', 'music'))
+        return full_path, f"{title}.mp3"
 
-# Action Button
-if st.button("変換開始", use_container_width=True):
+# 変換ボタン
+if st.button("変換", use_container_width=True):
     if url_input:
         if "youtube.com" in url_input or "youtu.be" in url_input:
             try:
-                # クエリパラメータを整理
+                # URLのクリーニング
                 video_id_match = re.search(r'(?:v=|\/)([0-9A-Za-z_-]{11})', url_input)
-                if video_id_match:
-                    clean_url = f"https://www.youtube.com/watch?v={video_id_match.group(1)}"
-                else:
-                    clean_url = url_input
+                clean_url = f"https://www.youtube.com/watch?v={video_id_match.group(1)}" if video_id_match else url_input
 
-                with st.spinner("変換中... YouTubeの制限を回避しながら頑張ってるよ！"):
-                    file_path, display_name = download_mp3_with_fallback(clean_url)
+                with st.spinner("変換中..."):
+                    file_path, display_name = download_process(clean_url)
                     
                     if os.path.exists(file_path):
                         with open(file_path, "rb") as f:
@@ -95,18 +82,18 @@ if st.button("変換開始", use_container_width=True):
                                 mime="audio/mpeg",
                                 use_container_width=True
                             )
-                        st.success(f"✅ 「{display_name}」の準備ができたよ！")
+                        st.success(f"変換が完了しました: {display_name}")
                         os.remove(file_path)
                     else:
-                        st.error("ファイルがうまく作れなかったよ。")
+                        st.error("ファイルの生成に失敗しました。")
+
             except Exception as e:
-                st.error("YouTubeにブロックされてしまったみたい。")
-                st.info("💡 対策案: Google Apps Scriptを中継役に使う設定を検討中だよ。")
-                st.caption(f"Error Details: {str(e)[:150]}...")
+                st.error("YouTubeの制限により、この環境からはダウンロードできません。")
+                st.info("別の動画で試すか、時間をおいて再度実行してください。")
         else:
-            st.warning("YouTubeのURLを正しく入力してね。")
+            st.warning("YouTubeのURLを入力してください。")
     else:
-        st.warning("まずはURLを貼ってね！")
+        st.warning("URLを入力してください。")
 
 st.markdown("---")
 st.caption("Produced by mp3-downloader Team")
