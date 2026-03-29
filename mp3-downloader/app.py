@@ -5,7 +5,7 @@ import requests
 # ページの設定
 st.set_page_config(page_title="MP3 Downloader", page_icon="🎵")
 
-# --- GAS設定 (デプロイしたURL) ---
+# --- GAS設定 (デプロイした最新のURLをここに貼り付けてね) ---
 GAS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw6DRYqll_vD39m8xiP9-KAqRmY2R_3LcqO0aK7rTZge5UI797QjN2wJG1rvugsQPll/exec"
 
 # デザインの調整
@@ -28,7 +28,7 @@ st.markdown("""
         margin-top: 20px;
     }
     .dl-btn {
-        text-decoration: none;
+        text-decoration: none !important;
         background-color: #28a745;
         color: white !important;
         padding: 15px 25px;
@@ -46,7 +46,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 st.title("🎵 MP3 Downloader")
-st.write("05＊URLを入力して変換ボタンを押してください。")
+st.write("07＊YouTubeのURLを入力して変換ボタンを押してください。")
 
 url_input = st.text_input("YouTube URL", placeholder="https://www.youtube.com/watch?v=...")
 
@@ -58,45 +58,45 @@ if st.button("変換", use_container_width=True):
         if video_id_match:
             video_id = video_id_match.group(1)
             
-            with st.spinner("Googleサーバー経由でリンクを生成中..."):
+            with st.spinner("Googleサーバーでリンクを生成中..."):
                 try:
-                    # 1. GASを叩いてGoogleのIPから変換APIにアクセスさせる
-                    res = requests.get(GAS_WEB_APP_URL, params={"url": url_input}, timeout=20)
+                    # 1. GASにリクエストを送ってcobalt経由の直リンクを取得
+                    res = requests.get(GAS_WEB_APP_URL, params={"url": url_input}, timeout=25)
                     data = res.json()
                     
                     if data.get("status") == "success":
-                        st.success("ダウンロードリンクの生成に成功しました。")
-                        
-                        # 2. 直リンクボタンを表示 (Streamlitを介さずブラウザで直接叩く)
+                        st.success("ダウンロードの準備が完了したよ！")
                         download_url = data.get("downloadUrl")
                         
+                        # 2. 直リンクをボタンとして表示
                         st.markdown(f"""
                             <div class="download-card">
                                 <a href="{download_url}" target="_blank" class="dl-btn">
-                                    📥 MP3をダウンロード
+                                    📥 MP3をダウンロードする
                                 </a>
                                 <p style="font-size: 0.85em; color: #666; margin-top: 15px;">
-                                    ※別タブでダウンロードが開始されます。<br>
-                                    もしエラーが出る場合は、下の予備リンクを試してください。
+                                    ※クリックすると別タブでダウンロードが始まるよ。
                                 </p>
                             </div>
                         """, unsafe_allow_html=True)
                     else:
-                        st.error("リンク生成に失敗しました。")
-                
+                        # GAS側でエラー（No link found等）が返ってきた場合
+                        st.error(f"直接リンクの生成に失敗したよ: {data.get('message', 'Unknown Error')}")
+                        st.info("以下の代わりの変換ルートを試してみて。")
+                        col1, col2 = st.columns(2)
+                        with col1:
+                            st.link_button("🚀 変換ルートA", f"https://y2meta.app/en/youtube/{video_id}", use_container_width=True)
+                        with col2:
+                            st.link_button("🚀 変換ルートB", f"https://yt5s.io/en/youtube/{video_id}", use_container_width=True)
+
                 except Exception as e:
-                    st.error("YouTubeの制限により、直接の変換が現在ブロックされています。")
-                    
-                    st.info("以下の外部サービス用リンクから変換が可能です。")
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        st.link_button("🔗 予備1 (y2meta)", f"https://y2meta.app/en/youtube/{video_id}", use_container_width=True)
-                    with col2:
-                        st.link_button("🔗 予備2 (yt5s)", f"https://yt5s.io/en/youtube/{video_id}", use_container_width=True)
+                    # 通信エラーやJSON解析エラーの場合
+                    st.error("現在、アクセス制限により自動変換が難しいみたいだ。")
+                    st.link_button("🚀 外部の変換サイトを開く", f"https://y2meta.app/en/youtube/{video_id}", use_container_width=True)
         else:
-            st.warning("有効なYouTube URLを入力してください。")
+            st.warning("有効なYouTube URLを入力してね。")
     else:
-        st.warning("URLを入力してください。")
+        st.warning("URLを入力してね。")
 
 st.markdown("---")
-st.caption("Produced by mp3-downloader Team")
+st.caption("Produced by mp3-downloader Team | Powered by Google Apps Script")
