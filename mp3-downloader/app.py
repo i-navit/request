@@ -7,7 +7,7 @@ import re
 st.set_page_config(page_title="MP3 Downloader", page_icon="🎵")
 
 st.title("🎵 YouTube MP3 Downloader")
-st.write("2*YouTubeのURLを貼って「変換」ボタンを押してね。")
+st.write("3*YouTubeのURLを貼って「変換」ボタンを押してね。")
 
 # URL入力
 url_input = st.text_input("URLを貼り付けてね", placeholder="https://www.youtube.com/watch?v=...")
@@ -18,11 +18,16 @@ if st.button("変換", use_container_width=True):
         # YouTubeのURLかチェック
         if "youtube.com" in url_input or "youtu.be" in url_input:
             try:
-                # URLの掃除（パラメータを最小限にする）
-                clean_url = url_input.split('?')[0] + '?' + url_input.split('?')[1].split('&')[0] if '?' in url_input else url_input
+                # URLをクレンジング（不要なパラメータを完全に削除）
+                # 共有用やプレイリスト用の長いURLでも動画単体として扱う
+                video_id_match = re.search(r'(?:v=|\/)([0-9A-Za-z_-]{11}).*', url_input)
+                if video_id_match:
+                    clean_url = f"https://www.youtube.com/watch?v={video_id_match.group(1)}"
+                else:
+                    clean_url = url_input
                 
-                with st.spinner("変換中... YouTubeの制限を回避しながら処理しているよ"):
-                    # 403 Forbidden や Bot判定を回避するための最新設定
+                with st.spinner("変換中... サーバーブロックを回避しながら処理しているよ"):
+                    # 403 Forbidden 回避のための高度な設定
                     ydl_opts = {
                         'format': 'bestaudio/best',
                         'postprocessors': [{
@@ -35,18 +40,20 @@ if st.button("変換", use_container_width=True):
                         'quiet': True,
                         'no_warnings': True,
                         'nocheckcertificate': True,
-                        # 最新のBot検知回避策：Android端末からのアクセスを偽装
+                        # チャンクサイズを小さくして、少しずつデータを読み込む（ブロック対策）
+                        'http_chunk_size': 1048576, 
+                        # 複数のクライアントタイプを試行させる
                         'extractor_args': {
                             'youtube': {
-                                'player_client': ['android'],
-                                'skip': ['dash', 'hls']
+                                'player_client': ['android', 'web', 'mweb', 'ios'],
+                                'player_skip': ['webpage', 'configs'],
                             }
                         },
-                        'youtube_include_dash_manifest': False,
                         'add_header': [
-                            'User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36',
-                            'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                            'Accept-Language: ja-JP,ja;q=0.9',
+                            'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
+                            'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+                            'Accept-Language: ja,en-US;q=0.9,en;q=0.8',
+                            'Origin: https://www.youtube.com',
                         ],
                     }
 
@@ -74,13 +81,14 @@ if st.button("変換", use_container_width=True):
                         os.remove(filename)
                         st.success(f"「{info['title']}」の準備ができたよ！")
                     else:
-                        st.error("ファイルがうまく作成されなかったみたい。")
+                        st.error("ファイルが生成されませんでした。")
 
             except Exception as e:
-                # エラーメッセージをより詳細に
                 error_msg = str(e)
-                if "Sign in to confirm you’re not a bot" in error_msg:
-                    st.error("YouTubeに「ロボット」だと判定されてブロックされちゃった...。Web版の限界かもしれないけど、URLを変えてもう一度試してみて。")
+                if "403" in error_msg:
+                    st.error("YouTube側がこのサーバーからのアクセスを強く制限しているみたい（403エラー）。少し時間を置いてから、別の動画のURLで試してみてね。")
+                elif "Sign in" in error_msg:
+                    st.error("YouTubeにロボットだと判定されてしまったよ。Web版ではこれ以上の回避が難しいかもしれないんだ。")
                 else:
                     st.error(f"エラーが発生しました。\n(Error: {e})")
         else:
