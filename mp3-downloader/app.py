@@ -7,7 +7,7 @@ import re
 st.set_page_config(page_title="MP3 Downloader", page_icon="🎵")
 
 st.title("🎵 YouTube MP3 Downloader")
-st.write("1*YouTubeのURLを貼って「変換」ボタンを押してね。")
+st.write("2*YouTubeのURLを貼って「変換」ボタンを押してね。")
 
 # URL入力
 url_input = st.text_input("URLを貼り付けてね", placeholder="https://www.youtube.com/watch?v=...")
@@ -22,7 +22,7 @@ if st.button("変換", use_container_width=True):
                 clean_url = url_input.split('?')[0] + '?' + url_input.split('?')[1].split('&')[0] if '?' in url_input else url_input
                 
                 with st.spinner("変換中... YouTubeの制限を回避しながら処理しているよ"):
-                    # 403 Forbiddenを回避するための最新設定
+                    # 403 Forbidden や Bot判定を回避するための最新設定
                     ydl_opts = {
                         'format': 'bestaudio/best',
                         'postprocessors': [{
@@ -35,15 +35,16 @@ if st.button("変換", use_container_width=True):
                         'quiet': True,
                         'no_warnings': True,
                         'nocheckcertificate': True,
-                        # YouTubeのボット検知を回避するための最新の「おまじない」
+                        # 最新のBot検知回避策：Android端末からのアクセスを偽装
                         'extractor_args': {
                             'youtube': {
-                                'player_client': ['ios'],
+                                'player_client': ['android'],
                                 'skip': ['dash', 'hls']
                             }
                         },
+                        'youtube_include_dash_manifest': False,
                         'add_header': [
-                            'User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
+                            'User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Mobile Safari/537.36',
                             'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                             'Accept-Language: ja-JP,ja;q=0.9',
                         ],
@@ -76,7 +77,12 @@ if st.button("変換", use_container_width=True):
                         st.error("ファイルがうまく作成されなかったみたい。")
 
             except Exception as e:
-                st.error(f"YouTubeにブロックされちゃったみたい...。少し時間を置いて試してみてね。\n(Error: {e})")
+                # エラーメッセージをより詳細に
+                error_msg = str(e)
+                if "Sign in to confirm you’re not a bot" in error_msg:
+                    st.error("YouTubeに「ロボット」だと判定されてブロックされちゃった...。Web版の限界かもしれないけど、URLを変えてもう一度試してみて。")
+                else:
+                    st.error(f"エラーが発生しました。\n(Error: {e})")
         else:
             st.warning("有効なYouTubeのURLを入れてね。")
     else:
