@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+    <title>公式キャラクター紹介｜ぼっちんガイド</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            /* 選択反転不可にする */
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        /* プロフィールカードの共通スタイル */
+        .profile-container {
+            background: #fff;
+            border-radius: 24px;
+            border: 2px solid #e0f2f7;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            height: 100%;
+        }
+
+        /* キャラクター別ヘッダーカラー */
+        .profile-header-bottin {
+            background: linear-gradient(135deg, #ff9cd1 0%, #ffcbd1 100%);
+            height: 100px;
+        }
+
+        .profile-header-lumina {
+            background: linear-gradient(135deg, #a2c2ff 0%, #c2e9fb 100%);
+            height: 100px;
+        }
+
+        .profile-header-hikari {
+            background: linear-gradient(135deg, #ffe58a 0%, #fff9c4 100%);
+            height: 100px;
+        }
+
+        /* プロフィール詳細項目 */
+        .profile-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            border-bottom: 1px dashed #f0f0f0;
+        }
+
+        .profile-detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .profile-label {
+            font-weight: bold;
+            font-size: 0.875rem;
+            color: #666;
+            min-width: 110px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .profile-value {
+            font-size: 0.875rem;
+            color: #333;
+            flex: 1;
+        }
+
+        /* 紹介文ボックスの枠線（キャラカラー合わせ） */
+        .desc-box-bottin {
+            border: 1px solid #ffb7e0;
+        }
+
+        .desc-box-lumina {
+            border: 1px solid #b2d4ff;
+        }
+
+        .desc-box-hikari {
+            border: 1px solid #ffe082;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- 1. PC用メニュー（スマホでは隠す） -->
+    <nav class="nav-pc">
+        <ul>
+            <li><a href="../index.html">ホーム</a></li>
+            <li><a href="#" class="current">プロフィール</a></li>
+            <li><a href="../album.html">アルバム</a></li>
+            <li><a href="../tunagari.html">マニュアル</a></li>
+            <li><a href="../rule.html">ルール</a></li>
+            <li><a href="../osirase.html">お知らせ</a></li>
+            <li><a href="../enjoy/index.html">ガチャ占い</a></li>
+            <li><a href="../fan-art.html">ファンアート</a></li>
+            <li><a href="../parent.html">保護者様へ</a></li>
+        </ul>
+    </nav>
+
+    <!-- 2. スマホ用メニュー帯（PCでは隠す） -->
+    <nav class="nav-sp">
+        <div class="nav-sp-bar">
+            <!-- 左端：メニューボタン -->
+            <button class="menu-trigger" id="js-menu-toggle">≡ メニュー</button>
+            <!-- 常に表示する項目 -->
+            <a href="osirase.html">お知らせ</a>
+            <a href="tunagari.html">つながりマニュアル</a>
+        </div>
+
+        <!-- 展開されるメモ帳（初期は非表示） -->
+        <div class="menu-memo" id="js-menu-memo">
+            <ul>
+                <li><a href="../index.html">ホーム</a></li>
+                <li><a href="#" class="current">プロフィール</a></li>
+                <li><a href="../album.html">アルバム</a></li>
+                <li><a href="../rule.html">ルール</a></li>
+                <li><a href="../enjoy/index.html">ガチャ占い</a></li>
+                <li><a href="../fan-art.html">ファンアート</a></li>
+                <li><a href="../parent.html">保護者様へ</a></li>
+                <li><a href="../parent.html#policy">プライバシーポリシー</a></li>
+                <li><a href="../help/discord.html">公式Discord</a></li>
+                <li><a href="../help.html">ヘルプ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- ヘッダー画像 -->
+    <header class="main-header">
+        <img src="../img/header_prof.jpg" alt="ぼっちんガイド★ルミナスゲームズ">
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="max-w-[1000px] mx-auto pt-5 pb-0 px-4">
+
+        <!-- キャラクター紹介の見出し -->
+        <div class="text-center mb-8" id="profile">
+            <h2 class="text-2xl font-black text-gray-700 inline-block relative">
+                CHARACTER
+                <span
+                    class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-pink-300 via-yellow-300 to-blue-300 rounded-full"></span>
+            </h2>
+        </div>
+
+        <!-- プロフィールセクション -->
+        <section class="space-y-8">
+
+            <!-- 上段：ぼっちんとるみな（2カラム） -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- ぼっちん -->
+                <div class="profile-container">
+                    <div class="profile-header-bottin"></div>
+                    <div class="px-6 pb-10 -mt-20 text-center">
+                        <div class="inline-block p-1 bg-white rounded-full shadow-xl">
+                            <img src="img_prof/prf_bottin.png" class="w-32 h-32 rounded-full object-cover bg-pink-50">
+                        </div>
+                        <h2 class="text-2xl font-black mt-4 text-gray-800">ぼっちん</h2>
+                        <p class="text-pink-500 font-bold text-[10px] uppercase tracking-[0.3em] mt-1">CONTENT CREATOR
+                        </p>
+                        <div
+                            class="mt-6 text-gray-600 text-sm leading-relaxed text-left bg-pink-50/50 p-4 rounded-2xl h-[100px] flex items-center mb-4 desc-box-bottin">
+                            <div>2025/10月からロブロックスをはじめた初心者🔰です。<br>初心者ならではのロブロックスの新しい発見✨を動画にします🐥</div>
+                        </div>
+                        <div class="text-left bg-gray-50/50 p-5 rounded-2xl border border-pink-100">
+                            <div class="space-y-1">
+                                <div class="profile-detail-item"><span class="profile-label">🎂 誕生日</span><span
+                                        class="profile-value">10月11日</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🎨 趣味</span><span
+                                        class="profile-value">踊ること(エモート)</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🍙 好きな食べ物</span><span
+                                        class="profile-value">フルーツ🍓</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">💬 性格を一言で</span><span
+                                        class="profile-value">よく天然って言われます</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🍀 私の癒し</span><span
+                                        class="profile-value">ディズニーとお風呂</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🌺 マイブーム</span><span
+                                        class="profile-value">美容コスメ💄</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🎀 メイクの掟</span><span
+                                        class="profile-value">お風呂上がり風チーク♨️</span></div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap justify-center gap-2 mt-6">
+                            <span
+                                class="px-2 py-0.5 border border-dashed border-blue-300 text-blue-400 text-[10px] font-bold rounded-sm">#YouTuber</span>
+                            <span
+                                class="px-2 py-0.5 border border-dashed border-gray-300 text-gray-400 text-[10px] rounded-sm">#TikToker</span>
+                            <span
+                                class="px-2 py-0.5 border border-dashed border-gray-300 text-gray-400 text-[10px] rounded-sm">#ぼっちんガイド</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- るみな -->
+                <div class="profile-container">
+                    <div class="profile-header-lumina"></div>
+                    <div class="px-6 pb-10 -mt-20 text-center">
+                        <div class="inline-block p-1 bg-white rounded-full shadow-xl">
+                            <img src="img_prof/prf_lumina.png" class="w-32 h-32 rounded-full object-cover bg-blue-50">
+                        </div>
+                        <h2 class="text-2xl font-black mt-4 text-gray-800">るみな</h2>
+                        <p class="text-blue-500 font-bold text-[10px] uppercase tracking-[0.3em] mt-1">CONTENT MANAGER
+                        </p>
+                        <div
+                            class="mt-6 text-gray-600 text-sm leading-relaxed text-left bg-blue-50/50 p-4 rounded-2xl h-[100px] flex items-center mb-4 desc-box-lumina">
+                            <div>お金持ちのお嬢様！<br>わたし…周りに馴染めないから、幼なじみのぼっちんが唯一の友達✟💙</div>
+                        </div>
+                        <div class="text-left bg-gray-50/50 p-5 rounded-2xl border border-blue-100">
+                            <div class="space-y-1">
+                                <div class="profile-detail-item"><span class="profile-label">🎂 誕生日</span><span
+                                        class="profile-value">11月29日</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🎨 趣味</span><span
+                                        class="profile-value">スキン観察(見るだけ)</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🍙 好きな食べ物</span><span
+                                        class="profile-value">ケーキとケーキ🍰</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">💬 性格を一言で</span><span
+                                        class="profile-value">私って完璧じゃない？</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🍀 私の夢</span><span
+                                        class="profile-value">スキピとデート</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🌺 マイブーム</span><span
+                                        class="profile-value">ラブコメかな♡</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🎀 メイクの掟</span><span
+                                        class="profile-value">隙のないアイライン</span></div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap justify-center gap-2 mt-6">
+                            <span
+                                class="px-2 py-0.5 border border-dashed border-blue-300 text-blue-400 text-[10px] font-bold rounded-sm">#Support</span>
+                            <span
+                                class="px-2 py-0.5 border border-dashed border-gray-300 text-gray-400 text-[10px] rounded-sm">#Bestie</span>
+                            <span
+                                class="px-2 py-0.5 border border-dashed border-gray-300 text-gray-400 text-[10px] rounded-sm">#ぼっちんガイド</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 下段：ひかり（PCで1カラム・幅制限ありで見やすく） -->
+            <div class="max-w-[100%] md:max-w-[500px] mx-auto">
+                <div class="profile-container border-yellow-200">
+                    <div class="profile-header-hikari"></div>
+                    <div class="px-6 pb-10 -mt-20 text-center">
+                        <div class="inline-block p-1 bg-white rounded-full shadow-xl">
+                            <img src="img_prof/prf_hikari.png" class="w-32 h-32 rounded-full object-cover bg-yellow-50"
+                                alt="ひかり">
+                        </div>
+                        <h2 class="text-2xl font-black mt-4 text-gray-800">ひかり</h2>
+                        <p class="text-yellow-600 font-bold text-[10px] uppercase tracking-[0.3em] mt-1">ENERGY MAKER
+                        </p>
+
+                        <!-- 紹介文 -->
+                        <div
+                            class="mt-6 text-gray-600 text-sm leading-relaxed text-left bg-yellow-50/50 p-4 rounded-2xl h-[100px] flex items-center mb-4 desc-box-hikari">
+                            <div>
+                                トップアイドルを目指して修行中の現役JKです！🎀<br>みんなにハッピーな魔法をかけちゃうよ✨いつでも全力投球！
+                            </div>
+                        </div>
+
+                        <!-- プロフ詳細リスト -->
+                        <div class="text-left bg-gray-50/50 p-5 rounded-2xl border border-yellow-100">
+                            <div class="space-y-1">
+                                <div class="profile-detail-item"><span class="profile-label">🎂 誕生日</span><span
+                                        class="profile-value">3月22日</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🎨 趣味</span><span
+                                        class="profile-value">★</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🍙 好きな食べ物</span><span
+                                        class="profile-value">★</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">💬 性格を一言で</span><span
+                                        class="profile-value">★</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🍀 私の夢</span><span
+                                        class="profile-value">★</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🌺 マイブーム</span><span
+                                        class="profile-value">★</span></div>
+                                <div class="profile-detail-item"><span class="profile-label">🎀 メイクの掟</span><span
+                                        class="profile-value">★</span></div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap justify-center gap-2 mt-6">
+                            <span
+                                class="px-2 py-0.5 border border-dashed border-yellow-400 text-yellow-600 text-[10px] font-bold rounded-sm">#IdolToBe</span>
+                            <span
+                                class="px-2 py-0.5 border border-dashed border-gray-300 text-gray-400 text-[10px] rounded-sm">#JK</span>
+                            <span
+                                class="px-2 py-0.5 border border-dashed border-gray-300 text-gray-400 text-[10px] rounded-sm">#ぼっちんガイド</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <div class="pagetop" id="js-pagetop">
+        <a href="#">▲<br>TOP</a>
+    </div>
+
+    <!-- フッター -->
+    <footer class="copyright-text py-6 text-center text-gray-400 text-xs">
+        &copy; 2025 Luminous Games. All Rights Reserved.
+    </footer>
+
+    <script src="../js/common.js"></script>
+    <script src="../js/load-more.js"></script>
+
+</body>
+
+</html>
