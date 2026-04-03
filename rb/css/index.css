@@ -138,12 +138,20 @@
             background-color: #e4c9ff;
         }
 
+        .icon-grey {
+            background-color: #DEDEDE;
+        }
+
         .icon-orange {
-            background-color: #ffd8b8;
+            background-color: #FEDBB4;
         }
 
         .icon-red {
             background-color: #dc0000;
+        }
+
+        .icon-discord {
+            background-color: #5865f2;
         }
 
         .icon-grd {
