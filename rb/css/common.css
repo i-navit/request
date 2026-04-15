@@ -195,24 +195,47 @@ rt {
     display: none;
 }
 
-/* スパム対策：ソースコード上の逆さまの文字を正しく表示させる */
-.antispam {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    display: inline-block;
+/* メールアドレスをコピーボタン ここから */
+/* ボタンのコンテナを中央寄せにする設定 */
+.copy-btn-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    /* 水平方向の中央寄せ */
+    align-items: center;
+    /* 垂直方向が必要な場合のため */
 }
 
-
-.bold-blue {
-    color: #16b5dd;
+.email-copy-btn {
+    padding: 12px 14px;
+    font-size: 16px;
     font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff;
+    /* 通常時の青色 */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* アニメーションを滑らかに */
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.bold-pink {
-    color: #FF0FA7;
-    font-weight: bold;
+/* ホバー時の挙動 */
+.email-copy-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
+/* コピー完了時のスタイル（クラスで切り替え 成功で少し大きくピンクにする） */
+.email-copy-btn.success {
+    background-color: #ff54a9;
+    transform: scale(1.2);
+}
+
+/* メールアドレスをコピーボタン ここまで */
 
 
 
