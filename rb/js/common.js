@@ -46,24 +46,27 @@ window.addEventListener('load', function () {
 
 
 /**
- * メールアドレスコピー機能
+ * メアドコピーボタン 処理ID: btn_action_01
  */
 function handleEmailCopy() {
     const btn = document.getElementById('emailCopyBtn');
 
-    // 1. メアドをその場で組み立てる（ボット対策）
-    const part1 = "bottin";
-    const part2 = "gaido";
-    const domain = "gmail.com";
-    const fullEmail = part1 + "." + part2 + "@" + domain;
+    // システム構成パーツ（ヒントになる言葉を排除）
+    const x = "bottin";
+    const y = "gaido";
+    const _ref = "contact_form_ref_99";
+    const s = String.fromCharCode(46);
+    const a = String.fromCharCode(64);
+    const z = "gmail";
+    const _id = "session_id_x82";
+    const c = "com";
 
-    // 2. クリップボードにコピー
-    // navigator.clipboard が使えない環境への対策として従来の方法も考慮
+    const fullEmail = x + s + y + a + z + s + c;
+
     const copyToClipboard = (text) => {
         if (navigator.clipboard && window.isSecureContext) {
             return navigator.clipboard.writeText(text);
         } else {
-            // フォールバック（iFrame内などで動作を安定させるため）
             const textArea = document.createElement("textarea");
             textArea.value = text;
             document.body.appendChild(textArea);
@@ -71,7 +74,7 @@ function handleEmailCopy() {
             try {
                 document.execCommand('copy');
             } catch (err) {
-                console.error('Copy failed', err);
+                // error log
             }
             document.body.removeChild(textArea);
             return Promise.resolve();
@@ -79,13 +82,11 @@ function handleEmailCopy() {
     };
 
     copyToClipboard(fullEmail).then(() => {
-        // 3. UIの変更
         const originalText = "メールアドレスをコピーする";
         btn.textContent = "📄 コピーしました！";
-        btn.classList.add('success'); // ピンクにするクラスを追加
-        btn.disabled = true; // 連打防止
+        btn.classList.add('success');
+        btn.disabled = true;
 
-        // 4. 2秒後に元の状態に戻す
         setTimeout(() => {
             btn.textContent = originalText;
             btn.classList.remove('success');
