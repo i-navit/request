@@ -195,6 +195,12 @@ rt {
     display: none;
 }
 
+/* 文字強調色 */
+.fc_pink {
+    color: #FF0FA7;
+    font-weight: bold;
+}
+
 /* メールアドレスをコピーボタン ここから */
 /* ボタンのコンテナを中央寄せにする設定 */
 .copy-btn-container {
