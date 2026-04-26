@@ -201,6 +201,11 @@ rt {
     font-weight: bold;
 }
 
+.fc_blue {
+    color: #16b5dd;
+    font-weight: bold;
+}
+
 /* メールアドレスをコピーボタン ここから */
 /* ボタンのコンテナを中央寄せにする設定 */
 .copy-btn-container {
