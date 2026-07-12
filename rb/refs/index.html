@@ -10,6 +10,7 @@
     <title>参考画像一覧</title>
 
     <style>
+        /* スクロールバーが出現してもコンテンツが横揺れしないように領域を固定 */
         html {
             scrollbar-gutter: stable;
         }
@@ -17,6 +18,7 @@
         body {
             font-family: sans-serif;
             padding: 0;
+            margin: 0;
             background-color: #f4f4f9;
             color: #333333;
             font-size: 14px;
@@ -26,8 +28,8 @@
         #link-data-container {
             max-width: 768px;
             margin: 0 auto;
-            /* 【初期設定】上の余白を10pxに固定 */
-            padding-top: 10px;
+            padding: 0px 10px 0 10px;
+            /* 左右に少し余白を入れて端がくっつかないように調整 */
         }
 
         /* アコーディオンの設定 */
@@ -53,8 +55,12 @@
             gap: 10px;
             /* ダブルクリックによるテキスト選択を防止 */
             user-select: none;
-            /* Safari用 */
             -webkit-user-select: none;
+        }
+
+        /* デフォルトの矢印を非表示にする（Safari対策含む） */
+        summary::-webkit-details-marker {
+            display: none;
         }
 
         summary:hover {
@@ -81,7 +87,7 @@
 
         .summary-lumina {
             background-color: #c9ade6;
-            color: #005a7d;
+            color: #6f00a7;
         }
 
         .summary-hikari {
@@ -94,6 +100,8 @@
             width: 60px;
             height: 60px;
             object-fit: cover;
+            border-radius: 4px;
+            /* アイコン画像も少し角を丸くして優しく */
         }
 
         /* アコーディオン内の詳細コンテンツエリア */
@@ -117,6 +125,10 @@
             border-radius: 6px;
             border: 1px solid #e2e8f0;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            /* 画像の選択・ハイライトとドラッグを禁止 */
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-user-drag: none;
         }
 
         /* スマホ環境（768px以下）では、片割れを補完するためのダミー画像を隠す */
@@ -135,14 +147,14 @@
 
             /* PCの2列グリッドの場合のみ、余白を埋めるダミー画像を表示 */
             .dummy-image {
-                display: block;
+                display: initial;
+                /* blockからinitialに変更して画像の自然な配置を維持 */
             }
         }
 
         @media screen and (max-width: 768px) {
             body {
                 font-size: 13px;
-                padding: 0;
             }
         }
     </style>
@@ -226,72 +238,63 @@
 
     </div>
 
-    <!-- タイトルクリックした時の処理 -->
     <script>
+        // タイトルクリックした時の処理
         document.querySelectorAll('details').forEach((details) => {
             details.addEventListener('toggle', (event) => {
-                // アコーディオンが開かれた瞬間（openがtrue）だけ処理
                 if (details.open) {
-                    // 他が閉じて画面の高さが変わるのを一瞬だけ待つ（ブラウザに再計算させる）
                     requestAnimationFrame(() => {
                         setTimeout(() => {
-                            // 開いたアコーディオンの「今の正確な位置」を取得
                             const rect = details.getBoundingClientRect();
                             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-                            // ぴったり上部（0pxの位置）を計算
                             const targetY = rect.top + scrollTop;
 
-                            // ズレなしで一瞬でパッとジャンプ
                             window.scrollTo({
                                 top: targetY,
                                 behavior: 'auto'
                             });
-                        }, 50); // 最速で安定する50msのウエイト
+                        }, 50);
                     });
                 }
             });
         });
 
-
-        // 画面が読み込まれたら実行
+        // TOPへ戻るボタン 画面が読み込まれたら実行
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. ボタンの見た目（CSS）をスタイルシートとして追加
+            // 1. ボタンの見た目（CSS）を追加
             const style = document.createElement('style');
             style.textContent = `
-    .back-to-top {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      height: 40px; /* 高さ */
-      background-color: rgba(51, 51, 51, 0.3); /* 透過30% */
-      color: #ffffff;
-      border: none;
-      border-radius: 12px; /* 角丸の四角 */
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: bold;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 9999;
-    }
-    /* ボタンが表示されるときのスタイル */
-    .back-to-top.show {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-    /* ホバー時のスタイル（透過を少し解除） */
-    .back-to-top:hover {
-      background-color: rgba(51, 51, 51, 0.7);
-      transform: scale(1.05); /* 少し大きくする */
-    }
-  `;
+                .back-to-top {
+                    position: fixed;
+                    bottom: 10px;
+                    right: 10px;
+                    width: 50px;  /* 幅を固定して正方形に */
+                    height: 50px; /* 高さを幅と合わせて正方形に */
+                    background-color: rgba(51, 51, 51, 0.3); /* 透過30% */
+                    color: #ffffff;
+                    border: none;
+                    border-radius: 50%; /* 50%にすることで完全な「●」（真円）にする */
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 12px; /* 円に綺麗に収まるように少しだけサイズ調整 */
+                    font-weight: bold;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+                    transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
+                    opacity: 0;
+                    pointer-events: none;
+                    z-index: 9999;
+                }
+                .back-to-top.show {
+                    opacity: 1;
+                    pointer-events: auto;
+                }
+                .back-to-top:hover {
+                    background-color: rgba(51, 51, 51, 0.7);
+                    transform: scale(1.05);
+                }
+            `;
             document.head.appendChild(style);
 
             // 2. ボタン用のHTML要素
@@ -300,9 +303,8 @@
             topButton.textContent = 'TOP';
             document.body.appendChild(topButton);
 
-            // 3. スクロールしたときにボタンを出すか出さないか決める関数
+            // 3. ボタンの表示切り替え
             const toggleButtonVisibility = () => {
-                // 300ピクセル以上スクロールしたらボタンを表示するよ
                 if (window.scrollY > 300) {
                     topButton.classList.add('show');
                 } else {
@@ -310,18 +312,17 @@
                 }
             };
 
-            // 4. スクロールイベントを監視
+            // 4. スクロール監視
             window.addEventListener('scroll', toggleButtonVisibility);
 
-            // 5. ボタンを押したら一番上までスムーズに戻る
+            // 5. 点击戻る処理
             topButton.addEventListener('click', () => {
                 window.scrollTo({
                     top: 0,
-                    behavior: 'smooth' // フワッとスムーズに戻る設定
+                    behavior: 'smooth'
                 });
             });
         });
-
     </script>
 
 </body>
