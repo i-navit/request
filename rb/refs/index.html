@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="icon" href="https://i-navit.github.io/request/favicon.ico" type="image/x-icon">
+    <title>配信用ツール一覧</title>
+
+    <style>
+        /* 常に右側にスクロールバーを出すことで、表示幅や高さのガタつきによる余白計算のズレを完全に防ぐ */
+        html {
+            overflow-y: scroll;
+        }
+
+        body {
+            font-family: sans-serif;
+            padding: 0 20px 15px 20px;
+            /* 上パディングを0にして干渉を防ぐ */
+            background-color: #f4f4f9;
+            color: #333333;
+            font-size: 14px;
+        }
+
+        /* コンテンツ全体の最大幅制限（一般的なタブレット幅768px）と中央寄せ */
+        #link-data-container {
+            max-width: 768px;
+            margin: 0 auto;
+            padding-top: 10px;
+            /* 初期状態の上の余白（10px）をここで正確に確保 */
+        }
+
+        /* アコーディオンの設定 */
+        details {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            /* 自動ジャンプ時に画面上部に作る余白を10pxに設定（初期のpadding-topと完全一致） */
+            scroll-margin-top: 10px;
+        }
+
+        summary {
+            padding: 5px 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            /* ダブルクリックによるテキスト選択を防止 */
+            user-select: none;
+            -webkit-user-select: none;
+            /* Safari用 */
+        }
+
+        summary:hover {
+            opacity: 0.8;
+        }
+
+        summary::after {
+            content: '▼';
+            position: absolute;
+            right: 15px;
+            font-size: 0.8em;
+            transition: transform 0.3s;
+        }
+
+        details[open] summary::after {
+            transform: rotate(180deg);
+        }
+
+        /* キャラ別の色設定 */
+        .summary-bottin {
+            background-color: #ffc0cb;
+            color: #8a2e3c;
+        }
+
+        .summary-lumina {
+            background-color: #c9ade6;
+            color: #005a7d;
+        }
+
+        .summary-hikari {
+            background-color: #ffcc80;
+            color: #7a4a00;
+        }
+
+        /* アイコン画像の共通スタイル */
+        summary img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* アコーディオン内の詳細コンテンツエリア */
+        .details-content {
+            padding: 15px;
+            background-color: #fafafa;
+            border-top: 1px solid #eee;
+        }
+
+        /* 画像グリッドの設定 (デフォルト：スマホは1列) */
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        /* スマホ環境（768px以下）では、片割れを補完するためのダミー画像を隠す */
+        .dummy-image {
+            display: none;
+        }
+
+        /* PC環境（768pxを超える場合） */
+        @media screen and (min-width: 769px) {
+            body {
+                font-size: 14px;
+            }
+
+            /* PCでは2列のグリッドにする */
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            /* PCの2列グリッドの場合のみ、余白を埋めるダミー画像を表示 */
+            .dummy-image {
+                display: block;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                font-size: 13px;
+                padding: 0 10px 15px 10px;
+                /* スマホでも上パディングは0にして干渉を防ぐ */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="link-data-container">
+
+        <!-- ぼっちん関連 -->
+        <details>
+            <summary class="summary-bottin">
+                <img src="img/prf_bottin.png" alt="ぼっちん">
+                ぼっちん
+            </summary>
+            <div class="details-content">
+                <div class="image-grid">
+                    <img src="chazuke/00.png">
+                    <img src="chazuke/01.png">
+                    <img src="chazuke/02.png">
+                    <img src="chazuke/03.png">
+                    <img src="chazuke/04.png">
+                    <img src="chazuke/05.png">
+                    <img src="chazuke/06.png">
+                    <img src="chazuke/07.png">
+                    <img src="chazuke/08.png">
+                    <img src="chazuke/09.png">
+                    <img src="chazuke/10.png">
+                    <img src="chazuke/11.png">
+                </div>
+            </div>
+        </details>
+
+        <!-- るみな関連 -->
+        <details>
+            <summary class="summary-lumina">
+                <img src="img/prf_lumina.png" alt="るみな">
+                るみな
+            </summary>
+            <div class="details-content">
+                <div class="image-grid">
+                    <img src="chazuke/12.png">
+                    <img src="chazuke/13.png">
+                    <img src="chazuke/14.png">
+                    <img src="chazuke/15.png">
+                    <img src="chazuke/16.png">
+                    <img src="chazuke/17.png">
+                    <img src="chazuke/18.png">
+                    <!-- 奇数枚（7枚）のためダミーを設置。PCのみ表示されます -->
+                    <img src="chazuke/dummy.png" class="dummy-image">
+                </div>
+            </div>
+        </details>
+
+        <!-- ひかり関連 -->
+        <details>
+            <summary class="summary-hikari">
+                <img src="img/prf_hikari.png" alt="ひかり">
+                ひかり
+            </summary>
+            <div class="details-content">
+                <div class="image-grid">
+                    <img src="chazuke/19.png">
+                    <img src="chazuke/20.png">
+                    <img src="chazuke/21.png">
+                    <img src="chazuke/22.png">
+                    <img src="chazuke/23.png">
+                    <img src="chazuke/24.png">
+                    <img src="chazuke/25.png">
+                    <img src="chazuke/26.png">
+                    <img src="chazuke/27.png">
+                    <img src="chazuke/28.png">
+                    <img src="chazuke/29.png">
+                    <img src="chazuke/30.png">
+                    <img src="chazuke/31.png">
+                    <!-- 奇数枚（13枚）のためダミーを設置。PCのみ表示されます -->
+                    <img src="chazuke/dummy.png" class="dummy-image">
+                </div>
+            </div>
+        </details>
+
+    </div>
+
+    <script>
+        const detailsElements = document.querySelectorAll('details');
+
+        detailsElements.forEach((targetDetails) => {
+            const summary = targetDetails.querySelector('summary');
+
+            summary.addEventListener('click', (event) => {
+                // ブラウザ既定の自動開閉・フォーカススクロール処理を完全にキャンセル
+                event.preventDefault();
+
+                const isOpen = targetDetails.open;
+
+                // 他の開いているアコーディオンをすべて閉じる
+                detailsElements.forEach((el) => {
+                    if (el !== targetDetails) {
+                        el.open = false;
+                    }
+                });
+
+                // ターゲットのアコーディオンの開閉を切り替える
+                targetDetails.open = !isOpen;
+
+                // 開いた（open = true になった）時のみ完璧な位置にジャンプさせる
+                if (targetDetails.open) {
+                    // ブラウザのレンダリングが完全に完了した最初のフレームで実行
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            const rect = targetDetails.getBoundingClientRect();
+                            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                            // 上部10pxの位置をピクセル単位で正確に計算
+                            const targetY = rect.top + scrollTop - 10;
+
+                            window.scrollTo({
+                                top: targetY,
+                                behavior: 'auto' // 一瞬で余白ズレなく移動
+                            });
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
