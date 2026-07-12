@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Web page designed and coded by Chiru on July 12, 2026 -->
 <html lang="ja">
 
 <head>
@@ -9,15 +10,13 @@
     <title>参考画像一覧</title>
 
     <style>
-        /* 常に右側にスクロールバーを出すことで、表示幅や高さのガタつきによる余白計算のズレを完全に防ぐ */
         html {
-            overflow-y: scroll;
+            scrollbar-gutter: stable;
         }
 
         body {
             font-family: sans-serif;
-            padding: 0 20px 15px 20px;
-            /* 上パディングを0にして干渉を防ぐ */
+            padding: 0;
             background-color: #f4f4f9;
             color: #333333;
             font-size: 14px;
@@ -27,8 +26,8 @@
         #link-data-container {
             max-width: 768px;
             margin: 0 auto;
+            /* 【初期設定】上の余白を10pxに固定 */
             padding-top: 10px;
-            /* 初期状態の上の余白（10px）をここで正確に確保 */
         }
 
         /* アコーディオンの設定 */
@@ -39,8 +38,6 @@
             margin-bottom: 15px;
             overflow: hidden;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            /* 自動ジャンプ時に画面上部に作る余白を10pxに設定（初期のpadding-topと完全一致） */
-            scroll-margin-top: 10px;
         }
 
         summary {
@@ -56,8 +53,8 @@
             gap: 10px;
             /* ダブルクリックによるテキスト選択を防止 */
             user-select: none;
-            -webkit-user-select: none;
             /* Safari用 */
+            -webkit-user-select: none;
         }
 
         summary:hover {
@@ -97,7 +94,6 @@
             width: 60px;
             height: 60px;
             object-fit: cover;
-            border-radius: 4px;
         }
 
         /* アコーディオン内の詳細コンテンツエリア */
@@ -130,9 +126,6 @@
 
         /* PC環境（768pxを超える場合） */
         @media screen and (min-width: 769px) {
-            body {
-                font-size: 14px;
-            }
 
             /* PCでは2列のグリッドにする */
             .image-grid {
@@ -149,8 +142,7 @@
         @media screen and (max-width: 768px) {
             body {
                 font-size: 13px;
-                padding: 0 10px 15px 10px;
-                /* スマホでも上パディングは0にして干渉を防ぐ */
+                padding: 0;
             }
         }
     </style>
@@ -161,7 +153,7 @@
     <div id="link-data-container">
 
         <!-- ぼっちん関連 -->
-        <details>
+        <details name="char-accordion">
             <summary class="summary-bottin">
                 <img src="img/prf_bottin.png" alt="ぼっちん">
                 ぼっちん
@@ -185,7 +177,7 @@
         </details>
 
         <!-- るみな関連 -->
-        <details>
+        <details name="char-accordion">
             <summary class="summary-lumina">
                 <img src="img/prf_lumina.png" alt="るみな">
                 るみな
@@ -199,14 +191,14 @@
                     <img src="chazuke/16.png">
                     <img src="chazuke/17.png">
                     <img src="chazuke/18.png">
-                    <!-- 奇数枚（7枚）のためダミーを設置。PCのみ表示されます -->
+                    <!-- 奇数枚（7枚）のためダミーを設置。PCのみ表示 -->
                     <img src="chazuke/dummy.png" class="dummy-image">
                 </div>
             </div>
         </details>
 
         <!-- ひかり関連 -->
-        <details>
+        <details name="char-accordion">
             <summary class="summary-hikari">
                 <img src="img/prf_hikari.png" alt="ひかり">
                 ひかり
@@ -226,7 +218,7 @@
                     <img src="chazuke/29.png">
                     <img src="chazuke/30.png">
                     <img src="chazuke/31.png">
-                    <!-- 奇数枚（13枚）のためダミーを設置。PCのみ表示されます -->
+                    <!-- 奇数枚（13枚）のためダミーを設置。PCのみ表示 -->
                     <img src="chazuke/dummy.png" class="dummy-image">
                 </div>
             </div>
@@ -234,48 +226,102 @@
 
     </div>
 
+    <!-- タイトルクリックした時の処理 -->
     <script>
-        const detailsElements = document.querySelectorAll('details');
-
-        detailsElements.forEach((targetDetails) => {
-            const summary = targetDetails.querySelector('summary');
-
-            summary.addEventListener('click', (event) => {
-                // ブラウザ既定の自動開閉・フォーカススクロール処理を完全にキャンセル
-                event.preventDefault();
-
-                const isOpen = targetDetails.open;
-
-                // 他の開いているアコーディオンをすべて閉じる
-                detailsElements.forEach((el) => {
-                    if (el !== targetDetails) {
-                        el.open = false;
-                    }
-                });
-
-                // ターゲットのアコーディオンの開閉を切り替える
-                targetDetails.open = !isOpen;
-
-                // 開いた（open = true になった）時のみ完璧な位置にジャンプさせる
-                if (targetDetails.open) {
-                    // ブラウザのレンダリングが完全に完了した最初のフレームで実行
+        document.querySelectorAll('details').forEach((details) => {
+            details.addEventListener('toggle', (event) => {
+                // アコーディオンが開かれた瞬間（openがtrue）だけ処理
+                if (details.open) {
+                    // 他が閉じて画面の高さが変わるのを一瞬だけ待つ（ブラウザに再計算させる）
                     requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            const rect = targetDetails.getBoundingClientRect();
+                        setTimeout(() => {
+                            // 開いたアコーディオンの「今の正確な位置」を取得
+                            const rect = details.getBoundingClientRect();
                             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-                            // 上部10pxの位置をピクセル単位で正確に計算
-                            const targetY = rect.top + scrollTop - 10;
+                            // ぴったり上部（0pxの位置）を計算
+                            const targetY = rect.top + scrollTop;
 
+                            // ズレなしで一瞬でパッとジャンプ
                             window.scrollTo({
                                 top: targetY,
-                                behavior: 'auto' // 一瞬で余白ズレなく移動
+                                behavior: 'auto'
                             });
-                        });
+                        }, 50); // 最速で安定する50msのウエイト
                     });
                 }
             });
         });
+
+
+        // 画面が読み込まれたら実行
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. ボタンの見た目（CSS）をスタイルシートとして追加
+            const style = document.createElement('style');
+            style.textContent = `
+    .back-to-top {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      height: 40px; /* 高さ */
+      background-color: rgba(51, 51, 51, 0.3); /* 透過30% */
+      color: #ffffff;
+      border: none;
+      border-radius: 12px; /* 角丸の四角 */
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    /* ボタンが表示されるときのスタイル */
+    .back-to-top.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    /* ホバー時のスタイル（透過を少し解除） */
+    .back-to-top:hover {
+      background-color: rgba(51, 51, 51, 0.7);
+      transform: scale(1.05); /* 少し大きくする */
+    }
+  `;
+            document.head.appendChild(style);
+
+            // 2. ボタン用のHTML要素
+            const topButton = document.createElement('button');
+            topButton.className = 'back-to-top';
+            topButton.textContent = 'TOP';
+            document.body.appendChild(topButton);
+
+            // 3. スクロールしたときにボタンを出すか出さないか決める関数
+            const toggleButtonVisibility = () => {
+                // 300ピクセル以上スクロールしたらボタンを表示するよ
+                if (window.scrollY > 300) {
+                    topButton.classList.add('show');
+                } else {
+                    topButton.classList.remove('show');
+                }
+            };
+
+            // 4. スクロールイベントを監視
+            window.addEventListener('scroll', toggleButtonVisibility);
+
+            // 5. ボタンを押したら一番上までスムーズに戻る
+            topButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // フワッとスムーズに戻る設定
+                });
+            });
+        });
+
     </script>
 
 </body>
