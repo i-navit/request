@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Web page designed and coded by Chiru on July 12, 2026 -->
+<!-- Web page designed and coded by Chiru×Navit on July 12, 2026 -->
 <html lang="ja">
 
 <head>
@@ -148,7 +148,6 @@
             /* PCの2列グリッドの場合のみ、余白を埋めるダミー画像を表示 */
             .dummy-image {
                 display: initial;
-                /* blockからinitialに変更して画像の自然な配置を維持 */
             }
         }
 
@@ -268,17 +267,20 @@
                     position: fixed;
                     bottom: 10px;
                     right: 10px;
-                    width: 50px;  /* 幅を固定して正方形に */
-                    height: 50px; /* 高さを幅と合わせて正方形に */
-                    background-color: rgba(51, 51, 51, 0.3); /* 透過30% */
+                    /* まず50pの正方形を作る */
+                    width: 50px;
+                    height: 50px;
+                    /* 角の丸みを50%にすることで完全な●にする */
+                    border-radius: 50%;
+                    /* アイコンの透過30% */
+                    background-color: rgba(51, 51, 51, 0.3);
                     color: #ffffff;
                     border: none;
-                    border-radius: 50%; /* 50%にすることで完全な「●」（真円）にする */
                     cursor: pointer;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: 12px; /* 円に綺麗に収まるように少しだけサイズ調整 */
+                    font-size: 12px;
                     font-weight: bold;
                     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
                     transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
@@ -291,6 +293,7 @@
                     pointer-events: auto;
                 }
                 .back-to-top:hover {
+                    /* ホバーしたら濃く表示 */
                     background-color: rgba(51, 51, 51, 0.7);
                     transform: scale(1.05);
                 }
@@ -303,7 +306,7 @@
             topButton.textContent = 'TOP';
             document.body.appendChild(topButton);
 
-            // 3. ボタンの表示切り替え
+            // 3. ボタンの表示非表示(300px)
             const toggleButtonVisibility = () => {
                 if (window.scrollY > 300) {
                     topButton.classList.add('show');
@@ -315,7 +318,7 @@
             // 4. スクロール監視
             window.addEventListener('scroll', toggleButtonVisibility);
 
-            // 5. 点击戻る処理
+            // 5. TOPに戻る
             topButton.addEventListener('click', () => {
                 window.scrollTo({
                     top: 0,
