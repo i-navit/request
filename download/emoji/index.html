@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,25 +13,32 @@
             background-color: white;
             color: black;
             transition: background-color 0.5s, color 0.5s;
-            max-width: 1000px; /* ここを1000pxに設定 */
-            margin: 0 auto; /* 中央寄せ */
+            max-width: 1000px;
+            /* ここを1000pxに設定 */
+            margin: 0 auto;
+            /* 中央寄せ */
         }
+
         body.dark-mode {
             background-color: #000;
             color: white;
         }
+
         .image-container {
             margin-bottom: 10px;
             display: inline-block;
             margin-right: 10px;
         }
+
         img {
             image-rendering: pixelated;
         }
+
         .member-badge {
             width: 32px;
             height: 32px;
         }
+
         .custom-emoji {
             width: 48px;
             height: 48px;
@@ -41,6 +49,7 @@
             width: 17px;
             height: 17px;
         }
+
         .size27 {
             width: 27px;
             height: 27px;
@@ -50,18 +59,39 @@
         h1 {
             font-size: 16px;
         }
+
         h2 {
             font-size: 16px;
         }
+
         .toggle-button {
             margin: 20px auto;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            display: block; /* 中央寄せのためにブロック要素にする */
+            display: block;
+            /* 中央寄せのためにブロック要素にする */
+        }
+
+        /* 点滅アニメーションの定義 */
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .new {
+            font-weight: bold;
+            color: rgb(255, 71, 130);
+            animation: blink 1.5s ease-in-out infinite;
         }
     </style>
 </head>
+
 <body>
 
     <!-- 2025年11月3日更新 -->
@@ -69,7 +99,7 @@
 
     <div class="images-wrapper">
 
-<hr>
+        <hr>
         <h2>原寸大（32×32px）</h2>
         <div class="image-container">
             <img src="member_badge_green.png" alt="member_badge_green" class="member-badge">
@@ -87,7 +117,7 @@
             <img src="member_badge_orange.png" alt="member_badge_orange" class="member-badge">
         </div>
 
-<hr>
+        <hr>
         <h2>原寸大（48×48px）</h2>
         <div class="image-container">
             <img src="custom_gg.png" alt="custom_gg" class="custom-emoji">
@@ -167,9 +197,6 @@
         <div class="image-container">
             <img src="custom_sorena.png" alt="custom_sorena" class="custom-emoji">
         </div>
-
-<br>
-        
         <div class="image-container">
             <img src="hiyoko_naru.png" class="custom-emoji">
         </div>
@@ -206,26 +233,37 @@
 
 
 
-<!--
-        <div class="image-container">
-            <img src="hiyoko_sorena.png" class="custom-emoji">
+        <br>
+        <div class="image-container new">
+            NEW!
         </div>
-
-
-<hr>
-        <h2>原寸大（48×48px）</h2>
+        <div class="image-container">
+            <img src="custom_ ukeru.png" class="custom-emoji">
+        </div>
         <div class="image-container">
             <img src="moji_naki.png" class="custom-emoji">
         </div>
+        <div class="image-container">
+            <img src="moji_toutoi.png" class="custom-emoji">
+        </div>
+        <div class="image-container">
+            <img src="moji_a.png" class="custom-emoji">
+        </div>
+        <div class="image-container">
+            <img src="moji_numa.png" class="custom-emoji">
+        </div>
+        <div class="image-container">
+            <img src="moji_tuyo.png" class="custom-emoji">
+        </div>
+        <div class="image-container">
+            <img src="moji_sugo.png" class="custom-emoji">
+        </div>
+        <div class="image-container">
+            <img src="moji_gati.png" class="custom-emoji">
+        </div>
 
 
--->
-
-
-
-
-
-<!--
+        <!--
 <hr>
         <p>------ 見え方の見本 -------</p>
         <h2>ライブチャットサイズ</h2>
@@ -297,14 +335,14 @@
 -->
 
 
-<!--
+        <!--
         <div class="image-container">
             <img src="★.png" class="custom-emoji">
         </div>
 -->
 
     </div>
-    
+
     <button class="toggle-button" onclick="toggleDarkMode()">背景を切り替える</button>
 
     <script>
@@ -315,4 +353,5 @@
     </script>
 
 </body>
+
 </html>
